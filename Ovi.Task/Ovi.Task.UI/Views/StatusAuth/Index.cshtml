@@ -1,0 +1,161 @@
+﻿@using Resources.StatusAuth.Index
+@using Resources.Types.Index
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Default.cshtml";
+}
+<div style="margin-top: 10px">
+    <div class="page-header">
+        <h4>@StatusAuthStrings.statusauthorizations</h4>
+        <h6></h6>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tms-page-toolbar inline-toolbar left" data-block="#record">
+                <div class="btn-group">
+                    <button class="btn btn-default btn-sm" title="Ctrl+R" selection-required="false" id="btnNew"><i class="fa fa fa-plus fa-fw"></i> @StatusAuthStrings.addnew</button>
+                    <button class="btn btn-default btn-sm" title="Ctrl+S" selection-required="false" id="btnSave"><i class="fa fa-floppy-o fa-fw"></i> @StatusAuthStrings.save</button>
+                    <button class="btn btn-default btn-sm" title="Ctrl+U" selection-required="true" id="btnUndo"><i class="fa fa-undo fa-fw"></i> @StatusAuthStrings.undo</button>
+                    <button class="btn btn-default btn-sm" title="Ctrl+D" selection-required="true" id="btnDelete"><i class="fa fa-trash-o fa-fw"></i> @StatusAuthStrings.delete</button>
+                    <button class="btn btn-default btn-sm" title="Ctrl+H" selection-required="true" id="btnHistory" disabled="disabled"><i class="fa fa-bolt fa-fw"></i> @StatusAuthStrings.history</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div id="grdStatusAuth"></div>
+        </div>
+    </div>
+    <div class="row" style="margin-top: 10px;" id="record">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading page-panel-heading">@StatusAuthStrings.record</div>
+                <div class="panel-body page-panel-body">
+                    <div class="row custom">
+                        <div class="col-md-2">
+                            @StatusAuthStrings.entity
+                        </div>
+                        <div class="col-md-3">
+                            <select id="entity" class="form-control" required disableonupdate="yes">
+                                <option value="">@StatusAuthStrings.pleaseselect</option>
+                                <option value="TASK">@TypeStrings.task</option>
+                                <option value="PROGRESSPAYMENT">@TypeStrings.progresspayment</option>
+                                <option value="PROJECT">@TypeStrings.project</option>
+                                <option value="DAYOFFREQUEST">@TypeStrings.dayoffrequest</option>
+                                <option value="TIMEKEEPING">@TypeStrings.timekeeping</option>
+                                <option value="CONTRACT">@TypeStrings.contract</option>
+                                <option value="QUOTATION">@TypeStrings.quotation</option>
+                                <option value="INVOICE">@TypeStrings.invoice</option>
+                                <option value="SUPERVISION">@TypeStrings.supervision</option>
+                                <option value="SALESINVOICE">@TypeStrings.salesinvoice</option>
+                                <option value="REPORTING">@TypeStrings.reporting</option>
+                                <option value="PURCHASEORDER">@TypeStrings.purchaseorder</option>
+                                <option value="PURCHASEORDERREQUEST">@TypeStrings.purchasereq</option>
+                                <option value="ENTRUST">@TypeStrings.entrust</option>
+                                <option value="WAREHOUSETRANSFER">@TypeStrings.warehousetransfer</option>
+                                <option value="PRESALES">@TypeStrings.presales</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row custom">
+                        <div class="col-md-2">
+                            @StatusAuthStrings.type
+                        </div>
+                        <div class="col-md-3">
+                            <div class="input-group">
+                                <input type="text" maxlength="50" class="form-control" required id="type">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button" id="btntype"><i class="fa fa-search fa-fw"></i></button>
+                                </span>
+                            </div><!-- /input-group -->
+                        </div>
+                    </div>
+                    <div class="row custom">
+                        <div class="col-md-2">
+                            @StatusAuthStrings.department
+                        </div>
+                        <div class="col-md-3">
+                            <select id="department" class="form-control" required>
+                                <option value="">@StatusAuthStrings.pleaseselect</option>
+                                <option value="ALL">@StatusAuthStrings.alldepartments</option>
+                                <option value="MYDEP">@StatusAuthStrings.mydepartment</option>
+                                <option value="NOTMY">@StatusAuthStrings.notmydepartment</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row custom">
+                        <div class="col-md-2">
+                            @StatusAuthStrings.authorized
+                        </div>
+                        <div class="col-md-3">
+                            <select id="authorized" class="form-control" required>
+                                <option value="">@StatusAuthStrings.pleaseselect</option>
+                                <optgroup data-type="USR" label="@StatusAuthStrings.users">
+                                    <option value="XALL">@StatusAuthStrings.all</option>
+                                    <option value="XREQ">@StatusAuthStrings.requester</option>
+                                    <option value="XCRB">@StatusAuthStrings.createdby</option>
+                                    <option value="XRLM">@StatusAuthStrings.reqlinemanager</option>
+                                    <option value="XDLM">@StatusAuthStrings.deplinemanager</option>
+                                </optgroup>
+                                <optgroup data-type="USRGRP" label="@StatusAuthStrings.usergroups">
+                                </optgroup>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row custom">
+                        <div class="col-md-2">
+                            @StatusAuthStrings.fromstatus
+                        </div>
+                        <div class="col-md-3">
+                            <div class="input-group">
+                                <input type="text" maxlength="50" class="form-control" required id="from">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button" id="btnFrom"><i class="fa fa-search fa-fw"></i></button>
+                                </span>
+                            </div><!-- /input-group -->
+                        </div>
+                    </div>
+                    <div class="row custom">
+                        <div class="col-md-2">
+                            @StatusAuthStrings.tostatus
+                        </div>
+                        <div class="col-md-3">
+                            <div class="input-group">
+                                <input type="text" maxlength="50" class="form-control" required id="to">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button" id="btnTo"><i class="fa fa-search fa-fw"></i></button>
+                                </span>
+                            </div><!-- /input-group -->
+                        </div>
+                    </div>
+                    <div class="row custom">
+                        <div class="col-md-2">
+                            @StatusAuthStrings.active
+                        </div>
+                        <div class="col-md-3">
+                            <div class="checkbox checkbox-primary">
+                                <input type="checkbox" class="styled" checked="checked" id="active" />
+                                <label></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row custom">
+                        <div class="col-md-2">
+                            @StatusAuthStrings.showonworkflow
+                        </div>
+                        <div class="col-md-3">
+                            <div class="checkbox checkbox-primary">
+                                <input type="checkbox" class="styled" id="showonworkflow" />
+                                <label></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@Html.IncludeVersionedJs("/Scripts/app/StatusAuth.js")

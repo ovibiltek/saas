@@ -1,0 +1,126 @@
+﻿@using Resources.Confirmations.Index
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Default.cshtml";
+}
+<link href="~/Content/fontawesome-iconpicker.min.css" rel="stylesheet" />
+<div style="margin-top: 10px">
+    <div class="page-header">
+        <h4>@ConfirmationStrings.title</h4>
+        <h6></h6>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tms-page-toolbar inline-toolbar left" data-block="#record">
+                <div class="btn-group">
+                    <button class="btn btn-default btn-sm" title="Ctrl+R" selection-required="false" id="btnNew"><i class="fa fa fa-plus fa-fw"></i> @ConfirmationStrings.addnew</button>
+                    <button class="btn btn-default btn-sm" title="Ctrl+S" selection-required="false" id="btnSave"><i class="fa fa-floppy-o fa-fw"></i> @ConfirmationStrings.save</button>
+                    <button class="btn btn-default btn-sm" title="Ctrl+U" selection-required="true" id="btnUndo"><i class="fa fa-undo fa-fw"></i> @ConfirmationStrings.undo</button>
+                    <button class="btn btn-default btn-sm" title="Ctrl+D" selection-required="true" id="btnDelete"><i class="fa fa-trash-o fa-fw"></i> @ConfirmationStrings.delete</button>
+                    <button class="btn btn-default btn-sm" id="btnTestSql" selection-required="true" disabled="disabled"><i class="fa fa-check-square"></i> @ConfirmationStrings.validatesql</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <div class="scrollbar-macosx">
+                <div class="list-group"></div>
+            </div>
+        </div>
+        <div class="col-md-9" id="record">
+            <div class="panel panel-default">
+                <div class="panel-heading page-panel-heading">@ConfirmationStrings.record</div>
+                <div class="panel-body page-panel-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="row custom">
+                                <div class="col-md-3">
+                                    @ConfirmationStrings.code
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" maxlength="50" id="title" required class="form-control" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-3">
+                                    @ConfirmationStrings.messagecode
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <input type="text" maxlength="50"  class="form-control" required id="message">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button" id="btnmessage"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-3">
+                                    @ConfirmationStrings.controller
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" maxlength="250" id="controller" required class="form-control" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-3">
+                                    @ConfirmationStrings.sql
+                                </div>
+                                <div class="col-md-8">
+                                    <textarea id="sql" style="width: 100%;" rows="10" class="form-control" required></textarea>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-3">
+                                    @ConfirmationStrings.parameters
+                                </div>
+                                <div class="col-md-8">
+                                    <textarea id="parameters" style="width: 100%;" rows="10" class="form-control"></textarea>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-3">
+                                    @ConfirmationStrings.active
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="checkbox checkbox-primary">
+                                        <input class="styled" type="checkbox" checked="checked" id="active" />
+                                        <label></label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-3">
+                                    @ConfirmationStrings.isvalidated
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="checkbox checkbox-primary">
+                                        <input class="styled" type="checkbox" disabled="disabled" id="isvalidated" />
+                                        <label></label>
+                                    </div>
+                                </div>
+                            </div>
+                           
+                        </div>
+                        <div class="col-md-6">
+                            <div class="row custom">
+                                <div class="col-md-3">
+                                    @ConfirmationStrings.informationtext
+                                </div>
+                                <div class="col-md-8">
+                                    <textarea id="info" style="width: 100%;" rows="10" class="form-control"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@Html.IncludeVersionedJs("/Scripts/other/fontawesome-iconpicker.min.js")
+@Html.IncludeVersionedJs("/Scripts/other/numericInput.min.js")
+@Html.IncludeVersionedJs("/Scripts/custom/ovi.custom.list.js")
+@Html.IncludeVersionedJs("/Scripts/app/Confirmation.js")

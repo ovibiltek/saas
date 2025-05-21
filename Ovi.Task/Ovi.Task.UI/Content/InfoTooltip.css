@@ -1,0 +1,63 @@
+﻿.infoTooltip {
+    position: relative;
+}
+.infoTooltip__item {
+    position: absolute;
+    min-width: 400px;
+    padding: 20px;
+    visibility: hidden;
+    opacity: 0;
+    background: white;
+    transition: all 0.25s cubic-bezier(0, 0, 0.2, 1);
+    color: #484848;
+    border: 1px solid #cecece;
+    border-radius: 3px;
+    font-weight: 500;
+    box-shadow: 0 2px 1px #bcbcbc;
+    z-index: 4;
+}
+.infoTooltip__item:after {
+    display: block;
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-style: solid;
+}
+.infoTooltip__initiator {
+    cursor: pointer;
+    z-index: 5;
+}
+.infoTooltip[data-direction="left"] .infoTooltip__initiator:hover ~ .infoTooltip__item {
+    transform: translate3d(0, -50%, 0);
+    visibility: visible;
+    opacity: 1;
+}
+.infoTooltip[data-direction="left"] .infoTooltip__item {
+    top: 50%;
+    left: calc(50% - 1em);
+    transform: translate3d(15px, 50%, 0);
+}
+
+.infoTooltip[data-direction="bottom"] .infoTooltip__initiator:hover ~ .infoTooltip__item {
+    transform: translate3d(-50%, 0, 0);
+    visibility: visible;
+    opacity: 1;
+}
+.infoTooltip[data-direction="bottom"] .infoTooltip__item {
+    top: calc(100% + 1em);
+    left: 10%;
+    transform: translate3d(-50%, -15px, 0);
+}
+.infoTooltip[data-direction="bottom"] .infoTooltip__item:after {
+    top: -0.5em;
+    left: 50%;
+    transform: translate3d(-50%, 0, 0);
+    border-width: 0 0.5em 0.5em 0.5em;
+    border-color: transparent transparent white transparent;
+    -webkit-filter: drop-shadow(1px 2px 1px #bcbcbc);
+    filter: drop-shadow(1px -1px 1px #bcbcbc);
+}
+.fa.fa-info-circle {
+    font-size: 20px;
+    color: #21606b;
+}

@@ -1,0 +1,702 @@
+﻿@using Resources.ProgressPayments.Index
+@using Resources.Shared.Index
+@{
+    Layout = "~/Views/Shared/Default.cshtml";
+}
+
+@Html.IncludeVersionedCss("/Content/jquery/jquery.fileupload.css")
+@Html.IncludeVersionedCss("/Content/multiple-select.css")
+@Html.IncludeVersionedCss("/Content/jquery/jquery.contextMenu.min.css")
+
+
+<div style="margin-top: 10px">
+    <div class="page-header">
+        <h4>
+            @ProgressPaymentStrings.progresspayments
+        </h4>
+        <h6></h6>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tms-page-toolbar inline-toolbar left" data-block="#record">
+                <div class="btn-group">
+                    <button class="btn btn-default btn-sm" title="Ctrl+R" id="btnNew"><i class="fa fa fa-plus fa-fw"></i> @ProgressPaymentStrings.addnew</button>
+                    <button class="btn btn-default btn-sm" title="Ctrl+S" id="btnSave"><i class="fa fa-floppy-o fa-fw"></i> @ProgressPaymentStrings.save</button>
+                    <button class="btn btn-default btn-sm" title="Ctrl+U" id="btnUndo"><i class="fa fa-undo fa-fw"></i> @ProgressPaymentStrings.undo</button>
+                    <button class="btn btn-default btn-sm" title="Ctrl+D" id="btnDelete"><i class="fa fa-trash-o fa-fw"></i> @ProgressPaymentStrings.delete</button>
+                    <button class="btn btn-default btn-sm" title="Ctrl+H" id="btnHistory"><i class="fa fa-bolt fa-fw"></i> @ProgressPaymentStrings.history</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <ul class="nav nav-tabs">
+        <li class="active">
+            <a data-toggle="tab" href="#list">@ProgressPaymentStrings.list</a>
+        </li>
+        <li>
+            <a data-toggle="tab" href="#record">@ProgressPaymentStrings.record</a>
+        </li>
+        @if (string.IsNullOrEmpty(UserManager.Instance.User.Customer))
+        {
+            <li>
+                <a enable-on-selection href="#tasks">@ProgressPaymentStrings.tasks</a>
+            </li>
+        }
+        <li>
+            <a enable-on-selection href="#pricing">@ProgressPaymentStrings.pricing</a>
+        </li>
+    </ul>
+    <div class="tab-content">
+        <div id="list" class="tab-pane active">
+            <div id="grdProgressPayments"></div>
+            <div class="sidebars">
+                <div class="sidebar right" style="right: -400px;">
+                    <div class="row">
+                        <div class="col-md-12" style="text-align: center; margin-top: 10px;">
+                            <button id="filter" class="btn btn-primary btn-xs"><i class="fa fa-filter"></i> @ProgressPaymentStrings.filter</button>
+                            <button id="clearfilter" class="btn btn-info btn-xs"><i class="fa fa-ban"></i> @ProgressPaymentStrings.reset</button>
+                            <button id="closesiderbar" class="btn btn-danger btn-xs"><i class="fa fa-times"></i> @ProgressPaymentStrings.close</button>
+                        </div>
+                    </div>
+                    <div class="row custom">
+                        <div class="col-md-12">
+                            <div class="page-header">
+                                <h5>@ProgressPaymentStrings.datecreated</h5>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="text" ctrltype="datepicker" class="i-filter form-control" id="datecreated_start">
+                        </div>
+                        <div class="col-md-6">
+                            <input type="text" ctrltype="datepicker" class="i-filter form-control" id="datecreated_end">
+                        </div>
+                    </div>
+                    <div class="row custom">
+                        <div class="col-md-12">
+                            <div class="page-header">
+                                <h5>@ProgressPaymentStrings.datetskcompleted</h5>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="text" ctrltype="datepicker" class="i-filter form-control" id="datetskcompleted_start">
+                        </div>
+                        <div class="col-md-6">
+                            <input type="text" ctrltype="datepicker" class="i-filter form-control" id="datetskcompleted_end">
+                        </div>
+                    </div>
+                    <div class="row custom">
+                        <div class="col-md-12">
+                            <div class="page-header">
+                                <h5>@ProgressPaymentStrings.datetskclosed</h5>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="text" ctrltype="datepicker" class="i-filter form-control" id="datetskclosed_start">
+                        </div>
+                        <div class="col-md-6">
+                            <input type="text" ctrltype="datepicker" class="i-filter form-control" id="datetskclosed_end">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="page-header">
+                                <h5>@ProgressPaymentStrings.customer</h5>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <input type="text" class="i-filter form-control" id="fcustomer">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="page-header">
+                                <h5>@ProgressPaymentStrings.ext01</h5>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <select id="ext01" style="width: 100%" multiple="multiple"></select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="page-header">
+                                <h5>@ProgressPaymentStrings.ext02</h5>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <select id="ext02" style="width: 100%" multiple="multiple"></select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="page-header">
+                                <h5>@ProgressPaymentStrings.ext02</h5>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <select id="ext03" style="width: 100%" multiple="multiple"></select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="record" class="tab-pane">
+            <div class="row record-content">
+                <div class="col-md-4" id="divHeader">
+                    <div class="panel panel-default">
+                        <div class="panel-heading task-panel-heading">@ProgressPaymentStrings.record</div>
+                        <div class="panel-body task-panel-body">
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @ProgressPaymentStrings.code
+                                </div>
+                                <div class="col-md-8">
+                                    <input id="code" type="text" disabled="disabled" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @ProgressPaymentStrings.organization
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <input type="text" loadstatusesonchange="yes" disableonupdate="yes" maxlength="50" required class="form-control" id="org">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" disableonupdate="yes" type="button" id="btnorg"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @ProgressPaymentStrings.type
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <input type="text" maxlength="50" disableonupdate="yes" loadstatusesonchange="yes" required class="form-control" id="type">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button" disableonupdate="yes" id="btntype"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div><!-- /input-group -->
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @ProgressPaymentStrings.desc
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" maxlength="50" class="form-control" required id="desc" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @ProgressPaymentStrings.customer
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <input type="text" disableonupdate="yes" maxlength="50" required class="form-control" id="customer">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" disableonupdate="yes" type="button" id="btncustomer"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @ProgressPaymentStrings.branch
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <input type="text" maxlength="50" class="form-control" id="branch">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button" id="btnbranch"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @ProgressPaymentStrings.tasktype
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <input type="text" maxlength="50" class="form-control" id="tasktype">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button" id="btntasktype"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @ProgressPaymentStrings.status
+                                </div>
+                                <div class="col-md-8">
+                                    <select class="form-control" data-code="-" data-pcode="Q" data-text="" required id="status"></select>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @ProgressPaymentStrings.allowzerototal
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="checkbox checkbox-primary">
+                                        <input type="checkbox" class="styled" id="allowzerototal" />
+                                        <label></label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @ProgressPaymentStrings.invoiceno
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" maxlength="250" class="form-control" disabled="disabled" id="pspinvoiceno" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @ProgressPaymentStrings.invoicedate
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" ctrltype="datepicker" maxlength="50" class="form-control" disabled="disabled" id="pspinvoicedate" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @ProgressPaymentStrings.groupcode
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" maxlength="10" class="form-control" id="pspgroupcode" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @ProgressPaymentStrings.createdby
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" class="form-control" disabled="disabled" id="createdby" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @ProgressPaymentStrings.created
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" class="form-control" disabled="disabled" id="created" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4" id="divCustomFields">
+                    <div class="panel panel-default" style="height: 830px;">
+                        <div class="panel-heading task-panel-heading">@ProgressPaymentStrings.customfields</div>
+                        <div class="panel-body">
+                            <div id="cfcontainer"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4" id="divCmntsAttachments">
+                    <div class="panel panel-default" style="height: 450px;">
+                        <div class="panel-heading task-panel-heading">@ProgressPaymentStrings.comments</div>
+                        <div class="panel-body">
+                            <textarea class="form-control" contenteditable rows="3" id="comment"></textarea>
+                            @if (string.IsNullOrEmpty(UserManager.Instance.User.Customer))
+                            {
+                                <div class="row custom">
+                                    <div class="col-md-12">
+                                        <div class="checkbox checkbox-inline checkbox-primary">
+                                            <input type="checkbox" class="styled" id="pspvisibletocustomer" />
+                                            <label>@SharedStrings.visibletocustomer</label>
+                                        </div>
+                                        @if (string.IsNullOrEmpty(UserManager.Instance.User.Supplier))
+                                        {
+                                            <div class="checkbox checkbox-inline checkbox-primary">
+                                                <input type="checkbox" class="styled" id="pspvisibletosupplier" />
+                                                <label>@SharedStrings.visibletosupplier</label>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            }
+                            <div class="inline-toolbar">
+                                <button class="btn btn-primary btn-xs" selection-required="true" id="addComment" @(Model == null ? "disabled" : string.Empty)><i class="fa fa-plus-circle"></i> @ProgressPaymentStrings.add</button>
+                            </div>
+                            <div id="comments" class="sm">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default" style="height: 360px;">
+                        <div class="panel-heading task-panel-heading">@ProgressPaymentStrings.docs</div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="progress">
+                                        <div class="progress-bar" id="docuprogress" role="progressbar" style="width: 0%; min-width: 2em;">0%</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-12">
+                                    <div id="fupload">
+                                        <span class="btn btn-default fileinput-button" id="btnBrowse">
+                                            <i class="fa fa-search"></i>
+                                            <span>@ProgressPaymentStrings.browse</span>
+                                            <input type="file" name="files[]" id="fu" multiple data-url="/UploadFile.ashx">
+                                        </span>
+                                        <button class="btn btn-default" id="btnupload" disabled="disabled"><i class="fa fa-cloud-upload"></i> @ProgressPaymentStrings.upload</button>
+                                        <div class="row custom">
+                                            <div class="col-md-12">
+                                                <div id="filename"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="docs"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @if (string.IsNullOrEmpty(UserManager.Instance.User.Customer))
+        {
+            <div id="tasks" class="tab-pane">
+                <div id="grdProgressPaymentTasks"></div>
+            </div>
+        }
+        <div id="pricing" class="tab-pane">
+            <div class="well">
+                <div class="row">
+                    <div class="col-md-12">
+                        <button class="btn btn-default btn-sm" title="Ctrl+S" id="btnSavePricing"><i class="fa fa-floppy-o fa-fw"></i> @ProgressPaymentStrings.save</button>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-10">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <td style="width: 100px;background: #108ce2;color: #FFF;">@ProgressPaymentStrings.task</td>
+                                <td style="width: 100px;background: #108ce2;color: #FFF;">@ProgressPaymentStrings.taskdescription</td>
+                                <td style="width: 80px;background: #108ce2;color: #FFF;">@ProgressPaymentStrings.activity</td>
+                                <td style="width: 100px;background: #108ce2;color: #FFF;">@ProgressPaymentStrings.item & @ProgressPaymentStrings.cost </td>
+                                <td style="width: 100px;background: #108ce2;color: #FFF;">@ProgressPaymentStrings.description</td>
+                                <td style="width: 60px;background: #108ce2;color: #FFF;">@ProgressPaymentStrings.quantity</td>
+                                @if (string.IsNullOrEmpty(UserManager.Instance.User.Customer))
+                                {
+                                    <td style="width: 60px; background: #108ce2; color: #FFF;">@ProgressPaymentStrings.amendment</td>
+                                    <td style="width: 60px; background: #108ce2; color: #FFF;">@ProgressPaymentStrings.amendmentquantity</td>
+                                }
+                                <td style="width: 50px;background: #108ce2;color: #FFF;">@ProgressPaymentStrings.uom</td>
+                                <td style="width: 60px;background: #108ce2;color: #FFF;">@ProgressPaymentStrings.unitprice</td>
+                                @if (string.IsNullOrEmpty(UserManager.Instance.User.Customer))
+                                {
+                                    <td style="width: 60px; background: #108ce2; color: #FFF;">@ProgressPaymentStrings.amendmentpercent</td>
+                                    <td style="width: 60px; background: #108ce2; color: #FFF;">@ProgressPaymentStrings.amendment</td>
+                                    <td style="width: 80px; background: #108ce2; color: #FFF;">@ProgressPaymentStrings.unitpriceofsale</td>
+                                }
+                                <td style="width: 60px;background: #108ce2;color: #FFF;">@ProgressPaymentStrings.totalprice</td>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+                <div class="col-md-2">
+                    <div class="well">
+                        @if (string.IsNullOrEmpty(UserManager.Instance.User.Customer))
+                        {
+                            <div class="row custom">
+                                <div class="col-md-6">
+                                    <strong>@ProgressPaymentStrings.cost.ToUpper() </strong>
+                                </div>
+                                <div class="col-md-6">
+                                    <span class="pull-right" id="cost"></span>
+                                </div>
+                            </div>
+
+                            <div class="row custom">
+                                <div class="col-md-6">
+                                    <strong>@ProgressPaymentStrings.calculated </strong>
+                                </div>
+                                <div class="col-md-6">
+                                    <span class="pull-right" id="calculated"></span>
+                                </div>
+                            </div>
+                        }
+
+                        <div class="row custom">
+                            <div class="col-md-6">
+                                <strong>@ProgressPaymentStrings.amount </strong>
+                            </div>
+                            <div class="col-md-6">
+                                <span class="pull-right" id="amount"></span>
+                            </div>
+                        </div>
+                        @if (string.IsNullOrEmpty(UserManager.Instance.User.Customer))
+                        {
+                            <div class="row custom">
+                                <div class="col-md-6">
+                                    <strong>@ProgressPaymentStrings.profit </strong>
+                                </div>
+                                <div class="col-md-6">
+                                    <span class="pull-right" id="profit"></span>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-6">
+                                    <strong>@ProgressPaymentStrings.profitmargin </strong>
+                                </div>
+                                <div class="col-md-6">
+                                    <span class="pull-right" id="profitmargin"></span>
+                                </div>
+                            </div>
+                        }
+                        @if (string.IsNullOrEmpty(UserManager.Instance.User.Customer))
+                        {
+                            <div class="row">
+                                <hr />
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-6">
+                                    <strong>@ProgressPaymentStrings.service </strong>
+                                </div>
+                                <div class="col-md-6">
+                                    <span class="pull-right" id="servicesum"></span>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-6">
+                                    <strong>@ProgressPaymentStrings.hourlyfee </strong>
+                                </div>
+                                <div class="col-md-6">
+                                    <span class="pull-right" id="hourlysum"></span>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-6">
+                                    <strong>@ProgressPaymentStrings.part </strong>
+                                </div>
+                                <div class="col-md-6">
+                                    <span class="pull-right" id="partsum"></span>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-6">
+                                    <strong>@ProgressPaymentStrings.misccost </strong>
+                                </div>
+                                <div class="col-md-6">
+                                    <span class="pull-right" id="misccostsum"></span>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-6">
+                                    <strong>@ProgressPaymentStrings.equipmentmaintenance </strong>
+                                </div>
+                                <div class="col-md-6">
+                                    <span class="pull-right" id="equipmentmaintenancesum"></span>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-6">
+                                    <strong>@ProgressPaymentStrings.servicecharges </strong>
+                                </div>
+                                <div class="col-md-6">
+                                    <span class="pull-right" id="servicechargessum"></span>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="modalstatuschange" role="dialog" aria-labelledby="modalsharedlbl" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="false">&times;</span></button>
+                <h4 class="modal-title">@ProgressPaymentStrings.statuschange</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row custom">
+                    <div class="col-md-4">
+                        @ProgressPaymentStrings.status
+                    </div>
+                    <div class="col-md-8">
+                        <select class="form-control" id="statuschange">
+                            <option value="" selected="selected" class="default">@ProgressPaymentStrings.pleaseselect</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row custom">
+                    <div class="col-md-offset-4 col-md-8">
+                        <div class="checkbox checkbox-inline checkbox-primary">
+                            <input type="checkbox" class="styled" id="allowzerototalforselected" />
+                            <label>@ProgressPaymentStrings.allowzerototal</label>
+                        </div>
+                    </div>
+                </div>
+                <div id="salesinvoiceoptions" class="hidden">
+                    <div class="row custom">
+                        <div class="col-md-4">
+                            @ProgressPaymentStrings.orderno
+                        </div>
+                        <div class="col-md-8">
+                            <input type="text" maxlength="250" class="form-control" id="orderno" />
+                        </div>
+                    </div>
+                    <div class="row custom">
+                        <div class="col-md-4">
+                            @ProgressPaymentStrings.invoiceoptions
+                        </div>
+                        <div class="col-md-8">
+                            <select class="form-control" id="invoiceoptions">
+                                <option value="">@ProgressPaymentStrings.pleaseselect</option>
+                                <option value="SEPERATE">@ProgressPaymentStrings.seperate</option>
+                                <option value="BULK">@ProgressPaymentStrings.bulk</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row custom">
+                        <div class="col-md-4">
+                            @ProgressPaymentStrings.invoicedescription
+                        </div>
+                        <div class="col-md-8">
+                            <input type="text" maxlength="250" class="form-control" id="invoicedescription" />
+                        </div>
+                    </div>
+                    <div class="row custom">
+                        <div class="col-md-4">
+                            @ProgressPaymentStrings.printtype
+                        </div>
+                        <div class="col-md-8">
+                            <select class="form-control" id="printtype">
+                                <option value="SINGLELINE" selected="selected">@ProgressPaymentStrings.singleline</option>
+                                <option value="MULTILINE">@ProgressPaymentStrings.multiline</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div id="invoicedetails" class="hidden">
+                    <div class="row custom">
+                        <div class="col-md-4">
+                            @ProgressPaymentStrings.invoiceno
+                        </div>
+                        <div class="col-md-8">
+                            <input type="text" maxlength="250" class="form-control" id="invoiceno" />
+                        </div>
+                    </div>
+                    <div class="row custom">
+                        <div class="col-md-4">
+                            @ProgressPaymentStrings.invoicedate
+                        </div>
+                        <div class="col-md-8">
+                            <input type="text" ctrltype="datepicker" maxlength="50" class="form-control" id="invoicedate" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-xs" id="btnsavestatus">@ProgressPaymentStrings.save</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="modalaudit" role="dialog" aria-labelledby="modalsharedlbl" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="false">&times;</span></button>
+                <h4 class="modal-title" id="modaltitle"></h4>
+            </div>
+            <div class="modal-body"></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-xs" id="modalsave">@ProgressPaymentStrings.save</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="modalcomments">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="false">&times;</span></button>
+                <h4 class="modal-title">@ProgressPaymentStrings.comments</h4>
+            </div>
+            <div class="modal-body" style="height: 400px; overflow-y: auto;">
+                <textarea class="form-control sm" rows="3" id="tskcomment"></textarea>
+                @if (string.IsNullOrEmpty(UserManager.Instance.User.Customer))
+                {
+                    <div class="row custom">
+                        <div class="col-md-12">
+                            <div class="checkbox checkbox-inline checkbox-primary">
+                                <input type="checkbox" class="styled" id="visibletocustomer" />
+                                <label>@SharedStrings.visibletocustomer</label>
+                            </div>
+                            @if (string.IsNullOrEmpty(UserManager.Instance.User.Supplier))
+                            {
+                                <div class="checkbox checkbox-inline checkbox-primary">
+                                    <input type="checkbox" class="styled" id="visibletosupplier" />
+                                    <label>@SharedStrings.visibletosupplier</label>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                }
+                <div class="inline-toolbar">
+                    <button class="btn btn-primary btn-xs" id="addTaskComment"><i class="fa fa-plus-circle"></i> @ProgressPaymentStrings.add</button>
+                </div>
+                <div id="tskcomments"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-xs" data-dismiss="modal" aria-label="Close">@ProgressPaymentStrings.ok</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="modaldocuments">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="false">&times;</span></button>
+                <h4 class="modal-title">@ProgressPaymentStrings.docs</h4>
+            </div>
+            <div class="modal-body">
+                <div id="fuploadtsk">
+                    <span class="btn btn-default fileinput-button" id="btnBrowseTsk">
+                        <i class="fa fa-search"></i>
+                        <span>@ProgressPaymentStrings.browse</span>
+                        <input type="file" name="fu" id="futsk" data-url="/UploadFile.ashx">
+                    </span>
+                    <button class="btn btn-default" id="btnuploadtsk" disabled="disabled"><i class="fa fa-cloud-upload"></i> @ProgressPaymentStrings.upload</button>
+                    <span id="filenametsk"></span>
+                </div>
+                <div id="docstsk" class="tasklistdocs"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-xs" data-dismiss="modal" aria-label="Close">@ProgressPaymentStrings.ok</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var inbox = "@ViewBag.id";
+</script>
+@Html.IncludeVersionedJs("/Scripts/jquery/jquery.fileupload.js")
+@Html.IncludeVersionedJs("/Scripts/jquery/jquery.iframe-transport.js")
+
+@Html.IncludeVersionedJs("/Scripts/other/numericInput.min.js")
+@Html.IncludeVersionedJs("/Scripts/other/typeahead.bundle.js")
+@Html.IncludeVersionedJs("/Scripts/jquery/jquery.contextMenu.min.js")
+
+@Html.IncludeVersionedJs("/Scripts/custom/ovi.custom.list.js")
+@Html.IncludeVersionedJs("/Scripts/custom/ovi.custom.documents.js")
+@Html.IncludeVersionedJs("/Scripts/custom/ovi.custom.comments.js")
+@Html.IncludeVersionedJs("/Scripts/custom/ovi.custom.customfields.js")
+@Html.IncludeVersionedJs("/Scripts/jquery/jquery.sidebar.min.js")
+@Html.IncludeVersionedJs("/Scripts/other/multiple-select.js")
+@Html.IncludeVersionedJs("/Scripts/app/ProgressPayments.js")

@@ -1,0 +1,105 @@
+﻿@using Resources.PurchaseOrders.Index
+
+@{
+    Layout = "~/Views/Shared/Default.cshtml";
+}
+<div style="margin-top: 10px">
+    <div class="page-header">
+        <h4>@PurchaseOrders.potowarehouse</h4>
+        <h6></h6>
+    </div>
+    <div id="grdPurchaseOrderLines"></div>
+    <div class="modal" id="modaladdalltowarehouse" role="dialog" aria-labelledby="modalsharedlbl" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="false">&times;</span></button>
+                    <h4 class="modal-title" id="modaltitle"> @PurchaseOrders.addtowarehouse </h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="row custom">
+                                <div class="col-md-3">
+                                    @PurchaseOrders.waybillno
+                                </div>
+                                <div class="col-md-5">
+                                    <input id="allwaybill" autocomplete="off" required type="text" maxlength="50" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary btn-xs" id="addalltowarehouse">@PurchaseOrders.save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal" id="modaladdtowarehouse" role="dialog" aria-labelledby="modalsharedlbl" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="false">&times;</span></button>
+                    <h4 class="modal-title" id="modaltitle"> @PurchaseOrders.addtowarehouse </h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="row custom">
+                                <div class="col-md-3">
+                                    @PurchaseOrders.purchasedquantity
+                                </div>
+                                <div class="col-md-4">
+                                    <input disabled="disabled" id="purchasedPartQuantity" type="text" class="form-control" />
+                                </div>
+                                <div class="col-md-1">
+                                    <qtip data-hasqtip="12"><input type="text" disabled="disabled" class="form-control" id="purchasedPartQuantityuom" autocomplete="off"></qtip>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-3">
+                                    @PurchaseOrders.waitingquan
+                                </div>
+                                <div class="col-md-4">
+                                    <input disabled="disabled" id="waitingforEntryQuan" type="text" class="form-control" />
+                                </div>
+                                <div class="col-md-1">
+                                    <qtip data-hasqtip="12"><input type="text" disabled="disabled" class="form-control" id="waitingforEntryQuanuom" autocomplete="off"></qtip>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-3">
+                                    @PurchaseOrders.boughtquan
+                                </div>
+                                <div class="col-md-4">
+                                    <input id="amounttobePurchase" min="0" valtype="PRICE" ctrltype="numeric" allowfloat="true" autocomplete="off" required type="text" class="form-control" />
+                                </div>
+                                <div class="col-md-1">
+                                    <qtip data-hasqtip="12"><input type="text" disabled="disabled" class="form-control" id="amounttobePurchaseuom" autocomplete="off"></qtip>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-3">
+                                    @PurchaseOrders.waybillno
+                                    
+                                </div>
+                                <div class="col-md-5">
+                                    <input id="waybill" autocomplete="off" required type="text" maxlength="50" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary btn-xs" id="modalsave">@PurchaseOrders.save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var inbox = "@ViewBag.id";
+</script>
+@Html.IncludeVersionedJs("/Scripts/app/PurchaseOrdersToWarehouse.js")
+

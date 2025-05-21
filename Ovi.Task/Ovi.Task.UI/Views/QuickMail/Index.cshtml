@@ -1,0 +1,284 @@
+﻿@using System.Threading
+@using Resources.QuickMail.Index
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Default.cshtml";
+}
+@Html.IncludeVersionedCss("/Content/bootstrap/bootstrap-tagsinput.css")
+@Html.IncludeVersionedCss("/Content/jquery/jquery.fileupload.css")
+@Html.IncludeVersionedCss("/Content/summernote.css")
+@Html.IncludeVersionedCss("/Content/jquery/jquery.contextMenu.min.css")
+
+<div style="margin-top: 10px">
+<div class="page-header">
+    <h4>@QuickMailStrings.title</h4>
+    <h6></h6>
+</div>
+<div class="row custom">
+<div class="col-md-6">
+    <div class="panel panel-default">
+        <div class="panel-heading page-panel-heading">@QuickMailStrings.parameters</div>
+        <div class="panel-body page-panel-body" style="height: 400px;" id="mailparams">
+            <div class="row custom">
+                <div class="col-md-3">
+                    @QuickMailStrings.emailsource
+                </div>
+                <div class="col-md-6">
+                    <select class="form-control" id="emailsource" required>
+                        <option value="">@QuickMailStrings.pleaseselect</option>
+                        <option value="CUSTOMER">@QuickMailStrings.customer</option>
+                        <option value="SUPPLIER">@QuickMailStrings.supplier</option>
+                        <option value="USER">@QuickMailStrings.user</option>
+                        <option value="BRANCH">@QuickMailStrings.branch</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row custom">
+                <div class="col-md-3">
+                    @QuickMailStrings.organization
+                </div>
+                <div class="col-md-6">
+                    <div class="input-group">
+                        <input type="text" maxlength="50" class="form-control" id="org">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button" id="btnorg"><i class="fa fa-search fa-fw"></i></button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="row custom user-filter">
+                <div class="col-md-3">
+                    @QuickMailStrings.department
+                </div>
+                <div class="col-md-6">
+                    <div class="input-group">
+                        <input type="text" maxlength="50" class="form-control" id="department">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button" id="btndepartment"><i class="fa fa-search fa-fw"></i></button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="row custom user-filter">
+                <div class="col-md-3">
+                    @QuickMailStrings.usergroup
+                </div>
+                <div class="col-md-6">
+                    <div class="input-group">
+                        <input type="text" maxlength="50" class="form-control" id="usergroup">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button" id="btnusergroup"><i class="fa fa-search fa-fw"></i></button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="row custom user-filter">
+                <div class="col-md-3">
+                    @QuickMailStrings.trade
+                </div>
+                <div class="col-md-6">
+                    <div class="input-group">
+                        <input type="text" maxlength="50" class="form-control" id="trade">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button" id="btntrade"><i class="fa fa-search fa-fw"></i></button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="row custom user-filter">
+                <div class="col-md-3">
+                    @QuickMailStrings.usertype
+                </div>
+                <div class="col-md-6">
+                    <div class="input-group">
+                        <input type="text" maxlength="50" class="form-control" id="usertype">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button" id="btnusertype"><i class="fa fa-search fa-fw"></i></button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="row custom customer-filter">
+                <div class="col-md-3">
+                    @QuickMailStrings.customer
+                </div>
+                <div class="col-md-6">
+                    <div class="input-group">
+                        <input type="text" maxlength="50" class="form-control" id="customer">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button" id="btncustomer"><i class="fa fa-search fa-fw"></i></button>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <select class="form-control" id="customertype">
+                        <option value="">@QuickMailStrings.pleaseselect</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row custom supplier-filter">
+                <div class="col-md-3">
+                    @QuickMailStrings.supplier
+                </div>
+                <div class="col-md-6">
+                    <div class="input-group">
+                        <input type="text" maxlength="50" class="form-control" id="supplier">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button" id="btnsupplier"><i class="fa fa-search fa-fw"></i></button>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <select class="form-control" id="suppliertype">
+                        <option value="">@QuickMailStrings.pleaseselect</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row custom">
+                <div class="col-md-12">
+                    <div class="btn-group pull-right">
+                        <button id="btnImportTo" class="btn btn-primary"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i> @QuickMailStrings.importto</button>
+                        <button id="btnImportCc" class="btn btn-warning"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i> @QuickMailStrings.importcc</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading page-panel-heading">@QuickMailStrings.content</div>
+        <div class="panel-body page-panel-body">
+            <div class="row custom">
+                <div class="col-md-3">
+                    @QuickMailStrings.format
+                </div>
+                <div class="col-md-6">
+                    <div class="input-group">
+                        <input type="text" maxlength="50" class="form-control" id="format">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button" id="btnformat"><i class="fa fa-search fa-fw"></i></button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="row custom">
+                <div class="col-md-3">
+                    @QuickMailStrings.singlemail
+                </div>
+                <div class="col-md-6">
+                    <div class="checkbox checkbox-primary">
+                        <input type="checkbox" class="styled" id="singlemail" />
+                        <label></label>
+                    </div>
+                </div>
+            </div>
+            <div class="row custom">
+                <div class="col-md-3">
+                    @QuickMailStrings.subject
+                </div>
+                <div class="col-md-6">
+                    <input type="text" maxlength="300" required class="form-control" id="subject" />
+                </div>
+            </div>
+
+            <div class="row custom">
+                <div class="col-md-3">
+                    @QuickMailStrings.content
+                </div>
+                <div class="col-md-9">
+                    <textarea type="text" required id="content"></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-md-6">
+    <div class="panel panel-default">
+        <div class="panel-heading page-panel-heading">@QuickMailStrings.people</div>
+        <div class="panel-body page-panel-body" style="height: 400px;">
+            <div class="row custom">
+                <div class="col-md-3">
+                    @QuickMailStrings.to
+                </div>
+                <div class="col-md-6">
+                    <input type="email" maxlength="50" class="form-control" id="addto" data-allowfreetext="+">
+                    <input type="text" class="form-control" id="to" data-role="multival">
+                </div>
+                <div class="col-md-3">
+                    <div class="btn-group" role="group">
+                        <button id="btnAddTo" class="btn btn-primary pull-left"><i class="fa fa-plus-circle" aria-hidden="true"></i> @QuickMailStrings.add</button>&nbsp;
+                        <button id="btnRemoveAllTo" class="btn btn-danger pull-right"><i class="fa fa-times" aria-hidden="true"></i> @QuickMailStrings.removeall</button>
+                    </div>
+                    <h5 class="quickmail countinfo" id="tocnt"></h5>
+                </div>
+            </div>
+            <div class="row custom">
+                <div class="col-md-3">
+                    @QuickMailStrings.cc
+                </div>
+                <div class="col-md-6">
+                    <input type="email" maxlength="50" class="form-control" id="addcc" data-allowfreetext="+">
+                    <input type="text" class="form-control" id="cc" data-role="multival">
+
+                </div>
+                <div class="col-md-3">
+                    <div class="btn-group" role="group">
+                        <button id="btnAddCc" class="btn btn-primary pull-left"><i class="fa fa-plus-circle" aria-hidden="true"></i> @QuickMailStrings.add</button>&nbsp;
+                        <button id="btnRemoveAllCc" class="btn btn-danger pull-right"><i class="fa fa-times" aria-hidden="true"></i> @QuickMailStrings.removeall</button>
+                    </div>
+                    <h5 class="quickmail countinfo" id="cccnt"></h5>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading page-panel-heading">@QuickMailStrings.documents</div>
+        <div class="panel-body page-panel-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="progress">
+                        <div class="progress-bar" id="docuprogress" role="progressbar" style="width: 0%; min-width: 2em;">0%</div>
+                    </div>
+                </div>
+            </div>
+            <div class="row custom">
+                <div class="col-md-12">
+                    <div id="fupload">
+                        <span class="btn btn-default fileinput-button" id="btnBrowse">
+                            <i class="fa fa-search"></i>
+                            <span>@QuickMailStrings.browse</span>
+                            <input type="file" name="files[]" id="fu" multiple data-url="/QuickMail.ashx">
+                        </span>
+                        <button class="btn btn-danger" id="btnremoveallfiles" disabled="disabled"><i class="fa fa-times"></i> @QuickMailStrings.removeallfiles</button>
+                        <div class="row custom">
+                            <div class="col-md-12">
+                                <div id="filename"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+</div>
+<div class="row custom">
+    <div class="col-md-12" style="text-align: center; margin-bottom: 2em;">
+        <button id="btnSend" class="btn btn-success"><i class="fa fa-envelope" aria-hidden="true"></i> @QuickMailStrings.send</button>
+    </div>
+</div>
+</div>
+
+<input type="text" style="position: absolute; left: -1000px; top: -1000px" id="clipboard"/>
+
+@Html.IncludeVersionedJs("/Scripts/jquery/jquery.fileupload.js")
+@Html.IncludeVersionedJs("/Scripts/jquery/jquery.iframe-transport.js")
+@Html.IncludeVersionedJs("/Scripts/bootstrap/bootstrap-tagsinput.min.js")
+
+@Html.IncludeVersionedJs("/Scripts/other/summernote.min.js")
+@if (Thread.CurrentThread.CurrentUICulture.Name == "tr")
+{
+    @Html.IncludeVersionedJs("/Scripts/other/summernote.min.tr.js")
+}
+@Html.IncludeVersionedJs("/Scripts/jquery/jquery.contextMenu.min.js")
+@Html.IncludeVersionedJs("/Scripts/app/QuickMail.js")

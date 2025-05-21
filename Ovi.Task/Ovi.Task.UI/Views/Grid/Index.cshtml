@@ -1,0 +1,66 @@
+﻿@using Resources.Grid.Index
+@{
+    Layout = "~/Views/Shared/Default.cshtml";
+}
+
+@Html.IncludeVersionedCss("/Content/jquery/jquery.contextMenu.min.css")
+
+<div>
+
+    <div style="margin-top: 10px">
+        <div class="page-header">
+            <h4 id="table_title"></h4>
+            <h6></h6>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div id="grdGrid-@ViewBag.ScrCode"  ></div>
+                <div class="sidebars">
+                    <div id="detailedsearch" class="sidebar right" style="right: -400px;">
+                        <div class="row">
+                            <div class="col-md-12" style="text-align: center; margin-top: 10px;">
+                                <button id="filter" class="btn btn-primary btn-xs"><i class="fa fa-filter"></i>@GridStrings.filter</button>
+                                <button id="clearfilter" class="btn btn-info btn-xs"><i class="fa fa-ban"></i> @GridStrings.reset</button>
+                                <button id="closesiderbar" class="btn btn-danger btn-xs"><i class="fa fa-times"></i> @GridStrings.close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="infoModal" tabindex="-1" role="dialog" aria-labelledby="Infomodel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">@GridStrings.info</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div  class="modal-body">
+                   <p style="white-space:pre-line" id="info"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">@GridStrings.close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var grdscrcode = "@ViewBag.ScrCode";
+</script>
+
+@Html.IncludeVersionedJs("/Scripts/jquery/jquery.contextMenu.min.js")
+
+@Html.IncludeVersionedJs("/Scripts/custom/ovi.custom.list.js")
+
+@Html.IncludeVersionedJs("/Scripts/moment/moment.min.js")
+@Html.IncludeVersionedJs("/Scripts/jquery/jquery.sidebar.min.js")
+
+@Html.IncludeVersionedJs("/Scripts/other/numericInput.min.js")
+@Html.IncludeVersionedJs("/Scripts/app/Grid.js")

@@ -1,0 +1,15 @@
+﻿@using Resources.PurchaseOrders.Index
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Default.cshtml";
+}
+<div style="margin-top: 10px">
+    <div class="page-header">
+        <h4>@PurchaseOrders.awaitingdelivery</h4>
+        <h6></h6>
+    </div>
+    <div id="grdPurchaseOrderDetails"></div>
+</div>
+
+@Html.IncludeVersionedJs("/Scripts/jquery/jquery.sidebar.min.js")
+@Html.IncludeVersionedJs("/Scripts/app/PurchaseOrderDetails.js")

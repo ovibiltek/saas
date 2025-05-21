@@ -1,0 +1,36 @@
+﻿@using Resources.SupplierTaskTypes.Index;
+
+@{
+    Layout = "~/Views/Shared/Default.cshtml";
+}
+
+@Html.IncludeVersionedCss("/Content/jquery/jquery.contextMenu.min.css")
+<div style="margin-top: 10px">
+    <div class="page-header">
+        <h4>@SupplierTaskTypeStrings.title</h4>
+        <h6></h6>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div id="grdSupplierTaskTypes"></div>
+            <div class="sidebars">
+                <div class="sidebar right" style="right: -400px;">
+                    <div class="row">
+                        <div class="col-md-12" style="text-align: center; margin-top: 10px;">
+                            <button id="filter" class="btn btn-primary btn-xs"><i class="fa fa-filter"></i> @SupplierTaskTypeStrings.filter</button>
+                            <button id="clearfilter" class="btn btn-info btn-xs"><i class="fa fa-ban"></i> @SupplierTaskTypeStrings.reset</button>
+                            <button id="closesiderbar" class="btn btn-danger btn-xs"><i class="fa fa-times"></i> @SupplierTaskTypeStrings.close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var inbox = "@ViewBag.id";
+</script>
+
+@Html.IncludeVersionedJs("/Scripts/jquery/jquery.sidebar.min.js")
+@Html.IncludeVersionedJs("/Scripts/jquery/jquery.contextMenu.min.js")
+@Html.IncludeVersionedJs("/Scripts/app/SupplierTaskTypes.js")

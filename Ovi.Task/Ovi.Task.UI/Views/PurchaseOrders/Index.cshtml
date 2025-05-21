@@ -1,0 +1,875 @@
+﻿@using Ovi.Task.UI.Controllers
+@using Resources.PurchaseOrders.Index
+
+@{
+    Layout = "~/Views/Shared/Default.cshtml";
+}
+
+@Html.IncludeVersionedCss("/Content/bootstrap/bootstrap-tagsinput.css")
+@Html.IncludeVersionedCss("/Content/jquery/jquery.fileupload.css")
+@Html.IncludeVersionedCss("/Content/jquery/jquery.contextMenu.min.css")
+
+
+
+<div style="margin-top: 10px">
+    <div class="page-header">
+        <h4>
+            @PurchaseOrders.purchaseorders
+        </h4>
+        <h6></h6>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="tms-page-toolbar inline-toolbar left" data-block="#record">
+            <div class="btn-group">
+                <button class="btn btn-default btn-sm" title="Ctrl+R" selection-required="false" id="btnNew"><i class="fa fa fa-plus fa-fw"></i>@PurchaseOrders.addnew</button>
+                <button class="btn btn-default btn-sm" disabled="disabled" selection-required="false" title="Ctrl+S" id="btnSave"><i class="fa fa-floppy-o fa-fw"></i>@PurchaseOrders.save</button>
+                <button class="btn btn-default btn-sm" disabled="disabled" selection-required="true" title="Ctrl+U" id="btnUndo"><i class="fa fa-undo fa-fw"></i>@PurchaseOrders.undo</button>
+                <button class="btn btn-default btn-sm" disabled="disabled" selection-required="true" title="Ctrl+D" id="btnDelete"><i class="fa fa-trash-o fa-fw"></i>@PurchaseOrders.delete</button>
+                <button class="btn btn-default btn-sm" disabled="disabled" selection-required="true" title="Ctrl+P" id="btnPrint"><i class="fa fa-print fa-fw"></i> @PurchaseOrders.print</button>
+            </div>
+        </div>
+    </div>
+</div>
+<ul class="nav nav-tabs" id="navpurchaseorders">
+    <li class="active"><a data-toggle="tab" href="#list">@PurchaseOrders.list</a></li>
+    <li><a data-toggle="tab" href="#record">@PurchaseOrders.record</a></li>
+    <li><a enable-on-selection href="#part">@PurchaseOrders.parts</a></li>
+    <li><a enable-on-selection href="#track">İzleme</a></li>
+</ul>
+<div class="tab-content">
+    <div id="list" class="tab-pane active">
+        <div class="row">
+            <div class="col-md-12">
+                <div id="grdPurchaseOrders"></div>
+                <div class="sidebars">
+                    <div class="sidebar right" style="right: -400px;">
+                        <div class="row">
+                            <div class="col-md-12" style="text-align: center; margin-top: 10px;">
+                                <button id="filter" class="btn btn-primary btn-xs"><i class="fa fa-filter"></i> @PurchaseOrders.filter</button>
+                                <button id="clearfilter" class="btn btn-info btn-xs"><i class="fa fa-ban"></i> @PurchaseOrders.reset</button>
+                                <button id="closesiderbar" class="btn btn-danger btn-xs"><i class="fa fa-times"></i> @PurchaseOrders.close</button>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="page-header">
+                                    <h5>@PurchaseOrders.task</h5>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <input type="text"  class="i-filter form-control" id="listfiltertaskid">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="page-header">
+                                    <h5>@PurchaseOrders.quo</h5>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <input type="text"  class="i-filter form-control" id="listfilterquoid">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="page-header">
+                                    <h5>@PurchaseOrders.requestid</h5>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <input type="text"  class="i-filter form-control" id="listfiltereqid">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="record" class="tab-pane">
+        <div class="row record-content">
+            <div class="col-md-8" id="divHeader">
+                <div class="panel panel-default">
+                    <div class="panel-heading task-panel-heading">@PurchaseOrders.record</div>
+                    <div class="panel-body task-panel-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="row custom">
+                                    <div class="col-md-4">
+                                        @PurchaseOrders.purchaseordercode
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input disabled="disabled" alwaysdisabled="yes" id="purchaseorderno" type="text" class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-4">
+                                        @PurchaseOrders.description
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input type="text" disableoncomplete required="" maxlength="250" contenteditable="" id="description" autocomplete="off" class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-4">
+                                        @PurchaseOrders.organization
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="input-group">
+                                            <input type="text" disableonupdate="yes" loadstatusesonchange="yes" maxlength="50" required class="form-control" id="org">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default" type="button" disableonupdate="yes" id="btnorg"><i class="fa fa-search fa-fw"></i></button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-4">
+                                        @PurchaseOrders.type
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="input-group">
+                                            <input type="text" loadstatusesonchange="yes" disableonupdate="yes" maxlength="50" required data-entity="TASK" class="form-control" id="type">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default" type="button" disableonupdate="yes" id="btntype"><i class="fa fa-search fa-fw"></i></button>
+                                            </span>
+                                        </div><!-- /input-group -->
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-4">
+                                        @PurchaseOrders.status
+                                    </div>
+                                    <div class="col-md-8">
+                                        <select class="form-control" data-code="-" data-pcode="Q" data-text="" required id="status"></select>
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-4">
+                                        @PurchaseOrders.warehouse
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="input-group">
+                                            <input type="text" disableonupdate="yes" maxlength="50" required class="form-control" id="warehouse">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default" disableonupdate="yes" type="button" id="btnwarehouse"><i class="fa fa-search fa-fw"></i></button>
+                                            </span>
+                                        </div><!-- /input-group -->
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-4">
+                                        @PurchaseOrders.requestedby
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="input-group">
+                                            <input type="text" disableonupdate="yes" maxlength="50" required class="form-control" id="requestedby">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default" disableonupdate="yes" type="button" id="btnrequestedby"><i class="fa fa-search fa-fw"></i></button>
+                                            </span>
+                                        </div><!-- /input-group -->
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <!--Not-->
+                                    <div class="col-md-4">
+                                        @PurchaseOrders.requested
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input type="text" disableonupdate="yes" required maxlength="16" id="requestdate" ctrltype="datepicker" class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-4">
+                                        @PurchaseOrders.supplier
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="input-group">
+                                            <input type="text" required disableonupdate="yes" maxlength="50" class="form-control" id="supplier">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default" disableonupdate="yes" type="button" id="btnsupplier"><i class="fa fa-search fa-fw"></i></button>
+                                            </span>
+                                        </div><!-- /input-group -->
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-4">
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input type="text" disabled maxlength="16" id="supdesc" class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-4">
+                                        @PurchaseOrders.paymentterm
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="input-group">
+                                            <input type="text" loadstatusesonchange="yes" required maxlength="50" class="form-control" id="suppaymentterm">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default" type="button" id="btnsuppaymentterm"><i class="fa fa-search fa-fw"></i></button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-4">
+                                        @PurchaseOrders.currency
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="input-group">
+                                            <input type="text" required disableonupdate="yes" class="form-control" id="currency">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default" disableonupdate="yes" type="button" id="btncurrency"><i class="fa fa-search fa-fw"></i></button>
+                                            </span>
+                                        </div><!-- /input-group -->
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-4">
+                                        @PurchaseOrders.exchangerate
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input type="text" disableoncomplete required calc-group="1" valtype="EXCH" min="0" ctrltype="numeric" allowfloat="true" class="form-control" id="exchangerate" />
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-4">
+                                        @PurchaseOrders.createdby
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input type="text" disabled="disabled" maxlength="50" class="form-control" id="createdby">
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <!--Not-->
+                                    <div class="col-md-4">
+                                        @PurchaseOrders.created
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input type="text" disabled="disabled" alwaysdisabled="yes" maxlength="16" id="createddate" ctrltype="datetimepicker" class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-4">
+                                        @PurchaseOrders.deliveryadr
+                                    </div>
+                                    <div class="col-md-8">
+                                        <textarea class="form-control" required disableoncomplete maxlength="1000" rows="3" id="deliveryadr" autocomplete="off" spellcheck="false" tabindex="43"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="row custom">
+                                    <div class="col-md-4">
+                                        @PurchaseOrders.parttotal
+                                    </div>
+                                    <div class="col-md-7">
+                                        <input type="text" disabled="disabled"
+                                               class="form-control" id="parttotal" autocomplete="off">
+                                    </div>
+                                    <div class="col-md-1">
+                                        <qtip data-hasqtip="12"><input type="text" disabled="disabled" class="form-control" id="parttoalcurr" autocomplete="off"></qtip>
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-4">
+                                        @PurchaseOrders.totaltaxes
+                                    </div>
+                                    <div class="col-md-7">
+                                        <input type="text" calc-group="1" valtype="PRICE" ctrltype="numeric" disabled="disabled" allowfloat="true"
+                                               class="form-control" id="totaltaxes" autocomplete="off">
+                                    </div>
+                                    <div class="col-md-1">
+                                        <qtip data-hasqtip="12"><input type="text" disabled="disabled" class="form-control" id="totaltaxescurr" autocomplete="off"></qtip>
+                                    </div>
+                                </div>
+
+                                <div class="row custom">
+                                    <div class="col-md-4">
+                                        @PurchaseOrders.total
+                                    </div>
+                                    <div class="col-md-7">
+                                        <input type="text" calc-group="1" valtype="PRICE" disabled="disabled" ctrltype="numeric" allowfloat="true"
+                                               class="form-control" id="total" autocomplete="off">
+                                    </div>
+                                    <div class="col-md-1">
+                                        <qtip data-hasqtip="12"><input type="text" disabled="disabled" class="form-control" id="totalcurr" autocomplete="off"></qtip>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="panel panel-default" style="height: 700px;">
+                    <div class="panel-heading task-panel-heading">@PurchaseOrders.comment</div>
+                    <div class="panel-body">
+                        <textarea class="form-control" contenteditable rows="3" id="comment"></textarea>
+                        <div class="inline-toolbar">
+                            <button class="btn btn-primary btn-xs" disabled="disabled" id="addComment"><i class="fa fa-plus-circle"></i> @PurchaseOrders.add</button>
+                        </div>
+                        <div id="comments" class="sm">
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default" style="height: 372px;">
+                    <div class="panel-heading task-panel-heading">@PurchaseOrders.docs</div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="progress">
+                                    <div class="progress-bar" id="docuprogress" role="progressbar" style="width: 0%; min-width: 2em;">0%</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row custom">
+                            <div class="col-md-12">
+                                <div id="fupload">
+                                    <span class="btn btn-default fileinput-button" id="btnBrowse">
+                                        <i class="fa fa-search"></i>
+                                        <span>@PurchaseOrders.browse</span>
+                                        <input type="file" name="files[]" id="fu" multiple data-url="/UploadFile.ashx">
+                                    </span>
+                                    <button class="btn btn-default" id="btnupload" disabled="disabled"><i class="fa fa-cloud-upload"></i>@PurchaseOrders.upload</button>
+                                    <div class="row custom">
+                                        <div class="col-md-12">
+                                            <div id="filename"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="docs" class="light-size"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div id="part" class="tab-pane">
+        <div class="row">
+            <div class="col-md-12">
+                <div id="grdPurchaseOrderParts"></div>
+            </div>
+        </div>
+        <br />
+        <div id="partsform" class="panel panel-default items">
+            <div class="panel-heading page-panel-heading">@PurchaseOrders.parts</div>
+            <div class="row">
+                <div class="col-md-12" style="padding-right: 0">
+                    <div class="inline-toolbar left" style="border: none;" data-block="#parts">
+                        <div class="btn-group">
+                            <button class="btn btn-default btn-sm" title="Ctrl+R" selection-required="false" disabled id="btnAddPart"><i class="fa fa fa-plus fa-fw"></i>@PurchaseOrders.addnew</button>
+                            <button class="btn btn-default btn-sm" title="Ctrl+S" selection-required="false" disabled id="btnSavePart"><i class="fa fa-floppy-o fa-fw"></i>@PurchaseOrders.save</button>
+                            <button class="btn btn-default btn-sm" disabled="disabled" title="Ctrl+D" id="btnDeletePart"><i class="fa fa-trash-o fa-fw"></i>@PurchaseOrders.delete</button>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-body page-panel-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="row custom">
+                                <div class="col-md-3">
+                                    @PurchaseOrders.purchaseorderlinecode
+                                </div>
+                                <div class="col-md-5">
+                                    <input disabled="disabled" alwaysdisabled="yes" id="purchaseorderlineno" type="text" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-3">
+                                    @PurchaseOrders.partcode
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="input-group">
+                                        <input type="text" loadstatusesonchange="yes" disableonupdate="yes" maxlength="50" required class="form-control" id="parts">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button" disableonupdate="yes" id="btnparts"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-md-1">
+                                    <input type="text" disabled="disabled" alwaysdisabled="yes" type="text" id="paruom" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-3">
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="input-group">
+                                        <input type="text" disabled required class="form-control" id="partdesc">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button" id="btnstock">Stok Durumu</button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-3">
+                                    Parça Notu
+                                </div>
+                                <div class="col-md-5">
+                                    <textarea class="form-control" maxlength="1000" rows="3" id="partnote" autocomplete="off" spellcheck="false"></textarea>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-3">
+                                    @PurchaseOrders.quantity
+                                </div>
+                                <div class="col-md-5">
+                                    <input type="text" calc-group="1" ctrltype="numeric" allowfloat="true" required id="quantity" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-3">
+                                    @PurchaseOrders.uom
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="input-group">
+                                        <input type="text" loadstatusesonchange="yes" disableonupdate="yes" maxlength="50" required class="form-control" id="uom">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button" disableonupdate="yes" id="btnuom"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-3">
+                                    @PurchaseOrders.uommulti
+                                </div>
+                                <div class="col-md-5">
+                                    <input type="text" required="" id="uommulti" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <!--Not-->
+                                <div class="col-md-3">
+                                    @PurchaseOrders.requested
+                                </div>
+                                <div class="col-md-5">
+                                    <input type="text" required maxlength="16" id="partrequestdate" ctrltype="datepicker" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-3">
+                                    @PurchaseOrders.unitprice
+                                </div>
+                                <div class="col-md-5">
+                                    <input type="text" valtype="PRICE" ctrltype="numeric" allowfloat="true" min="0" calc-group="1" required maxlength="50" class="form-control" id="partunitprice" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-3">
+                                    @PurchaseOrders.currency
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="input-group">
+                                        <input type="text" required disableoncomplete maxlength="50" class="form-control" id="partcurrency">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" disableoncomplete type="button" id="btnpartcurrency"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div><!-- /input-group -->
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-3">
+                                    @PurchaseOrders.exchangerate
+                                </div>
+                                <div class="col-md-5">
+                                    <input type="text" required maxlength="50" class="form-control" valtype="EXCH" min="0" ctrltype="numeric" allowfloat="true" id="partexchangerate" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="row custom">
+                                <div class="col-md-3">
+                                    @PurchaseOrders.requestno
+                                </div>
+                                <div class="col-md-5">
+                                    <input disabled="disabled" alwaysdisabled="yes" id="requestdetail" type="text" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-3">
+                                    @PurchaseOrders.discountrate
+                                </div>
+                                <div class="col-md-5">
+                                    <input type="text" calc-group="1" valtype="PRICE" ctrltype="numeric" allowfloat="true" autocomplete="off" class="form-control" id="discountrate" autocomplete="off">
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-3">
+                                    @PurchaseOrders.discountedprice
+                                </div>
+                                <div class="col-md-5">
+                                    <input type="text" disabled="disabled" class="form-control" id="discountedprice" tabindex="155" autocomplete="off">
+                                </div>
+                                <div class="col-md-1">
+                                    <qtip data-hasqtip="12"><input type="text" disabled="disabled" class="form-control" id="discountedpricecurr" autocomplete="off"></qtip>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-3">
+                                    @PurchaseOrders.vattax
+                                </div>
+                                <div class="col-md-5">
+                                    <select class="form-control" calc-group="1" data-code="-" data-pcode="Q" data-text="" required id="vat"></select>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-3">
+                                    @PurchaseOrders.tax
+                                </div>
+                                <div class="col-md-5">
+                                    <input type="text" calc-group="1" valtype="PRICE" ctrltype="numeric" allowfloat="true" autocomplete="off" class="form-control" id="tax2">
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-3">
+                                    @PurchaseOrders.totalprice
+                                </div>
+                                <div class="col-md-5">
+                                    <input type="text" disabled="disabled" class="form-control" id="totalpartprice" tabindex="155" autocomplete="off">
+                                </div>
+                                <div class="col-md-1">
+                                    <qtip data-hasqtip="12"><input type="text" disabled="disabled" class="form-control" id="totalpartpricecurr" autocomplete="off"></qtip>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-3">
+                                    @PurchaseOrders.totaltax
+                                </div>
+                                <div class="col-md-5">
+                                    <input type="text" disabled="disabled" class="form-control" id="totalparttaxes" autocomplete="off">
+                                </div>
+                                <div class="col-md-1">
+                                    <qtip data-hasqtip="12"><input type="text" disabled="disabled" class="form-control" id="totalparttaxescurr" autocomplete="off"></qtip>
+                                </div>
+                            </div>
+
+                            <div class="row custom">
+                                <div class="col-md-3">
+                                    @PurchaseOrders.totalamount
+                                </div>
+                                <div class="col-md-5">
+                                    <input type="text" disabled="disabled" class="form-control" id="totalpartpricewithvat" autocomplete="off">
+                                </div>
+                                <div class="col-md-1">
+                                    <qtip data-hasqtip="12"><input type="text" disabled="disabled" class="form-control" id="totalpartpricewithvatcurr" autocomplete="off"></qtip>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="track" class="tab-pane">
+        <div class="well">
+            <div class="row">
+                <div class="col-md-12">
+                    <button class="btn btn-default btn-sm" title="Ctrl+S" id="btnSaveLines"><i class="fa fa-floppy-o fa-fw"></i> @PurchaseOrders.save</button>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-8">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <td style="width: 100px;background: #108ce2;color: #FFF;">@PurchaseOrders.partcode</td>
+                            <td style="width: 100px;background: #108ce2;color: #FFF;">@PurchaseOrders.partdesc</td>
+                            <td style="width: 80px;background: #108ce2;color: #FFF;">@PurchaseOrders.cargocomp</td>
+                            <td style="width: 80px;background: #108ce2;color: #FFF;">@PurchaseOrders.cargodate</td>
+                            <td style="width: 80px;background: #108ce2;color: #FFF;">@PurchaseOrders.cargono</td>
+                            <td style="width: 60px;background: #108ce2;color: #FFF;">@PurchaseOrders.cargototalquan</td>
+                            <td style="width: 60px;background: #108ce2;color: #FFF;">@PurchaseOrders.cargoentryquan</td>
+                            <td style="width: 60px;background: #108ce2;color: #FFF;">@PurchaseOrders.cargoreturnquan</td>
+                            <td style="width: 60px;background: #108ce2;color: #FFF;">@PurchaseOrders.cargowaitingquan</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr id="sectioncargo">
+                            <td colspan="12" style="background:#bdc7ce"><strong>@PurchaseOrders.cargo</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-4">
+                <div class="well">
+                    <!-- TODO: TEDARIKCI DETAYLARI -->
+                    <div class="row custom">
+                        <div class="col-md-4">
+                            <strong>@PurchaseOrders.supplier</strong>
+                        </div>
+                        <div class="col-md-8">
+                            <span class="pull-right" id="cargosupplier"></span>
+                        </div>
+                    </div>
+                    <div class="row custom">
+                        <div class="col-md-4">
+                            <strong>@PurchaseOrders.city</strong>
+                        </div>
+                        <div class="col-md-8">
+                            <span class="pull-right" id="cargosuppliercity"></span>
+                        </div>
+                    </div>
+                    <div class="row custom">
+                        <div class="col-md-4">
+                            <strong>@PurchaseOrders.district</strong>
+                        </div>
+                        <div class="col-md-8">
+                            <span class="pull-right" id="cargosuppliercountry"></span>
+                        </div>
+                    </div>
+                    <div class="row custom">
+                        <div class="col-md-4">
+                            <strong>@PurchaseOrders.fulladress</strong>
+                        </div>
+                        <div class="col-md-8">
+                            <span class="pull-right" id="cargosupplieradress"></span>
+                        </div>
+                    </div>
+                    <div class="row custom">
+                        <div class="col-md-4">
+                            <strong>@PurchaseOrders.phone</strong>
+                        </div>
+                        <div class="col-md-8">
+                            <span class="pull-right" id="cargosupplierphone"></span>
+                        </div>
+                    </div>
+                    <div class="row custom">
+                        <div class="col-md-4">
+                            <strong>@PurchaseOrders.mobilephone</strong>
+                        </div>
+                        <div class="col-md-8">
+                            <span class="pull-right" id="cargosuppliermobilephone"></span>
+                        </div>
+                    </div>
+                    <div class="row custom">
+                        <div class="col-md-4">
+                            <strong>@PurchaseOrders.authperson</strong>
+                        </div>
+                        <div class="col-md-8">
+                            <span class="pull-right" id="cargosupplierauth"></span>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal" id="modaladdalltowarehouse" role="dialog" aria-labelledby="modalsharedlbl" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="false">&times;</span></button>
+                    <h4 class="modal-title" id="modaltitle"> @PurchaseOrders.addtowarehouse </h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="row custom">
+                                <div class="col-md-3">
+                                    @PurchaseOrders.waybillno
+                                </div>
+                                <div class="col-md-5">
+                                    <input id="allwaybill" autocomplete="off" required type="text" maxlength="50" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary btn-xs" id="addalltowarehouse">@PurchaseOrders.save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal" id="modalstock" role="dialog" aria-labelledby="modalsharedlbl" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="false">&times;</span></button>
+                    <h4 class="modal-title" id="modaltitle"> Stok Durumu </h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="grdStock"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal" id="modaladdtowarehouse" role="dialog" aria-labelledby="modalsharedlbl" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="false">&times;</span></button>
+                    <h4 class="modal-title" id="modaltitle"> @PurchaseOrders.addtowarehouse </h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="row custom">
+                                <div class="col-md-3">
+                                    @PurchaseOrders.purchasedquantity
+                                </div>
+                                <div class="col-md-4">
+                                    <input disabled="disabled" id="purchasedPartQuantity" type="text" class="form-control" />
+                                </div>
+                                <div class="col-md-1">
+                                    <qtip data-hasqtip="12"><input type="text" disabled="disabled" class="form-control" id="purchasedPartQuantityuom" autocomplete="off"></qtip>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-3">
+                                    @PurchaseOrders.waitingquan
+                                </div>
+                                <div class="col-md-4">
+                                    <input disabled="disabled" id="waitingforEntryQuan" type="text" class="form-control" />
+                                </div>
+                                <div class="col-md-1">
+                                    <qtip data-hasqtip="12"><input type="text" disabled="disabled" class="form-control" id="waitingforEntryQuanuom" autocomplete="off"></qtip>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-3">
+                                    @PurchaseOrders.boughtquan
+                                </div>
+                                <div class="col-md-4">
+                                    <input id="amounttobePurchase" min="0" valtype="PRICE" ctrltype="numeric" allowfloat="true" autocomplete="off" required type="text" class="form-control" />
+                                </div>
+                                <div class="col-md-1">
+                                    <qtip data-hasqtip="12"><input type="text" disabled="disabled" class="form-control" id="amounttobePurchaseuom" autocomplete="off"></qtip>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-3">
+                                    @PurchaseOrders.waybillno
+                                </div>
+                                <div class="col-md-5">
+                                    <input id="waybill" autocomplete="off" required type="text" maxlength="50" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary btn-xs" id="modalsave">@PurchaseOrders.save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal" id="modalreturnfromwarehouse" role="dialog" aria-labelledby="modalsharedlbl" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="false">&times;</span></button>
+                    <h4 class="modal-title" id="modaltitle"> @PurchaseOrders.refund </h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="row custom">
+                                <div class="col-md-3">
+                                    @PurchaseOrders.purchasedquantity
+                                </div>
+                                <div class="col-md-4">
+                                    <input disabled="disabled" id="purchasedPartForReturnQuantity" type="text" class="form-control" />
+                                </div>
+                                <div class="col-md-1">
+                                    <qtip data-hasqtip="12"><input type="text" disabled="disabled" class="form-control" id="purchasedPartForReturnQuantityuom" autocomplete="off"></qtip>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="row custom">
+                                <div class="col-md-3">
+                                    @PurchaseOrders.refundableamount
+                                </div>
+                                <div class="col-md-4">
+                                    <input disabled="disabled" id="waitingforReturnQuan" type="text" class="form-control" />
+                                </div>
+                                <div class="col-md-1">
+                                    <qtip data-hasqtip="12"><input type="text" disabled="disabled" class="form-control" id="waitingforReturnQuanuom" autocomplete="off"></qtip>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="row custom">
+                                <div class="col-md-3">
+                                    @PurchaseOrders.refundamount
+                                </div>
+                                <div class="col-md-4">
+                                    <input id="amounttobeReturn" min="0" valtype="PRICE" ctrltype="numeric" allowfloat="true" autocomplete="off" required type="text" class="form-control" />
+                                </div>
+                                <div class="col-md-1">
+                                    <qtip data-hasqtip="12"><input type="text" disabled="disabled" class="form-control" id="amounttobeReturnuom" autocomplete="off"></qtip>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary btn-xs" id="modalReturnSave">@PurchaseOrders.save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal" id="modalprint" role="dialog" aria-labelledby="modalsharedlbl" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form action="/Reports/GeneratePOR" method="POST" target="_blank" novalidate>
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="false">&times;</span></button>
+                        <h4 class="modal-title">@PurchaseOrders.printoptions</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row custom">
+                            <div class="col-md-4">
+                                @PurchaseOrders.outputtype
+                            </div>
+                            <div class="col-md-8">
+                                <div class="radio radio-primary radio-inline">
+                                    <input type="radio" name="Type" id="pdf" value="PDF" disableonupdate="yes" checked>
+                                    <label for="pdf">@PurchaseOrders.pdf</label>
+                                </div>
+                                <div class="radio radio-primary radio-inline">
+                                    <input type="radio" name="Type" id="xls" disableonupdate="yes" value="XLS">
+                                    <label for="xls">@PurchaseOrders.xls</label>
+                                </div>
+                            </div>
+                        </div>
+                        <input type="hidden" name="Purchaseorder" id="Purchaseorder">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary btn-xs"><i class="fa fa-fw fa-print"></i> @PurchaseOrders.print</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var inbox = "@ViewBag.id";
+</script>
+
+@Html.IncludeVersionedJs("/Scripts/jquery/jquery.fileupload.js")
+@Html.IncludeVersionedJs("/Scripts/jquery/jquery.iframe-transport.js")
+@Html.IncludeVersionedJs("/Scripts/jquery/jquery.sidebar.min.js")
+@Html.IncludeVersionedJs("/Scripts/jquery/jquery.contextMenu.min.js")
+@Html.IncludeVersionedJs("/Scripts/other/numericInput.min.js")
+
+@Html.IncludeVersionedJs("/Scripts/custom/ovi.custom.comments.js")
+@Html.IncludeVersionedJs("/Scripts/custom/ovi.custom.documents.js")
+
+@Html.IncludeVersionedJs("/Scripts/other/numericInput.min.js")
+@Html.IncludeVersionedJs("/Scripts/app/PurchaseOrders.js")

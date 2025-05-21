@@ -1,0 +1,173 @@
+﻿@using Resources.Reports.WPR
+@{
+    ViewBag.Title = "WPR";
+    Layout = "~/Views/Shared/Default.cshtml";
+}
+@Html.IncludeVersionedCss("/Content/bootstrap/bootstrap-tagsinput.css")
+
+@Html.IncludeVersionedCss("/Content/jquery/jquery.fileupload.css")
+@Html.IncludeVersionedCss("/Content/jquery/jquery.contextMenu.min.css")
+
+<div style="margin-top: 10px">
+    <div class="page-header">
+        <h4>@ReportWprStrings.title</h4>
+        <h6></h6>
+    </div>
+    <form action="/Reports/GenerateWPR" method="POST" target="_blank" novalidate>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="tms-page-toolbar inline-toolbar left" data-block="#record">
+                    <div class="btn-group">
+                        <button class="btn btn-default btn-sm" title="Ctrl+R" selection-required="false" id="btnRun"><i class="fa fa fa-plus fa-fw"></i> @ReportWprStrings.run</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" style="margin-top: 10px;" id="record">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading page-panel-heading">@ReportWprStrings.parameters</div>
+                    <div class="panel-body page-panel-body">
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="row custom">
+                                    <div class="col-md-3">
+                                        @ReportWprStrings.requested
+                                    </div>
+                                    <div class="col-md-3">
+                                        <input type="text" ctrltype="datepicker" maxlength="50" class="form-control" name="TskRequestedStart" id="tskrequestedstart">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <input type="text" ctrltype="datepicker" maxlength="50" class="form-control" name="TskRequestedEnd" id="tskrequestedend">
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-3">
+                                        @ReportWprStrings.category
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" data-role="multival" name="Taskcategory" id="taskcategory">
+                                            <div class="input-group-btn">
+                                                <button id="btntaskcategory" class="btn btn-default" type="button"><i class="fa fa-btn fa-search"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-3">
+                                        @ReportWprStrings.org
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" name="Org" id="org">
+                                            <div class="input-group-btn">
+                                                <button id="btnorg" class="btn btn-default" type="button"><i class="fa fa-btn fa-search"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-3">
+                                        @ReportWprStrings.tsktasktype
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" name="TaskType" id="tasktype">
+                                            <div class="input-group-btn">
+                                                <button id="btntasktype" class="btn btn-default" type="button"><i class="fa fa-btn fa-search"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-3">
+                                        @ReportWprStrings.customer
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" name="Customer" id="customer">
+                                            <div class="input-group-btn">
+                                                <button id="btncustomer" class="btn btn-default" type="button"><i class="fa fa-btn fa-search"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-3">
+                                        @ReportWprStrings.branch
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" name="Branches" id="branches">
+                                            <div class="input-group-btn">
+                                                <button id="btnbranches" class="btn btn-default" type="button"><i class="fa fa-btn fa-search"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-3">
+                                        Paramatreleri Gösterme
+                                    </div>
+                                    <div class="col-md-9">
+                                        <div class="checkbox checkbox-primary checkbox-inline">
+                                            <input type="checkbox" name="HideParameters" id="hideparameters" value="+">
+                                            <label for="hideparameters"></label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-3">
+                                        İptal Görevleri Gösterme
+                                    </div>
+                                    <div class="col-md-9">
+                                        <div class="checkbox checkbox-primary checkbox-inline">
+                                            <input type="checkbox" checked="checked" name="DontShowCanceled" id="donotshowcanceled" value="+">
+                                            <label for="donotshowcanceled"></label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="row custom">
+                                    <div class="col-md-3">
+                                        @ReportWprStrings.outputtype
+                                    </div>
+                                    <div class="col-md-9">
+                                        <div class="radio radio-primary radio-inline">
+                                            <input type="radio" name="Type" id="pdf" value="PDF" disableonupdate="yes" checked>
+                                            <label for="pdf">@ReportWprStrings.pdf</label>
+                                        </div>
+                                        <div class="radio radio-primary radio-inline">
+                                            <input type="radio" name="Type" id="xls" disableonupdate="yes" value="XLS">
+                                            <label for="xls">@ReportWprStrings.xls</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+@Html.IncludeVersionedJs("/Scripts/jquery/jquery.fileupload.js")
+@Html.IncludeVersionedJs("/Scripts/jquery/jquery.iframe-transport.js")
+
+@Html.IncludeVersionedJs("/Scripts/other/typeahead.bundle.js")
+@Html.IncludeVersionedJs("/Scripts/jquery/jquery.contextMenu.min.js")
+
+@Html.IncludeVersionedJs("/Scripts/custom/ovi.custom.list.js")
+@Html.IncludeVersionedJs("/Scripts/custom/ovi.custom.documents.js")
+@Html.IncludeVersionedJs("/Scripts/custom/ovi.custom.comments.js")
+@Html.IncludeVersionedJs("/Scripts/custom/ovi.custom.customfields.js")
+
+
+
+@Html.IncludeVersionedJs("/Scripts/bootstrap/bootstrap-tagsinput.min.js")
+@Html.IncludeVersionedJs("/Scripts/app/ReportWPR.js")
+

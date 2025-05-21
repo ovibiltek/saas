@@ -1,0 +1,1 @@
+﻿namespace Ovi.Task.Data.Entity.Task{    public class TMTASKPLANPREVIEW    {        public virtual long TPP_ID { get; set; }        public virtual long TPP_TASK { get; set; }        public virtual string TPP_TYPE { get; set; }        public virtual decimal? TPP_TOTAL { get; set; }        public virtual string TPP_CURR { get; set; }    }}

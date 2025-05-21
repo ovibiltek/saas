@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="DBT" targetNamespace="http://tempuri.org/DBT.xsd" xmlns:mstns="http://tempuri.org/DBT.xsd" xmlns="http://tempuri.org/DBT.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="DBT" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_UserDSName="DBT" msprop:Generator_DataSetName="DBT">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="PARAMETERS" msprop:Generator_RowEvHandlerName="PARAMETERSRowChangeEventHandler" msprop:Generator_RowDeletedName="PARAMETERSRowDeleted" msprop:Generator_RowDeletingName="PARAMETERSRowDeleting" msprop:Generator_RowEvArgName="PARAMETERSRowChangeEvent" msprop:Generator_TablePropName="PARAMETERS" msprop:Generator_RowChangedName="PARAMETERSRowChanged" msprop:Generator_RowChangingName="PARAMETERSRowChanging" msprop:Generator_TableClassName="PARAMETERSDataTable" msprop:Generator_RowClassName="PARAMETERSRow" msprop:Generator_TableVarName="tablePARAMETERS" msprop:Generator_UserTableName="PARAMETERS">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="MONTH" msprop:Generator_ColumnPropNameInRow="MONTH" msprop:Generator_ColumnPropNameInTable="MONTHColumn" msprop:Generator_ColumnVarNameInTable="columnMONTH" msprop:Generator_UserColumnName="MONTH" type="xs:string" minOccurs="0" />
+              <xs:element name="YEAR" msprop:Generator_ColumnPropNameInRow="YEAR" msprop:Generator_ColumnPropNameInTable="YEARColumn" msprop:Generator_ColumnVarNameInTable="columnYEAR" msprop:Generator_UserColumnName="YEAR" type="xs:string" minOccurs="0" />
+              <xs:element name="DEPARTMENT" msprop:Generator_ColumnPropNameInRow="DEPARTMENT" msprop:Generator_ColumnPropNameInTable="DEPARTMENTColumn" msprop:Generator_ColumnVarNameInTable="columnDEPARTMENT" msprop:Generator_UserColumnName="DEPARTMENT" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="SECTION1" msprop:Generator_RowEvHandlerName="SECTION1RowChangeEventHandler" msprop:Generator_RowDeletedName="SECTION1RowDeleted" msprop:Generator_RowDeletingName="SECTION1RowDeleting" msprop:Generator_RowEvArgName="SECTION1RowChangeEvent" msprop:Generator_TablePropName="SECTION1" msprop:Generator_RowChangedName="SECTION1RowChanged" msprop:Generator_RowChangingName="SECTION1RowChanging" msprop:Generator_TableClassName="SECTION1DataTable" msprop:Generator_RowClassName="SECTION1Row" msprop:Generator_TableVarName="tableSECTION1" msprop:Generator_UserTableName="SECTION1">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="DATE" msprop:Generator_ColumnPropNameInRow="DATE" msprop:Generator_ColumnPropNameInTable="DATEColumn" msprop:Generator_ColumnVarNameInTable="columnDATE" msprop:Generator_UserColumnName="DATE" type="xs:string" minOccurs="0" />
+              <xs:element name="ARIZA" msprop:Generator_ColumnPropNameInRow="ARIZA" msprop:Generator_ColumnPropNameInTable="ARIZAColumn" msprop:Generator_ColumnVarNameInTable="columnARIZA" msprop:Generator_UserColumnName="ARIZA" type="xs:int" minOccurs="0" />
+              <xs:element name="BILGI" msprop:Generator_ColumnPropNameInRow="BILGI" msprop:Generator_ColumnPropNameInTable="BILGIColumn" msprop:Generator_ColumnVarNameInTable="columnBILGI" msprop:Generator_UserColumnName="BILGI" type="xs:int" minOccurs="0" />
+              <xs:element name="DESTEK" msprop:Generator_ColumnPropNameInRow="DESTEK" msprop:Generator_ColumnPropNameInTable="DESTEKColumn" msprop:Generator_ColumnVarNameInTable="columnDESTEK" msprop:Generator_UserColumnName="DESTEK" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="SECTION2" msprop:Generator_RowEvHandlerName="SECTION2RowChangeEventHandler" msprop:Generator_RowDeletedName="SECTION2RowDeleted" msprop:Generator_RowDeletingName="SECTION2RowDeleting" msprop:Generator_RowEvArgName="SECTION2RowChangeEvent" msprop:Generator_TablePropName="SECTION2" msprop:Generator_RowChangedName="SECTION2RowChanged" msprop:Generator_RowChangingName="SECTION2RowChanging" msprop:Generator_TableClassName="SECTION2DataTable" msprop:Generator_RowClassName="SECTION2Row" msprop:Generator_TableVarName="tableSECTION2" msprop:Generator_UserTableName="SECTION2">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="REGION" msdata:Caption="DATE" msprop:Generator_ColumnPropNameInRow="REGION" msprop:Generator_ColumnPropNameInTable="REGIONColumn" msprop:Generator_ColumnVarNameInTable="columnREGION" msprop:Generator_UserColumnName="REGION" type="xs:string" minOccurs="0" />
+              <xs:element name="ARIZA" msprop:Generator_ColumnPropNameInRow="ARIZA" msprop:Generator_ColumnPropNameInTable="ARIZAColumn" msprop:Generator_ColumnVarNameInTable="columnARIZA" msprop:Generator_UserColumnName="ARIZA" type="xs:int" minOccurs="0" />
+              <xs:element name="BILGI" msprop:Generator_ColumnPropNameInRow="BILGI" msprop:Generator_ColumnPropNameInTable="BILGIColumn" msprop:Generator_ColumnVarNameInTable="columnBILGI" msprop:Generator_UserColumnName="BILGI" type="xs:int" minOccurs="0" />
+              <xs:element name="DESTEK" msprop:Generator_ColumnPropNameInRow="DESTEK" msprop:Generator_ColumnPropNameInTable="DESTEKColumn" msprop:Generator_ColumnVarNameInTable="columnDESTEK" msprop:Generator_UserColumnName="DESTEK" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="SECTION3" msprop:Generator_RowEvHandlerName="SECTION3RowChangeEventHandler" msprop:Generator_RowDeletedName="SECTION3RowDeleted" msprop:Generator_RowDeletingName="SECTION3RowDeleting" msprop:Generator_RowEvArgName="SECTION3RowChangeEvent" msprop:Generator_TablePropName="SECTION3" msprop:Generator_RowChangedName="SECTION3RowChanged" msprop:Generator_RowChangingName="SECTION3RowChanging" msprop:Generator_TableClassName="SECTION3DataTable" msprop:Generator_RowClassName="SECTION3Row" msprop:Generator_TableVarName="tableSECTION3" msprop:Generator_UserTableName="SECTION3">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="CUSTOMERANDREGION" msdata:Caption="DATE" msprop:Generator_ColumnPropNameInRow="CUSTOMERANDREGION" msprop:Generator_ColumnPropNameInTable="CUSTOMERANDREGIONColumn" msprop:Generator_ColumnVarNameInTable="columnCUSTOMERANDREGION" msprop:Generator_UserColumnName="CUSTOMERANDREGION" type="xs:string" minOccurs="0" />
+              <xs:element name="ARIZA" msprop:Generator_ColumnPropNameInRow="ARIZA" msprop:Generator_ColumnPropNameInTable="ARIZAColumn" msprop:Generator_ColumnVarNameInTable="columnARIZA" msprop:Generator_UserColumnName="ARIZA" type="xs:int" minOccurs="0" />
+              <xs:element name="BILGI" msprop:Generator_ColumnPropNameInRow="BILGI" msprop:Generator_ColumnPropNameInTable="BILGIColumn" msprop:Generator_ColumnVarNameInTable="columnBILGI" msprop:Generator_UserColumnName="BILGI" type="xs:int" minOccurs="0" />
+              <xs:element name="DESTEK" msprop:Generator_ColumnPropNameInRow="DESTEK" msprop:Generator_ColumnPropNameInTable="DESTEKColumn" msprop:Generator_ColumnVarNameInTable="columnDESTEK" msprop:Generator_UserColumnName="DESTEK" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="SECTION4" msprop:Generator_RowEvHandlerName="SECTION4RowChangeEventHandler" msprop:Generator_RowDeletedName="SECTION4RowDeleted" msprop:Generator_RowDeletingName="SECTION4RowDeleting" msprop:Generator_RowEvArgName="SECTION4RowChangeEvent" msprop:Generator_TablePropName="SECTION4" msprop:Generator_RowChangedName="SECTION4RowChanged" msprop:Generator_RowChangingName="SECTION4RowChanging" msprop:Generator_TableClassName="SECTION4DataTable" msprop:Generator_RowClassName="SECTION4Row" msprop:Generator_TableVarName="tableSECTION4" msprop:Generator_UserTableName="SECTION4">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="CREATEDBY" msdata:Caption="DATE" msprop:Generator_ColumnPropNameInRow="CREATEDBY" msprop:Generator_ColumnPropNameInTable="CREATEDBYColumn" msprop:Generator_ColumnVarNameInTable="columnCREATEDBY" msprop:Generator_UserColumnName="CREATEDBY" type="xs:string" minOccurs="0" />
+              <xs:element name="ARIZA" msprop:Generator_ColumnPropNameInRow="ARIZA" msprop:Generator_ColumnPropNameInTable="ARIZAColumn" msprop:Generator_ColumnVarNameInTable="columnARIZA" msprop:Generator_UserColumnName="ARIZA" type="xs:int" minOccurs="0" />
+              <xs:element name="BILGI" msprop:Generator_ColumnPropNameInRow="BILGI" msprop:Generator_ColumnPropNameInTable="BILGIColumn" msprop:Generator_ColumnVarNameInTable="columnBILGI" msprop:Generator_UserColumnName="BILGI" type="xs:int" minOccurs="0" />
+              <xs:element name="DESTEK" msprop:Generator_ColumnPropNameInRow="DESTEK" msprop:Generator_ColumnPropNameInTable="DESTEKColumn" msprop:Generator_ColumnVarNameInTable="columnDESTEK" msprop:Generator_UserColumnName="DESTEK" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

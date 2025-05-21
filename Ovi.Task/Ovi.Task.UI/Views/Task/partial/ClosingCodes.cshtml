@@ -1,0 +1,84 @@
+﻿@using Resources.Task.Index
+<div id="closingcodes" class="tab-pane">
+    <div id="closingcodesform" class="panel panel-default items">
+        <div class="panel-heading page-panel-heading">@TaskStrings.closingcodes</div>
+        <div class="row">
+            <div class="col-md-12" style="padding-right: 0">
+                <div class="inline-toolbar left" style="border: none;" data-block="#closingcodes">
+                    <div class="btn-group">
+                        <button class="btn btn-default btn-sm" selection-required="true" title="Ctrl+S" id="btnSaveClosingCodes"><i class="fa fa-floppy-o fa-fw"></i>@TaskStrings.save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel-body page-panel-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-3">
+                            @TaskStrings.failure
+                        </div>
+                        <div class="col-md-5">
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="failure">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button" id="btnFailure"><i class="fa fa-search fa-fw"></i></button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row custom failure-div hidden">
+                        <div class="col-md-3">
+                            @TaskStrings.failuredesc
+                        </div>
+                        <div class="col-md-5">
+                            <input type="text" class="form-control" id="failuredesc">
+                        </div>
+                    </div>
+                    <div class="row custom">
+                        <div class="col-md-3">
+                            @TaskStrings.cause
+                        </div>
+                        <div class="col-md-5">
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="cause">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button" id="btnCause"><i class="fa fa-search fa-fw"></i></button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row custom cause-div hidden">
+                        <div class="col-md-3">
+                            @TaskStrings.causedesc
+                        </div>
+                        <div class="col-md-5">
+                            <input type="text" class="form-control" id="causedesc">
+                        </div>
+                    </div>
+                    <div class="row custom">
+                        <div class="col-md-3">
+                            @TaskStrings.action
+                        </div>
+                        <div class="col-md-5">
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="action">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button" id="btnAction"><i class="fa fa-search fa-fw"></i></button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row custom action-div hidden">
+                        <div class="col-md-3">
+                            @TaskStrings.actiondesc
+                        </div>
+                        <div class="col-md-5">
+                            <input type="text" class="form-control" id="actiondesc">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,48 @@
+﻿@using Resources.BookedHours.Index
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Default.cshtml";
+}
+<div style="margin-top: 10px">
+    <div class="page-header">
+        <h4>@BookedHoursStrings.bookedhours</h4>
+        <h6></h6>
+    </div>
+    <div id="grdBookedHours"></div>
+    <div class="sidebars">
+        <div class="sidebar right" style="right: -400px;">
+            <div class="row">
+                <div class="col-md-12" style="text-align: center; margin-top: 10px;">
+                    <button id="filter" class="btn btn-primary btn-xs"><i class="fa fa-filter"></i> @BookedHoursStrings.filter</button>
+                    <button id="clearfilter" class="btn btn-info btn-xs"><i class="fa fa-ban"></i> @BookedHoursStrings.reset</button>
+                    <button id="closesiderbar" class="btn btn-danger btn-xs"><i class="fa fa-times"></i> @BookedHoursStrings.close</button>
+                </div>
+            </div>
+            <div class="row custom">
+                <div class="col-md-12">
+                    <div class="page-header">
+                        <h5>@BookedHoursStrings.date</h5>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <input type="text" ctrltype="datepicker" class="i-filter form-control" id="date_start">
+                </div>
+                <div class="col-md-6">
+                    <input type="text" ctrltype="datepicker" class="i-filter form-control" id="date_end">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="page-header">
+                        <h5>@BookedHoursStrings.userdesc</h5>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <input type="text" class="i-filter form-control" id="user">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@Html.IncludeVersionedJs("/Scripts/jquery/jquery.sidebar.min.js")
+@Html.IncludeVersionedJs("/Scripts/app/BookedHours.js")

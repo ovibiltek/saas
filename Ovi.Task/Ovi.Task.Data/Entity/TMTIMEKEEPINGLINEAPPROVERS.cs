@@ -1,0 +1,1 @@
+﻿namespace Ovi.Task.Data.Entity{    public class TMTIMEKEEPINGLINEAPPROVERS    {        public virtual int TKA_ID { get; set; }        public virtual int TKA_LINE { get; set; }        public virtual int TKA_ORDER { get; set; }        public virtual string TKA_USER { get; set; }    }}

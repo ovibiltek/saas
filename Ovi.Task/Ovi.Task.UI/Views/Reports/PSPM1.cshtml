@@ -1,0 +1,182 @@
+﻿@using Resources.Reports.PSP
+@{
+    ViewBag.Title = "PSPM1";
+    Layout = "~/Views/Shared/Default.cshtml";
+}
+@Html.IncludeVersionedCss("/Content/bootstrap/bootstrap-tagsinput.css")
+
+@Html.IncludeVersionedCss("/Content/jquery/jquery.fileupload.css")
+@Html.IncludeVersionedCss("/Content/jquery/jquery.contextMenu.min.css")
+
+
+
+<div style="margin-top: 10px">
+    <div class="page-header">
+        <h4>@ReportPspStrings.title</h4>
+        <h6></h6>
+    </div>
+    <form action="/Reports/GeneratePSP" method="POST" target="_blank" validate>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="tms-page-toolbar inline-toolbar left" data-block="#record">
+                    <div class="btn-group">
+                        <button class="btn btn-default btn-sm" title="Ctrl+R" selection-required="false"  id="btnRun"><i class="fa fa fa-plus fa-fw"></i> @ReportPspStrings.run</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" style="margin-top: 10px;" id="record">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading page-panel-heading">@ReportPspStrings.parameters</div>
+                    <div class="panel-body page-panel-body">
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="row custom">
+                                    <div class="col-md-3">
+                                        @ReportPspStrings.organization
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="input-group">
+                                            <input type="text" required maxlength="50" class="form-control required" id="org">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default" type="button" id="btnorg"><i class="fa fa-search fa-fw"></i></button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-3">
+                                        @ReportPspStrings.customer
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="input-group">
+                                            <input type="text" required maxlength="50" class="form-control required" name="Customer" id="customer">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default" type="button" id="btncustomer"><i class="fa fa-search fa-fw"></i></button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-3">
+                                        @ReportPspStrings.groupcode
+                                    </div>
+                                    <div class="col-md-5">
+                                        <input type="text" required maxlength="50" class="form-control required" name="GroupCode" id="groupcode">
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-3">
+                                        @ReportPspStrings.outputtype
+                                    </div>
+                                    <div class="col-md-9">
+                                        <div class="radio radio-primary radio-inline">
+                                            <input type="radio" name="Type" id="pdf" value="PDF" disableonupdate="yes" checked>
+                                            <label for="pdf">@ReportPspStrings.pdf</label>
+                                        </div>
+                                        <div class="radio radio-primary radio-inline">
+                                            <input type="radio" name="Type" id="xls" disableonupdate="yes" value="XLS">
+                                            <label for="xls">@ReportPspStrings.xls</label>
+                                        </div>
+                                        <div class="radio radio-primary radio-inline">
+                                            <input type="radio" name="Type" id="zip" disableonupdate="yes" value="ZIP">
+                                            <label for="zip">@ReportPspStrings.zip</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-3">
+                                        @ReportPspStrings.reportformat
+                                    </div>
+                                    <div class="col-md-9" id="formgroup">
+                                        <div class="radio radio-primary radio-inline">
+                                            <input type="radio" name="Format" id="format1" value="F1" disableonupdate="yes" checked>
+                                            <label for="format1">@ReportPspStrings.format1</label>
+                                        </div>
+                                        <div class="radio radio-primary radio-inline">
+                                            <input type="radio" name="Format" id="format2" disableonupdate="yes" value="F2">
+                                            <label for="format2">@ReportPspStrings.format2</label>
+                                        </div>
+                                        <div class="radio radio-primary radio-inline">
+                                            <input type="radio" name="Format" id="format3" disableonupdate="yes" value="F3">
+                                            <label for="format3">@ReportPspStrings.format3</label>
+                                        </div>
+                                        <div class="radio radio-primary radio-inline">
+                                            <input type="radio" name="Format" id="format4" disableonupdate="yes" value="F4">
+                                            <label for="format3">@ReportPspStrings.format4</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-3">
+                                        @ReportPspStrings.hasquotation
+                                    </div>
+                                    <div class="col-md-9">
+                                        <div class="checkbox checkbox-primary checkbox-inline">
+                                            <input type="checkbox" name="HasQuotation" id="hasquotation" value="+">
+                                            <label for="hasquotation"></label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row custom hidden" id="addsecondtable">
+                                    <div class="col-md-3">
+                                        @ReportPspStrings.includetable
+                                    </div>
+                                    <div class="col-md-9">
+                                        <div class="checkbox checkbox-primary checkbox-inline">
+                                            <input type="checkbox" name="IncludeSecondTable" id="includesecondtable" value="+">
+                                            <label for="includesecondtable"></label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-3">
+                                        @ReportPspStrings.donotshowparams
+                                    </div>
+                                    <div class="col-md-9">
+                                        <div class="checkbox checkbox-primary checkbox-inline">
+                                            <input type="checkbox" name="HideParameters" id="hideparameters" value="+">
+                                            <label for="hideparameters"></label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row custom hidden" id="divOnlyServiceForms">
+                                    <div class="col-md-3">
+                                        @ReportPspStrings.onlyserviceforms
+                                    </div>
+                                    <div class="col-md-9">
+                                        <div class="checkbox checkbox-primary checkbox-inline">
+                                            <input type="checkbox" name="OnlyServiceForms" id="onlyserviceforms" value="+">
+                                            <label for="onlyserviceforms"></label>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                         
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    
+</div>
+
+
+@Html.IncludeVersionedJs("/Scripts/jquery/jquery.iframe-transport.js")
+
+@Html.IncludeVersionedJs("/Scripts/other/typeahead.bundle.js")
+@Html.IncludeVersionedJs("/Scripts/jquery/jquery.contextMenu.min.js")
+
+@Html.IncludeVersionedJs("/Scripts/custom/ovi.custom.list.js")
+
+@Html.IncludeVersionedJs("/Scripts/custom/ovi.custom.customfields.js")
+
+
+
+@Html.IncludeVersionedJs("/Scripts/bootstrap/bootstrap-tagsinput.min.js")
+@Html.IncludeVersionedJs("/Scripts/app/ReportPSPM1.js")

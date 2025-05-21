@@ -1,0 +1,134 @@
+﻿@using Resources.TypeLevels.Index
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Default.cshtml";
+}
+
+@Html.IncludeVersionedCss("/Content/other/jqtree.css")
+
+
+<div style="margin-top: 10px">
+    <div class="page-header">
+        <h4>@TypeLevelStrings.typelevels</h4>
+        <h6></h6>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tms-page-toolbar inline-toolbar left" data-block="#record">
+                <div class="btn-group">
+                    <button class="btn btn-default btn-sm" title="Ctrl+R" selection-required="false" id="btnNew"><i class="fa fa fa-plus fa-fw"></i> @TypeLevelStrings.addnew </button>
+                    <button class="btn btn-default btn-sm" title="Ctrl+S" selection-required="false" id="btnSave"><i class="fa fa-floppy-o fa-fw"></i> @TypeLevelStrings.save</button>
+                    <button class="btn btn-default btn-sm" title="Ctrl+U" selection-required="true" id="btnUndo"><i class="fa fa-undo fa-fw"></i> @TypeLevelStrings.undo</button>
+                    <button class="btn btn-default btn-sm" title="Ctrl+D" selection-required="true" id="btnDelete"><i class="fa fa-trash-o fa-fw"></i> @TypeLevelStrings.delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="row">
+                <div class="col-md-4">
+                    @TypeLevelStrings.entity
+                </div>
+                <div class="col-md-8">
+                    <select id="entityforlist" class="form-control">
+                        <option value="">@TypeLevelStrings.pleaseselect</option>
+                        <option value="EQUIPMENT">@TypeLevelStrings.equipment</option>
+                        <option value="PART">@TypeLevelStrings.part</option>
+                        <option value="SERVICECODE">@TypeLevelStrings.servicecode</option>
+                    </select>
+                </div>
+            </div>
+            <hr />
+            <div class="row">
+                <div id="scroll-container">
+                    <div id="treelevel"></div>
+                </div>             
+            </div>
+        </div>
+        <div class="col-md-8">
+            <ul class="nav nav-tabs">
+                <li class="active"><a data-toggle="tab" default-on-reset href="#record">@TypeLevelStrings.record</a></li>
+            </ul>
+            <div class="tab-content">
+                <div id="record" class="tab-pane active">
+                    <div class="panel panel-default">
+                        <div class="panel-heading page-panel-heading">@TypeLevelStrings.record</div>
+                        <div class="panel-body page-panel-body">
+                            <div class="row custom">
+                                <div class="col-md-2">
+                                    @TypeLevelStrings.id
+                                </div>
+                                <div class="col-md-4">
+                                    <input disabled="disabled" alwaysdisabled="yes" id="typelevelid" type="text" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-2">
+                                    @TypeLevelStrings.code
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="text" maxlength="50" id="code" required class="form-control form-code"/>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-2">
+                                    @TypeLevelStrings.description
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="text" maxlength="250" id="desc" required class="form-control"/>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-2">
+                                    @TypeLevelStrings.entity
+                                </div>
+                                <div class="col-md-4">
+                                    <select id="entity" class="form-control" required disableonupdate="yes">
+                                        <option value="">@TypeLevelStrings.pleaseselect</option>
+                                        <option value="EQUIPMENT">@TypeLevelStrings.equipment</option>
+                                        <option value="PART">@TypeLevelStrings.part</option>
+                                        <option value="SERVICECODE">@TypeLevelStrings.servicecode</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-2">
+                                    @TypeLevelStrings.types
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="input-group">
+                                        <input type="text" disableonupdate="yes" maxlength="50" required class="form-control" id="type">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button" disableonupdate="yes" id="btntype"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div><!-- /input-group -->
+                                </div>
+                            </div>
+
+                            <div class="row custom">
+                                <div class="col-md-2">
+                                    @TypeLevelStrings.parent
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="input-group">
+                                        <input type="text" maxlength="50" class="form-control" id="parent">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button" id="btnparent"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div><!-- /input-group -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@Html.IncludeVersionedJs("/Scripts/other/tree.jquery.js")
+@Html.IncludeVersionedJs("/Scripts/bootstrap/bootstrap-tagsinput.min.js")
+@Html.IncludeVersionedJs("/Scripts/custom/ovi.custom.list.js")
+
+@Html.IncludeVersionedJs("/Scripts/app/TypeLevels.js")

@@ -1,0 +1,143 @@
+﻿@using Resources.Calendar.Index
+@using Resources.Main.Index
+
+@Html.IncludeVersionedCss("/Content/fullcalendar.min.css")
+@Html.IncludeVersionedCss("/Content/multiple-select.css")
+
+<style>
+    .select2-container {
+        padding-right: 5px;
+    }
+
+    #date {
+        border: 1px solid #C6C6C6;
+        padding: 4px;
+        margin-right: 5px;
+        height: 22px;
+        width: 100%;
+    }
+</style>
+
+<div class="target" id="calendar">
+    <div class="page-header">
+        <h1>@MainStrings.calendar</h1>
+    </div>
+    <div style="left: 4%;position: relative; width: 96%;">
+
+        <div style="margin-top: 5px;" id="wrapper">
+            <div class="row activityview noselect">
+                <div class="col-md-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading" style="padding-top: 5px;">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="pull-left">
+                                        <h4>
+                                            <i class="fa fa-calendar-o"></i> @CalendarStrings.calendar
+                                        </h4>
+                                    </div>
+                                    <div class="pull-right">
+                                        <div class="btn-group" data-toggle="buttons">
+                                            @if (UserManager.Instance.User.ViewWeeklyCalendar == '+')
+                                            {
+                                                <label class="btn btn-sm btn-default active">
+                                                    <input type="radio" name="options" id="weekly" checked="" autocomplete="off"> @CalendarStrings.weekly
+                                                </label>
+                                            }
+                                            <label class="btn btn-sm btn-default">
+                                                <input type="radio" name="options" id="monthly" autocomplete="off"> @CalendarStrings.monthly
+                                            </label>
+                                        </div>
+                                        <div class="btn-group">
+                                            <button class="btn btn-sm btn-info" data-toggle="modal" data-target="#modalcalendarfilter">
+                                                <i class="fa fa-filter" aria-hidden="true"></i>
+                                            </button>
+                                            <button class="btn btn-sm btn-primary" id="btnRun">
+                                                <i class="fa fa-refresh" aria-hidden="true"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-body" style="padding: 0px;">
+                            @if (UserManager.Instance.User.ViewWeeklyCalendar == '+')
+                            {
+                                <div data-isauthorized="@(UserManager.Instance.User.DepartmentAuthorized.Split(',').Contains(UserManager.Instance.User.Code) ? '+' : '-')" id="calendartable" class="table table-striped table-bordered" style="margin-bottom: 0;">
+                                    <div class="row calendartablemsg01"><strong>@CalendarStrings.msg01</strong></div>
+                                    <div class="row days hide">
+                                        <div class="col-md-2 cal-cell">
+                                            <div class="row cal-content">
+                                                <div id="departmenttitle" style="color:#FFF" class="col-md-10">@UserManager.Instance.User.Department - @(UserManager.Instance.User.DepartmentDesc.Length > 20 ? UserManager.Instance.User.DepartmentDesc.Substring(0, 20) + "..." : UserManager.Instance.User.DepartmentDesc)</div>
+                                                <div class="col-md-2 updeptasks upcnt">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-1 cal-cell" day-index="1"></div>
+                                        <div class="col-md-1 cal-cell" day-index="2"></div>
+                                        <div class="col-md-1 cal-cell" day-index="3"></div>
+                                        <div class="col-md-1 cal-cell" day-index="4"></div>
+                                        <div class="col-md-1 cal-cell" day-index="5"></div>
+                                        <div class="col-md-1 cal-cell" day-index="6"></div>
+                                        <div class="col-md-1 cal-cell" day-index="7"></div>
+                                    </div>
+                                    <div class="row body"></div>
+                                </div>
+                            }
+                            <div id="monthlyview"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal" id="modalcalendarfilter" role="dialog" aria-labelledby="modalsharedlbl" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="false">&times;</span></button>
+                        <h4 class="modal-title">@CalendarStrings.filter</h4>
+                    </div>
+                    <div class="modal-body" style="height: 300px;">
+                        <div class="row">
+                            <div class="col-md-offset-3 col-md-6">
+                                <div class="form-group">
+                                    <label for="date" class="">@CalendarStrings.date</label>
+                                    <input type="text" id="date" ctrltype="datepicker" value="@DateTime.Now.Date.ToString(OviShared.ShortDate)" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="departments">@CalendarStrings.department</label>
+                                    <select id="departments" style="width: 100%" multiple="multiple"></select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="unit">@CalendarStrings.unit</label>
+                                    <select id="unit" style="width: 100%">
+                                        <option data-value="TRADE" value="T">@CalendarStrings.trade</option>
+                                        <option data-value="ASSIGNED,FOLLOWED" value="P">@CalendarStrings.personnel</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="trade">@CalendarStrings.trade</label>
+                                    <select id="trade" style="width: 100%" multiple="multiple"></select>
+                                </div>
+                                <button id="btnRefresh" data-dismiss="modal" class="btn btn-info btn-xs">
+                                    <i class="fa fa-refresh"></i>
+                                    @CalendarStrings.refresh
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@Html.IncludeVersionedJs("/Scripts/other/fullcalendar.min.js")
+
+<script>
+    $.fn.datetimepicker.defaults.format = "DD-MM-YYYY";
+</script>
+
+
+@Html.IncludeVersionedJs("/Scripts/other/multiple-select.js")

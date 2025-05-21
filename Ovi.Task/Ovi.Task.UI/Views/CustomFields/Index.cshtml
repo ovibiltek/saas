@@ -1,0 +1,175 @@
+﻿@using Resources.Messages.Index
+@using Resources.Shared.Index
+@{
+    Layout = "~/Views/Shared/Default.cshtml";
+}
+
+@Html.IncludeVersionedCss("/Content/jquery/jquery.contextMenu.min.css")
+
+<div style="margin-top: 10px">
+    <div class="page-header">
+        <h4>@CustomFieldsStrings.customfields</h4>
+        <h6></h6>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tms-page-toolbar inline-toolbar left" data-block="#record">
+                <div class="btn-group">
+                    <button class="btn btn-default btn-sm" title="Ctrl+R" selection-required="false" id="btnNew"><i class="fa fa fa-plus fa-fw"></i> @CustomFieldsStrings.addnew</button>
+                    <button class="btn btn-default btn-sm" title="Ctrl+S" selection-required="false" id="btnSave"><i class="fa fa-floppy-o fa-fw"></i> @CustomFieldsStrings.save</button>
+                    <button class="btn btn-default btn-sm" title="Ctrl+U" selection-required="true" id="btnUndo"><i class="fa fa-undo fa-fw"></i> @CustomFieldsStrings.undo</button>
+                    <button class="btn btn-default btn-sm" title="Ctrl+D" selection-required="true" id="btnDelete"><i class="fa fa-trash-o fa-fw"></i> @CustomFieldsStrings.delete</button>
+                    <button class="btn btn-default btn-sm" title="Ctrl+H" selection-required="true" id="btnHistory" disabled="disabled"><i class="fa fa-bolt fa-fw"></i> @CustomFieldsStrings.history</button>
+                    <button class="btn btn-default btn-sm" title="ctrl+Q" selection-required="true" id="btnTranslations" disabled="disabled"><i class="fa fa-globe"></i> @CustomFieldsStrings.translations</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div id="grdCustomFields"></div>
+        </div>
+    </div>
+    <div class="row" style="margin-top: 10px;" id="record">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading page-panel-heading">@CustomFieldsStrings.record</div>
+                <div class="panel-body page-panel-body">
+                    <div class="row custom">
+                        <div class="col-md-2">
+                            @CustomFieldsStrings.code
+                        </div>
+                        <div class="col-md-3">
+                            <input type="text" maxlength="50" id="code" required disableonupdate="yes" class="form-control uppercase" />
+                        </div>
+                    </div>
+                    <div class="row custom">
+                        <div class="col-md-2">
+                            @CustomFieldsStrings.fieldtype
+                        </div>
+                        <div class="col-md-3">
+                            <select class="form-control" disableonupdate="yes" required id="fieldtype">
+                                <option class="default" value="">@CustomFieldsStrings.pleaseselect</option>
+                                <option class="default" value="FREETEXT">@CustomFieldsStrings.freetext</option>
+                                <option class="default" value="NUMERIC">@CustomFieldsStrings.numeric</option>
+                                <option class="default" value="DATE">@CustomFieldsStrings.date</option>
+                                <option class="default" value="DATETIME">@CustomFieldsStrings.datetime</option>
+                                <option class="default" value="TIME">@CustomFieldsStrings.time</option>
+                                <option class="default" value="CHECKBOX">@CustomFieldsStrings.checkbox</option>
+                                <option class="default" value="LOOKUP">@CustomFieldsStrings.lookup</option>
+                                <option class="default" value="ENTITY">@CustomFieldsStrings.entity</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row custom">
+                        <div class="col-md-2">
+                            @CustomFieldsStrings.description
+                        </div>
+                        <div class="col-md-3">
+                            <input type="text" maxlength="50" id="description" required class="form-control" />
+                        </div>
+                    </div>
+                    <div class="row custom entity hidden">
+                        <div class="col-md-2">
+                            @CustomFieldsStrings.entity
+                        </div>
+                        <div class="col-md-3">
+                            <select class="form-control" id="entity" disableonupdate="yes"></select>
+                        </div>
+                    </div>
+                    <div class="row custom allowfreetext hidden">
+                        <div class="col-md-2">
+                            @CustomFieldsStrings.allowfreetext
+                        </div>
+                        <div class="col-md-3">
+                            <div class="checkbox checkbox-primary">
+                                <input type="checkbox" class="styled" checked="checked" id="allowfreetext" />
+                                <label></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row custom">
+                        <div class="col-md-2">
+                            @CustomFieldsStrings.customfieldclass
+                        </div>
+                        <div class="col-md-3">
+                            <div class="input-group">
+                                <input type="text" maxlength="50" class="form-control uppercase" id="customfieldclass">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button" id="btncustomfieldclass"><i class="fa fa-search fa-fw"></i></button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row custom">
+                        <div class="col-md-2">
+                            @CustomFieldsStrings.active
+                        </div>
+                        <div class="col-md-3">
+                            <div class="checkbox checkbox-primary">
+                                <input type="checkbox" class="styled" checked="checked" id="active" />
+                                <label></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row custom cmd-define-lulines hidden">
+                        <button class="btn btn-primary btn-sm" id="btnDefineLookupLines"><i class="fa fa-code"></i> @CustomFieldsStrings.definelulines</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="lookupvalues" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="false">&times;</span></button>
+                <h4 class="modal-title">@CustomFieldsStrings.lookuplines</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-5"><input type="text" required placeholder="@CustomFieldsStrings.code" class="form-control" id="txtCode">
+                    </div>
+                    <div class="col-md-5"><input type="text" required placeholder="@CustomFieldsStrings.desc" class="form-control" id="txtDesc">
+                    </div>
+                    <div class="col-md-2"><button class="btn btn-primary col-md-12" type="button" id="btnAddLULine"><i class="fa fa-plus fa-fw"></i> @CustomFieldsStrings.add</button>
+                    </div>
+                </div>
+                <div class="row custom">
+                    <div class="col-md-12">
+                        <div id="grdLULines"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="auth" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="false">&times;</span></button>
+                <h4 class="modal-title">@CustomFieldsStrings.authorizations</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                </div>
+                <div class="row custom">
+                    <div class="col-md-12">
+                        <div id="grdCustomFieldAuth"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success btn-xs" data-action="save">@SharedStrings.save</button>
+                <button type="button" class="btn btn-primary btn-xs" data-dismiss="modal" data-action="close">@SharedStrings.cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@Html.IncludeVersionedJs("/Scripts/jquery/jquery.contextMenu.min.js")
+@Html.IncludeVersionedJs("/Scripts/custom/ovi.custom.entitylookup.js")
+@Html.IncludeVersionedJs("/Scripts/app/CustomFields.js")

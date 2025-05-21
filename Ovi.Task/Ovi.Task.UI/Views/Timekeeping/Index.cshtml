@@ -1,0 +1,554 @@
+﻿@using Resources.Shared.Index
+@using Resources.Timekeeping.Index
+@{
+    Layout = "~/Views/Shared/Default.cshtml";
+}
+
+@Html.IncludeVersionedCss("/Content/jquery/jquery.fileupload.css")
+
+@Html.IncludeVersionedCss("/Content/jquery/jquery.contextMenu.min.css")
+
+
+<div style="margin-top: 10px">
+    <div class="page-header">
+        <h4>
+            @TimekeepingStrings.timekeeping
+        </h4>
+        <h6></h6>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tms-page-toolbar inline-toolbar left" data-block="#record">
+                <div class="btn-group">
+                    <button class="btn btn-default btn-sm" title="Ctrl+R" selection-required="false" id="btnNew"><i class="fa fa fa-plus fa-fw"></i>@TimekeepingStrings.addnew</button>
+                    <button class="btn btn-default btn-sm" disabled="disabled" selection-required="false" title="Ctrl+S" id="btnSave"><i class="fa fa-floppy-o fa-fw"></i>@TimekeepingStrings.save</button>
+                    <button class="btn btn-default btn-sm" disabled="disabled" selection-required="true" title="Ctrl+U" id="btnUndo"><i class="fa fa-undo fa-fw"></i>@TimekeepingStrings.undo</button>
+                    <button class="btn btn-default btn-sm" disabled="disabled" selection-required="true" title="Ctrl+D" id="btnDelete"><i class="fa fa-trash-o fa-fw"></i>@TimekeepingStrings.delete</button>
+                    <button class="btn btn-default btn-sm" disabled="disabled" selection-required="true" title="Ctrl+H" id="btnHistory"><i class="fa fa-bolt fa-fw"></i>@TimekeepingStrings.history</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#list">@TimekeepingStrings.list</a></li>
+        <li><a data-toggle="tab" href="#record">@TimekeepingStrings.record</a></li>
+        <li><a enable-on-selection href="#details">@TimekeepingStrings.details</a></li>
+    </ul>
+    <div class="tab-content">
+        <div id="list" class="tab-pane active">
+            <div id="grdTimekeeping"></div>
+        </div>
+        <div id="record" class="tab-pane">
+            <div class="row record-content">
+                <div class="col-md-4" id="divHeader">
+                    <div class="panel panel-default" style="height: 842px;">
+                        <div class="panel-heading task-panel-heading">@TimekeepingStrings.record</div>
+                        <div class="panel-body task-panel-body">
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @TimekeepingStrings.id
+                                </div>
+                                <div class="col-md-8">
+                                    <input id="id" type="text" disabled class="form-control uppercase" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @TimekeepingStrings.desc
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" disableoncomplete maxlength="250" class="form-control" required id="desc" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @TimekeepingStrings.organization
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <input type="text" loadstatusesonchange="yes" disableonupdate="yes" maxlength="50" required class="form-control uppercase" id="org">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" disableonupdate="yes" type="button" id="btnorg"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @TimekeepingStrings.department
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <input type="text" disableonupdate="yes" maxlength="50" required class="form-control uppercase" id="department">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" disableonupdate="yes" type="button" id="btndepartment"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @TimekeepingStrings.type
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <input type="text" loadstatusesonchange="yes" disableonupdate="yes" maxlength="50" required data-entity="TIMEKEEPING" class="form-control uppercase" id="type">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" disableonupdate="yes" type="button" id="btntype"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @TimekeepingStrings.status
+                                </div>
+                                <div class="col-md-8">
+                                    <select class="form-control" data-code="-" data-pcode="Q" data-text="" required id="status"></select>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @TimekeepingStrings.startdate
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" disableonupdate="yes" required maxlength="10" class="form-control" ctrltype="datepicker" id="startdate" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @TimekeepingStrings.duration
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" disableonupdate="yes" required maxlength="10" class="form-control" id="duration" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @TimekeepingStrings.enddate
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" disabled="disabled" maxlength="10" class="form-control" ctrltype="datepicker" id="enddate" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @TimekeepingStrings.createdby
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" class="form-control" disabled="disabled" id="createdby" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @TimekeepingStrings.created
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" class="form-control" disabled="disabled" id="created" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4" id="divCustomFields">
+                    <div class="panel panel-default" style="height: 842px;">
+                        <div class="panel-heading task-panel-heading">@TimekeepingStrings.customfields</div>
+                        <div class="panel-body">
+                            <div id="cfcontainer"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4" id="divCmntsAttachments">
+                    <div class="panel panel-default" style="height: 450px;">
+                        <div class="panel-heading task-panel-heading">@TimekeepingStrings.comments</div>
+                        <div class="panel-body">
+                            <textarea class="form-control" contenteditable rows="3" id="comment"></textarea>
+                            <div class="inline-toolbar">
+                                <button class="btn btn-primary btn-xs" selection-required="true" id="addComment"><i class="fa fa-plus-circle"></i>@TimekeepingStrings.add</button>
+                            </div>
+                            <div id="comments" class="sm">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default" style="height: 372px;">
+                        <div class="panel-heading task-panel-heading">@TimekeepingStrings.docs</div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="progress">
+                                        <div class="progress-bar" id="docuprogress" role="progressbar" style="width: 0%; min-width: 2em;">0%</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-12">
+                                    <div id="fupload">
+                                        <span class="btn btn-default fileinput-button" id="btnBrowse">
+                                            <i class="fa fa-search"></i>
+                                            <span>@TimekeepingStrings.browse</span>
+                                            <input type="file" name="files[]" id="fu" multiple data-url="/UploadFile.ashx">
+                                        </span>
+                                        <button class="btn btn-default" id="btnupload" disabled="disabled"><i class="fa fa-cloud-upload"></i>@TimekeepingStrings.upload</button>
+                                        <div class="row custom">
+                                            <div class="col-md-12">
+                                                <div id="filename"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="docs" class="light-size"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="details" class="tab-pane">
+            <div class="row">
+                <div class="col-md-12" style="padding-right:0">
+                    <div class="well">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="pull-left">
+                                    <span><strong>@TimekeepingStrings.approvalcounts</strong></span> :
+                                    <span id="approvalcounts"></span>
+                                    <span><strong>@TimekeepingStrings.employeecount</strong></span> :
+                                    <span id="employeecount"></span>
+                                </div>
+                                <div class="pull-right">
+                                    <div class="checkbox checkbox-inline  checkbox-primary">
+                                        <input class="styled" type="checkbox" id="continuous" />
+                                        <label>@TimekeepingStrings.continuous</label>
+                                    </div>
+                                    <div class="checkbox checkbox-inline  checkbox-primary">
+                                        <input class="styled" type="checkbox" id="isnotnull" />
+                                        <label>@TimekeepingStrings.isnotnull</label>
+                                    </div>
+                                    <div class="checkbox checkbox-inline checkbox-primary">
+                                        <input class="styled" type="checkbox" id="isnull" />
+                                        <label>@TimekeepingStrings.isnull</label>
+                                    </div>
+                                    <div class="checkbox checkbox-inline checkbox-primary">
+                                        <input class="styled" type="checkbox" checked="checked" id="waitingmyapproval" />
+                                        <label>@TimekeepingStrings.waitingmyapproval</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="margin-bottom: 5px;">
+                <div class="col-md-12">
+                    <div class="pull-left">
+                        <button id="btnapprove" data-status="APP" class="btn btn-success btn-sm"><i class="fa fa-thumbs-o-up"></i> @TimekeepingStrings.approve</button>
+                        <button id="btnreject" data-status="REJ" class="btn btn-danger btn-sm"><i class="fa fa-thumbs-o-down"></i> @TimekeepingStrings.reject </button>
+                        <span style="margin-left: 10px;"><i class="fa fa-check-square-o" aria-hidden="true"></i> <strong>@TimekeepingStrings.checkeditemcount : </strong></span><span id="checkeditemcount">0</span>
+                    </div>
+                    <div class="pull-right">
+                        <button id="btnexport" class="btn btn-default btn-sm"><i class="fa fa-file-excel-o"></i></button>
+                    </div>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table id="lines" class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <td class="tableexport-ignore" style="width: 20px; background: #108ce2; color: #FFF;">
+                                <div class="checkbox checkbox-primary" style="padding-left: 25px;">
+                                    <input type="checkbox" class="styled" id="checkall" />
+                                    <label></label>
+                                </div>
+                            </td>
+                            <td class="tableexport-ignore" style="width: 100px; background: #108ce2; color: #FFF; text-align: center;"><i class="fa fa-pencil" aria-hidden="true"></i></td>
+                            <td style="width: 60px; background: #108ce2; color: #FFF;">@TimekeepingStrings.usercode</td>
+                            <td style="width: 100px; background: #108ce2; color: #FFF;">@TimekeepingStrings.userdesc</td>
+                            <td style="width: 100px; background: #108ce2; color: #FFF;">@TimekeepingStrings.date</td>
+                            <td style="width: 100px; background: #108ce2; color: #FFF;">@TimekeepingStrings.exception</td>
+                            <td style="width: 100px; background: #108ce2; color: #FFF;">@TimekeepingStrings.shift</td>
+                            <td style="width: 100px; background: #108ce2; color: #FFF;">@TimekeepingStrings.minstart</td>
+                            <td style="width: 100px; background: #108ce2; color: #FFF;">@TimekeepingStrings.maxend</td>
+                            <td style="width: 100px; background: #108ce2; color: #FFF;">@TimekeepingStrings.diff</td>
+                            <td style="width: 120px; background: #108ce2; color: #FFF;">@TimekeepingStrings.workinghours</td>
+                            <td style="width: 80px; background: #108ce2; color: #FFF;">@TimekeepingStrings.timeonroute</td>
+                            <td style="width: 120px; background: #108ce2; color: #FFF;">@TimekeepingStrings.normal</td>
+                            <td style="display: none; width: 100px; background: #108ce2; color: #FFF;">@TimekeepingStrings.diff2</td>
+                            <td style="width: 100px; background: #108ce2; color: #FFF;">@TimekeepingStrings.overtime</td>
+                            <td style="width: 100px; background: #108ce2; color: #FFF;">@TimekeepingStrings.status</td>
+                            <td style="width: 120px; background: #108ce2; color: #FFF;">@TimekeepingStrings.approver</td>
+                            <td class="tableexport-ignore" style="width: 50px; background: #108ce2; color: #FFF;">@TimekeepingStrings.notes</td>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="modalaudit" role="dialog" aria-labelledby="modalsharedlbl" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="false">&times;</span></button>
+                <h4 class="modal-title" id="modaltitle"></h4>
+            </div>
+            <div class="modal-body"></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-xs" id="modalsave">@TimekeepingStrings.save</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="modalcomments">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="false">&times;</span></button>
+                <h4 class="modal-title">@TimekeepingStrings.comments</h4>
+            </div>
+            <div class="modal-body" style="height: 400px; overflow-y: auto;">
+                <textarea class="form-control sm" rows="3" id="tkitemcomment"></textarea>
+                <div class="row custom">
+                    <div class="col-md-12">
+                        <div class="pull-right">
+                            <button class="btn btn-primary btn-xs" id="addTkItemComment"><i class="fa fa-plus-circle"></i> @TimekeepingStrings.add</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="row custom">
+                    <div class="col-md-12">
+                        <div id="tkitemcomments"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-xs" data-dismiss="modal" aria-label="Close">@TimekeepingStrings.ok</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="modaledit">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="false">&times;</span></button>
+                <h4 class="modal-title">@TimekeepingStrings.edit</h4>
+            </div>
+            <div class="modal-body" style="height: 600px; overflow-y: auto;">
+                <div class="row">
+                    <div class="col-md-offset-1 col-md-10">
+                        <div class="row custom">
+                            <div class="col-md-4">
+                                <strong>@TimekeepingStrings.usercode</strong>
+                            </div>
+                            <div class="col-md-8">
+                                <span id="susercode"></span>
+                            </div>
+                        </div>
+                        <div class="row custom">
+                            <div class="col-md-4">
+                                <strong>@TimekeepingStrings.userdesc</strong>
+                            </div>
+                            <div class="col-md-8">
+                                <span id="suserdesc"></span>
+                            </div>
+                        </div>
+                        <div class="row custom">
+                            <div class="col-md-4">
+                                <strong>@TimekeepingStrings.date</strong>
+                            </div>
+                            <div class="col-md-8">
+                                <span id="sdate"></span>
+                            </div>
+                        </div>
+                        <div class="row custom">
+                            <div class="col-md-4">
+                                <strong>@TimekeepingStrings.shift</strong>
+                            </div>
+                            <div class="col-md-8">
+                                <span id="sshift"></span>
+                            </div>
+                        </div>
+                        <div class="row custom">
+                            <div class="col-md-4">
+                                <strong>@TimekeepingStrings.minstart</strong>
+                            </div>
+                            <div class="col-md-8">
+                                <span id="sminstart"></span>
+                            </div>
+                        </div>
+                        <div class="row custom">
+                            <div class="col-md-4">
+                                <strong>@TimekeepingStrings.maxend</strong>
+                            </div>
+                            <div class="col-md-8">
+                                <span id="smaxend"></span>
+                            </div>
+                        </div>
+                        <div class="row custom">
+                            <div class="col-md-4">
+                                <strong>@TimekeepingStrings.diff</strong>
+                            </div>
+                            <div class="col-md-8">
+                                <span id="sdiff"></span>
+                            </div>
+                        </div>
+                        <div class="row custom">
+                            <div class="col-md-4">
+                                <strong>@TimekeepingStrings.workinghours</strong>
+                            </div>
+                            <div class="col-md-8">
+                                <span id="sworkinghours"></span>
+                            </div>
+                        </div>
+                        <div class="row custom">
+                            <div class="col-md-4">
+                                <strong>@TimekeepingStrings.status</strong>
+                            </div>
+                            <div class="col-md-8">
+                                <span id="sstatus"></span>
+                            </div>
+                        </div>
+                        <div class="row custom">
+                            <div class="col-md-4">
+                                <strong>@TimekeepingStrings.timeonroute</strong>
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text"  disabled="disabled" ctrltype="timepicker" class="form-control" id="itimeonroute" />
+                            </div>
+                        </div>
+                        <div class="row custom">
+                            <div class="col-md-4">
+                                <strong>@TimekeepingStrings.normal</strong>
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text"  disabled="disabled" ctrltype="timepicker" class="form-control" id="inormal" />
+                            </div>
+                        </div>
+                        <div class="row custom">
+                            <div class="col-md-4">
+                                <strong>@TimekeepingStrings.overtime</strong>
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" disabled="disabled" ctrltype="timepicker" class="form-control" id="iovertime" />
+                            </div>
+                        </div>
+                        <div class="row custom hidden" id="commentsdiv">
+                            <div class="col-md-4">
+                                <strong>@TimekeepingStrings.comments</strong>
+                            </div>
+                            <div class="col-md-8">
+                                <textarea id="linecomments"  disabled="disabled" style="width: 100%" rows="5"></textarea>
+                            </div>
+                        </div>
+                        <div class="row custom">
+                            <div class="col-md-12">
+                                <span class="badge badge-danger" style="line-height: 2; white-space: normal;"><i class="fa fa-fw fa-info-circle"></i> <i>@TimekeepingStrings.modaleditinfo01</i></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button"  disabled="disabled" class="btn btn-success btn-xs" id="btnsavetimekeepingline">@TimekeepingStrings.save</button>
+                <button type="button"  disabled="disabled" class="btn btn-primary btn-xs" data-dismiss="modal" aria-label="Cancel">@TimekeepingStrings.cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="modaltimeedit" style="z-index:100000">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="false">&times;</span></button>
+                <h4 class="modal-title">@TimekeepingStrings.edit</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-offset-1 col-md-10">
+                        <div class="row custom">
+                            <div class="col-md-4">
+                                <strong>Başlangıç</strong>
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" required ctrltype="timepicker" class="form-control" id="starttime" />
+                            </div>
+                        </div>
+                        <div class="row custom">
+                            <div class="col-md-4">
+                                <strong>Bitiş</strong>
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" required ctrltype="timepicker" class="form-control" id="endtime" />
+                            </div>
+                        </div>
+                        <div class="row custom" id="commentsdiv">
+                            <div class="col-md-4">
+                                <strong>@TimekeepingStrings.comments</strong>
+                            </div>
+                            <div class="col-md-8">
+                                <textarea id="timecomments" required style="width: 100%" rows="5"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success btn-xs" id="btnsavetimechange">@TimekeepingStrings.save</button>
+                <button type="button" class="btn btn-primary btn-xs" data-dismiss="modal" aria-label="Cancel">@TimekeepingStrings.cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="modaltimedelete" style="z-index:100000">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="false">&times;</span></button>
+                <h4 class="modal-title">@TimekeepingStrings.delete</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-offset-1 col-md-10">
+                        <div class="row custom" id="commentsdiv">
+                            <div class="col-md-4">
+                                <strong>@TimekeepingStrings.comments</strong>
+                            </div>
+                            <div class="col-md-8">
+                                <textarea id="timedeletecomments" required style="width: 100%" rows="5"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger btn-xs" id="btndeletetime">@TimekeepingStrings.save</button>
+                <button type="button" class="btn btn-primary btn-xs" data-dismiss="modal" aria-label="Cancel">@TimekeepingStrings.cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    var inbox = "@ViewBag.id";
+</script>
+
+@Html.IncludeVersionedJs("/Scripts/jquery/jquery.fileupload.js")
+@Html.IncludeVersionedJs("/Scripts/jquery/jquery.iframe-transport.js")
+
+@Html.IncludeVersionedJs("/Scripts/jquery/jquery.floatThead.min.js")
+@Html.IncludeVersionedJs("/Scripts/other/numericInput.min.js")
+@Html.IncludeVersionedJs("/Scripts/other/typeahead.bundle.js")
+@Html.IncludeVersionedJs("/Scripts/jquery/jquery.contextMenu.min.js")
+
+
+@Html.IncludeVersionedJs("/Scripts/custom/ovi.custom.list.js")
+@Html.IncludeVersionedJs("/Scripts/custom/ovi.custom.documents.js")
+@Html.IncludeVersionedJs("/Scripts/custom/ovi.custom.comments.js")
+@Html.IncludeVersionedJs("/Scripts/custom/ovi.custom.customfields.js")
+@Html.IncludeVersionedJs("/Scripts/xlsx/xlsx.core.min.js")
+@Html.IncludeVersionedJs("/Scripts/export/FileSaver.min.js")
+@Html.IncludeVersionedJs("/Scripts/export/tableexport.min.js")
+@Html.IncludeVersionedJs("/Scripts/app/Timekeeping.js")

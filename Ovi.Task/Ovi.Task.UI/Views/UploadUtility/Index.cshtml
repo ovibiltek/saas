@@ -1,0 +1,73 @@
+﻿@using Resources.UploadUtility.Index
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Default.cshtml";
+}
+
+@Html.IncludeVersionedCss("/Content/jquery/jquery.fileupload.css")
+
+<div style="margin-top: 10px">
+    <div class="page-header">
+        <h4>@UploadUtilityStrings.uploadutility</h4>
+        <h6></h6>
+    </div>
+    <div class="panel panel-default" style="height: 120px;" id="uploadutility">
+        <div class="panel-heading task-panel-heading">@UploadUtilityStrings.upload</div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-1">@UploadUtilityStrings.type</div>
+                <div class="col-md-2">
+                    <select id="uploadtype" required="" class="form-control">
+                        <option value="">@UploadUtilityStrings.pleaseselect</option>
+                        <option value="BCOPP">@UploadUtilityStrings.contractpartprices</option>
+                        <option value="BSRC">@UploadUtilityStrings.servicecodes</option>
+                        <option value="BCMP">@UploadUtilityStrings.contractequipmanprices</option>
+                        <option value="BCSC">@UploadUtilityStrings.contractserviceprices</option>
+                        <option value="BBRN">@UploadUtilityStrings.branches</option>
+                        <option value="BTSK">@UploadUtilityStrings.tasks</option>
+                        <option value="BPTP">@UploadUtilityStrings.periodictaskparameters</option>
+                        <option value="BLOC">@UploadUtilityStrings.locations</option>
+                        <option value="BUSR">@UploadUtilityStrings.users</option>
+                        <option value="BRST">@UploadUtilityStrings.invrecstktake</option>
+                        <option value="BTPR">@UploadUtilityStrings.parttransactions</option>
+                        <option value="BQPR">@UploadUtilityStrings.quotationparts</option>
+                        <option value="BDLT">@UploadUtilityStrings.taskstobedeleted</option>
+                        <option value="BPAR">@UploadUtilityStrings.parts</option>
+                        <optgroup data-id="10019" label="@UploadUtilityStrings.equipments" id="equipments">
+                            <option value="BEQP-*" data-loadcustomfields="false" data-entity="EQUIPMENT" data-type="*" data-usevalue="true">@UploadUtilityStrings.equipments</option>
+                        </optgroup>
+                    </select>
+                </div>
+                <div class="col-md-7">
+                    <div id="fupload">
+                        <span class="btn btn-default fileinput-button" id="btnBrowse">
+                            <i class="fa fa-search"></i>
+                            <span>@UploadUtilityStrings.browse</span>
+                            <input type="file" name="file" id="fu" data-url="/UploadData.ashx">
+                        </span>
+                        <button class="btn btn-default" id="btnupload" disabled="disabled"><i class="fa fa-cloud-upload"></i> @UploadUtilityStrings.upload</button>
+                        <div class="row custom">
+                            <div class="col-md-12">
+                                <div id="filename"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button class="btn btn-primary pull-right" id="btndownload" disabled="disabled"><i class="fa fa-download"></i> @UploadUtilityStrings.download</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="well hidden" id="info">
+    </div>
+</div>
+
+@Html.IncludeVersionedJs("/Scripts/jquery/jquery.fileupload.js")
+@Html.IncludeVersionedJs("/Scripts/jquery/jquery.iframe-transport.js")
+@Html.IncludeVersionedJs("/Scripts/app/UploadUtility.js")
+@Html.IncludeVersionedJs("/Scripts/app/localization/uploadutilitystrings.js")

@@ -1,0 +1,66 @@
+﻿@using Resources.Sessions.Index
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Default.cshtml";
+}
+<div style="margin-top: 10px">
+    <div class="page-header">
+        <h4>@SessionStrings.sessions</h4>
+        <h6></h6>
+    </div>
+    <div id="grdSessions"></div>
+    <div class="row custom">
+        <div class="panel panel-default">
+            <div class="panel-heading page-panel-heading">@SessionStrings.record</div>
+            <div class="inline-toolbar left" data-block="#record">
+                <div class="btn-group">
+                    <button class="btn btn-danger btn-sm" id="btnLogoutUser" disabled="disabled"><i class="fa fa-sign-out"></i> @SessionStrings.logoutuser</button>
+                </div>
+            </div>
+            <div class="panel-body page-panel-body">
+                <div class="row custom">
+                    <div class="col-md-2">
+                        @SessionStrings.sessionid
+                    </div>
+                    <div class="col-md-4">
+                        <span id="sessionid"></span>
+                    </div>
+                </div>
+                <div class="row custom">
+                    <div class="col-md-2">
+                        @SessionStrings.sessionuser
+                    </div>
+                    <div class="col-md-4">
+                        <span id="sessionuser"></span>
+                    </div>
+                </div>
+                <div class="row custom">
+                    <div class="col-md-2">
+                        @SessionStrings.browser
+                    </div>
+                    <div class="col-md-4">
+                        <span id="browser"></span>
+                    </div>
+                </div>
+                <div class="row custom">
+                    <div class="col-md-2">
+                        @SessionStrings.ip
+                    </div>
+                    <div class="col-md-4">
+                        <span id="ip"></span>
+                    </div>
+                </div>
+                <div class="row custom">
+                    <div class="col-md-2">
+                        @SessionStrings.login
+                    </div>
+                    <div class="col-md-4">
+                        <span id="login"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@Html.IncludeVersionedJs("/Scripts/app/Sessions.js")

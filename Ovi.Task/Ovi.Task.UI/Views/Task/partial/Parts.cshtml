@@ -1,0 +1,142 @@
+﻿@using Resources.Task.Index
+<div id="parts" class="tab-pane">
+    <div class="row">
+        <div class="col-md-12">
+            <div id="grdIssueReturn"></div>
+        </div>
+    </div>
+    <br />
+    <div id="partsform" class="panel panel-default items">
+        <div class="panel-heading page-panel-heading">@TaskStrings.parts</div>
+        <div class="row">
+            <div class="col-md-12" style="padding-right: 0">
+                <div class="inline-toolbar left" style="border: none;" data-block="#parts">
+                    <div class="btn-group">
+                        <button class="btn btn-default btn-sm" title="Ctrl+R" selection-required="false" disabled id="btnAddIssueReturn"><i class="fa fa fa-plus fa-fw"></i>@TaskStrings.addnew</button>
+                        <button class="btn btn-default btn-sm" title="Ctrl+S" selection-required="false" disabled id="btnSaveIssueReturn"><i class="fa fa-floppy-o fa-fw"></i>@TaskStrings.save</button>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-body page-panel-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="row custom">
+                            <div class="col-md-3">
+                                @TaskStrings.activity
+                            </div>
+                            <div class="col-md-5">
+                                <div class="input-group">
+                                    <input type="text" ctrltype="numeric" allowfloat="false" required class="form-control" id="iractivity">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default" type="button" id="btnIRActivity"><i class="fa fa-search fa-fw"></i></button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row custom">
+                            <div class="col-md-3">
+                                @TaskStrings.trxtype
+                            </div>
+                            <div class="col-md-5">
+                                <select id="trxtype" class="form-control" required>
+                                    <option value="">@TaskStrings.pleaseselect</option>
+                                    <option value="I">@TaskStrings.typeissue</option>
+                                    <option value="RT">@TaskStrings.typereturn</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row custom">
+                            <div class="col-md-3">
+                                @TaskStrings.warehouse
+                            </div>
+                            <div class="col-md-5">
+                                <div class="input-group">
+                                    <input type="text" required class="form-control" id="warehouse">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default" type="button" id="btnwarehouse"><i class="fa fa-search fa-fw"></i></button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row custom">
+                            <div class="col-md-3">
+                                @TaskStrings.part
+                            </div>
+                            <div class="col-md-5">
+                                <div class="input-group">
+                                    <input type="text" readonly="readonly" required class="form-control" id="part">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default" type="button" id="btnparts"><i class="fa fa-search fa-fw"></i></button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row custom">
+                            <div class="col-md-3">
+                                @TaskStrings.description
+                            </div>
+                            <div class="col-md-5">
+                                <input type="text" disabled="disabled" class="form-control" id="partdesc">
+                            </div>
+                        </div>
+                        <div class="row custom">
+                            <div class="col-md-3">
+                                @TaskStrings.partreference
+                            </div>
+                            <div class="col-md-5">
+                                <input type="text" class="form-control" id="partreference">
+                            </div>
+                        </div>
+                        <div class="row custom">
+                            <div class="col-md-3">
+                                @TaskStrings.uom
+                            </div>
+                            <div class="col-md-5">
+                                <input type="text" disabled="disabled" class="form-control" id="partuom">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="row custom">
+                            <div class="col-md-3">
+                                @TaskStrings.bin
+                            </div>
+                            <div class="col-md-5">
+                                <div class="input-group">
+                                    <input type="text" readonly="readonly" required class="form-control" id="bin">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default" type="button" id="btnbin"><i class="fa fa-search fa-fw"></i></button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row custom">
+                            <div class="col-md-3">
+                                @TaskStrings.binqty
+                            </div>
+                            <div class="col-md-5">
+                                <input type="text" disabled="disabled" class="form-control" id="binqty">
+                            </div>
+                        </div>
+                        <div class="row custom">
+                            <div class="col-md-3">
+                                @TaskStrings.partprice
+                            </div>
+                            <div class="col-md-5">
+                                <input type="text" disabled="disabled" class="form-control" id="binpartprice">
+                            </div>
+                        </div>
+                        <div class="row custom">
+                            <div class="col-md-3">
+                                @TaskStrings.reqqty
+                            </div>
+                            <div class="col-md-5">
+                                <input type="text" required ctrltype="numeric" allowfloat="true" class="form-control" id="reqqty">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

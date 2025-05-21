@@ -1,0 +1,243 @@
+﻿@using Resources.Trades.Index
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Default.cshtml";
+}
+@Html.IncludeVersionedCss("/Content/bootstrap/bootstrap-tagsinput.css")
+<div style="margin-top: 10px">
+    <div class="page-header">
+        <h4>@TradeStrings.trades</h4>
+        <h6></h6>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tms-page-toolbar inline-toolbar left" data-block="#record">
+                <div class="btn-group">
+                    <button class="btn btn-default btn-sm" title="Ctrl+R" selection-required="false" id="btnNew"><i class="fa fa fa-plus fa-fw"></i> @TradeStrings.addnew</button>
+                    <button class="btn btn-default btn-sm" title="Ctrl+S" selection-required="false" id="btnSave"><i class="fa fa-floppy-o fa-fw"></i> @TradeStrings.save</button>
+                    <button class="btn btn-default btn-sm" title="Ctrl+U" selection-required="true" id="btnUndo"><i class="fa fa-undo fa-fw"></i> @TradeStrings.undo</button>
+                    <button class="btn btn-default btn-sm" title="Ctrl+D" selection-required="true" id="btnDelete"><i class="fa fa-trash-o fa-fw"></i> @TradeStrings.delete</button>
+                    <button class="btn btn-default btn-sm" title="Ctrl+H" selection-required="true" id="btnHistory" disabled="disabled"><i class="fa fa-bolt fa-fw"></i> @TradeStrings.history</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <div class="scrollbar-macosx">
+                <div class="list-group"></div>
+            </div>
+        </div>
+        <div class="col-md-5" id="record">
+            <div class="panel panel-default">
+                <div class="panel-heading page-panel-heading">@TradeStrings.record</div>
+                <div class="panel-body page-panel-body">
+                    <div class="row custom">
+                        <div class="col-md-4">
+                            @TradeStrings.code
+                        </div>
+                        <div class="col-md-6">
+                            <input type="text" maxlength="50" class="form-control form-code" disableonupdate="yes" required id="code" />
+                        </div>
+                    </div>
+                    <div class="row custom">
+                        <div class="col-md-4">
+                            @TradeStrings.description
+                        </div>
+                        <div class="col-md-6">
+                            <input type="text" maxlength="250" class="form-control" required id="desc" />
+                        </div>
+                    </div>
+                    <div class="row custom">
+                        <div class="col-md-4">
+                            @TradeStrings.organization
+                        </div>
+                        <div class="col-md-6">
+                            <div class="input-group">
+                                <input type="text" maxlength="50" disableonupdate="yes" class="form-control" required id="org">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" disableonupdate="yes" type="button" id="btnorg"><i class="fa fa-search fa-fw"></i></button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row custom" data-related="">
+                        <div class="col-md-4">
+                            @TradeStrings.department
+                        </div>
+                        <div class="col-md-6">
+                            <div class="input-group">
+                                <input type="text" maxlength="50" class="form-control" required id="department">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button" id="btndepartment"><i class="fa fa-search fa-fw"></i></button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row custom" data-related="">
+                        <div class="col-md-4">
+                            @TradeStrings.warehouse
+                        </div>
+                        <div class="col-md-6">
+                            <div class="input-group">
+                                <input type="text" maxlength="50" class="form-control" id="warehouse">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button" id="btnwarehouse"><i class="fa fa-search fa-fw"></i></button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row custom">
+                        <div class="col-md-4">
+                            @TradeStrings.supplier
+                        </div>
+                        <div class="col-md-6">
+                            <div class="input-group">
+                                <input type="text" maxlength="50" class="form-control" id="supplier">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button" id="btnsupplier"><i class="fa fa-search fa-fw"></i></button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row custom">
+                        <div class="col-md-4">
+                            @TradeStrings.pricingcode
+                        </div>
+                        <div class="col-md-6">
+                            <div class="input-group">
+                                <input type="text" maxlength="50" class="form-control" id="pricingcode">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button" id="btnpricingcode"><i class="fa fa-search fa-fw"></i></button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row custom">
+                        <div class="col-md-4">
+                            @TradeStrings.email
+                        </div>
+                        <div class="col-md-6">
+                            <input type="email" maxlength="250" class="form-control" id="email" />
+                        </div>
+                    </div>
+                    <div class="row custom">
+                        <div class="col-md-4">
+                            @TradeStrings.region
+                        </div>
+                        <div class="col-md-5">
+                            <input type="text" class="form-control" data-role="multival" id="region">
+                        </div>
+                        <div class="col-md-1">
+                            <button id="btnaddregions" class="btn btn-default" type="button"><i class="fa fa-btn fa-plus"></i></button>
+                        </div>
+                    </div>
+                    <div class="row custom">
+                        <div class="col-md-4">
+                            @TradeStrings.tasktypes
+                        </div>
+                        <div class="col-md-5">
+                            <input type="text" class="form-control" data-role="multival" id="tasktypes">
+                        </div>
+                        <div class="col-md-1">
+                            <button id="btnaddtasktypes" class="btn btn-default" type="button"><i class="fa fa-btn fa-plus"></i></button>
+                        </div>
+                    </div>
+                    <div class="row custom">
+                        <div class="col-md-4">
+                            @TradeStrings.province
+                        </div>
+                        <div class="col-md-6">
+                            <div class="input-group">
+                                <input type="text" maxlength="50" class="form-control uppercase"  id="province">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button" id="btnprovince"><i class="fa fa-search fa-fw"></i></button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row custom">
+                        <div class="col-md-4">
+                            @TradeStrings.district
+                        </div>
+                        <div class="col-md-6">
+                            <div class="input-group">
+                                <input type="text" maxlength="50" class="form-control uppercase"  id="district">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button" id="btndistrict"><i class="fa fa-search fa-fw"></i></button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row custom">
+                        <div class="col-md-4">
+                            @TradeStrings.latitude
+                        </div>
+                        <div class="col-md-6">
+                            <input type="text" maxlength="250" id="latitude" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="row custom">
+                        <div class="col-md-4">
+                            @TradeStrings.longitude
+                        </div>
+                        <div class="col-md-6">
+                            <input type="text" maxlength="250" id="longitude" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="row custom">
+                        <div class="col-md-4">
+                            @TradeStrings.capacity
+                        </div>
+                        <div class="col-md-6">
+                            <input type="text" min="0" ctrltype="numeric" allownegative="false" allowfloat="false" class="form-control" id="capacity" />
+                        </div>
+                    </div>
+                    <div class="row custom">
+                        <div class="col-md-4">
+                            @TradeStrings.userbasedassignment
+                        </div>
+                        <div class="col-md-6">
+                            <div class="checkbox checkbox-primary">
+                                <input type="checkbox" class="styled" id="userbasedassignment" />
+                                <label></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row custom">
+                        <div class="col-md-4">
+                            @TradeStrings.active
+                        </div>
+                        <div class="col-md-6">
+                            <div class="checkbox checkbox-primary">
+                                <input type="checkbox" class="styled" checked="checked" id="active" />
+                                <label></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="panel panel-default">
+                <div class="panel-heading page-panel-heading">@TradeStrings.map</div>
+                <div class="input-group">
+                    <input type="text" maxlength="250" class="form-control" id="address">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="button" id="btnaddress"><i class="fa fa-map-o fa-fw"></i></button>
+                    </span>
+                </div>
+
+                <div style="height: 500px;" id="map"></div>
+            </div>
+
+        </div>
+    </div>
+</div>
+@Html.IncludeVersionedJs("/Scripts/custom/ovi.custom.list.js")
+@Html.IncludeVersionedJs("/Scripts/bootstrap/bootstrap-tagsinput.min.js")
+@Html.IncludeVersionedJs("/Scripts/app/Trades.js")
+@{
+    var link = string.Format("https://maps.googleapis.com/maps/api/js?key={0}&callback=initMap", ViewBag.GOOGLEMAPSKEY);
+}
+<script src="@link" async defer></script>

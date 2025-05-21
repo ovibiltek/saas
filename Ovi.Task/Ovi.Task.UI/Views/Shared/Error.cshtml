@@ -1,0 +1,25 @@
+﻿@{
+    ViewBag.Title = "Error";
+    Layout = "~/Views/Shared/Default.cshtml";
+}
+@using Resources.Error.Index
+@model HandleErrorInfo
+
+<div class="page-header" style="margin-top: 70px;">
+    <h4>@ErrorStrings.title</h4>
+    <h6></h6>
+</div>
+<div class="jumbotron">
+    <div class="container">
+        <p style="text-align: center;"><i class="fa fa-fire-extinguisher fa-4x"></i></p>
+        @if (@Model != null)
+        {
+            <h2 class="text-danger">@Model.Exception.Message</h2>
+        }
+        <h3 class="text-danger">@ErrorStrings.errInfo</h3>
+        @if (@Model != null)
+        {
+            @Html.ActionLink("Main", "Index", "Main")
+        }
+    </div>
+</div>

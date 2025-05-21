@@ -1,0 +1,104 @@
+﻿@using Resources.PurchaseOrders.Index
+
+@{
+    Layout = "~/Views/Shared/Default.cshtml";
+}
+<div style="margin-top: 10px">
+    <div class="page-header">
+        <h4>@PurchaseOrders.reqtopo</h4>
+        <h6></h6>
+    </div>
+    <div class="well hidden" id="grdInvoiceLineSumDiv">
+        <div id="grdRequisitionLineSum"></div>
+    </div>
+    <div id="grdRequisitionLines"></div>
+
+    <div class="modal" id="createpurchaseorder" role="dialog" aria-labelledby="modalsharedlbl" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="false">&times;</span></button>
+                    <h4 class="modal-title" id="modaltitle"> @PurchaseOrders.purchaseorders </h4>
+                </div>
+                <div class="modal-body">
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="row custom">
+                                <div class="col-md-3">
+                                    @PurchaseOrders.description
+                                </div>
+                                <div class="col-md-9">
+                                    <input type="text" disableoncomplete required="" maxlength="250" contenteditable="" id="description" autocomplete="off" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-3">
+                                    @PurchaseOrders.warehouse
+                                </div>
+                                <div class="col-md-9">
+                                    <div class="input-group">
+                                        <input type="text" disableoncomplete maxlength="50" required class="form-control" id="warehouse">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" disableoncomplete type="button" id="btnwarehouse"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div><!-- /input-group -->
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-3">
+                                    @PurchaseOrders.supplier
+                                </div>
+                                <div class="col-md-9">
+                                    <div class="input-group">
+                                        <input type="text" required disableoncomplete maxlength="50" class="form-control" id="supplier">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" disableoncomplete type="button" id="btnsupplier"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div><!-- /input-group -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="row custom">
+                                <div class="col-md-3">
+                                    @PurchaseOrders.currency
+                                </div>
+                                <div class="col-md-9">
+                                    <div class="input-group">
+                                        <input type="text" required disableoncomplete class="form-control" id="currency">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" disableoncomplete type="button" id="btncurrency"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div><!-- /input-group -->
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-3">
+                                    @PurchaseOrders.exchangerate
+                                </div>
+                                <div class="col-md-9">
+                                    <input type="text" disableoncomplete required calc-group="1" valtype="EXCH" min="0" ctrltype="numeric" allowfloat="true" class="form-control" id="exchangerate" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-3">
+                                   @PurchaseOrders.deliveryadr
+                                </div>
+                                <div class="col-md-9">
+                                    <textarea required disableoncomplete  class="form-control" maxlength="1000" rows="3" id="fulladr" autocomplete="off" spellcheck="false"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary btn-xs" id="btncreatepurchaseorder">@PurchaseOrders.save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+@Html.IncludeVersionedJs("/Scripts/app/RequisitionToPurchaseOrder.js")
+

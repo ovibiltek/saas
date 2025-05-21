@@ -1,0 +1,14 @@
+﻿@using Resources.AvailableTasksForPSP.Index
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Default.cshtml";
+}
+<div style="margin-top: 10px">
+    <div class="page-header">
+        <h4>@AvailableTasksForPSPStrings.availabletasksforpsp</h4>
+        <h6></h6>
+    </div>
+    <div id="grdAvailableTasksForPSP"></div>
+</div>
+
+@Html.IncludeVersionedJs("/Scripts/app/AvailableTasksForPSP.js")

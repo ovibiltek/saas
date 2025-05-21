@@ -1,0 +1,113 @@
+﻿* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+body {
+    background-image: url('images/login-bg.jpg');
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-position: bottom left;
+    background-size: 100% 100%;
+}
+html {
+    font-family: 'Helvetica Neue', Arial, Sans-Serif;
+}
+html .login-wrap {
+  position: relative;
+  margin: 0 auto;
+  width: 350px;
+  border-radius: 5px;
+  padding: 20px;
+  background: #ffffff;
+  border: 2px solid #e7e7e7;
+}
+html .login-wrap h2 {
+  text-align: center;
+  font-weight: 200;
+  margin-top: 10px;
+  font-size: 32px;
+  color: #1a1a1a;
+}
+html .login-wrap .form {
+  padding-top: 20px;
+}
+html .login-wrap .form input[type="text"],
+html .login-wrap .form input[type="password"],
+html .login-wrap .form button {
+  width: 80%;
+  margin-left: 10%;
+  margin-bottom: 25px;
+  height: 40px;
+  border-radius: 5px;
+  outline: 0;
+  -moz-outline-style: none;
+}
+html .login-wrap .form input[type="text"],
+html .login-wrap .form input[type="password"] {
+  border: 1px solid #bbb;
+  padding: 0 0 0 10px;
+  font-size: 14px;
+}
+html .login-wrap .form input[type="text"]:focus,
+html .login-wrap .form input[type="password"]:focus {
+  border: 1px solid #3498db;
+}
+html .login-wrap .form a {
+  text-align: center;
+  font-size: 10px;
+  color: #3498db;
+}
+html .login-wrap .form a p {
+  padding-bottom: 10px;
+}
+html .login-wrap .form button {
+  background: #f68100;
+  border: none;
+  color: white;
+  font-size: 14px;
+  font-weight: 200;
+  cursor: pointer;
+  transition: box-shadow .4s ease;
+}
+html .login-wrap .form button:hover {
+  box-shadow: 1px 1px 5px #555;
+}
+html .login-wrap .form button:active {
+  box-shadow: 1px 1px 7px #222;
+}
+html .login-wrap:after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 5px;
+  border-radius: 5px 5px 0 0;
+}
+.iselection {
+  background-color: #eaf7ff !important;
+  color: #000;
+}
+#un
+{
+    background-image: url("images/userid.png");
+    padding: 2px 4px 2px 41px;
+    background-color: white;
+    background-position: 10px center;
+    background-repeat: no-repeat;
+    font-size: 13px !important;
+    text-transform:uppercase;
+}
+#pw{
+    background-image: url("images/password.png");
+    padding: 2px 4px 2px 41px;
+    background-color: white;
+    background-position: 10px center;
+    background-repeat: no-repeat;
+    font-size: 13px !important;
+}
+.isempty {
+    border-color: #FFA458 !important;
+    background-color: #F9F2D5 !important;
+}

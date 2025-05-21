@@ -1,0 +1,46 @@
+﻿@using Resources.Main.Index
+
+<div class="target" id="inbox">
+    <div class="page-header">
+        <h1>@MainStrings.inbox</h1>
+        <h6><span id="lastfetch"></span> <a href="#" style="position: relative; bottom: 5px; " class="btn btn-xs btn-primary" id="refreshAllInboxes"><i class="fa fa-refresh"></i> Yenile</a></h6>
+    </div>
+    <div style="left: 4%;position: relative; width: 96%;" id="inboxgroups">  
+        
+
+    </div>
+</div>
+
+
+@*<div class="panel panel-default target" id="inbox">
+    <div class="panel-heading">
+        <div class="row">
+            <div class="col-md-10">
+                <h4><i class="fa fa-inbox"></i> @MainStrings.inbox</h4>
+            </div>
+            <div class="col-md-2 pos-right">
+                <div class="btn-group">
+                    <button id="refreshInbox" class="btn btn-default btn-xs"><i class="fa fa-refresh"></i></button>
+                    <button id="editInbox" class="btn btn-default btn-xs"><i class="fa fa-pencil"></i></button>
+                    <button id="saveInbox" class="btn btn-success btn-xs hidden"><i class="fa fa-save"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel-body" style="padding: 5px;">
+        <ul class="nav nav-tabs" id="inboxtype">
+            <li role="presentation" class="active"><a data-toggle="tab" href="#personal">@MainStrings.personalinbox</a></li>
+            <li role="presentation"><a data-toggle="tab" href="#public">@MainStrings.publicinbox</a></li>
+        </ul>
+        <div class="tab-content">
+            <div id="personal" class="tab-pane no-padding active">
+                <ul style="height: 740px" data-type="PERSONAL" class="inbox list-group"></ul>
+            </div>
+            <div id="public" class="tab-pane no-padding">
+                <ul style="height: 740px" data-type="PUBLIC" class="inbox list-group"></ul>
+            </div>
+        </div>
+    </div>
+</div>*@
+
+

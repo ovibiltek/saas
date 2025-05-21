@@ -1,0 +1,350 @@
+﻿<div>
+    @using Resources.Shared.Index
+    @using Resources.Task.Index
+    @using Resources.TaskList.Index
+    @{
+        ViewBag.Title = "List";
+        Layout = "~/Views/Shared/Default.cshtml";
+    }
+
+    @Html.IncludeVersionedCss("/Content/jquery/jquery.fileupload.css")
+    @Html.IncludeVersionedCss("/Content/multiple-select.css")
+    @Html.IncludeVersionedCss("/Content/jquery/jquery.contextMenu.min.css")
+
+    <div style="margin-top: 10px">
+        <div class="page-header">
+            <h4>@TaskListStrings.tasklist</h4>
+            <h6></h6>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div id="grdTasks"></div>
+                <div class="sidebars">
+                    <div class="sidebar right" style="right: -400px;">
+                        <div class="row">
+                            <div class="col-md-12" style="text-align: center; margin-top: 10px;">
+                                <button id="filter" class="btn btn-primary btn-xs"><i class="fa fa-filter"></i> @TaskListStrings.filter</button>
+                                <button id="clearfilter" class="btn btn-info btn-xs"><i class="fa fa-ban"></i> @TaskListStrings.reset</button>
+                                <button id="closesiderbar" class="btn btn-danger btn-xs"><i class="fa fa-times"></i> @TaskListStrings.close</button>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="page-header">
+                                    <h5>@TaskStrings.status</h5>
+                                </div>
+                                <select id="statuses" style="width: 100%" multiple="multiple"></select>
+                            </div>
+
+
+
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="page-header">
+                                    <h5>@TaskStrings.category</h5>
+                                </div>
+                                <select id="categories" style="width: 100%" multiple="multiple"></select>
+                            </div>
+
+
+
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="page-header">
+                                    <h5>@TaskStrings.tasktype</h5>
+                                </div>
+                                <select id="tasktypes" style="width: 100%" multiple="multiple"></select>
+                            </div>
+
+
+
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="page-header">
+                                    <h5>@TaskListStrings.tradeoruser</h5>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" id="tradeoruser">
+                            </div>
+                            <div class="col-md-6">
+                                <div class="btn-group" role="group">
+                                    <button data-filter-op="EQUALS" id="tradeoruser_eq" type="button" class="btn btn-sm btn-default btn-filter-operator">@TaskListStrings.opequals</button>
+                                    <button data-filter-op="CONTAINS" id="tradeoruser_contains " type="button" class="btn btn-sm btn-primary btn-filter-operator">@TaskListStrings.opcontains</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="page-header">
+                                    <h5>@TaskStrings.datecreated</h5>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <input type="text" ctrltype="datepicker" class="i-filter form-control" id="datecreated_start">
+                            </div>
+                            <div class="col-sm-6">
+                                <input type="text" ctrltype="datepicker" class="i-filter form-control" id="datecreated_end">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="page-header">
+                                    <h5>@TaskStrings.activeplanningdate</h5>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <input type="text" ctrltype="datepicker" class="i-filter form-control" id="apd_start">
+                            </div>
+                            <div class="col-sm-6">
+                                <input type="text" ctrltype="datepicker" class="i-filter form-control" id="apd_end">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="page-header">
+                                    <h5>@TaskStrings.daterequested</h5>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <input type="text" ctrltype="datepicker" class="i-filter form-control" id="daterequested_start">
+                            </div>
+                            <div class="col-sm-6">
+                                <input type="text" ctrltype="datepicker" class="i-filter form-control" id="daterequested_end">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="page-header">
+                                    <h5>@TaskStrings.datecompleted</h5>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <input type="text" ctrltype="datepicker" class="i-filter form-control" id="datecompleted_start">
+                            </div>
+                            <div class="col-sm-6">
+                                <input type="text" ctrltype="datepicker" class="i-filter form-control" id="datecompleted_end">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="page-header">
+                                    <h5>@TaskStrings.dateclosed</h5>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <input type="text" ctrltype="datepicker" class="i-filter form-control" id="dateclosed_start">
+                            </div>
+                            <div class="col-sm-6">
+                                <input type="text" ctrltype="datepicker" class="i-filter form-control" id="dateclosed_end">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="page-header">
+                                    <h5>@TaskListStrings.filter01</h5>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <input type="text" ctrltype="numeric" allowfloat="false" allownegative="false" class="i-filter form-control" id="deadlineval">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="checkbox checkbox-primary">
+                                    <input type="checkbox" id="mytasks" />
+                                    <label>@TaskListStrings.mytasks</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="checkbox checkbox-primary">
+                                    <input type="checkbox" id="inmyregion" />
+                                    <label><span>@TaskListStrings.filter02</span></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="page-header">
+                                    <h5>@TaskStrings.priority</h5>
+                                </div>
+                            </div>
+                            <div class="col-md-12 filter-box" id="priorities">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal" id="modalcomments">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="false">&times;</span></button>
+                    <h4 class="modal-title">@TaskListStrings.comments</h4>
+                </div>
+                <div class="modal-body" style="height: 400px; overflow-y: auto;">
+                    <textarea class="form-control sm" rows="3" id="comment"></textarea>
+                    @if (string.IsNullOrEmpty(UserManager.Instance.User.Customer))
+                    {
+                        <div class="row custom">
+                            <div class="col-md-12">
+                                <div class="checkbox checkbox-inline checkbox-primary">
+                                    <input type="checkbox" class="styled" id="visibletocustomer" />
+                                    <label>@SharedStrings.visibletocustomer</label>
+                                </div>
+                                @if (string.IsNullOrEmpty(UserManager.Instance.User.Supplier))
+                                {
+                                    <div class="checkbox checkbox-inline checkbox-primary">
+                                        <input type="checkbox" class="styled" id="visibletosupplier" />
+                                        <label>@SharedStrings.visibletosupplier</label>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    }
+                    <div class="inline-toolbar">
+                        <button class="btn btn-primary btn-xs" id="addComment"><i class="fa fa-plus-circle"></i> @TaskStrings.add</button>
+                    </div>
+                    <div id="comments"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary btn-xs" data-dismiss="modal" aria-label="Close">@TaskStrings.ok</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal" id="modaldocuments">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="false">&times;</span></button>
+                    <h4 class="modal-title">@TaskListStrings.documents</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="progress">
+                                <div class="progress-bar" id="docuprogress" role="progressbar" style="width: 0%; min-width: 2em;">0%</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row custom">
+                        <div class="col-md-3"><strong>@TaskListStrings.doctype</strong></div>
+                        <div class="col-md-6">
+                            <select class="form-control" id="doctype">
+                                <option class="default" value="">@TaskListStrings.unspecified</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row custom">
+                        <div class="col-md-12">
+                            <div id="fupload">
+                                <span class="btn btn-default fileinput-button" id="btnBrowse">
+                                    <i class="fa fa-search"></i>
+                                    <span>@TaskListStrings.browse</span>
+                                    <input type="file" name="files[]" id="fu" multiple data-url="/UploadFile.ashx">
+                                </span>
+                                <button class="btn btn-default" id="btnupload" disabled="disabled"><i class="fa fa-cloud-upload"></i> @TaskListStrings.upload</button>
+                                <div class="row custom">
+                                    <div class="col-md-12">
+                                        <div id="filename"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="docs" class="tasklistdocs"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary btn-xs" data-dismiss="modal" aria-label="Close">@TaskStrings.ok</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal" id="modalrating">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="false">&times;</span></button>
+                    <h4 class="modal-title">@TaskListStrings.rating</h4>
+                </div>
+                <div class="modal-body" style="height: 400px; overflow-y: auto;">
+                    <div class="text-center">
+                        <h4>@TaskListStrings.pleaserate</h4>
+                        <input type="number" id="taskrating" class="rating" step="1" min="0" max="5" data-size="md" />
+                        <h4>@TaskListStrings.comments</h4>
+                        <textarea id="ratingcomments" cols="70" rows="15"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success btn-xs" id="saverating" aria-label="Save">@TaskStrings.save</button>
+                    <button type="button" class="btn btn-primary btn-xs" data-dismiss="modal" aria-label="Save">@TaskStrings.cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal" id="modaltaskcontactinfo">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="false">&times;</span></button>
+                    <h4 class="modal-title">@TaskStrings.contact</h4>
+                </div>
+                <div class="modal-body">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary btn-xs" data-dismiss="modal" aria-label="Close">@TaskStrings.ok</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="modalstatuschange" role="dialog" aria-labelledby="modalsharedlbl" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="false">&times;</span></button>
+                    <h4 class="modal-title">@TaskStrings.statuschange</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row custom">
+                        <div class="col-md-4">
+                            @TaskStrings.status
+                        </div>
+                        <div class="col-md-8">
+                            <select class="form-control" id="statuschange">
+                                <option value="" selected="selected" class="default">@TaskStrings.pleaseselect</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary btn-xs" id="btnsavestatus">@TaskStrings.save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+    var inbox = "@ViewBag.id";
+    </script>
+
+    @Html.IncludeVersionedJs("/Scripts/jquery/jquery.fileupload.js")
+    @Html.IncludeVersionedJs("/Scripts/jquery/jquery.iframe-transport.js")
+    @Html.IncludeVersionedJs("/Scripts/jquery/jquery.sidebar.min.js")
+    @Html.IncludeVersionedJs("/Scripts/jquery/jquery.contextMenu.min.js")
+
+
+    @Html.IncludeVersionedJs("/Scripts/other/numericInput.min.js")
+    @Html.IncludeVersionedJs("/Scripts/custom/ovi.custom.documents.js")
+    @Html.IncludeVersionedJs("/Scripts/custom/ovi.custom.comments.js")
+    @Html.IncludeVersionedJs("/Scripts/other/multiple-select.js")
+    @Html.IncludeVersionedJs("/Scripts/app/TaskList.js")
+</div>

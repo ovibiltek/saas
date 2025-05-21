@@ -1,0 +1,50 @@
+﻿@using Resources.Audit.Index
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Default.cshtml";
+}
+
+<div style="margin-top: 10px">
+    <div class="page-header">
+        <h4>@AuditStrings.audit</h4>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tms-page-toolbar inline-toolbar left" data-block="#record">
+                <div class="btn-group">
+                    <button class="btn btn-default btn-sm" selection-required="false" id="btnSave"><i class="fa fa-floppy-o fa-fw"></i> @AuditStrings.save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading page-panel-heading">@AuditStrings.record</div>
+                <div class="panel-body page-panel-body">
+                    <div class="row custom">
+                        <div class="col-md-1">
+                            @AuditStrings.cls
+                        </div>
+                        <div class="col-md-2">
+                            <div class="input-group">
+                                <input type="text" maxlength="50" required class="form-control" id="cls">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button" id="btnClass"><i class="fa fa-search fa-fw"></i></button>
+                                </span>
+                            </div><!-- /input-group -->
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="properties"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@Html.IncludeVersionedJs("/Scripts/app/Audit.js")

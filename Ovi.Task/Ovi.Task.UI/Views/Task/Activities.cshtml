@@ -1,0 +1,221 @@
+﻿@using Resources.Shared.Index
+@using Resources.Task.Index
+@using Resources.TaskActivities.Index
+@{
+    ViewBag.Title = "List";
+    Layout = "~/Views/Shared/Default.cshtml";
+}
+
+@Html.IncludeVersionedCss("/Content/jquery/jquery.fileupload.css")
+
+@Html.IncludeVersionedCss("/Content/jquery/jquery.contextMenu.min.css")
+
+<div style="margin-top: 10px">
+    <div class="page-header">
+        <h4>@TaskActivitiesStrings.activitylist</h4>
+        <h6></h6>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div id="grdTaskActivities"></div>
+            <div class="sidebars">
+                <div class="sidebar right" style="right: -400px;">
+                    <div class="row">
+                        <div class="col-md-12" style="text-align: center; margin-top: 10px;">
+                            <button id="filter" class="btn btn-primary btn-xs"><i class="fa fa-filter"></i> @TaskActivitiesStrings.filter</button>
+                            <button id="clearfilter" class="btn btn-info btn-xs"><i class="fa fa-ban"></i> @TaskActivitiesStrings.reset</button>
+                            <button id="closesiderbar" class="btn btn-danger btn-xs"><i class="fa fa-times"></i> @TaskActivitiesStrings.close</button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="page-header">
+                                <h5>@TaskStrings.status</h5>
+                            </div>
+                        </div>
+                        <div class="col-md-12 filter-box" id="statuses">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="page-header">
+                                <h5>@TaskStrings.datecreated</h5>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <input type="text" ctrltype="datepicker" class="i-filter form-control" id="datecreated_start">
+                        </div>
+                        <div class="col-sm-6">
+                            <input type="text" ctrltype="datepicker" class="i-filter form-control" id="datecreated_end">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="page-header">
+                                <h5>@TaskStrings.activeplanningdate</h5>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <input type="text" ctrltype="datepicker" class="i-filter form-control" id="apd_start">
+                        </div>
+                        <div class="col-sm-6">
+                            <input type="text" ctrltype="datepicker" class="i-filter form-control" id="apd_end">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="page-header">
+                                <h5>@TaskStrings.daterequested</h5>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <input type="text" ctrltype="datepicker" class="i-filter form-control" id="daterequested_start">
+                        </div>
+                        <div class="col-sm-6">
+                            <input type="text" ctrltype="datepicker" class="i-filter form-control" id="daterequested_end">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="page-header">
+                                <h5>@TaskStrings.datecompleted</h5>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <input type="text" ctrltype="datepicker" class="i-filter form-control" id="datecompleted_start">
+                        </div>
+                        <div class="col-sm-6">
+                            <input type="text" ctrltype="datepicker" class="i-filter form-control" id="datecompleted_end">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="page-header">
+                                <h5>@TaskStrings.dateclosed</h5>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <input type="text" ctrltype="datepicker" class="i-filter form-control" id="dateclosed_start">
+                        </div>
+                        <div class="col-sm-6">
+                            <input type="text" ctrltype="datepicker" class="i-filter form-control" id="dateclosed_end">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="page-header">
+                                <h5>@TaskActivitiesStrings.filter01</h5>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <input type="text" ctrltype="numeric" allowfloat="false" allownegative="false" class="i-filter form-control" id="deadlineval">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="checkbox checkbox-primary">
+                                <input type="checkbox" id="mytasks" />
+                                <label>@TaskActivitiesStrings.mytasks</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="checkbox checkbox-primary">
+                                <input type="checkbox" id="inmyregion" />
+                                <label><span>@TaskActivitiesStrings.filter02</span></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="page-header">
+                                <h5>@TaskStrings.priority</h5>
+                            </div>
+                        </div>
+                        <div class="col-md-12 filter-box" id="priorities">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="modalcomments">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="false">&times;</span></button>
+                <h4 class="modal-title">@TaskActivitiesStrings.comments</h4>
+            </div>
+            <div class="modal-body">
+                <textarea class="form-control sm" rows="3" id="comment"></textarea>
+                @if (string.IsNullOrEmpty(UserManager.Instance.User.Customer) && string.IsNullOrEmpty(UserManager.Instance.User.Supplier))
+                {
+                    <div class="row custom">
+                        <div class="col-md-12">
+                            <div class="checkbox checkbox-inline checkbox-primary">
+                                <input type="checkbox" class="styled" id="visibletocustomer" />
+                                <label>@SharedStrings.visibletocustomer</label>
+                            </div>
+                            <div class="checkbox checkbox-inline checkbox-primary">
+                                <input type="checkbox" class="styled" id="visibletosupplier" />
+                                <label>@SharedStrings.visibletosupplier</label>
+                            </div>
+                        </div>
+                    </div>
+                }
+                <div class="inline-toolbar">
+                    <button class="btn btn-primary btn-xs" id="addComment"><i class="fa fa-plus-circle"></i> @TaskStrings.add</button>
+                </div>
+                <div id="comments"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-xs" data-dismiss="modal" aria-label="Close">@TaskStrings.ok</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="modaldocuments">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="false">&times;</span></button>
+                <h4 class="modal-title">@TaskActivitiesStrings.documents</h4>
+            </div>
+            <div class="modal-body" style="height: 400px; overflow-y: auto;">
+                <div id="fupload">
+                    <span class="btn btn-default fileinput-button" id="btnBrowse">
+                        <i class="fa fa-search"></i>
+                        <span>@TaskActivitiesStrings.browse</span>
+                        <input type="file" name="files[]" id="fu" multiple data-url="/UploadFile.ashx">
+                    </span>
+                    <button class="btn btn-default" id="btnupload" disabled="disabled"><i class="fa fa-cloud-upload"></i> @TaskActivitiesStrings.upload</button>
+                    <div class="row custom">
+                        <div class="col-md-12">
+                            <div id="filename"></div>
+                        </div>
+                    </div>
+                </div>
+                <div id="docs" class="tasklistdocs"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-xs" data-dismiss="modal" aria-label="Close">@TaskStrings.ok</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var inbox = "@ViewBag.id";
+</script>
+
+@Html.IncludeVersionedJs("/Scripts/jquery/jquery.fileupload.js")
+@Html.IncludeVersionedJs("/Scripts/jquery/jquery.iframe-transport.js")
+@Html.IncludeVersionedJs("/Scripts/jquery/jquery.sidebar.min.js")
+@Html.IncludeVersionedJs("/Scripts/jquery/jquery.contextMenu.min.js")
+
+
+@Html.IncludeVersionedJs("/Scripts/other/numericInput.min.js")
+@Html.IncludeVersionedJs("/Scripts/custom/ovi.custom.documents.js")
+@Html.IncludeVersionedJs("/Scripts/custom/ovi.custom.comments.js")
+@Html.IncludeVersionedJs("/Scripts/app/TaskActivities.js")

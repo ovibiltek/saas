@@ -1,0 +1,184 @@
+﻿@using Resources.Reports.CUP
+@{
+    ViewBag.Title = "PSP";
+    Layout = "~/Views/Shared/Default.cshtml";
+}
+@Html.IncludeVersionedCss("/Content/bootstrap/bootstrap-tagsinput.css")
+
+@Html.IncludeVersionedCss("/Content/jquery/jquery.fileupload.css")
+@Html.IncludeVersionedCss("/Content/jquery/jquery.contextMenu.min.css")
+
+<div style="margin-top: 10px">
+    <div class="page-header">
+        <h4>@ReportCupStrings.title</h4>
+        <h6></h6>
+    </div>
+    <form action="/Reports/GenerateCUP" method="POST" target="_blank" novalidate>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="tms-page-toolbar inline-toolbar left" data-block="#record">
+                    <div class="btn-group">
+                        <button class="btn btn-default btn-sm" title="Ctrl+R" selection-required="false" id="btnRun"><i class="fa fa fa-plus fa-fw"></i> @ReportCupStrings.run</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" style="margin-top: 10px;" id="record">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading page-panel-heading">@ReportCupStrings.parameters</div>
+                    <div class="panel-body page-panel-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="row custom">
+                                    <div class="col-md-3">
+                                        @ReportCupStrings.organization
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="input-group">
+                                            <input type="text" maxlength="50" required class="form-control" id="org">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default" type="button" id="btnorg"><i class="fa fa-search fa-fw"></i></button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-3">
+                                        @ReportCupStrings.customer
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="input-group">
+                                            <input type="text" maxlength="50" class="form-control" name="Customer" id="customer">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default" type="button" id="btncustomer"><i class="fa fa-search fa-fw"></i></button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-3">
+                                        @ReportCupStrings.customergroup
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="input-group">
+                                            <input type="text" maxlength="50" class="form-control" name="CustomerGroup" id="customergroup">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default" type="button" id="btncustomergroup"><i class="fa fa-search fa-fw"></i></button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-3">
+                                        @ReportCupStrings.tasktype
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="input-group">
+                                            <input type="text" maxlength="50" class="form-control" name="Tasktype" id="tasktype">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default" type="button" id="btntasktype"><i class="fa fa-search fa-fw"></i></button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="row custom">
+                                    <div class="col-md-3">
+                                        @ReportCupStrings.taskcompleted
+                                    </div>
+                                    <div class="col-md-3">
+                                        <input type="text" ctrltype="datepicker" maxlength="50" class="form-control" name="TaskCompletedStart" id="TaskCompletedStart">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <input type="text" ctrltype="datepicker" maxlength="50" class="form-control" name="TaskCompletedEnd" id="TaskCompletedEnd">
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-3">
+                                        @ReportCupStrings.outputtype
+                                    </div>
+                                    <div class="col-md-9">
+                                        <div class="radio radio-primary radio-inline">
+                                            <input type="radio" name="Type" id="pdf" value="PDF" disableonupdate="yes" checked>
+                                            <label for="pdf">@ReportCupStrings.pdf</label>
+                                        </div>
+                                        <div class="radio radio-primary radio-inline">
+                                            <input type="radio" name="Type" id="xls" disableonupdate="yes" value="XLS">
+                                            <label for="xls">@ReportCupStrings.xls</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="row">
+        <div class="col-md-6" id="divCmntsAttachments">
+            <div class="panel panel-default" style="height: 450px;">
+                <div class="panel-heading task-panel-heading">@ReportCupStrings.comments</div>
+                <div class="panel-body">
+                    <textarea class="form-control" contenteditable rows="3" id="comment"></textarea>
+                    <div class="inline-toolbar">
+                        <button class="btn btn-primary btn-xs" selection-required="true" id="addComment"><i class="fa fa-plus-circle"></i>@ReportCupStrings.add</button>
+                    </div>
+                    <div id="comments" class="sm">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-6" id="divDocsAttachments">
+            <div class="panel panel-default" style="height: 372px;">
+                <div class="panel-heading task-panel-heading">@ReportCupStrings.docs</div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="progress">
+                                <div class="progress-bar" id="docuprogress" role="progressbar" style="width: 0%; min-width: 2em;">0%</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row custom">
+                        <div class="col-md-8">
+                            <div id="fupload">
+                                <span class="btn btn-default fileinput-button" id="btnBrowse">
+                                    <i class="fa fa-search"></i>
+                                    <span>@ReportCupStrings.browse</span>
+                                    <input type="file" name="files[]" id="fu" multiple data-url="/UploadFile.ashx">
+                                </span>
+                                <button class="btn btn-default" id="btnupload" disabled="disabled"><i class="fa fa-cloud-upload"></i>@ReportCupStrings.upload</button>
+                                <div class="row custom">
+                                    <div class="col-md-8">
+                                        <div id="filename"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="docs" class="light-size"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@Html.IncludeVersionedJs("/Scripts/jquery/jquery.fileupload.js")
+@Html.IncludeVersionedJs("/Scripts/jquery/jquery.iframe-transport.js")
+
+@Html.IncludeVersionedJs("/Scripts/other/typeahead.bundle.js")
+@Html.IncludeVersionedJs("/Scripts/jquery/jquery.contextMenu.min.js")
+
+@Html.IncludeVersionedJs("/Scripts/custom/ovi.custom.list.js")
+@Html.IncludeVersionedJs("/Scripts/custom/ovi.custom.documents.js")
+@Html.IncludeVersionedJs("/Scripts/custom/ovi.custom.comments.js")
+@Html.IncludeVersionedJs("/Scripts/custom/ovi.custom.customfields.js")
+
+
+
+@Html.IncludeVersionedJs("/Scripts/bootstrap/bootstrap-tagsinput.min.js")
+@Html.IncludeVersionedJs("/Scripts/app/ReportCUP.js")

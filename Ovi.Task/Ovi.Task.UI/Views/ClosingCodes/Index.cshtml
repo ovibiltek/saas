@@ -1,0 +1,207 @@
+﻿@using Resources.ClosingCodes.Index
+@using Resources.Shared.Index
+@{
+    Layout = "~/Views/Shared/Default.cshtml";
+}
+<div style="margin-top: 10px">
+    <div class="page-header">
+        <h4>@ClosingCodesStrings.closingcodes</h4>
+        <h6></h6>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tms-page-toolbar inline-toolbar left" data-block="#failures,#causes,#actions">
+                <div class="btn-group">
+                    <button class="btn btn-default btn-sm" title="Ctrl+R" selection-required="false" id="btnNew"><i class="fa fa fa-plus fa-fw"></i> @ClosingCodesStrings.addnew</button>
+                    <button class="btn btn-default btn-sm" title="Ctrl+S" selection-required="false" id="btnSave"><i class="fa fa-floppy-o fa-fw"></i> @ClosingCodesStrings.save</button>
+                    <button class="btn btn-default btn-sm" title="Ctrl+U" selection-required="true" id="btnUndo" disabled="disabled"><i class="fa fa-undo fa-fw"></i> @ClosingCodesStrings.undo</button>
+                    <button class="btn btn-default btn-sm" title="Ctrl+D" selection-required="true" id="btnDelete" disabled="disabled"><i class="fa fa-trash-o fa-fw"></i> @ClosingCodesStrings.delete</button>
+                    <button class="btn btn-default btn-sm" title="Ctrl+H" selection-required="true" id="btnHistory" disabled="disabled"><i class="fa fa-bolt fa-fw"></i> @ClosingCodesStrings.history</button>
+                    <button class="btn btn-default btn-sm" title="Ctrl+Q" selection-required="true" id="btnTranslations" disabled="disabled"><i class="fa fa-globe"></i> @ClosingCodesStrings.translations</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <ul class="nav nav-tabs">
+        <li class="active">
+            <a data-toggle="tab" href="#failures">@ClosingCodesStrings.failures</a>
+        </li>
+        <li>
+            <a data-toggle="tab" href="#causes">@ClosingCodesStrings.causes</a>
+        </li>
+        <li>
+            <a data-toggle="tab" href="#actions">@ClosingCodesStrings.actions</a>
+        </li>
+    </ul>
+    <div class="tab-content">
+        <div id="failures" class="tab-pane active">
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="grdFailures"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading task-panel-heading">@ClosingCodesStrings.failures</div>
+                        <div class="panel-body">
+                            <div class="row custom">
+                                <div class="col-md-2">
+                                    @ClosingCodesStrings.code
+                                </div>
+                                <div class="col-md-3">
+                                    <input id="failurecode" disableonupdate="yes" required type="text" class="form-control form-code"/>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-2">
+                                    @ClosingCodesStrings.desc
+                                </div>
+                                <div class="col-md-3">
+                                    <input type="text" maxlength="50" class="form-control" required id="failuredesc"/>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-2">
+                                    @ClosingCodesStrings.common
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="checkbox checkbox-primary">
+                                        <input class="styled" type="checkbox" checked="checked" id="common"/>
+                                        <label></label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-2">
+                                    @ClosingCodesStrings.active
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="checkbox checkbox-primary">
+                                        <input class="styled" type="checkbox" checked="checked" id="failureactive"/>
+                                        <label></label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="causes" class="tab-pane">
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="grdCauses"></div>
+                </div>
+            </div>
+            <div class="row custom">
+                <div class="col-md-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading task-panel-heading">@ClosingCodesStrings.causes</div>
+                        <div class="panel-body">
+                            <div class="row custom">
+                                <div class="col-md-2">
+                                    @ClosingCodesStrings.code
+                                </div>
+                                <div class="col-md-3">
+                                    <input id="causecode" disableonupdate="yes" required type="text" class="form-control form-code"/>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-2">
+                                    @ClosingCodesStrings.desc
+                                </div>
+                                <div class="col-md-3">
+                                    <input type="text" maxlength="50" class="form-control" required id="causedesc"/>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-2">
+                                    @ClosingCodesStrings.active
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="checkbox checkbox-primary">
+                                        <input type="checkbox" class="styled" checked="checked" id="causeactive"/>
+                                        <label></label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="actions" class="tab-pane">
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="grdActions"></div>
+                </div>
+            </div>
+            <div class="row custom">
+                <div class="col-md-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading task-panel-heading">@ClosingCodesStrings.actions</div>
+                        <div class="panel-body">
+                            <div class="row custom">
+                                <div class="col-md-2">
+                                    @ClosingCodesStrings.code
+                                </div>
+                                <div class="col-md-3">
+                                    <input id="actioncode" disableonupdate="yes" required type="text" class="form-control form-code"/>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-2">
+                                    @ClosingCodesStrings.desc
+                                </div>
+                                <div class="col-md-3">
+                                    <input type="text" maxlength="50" class="form-control" required id="actiondesc"/>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-2">
+                                    @ClosingCodesStrings.active
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="checkbox checkbox-primary">
+                                        <input class="styled" type="checkbox" checked="checked" id="actionactive"/>
+                                        <label></label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="relations" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="false">&times;</span></button>
+                <h4 class="modal-title">@ClosingCodesStrings.relations</h4>
+            </div>
+            <div class="modal-body" style="height: 400px; overflow-y: auto;">
+                <div class="row">
+                    <div class="col-md-12">
+                        <input id="modalsearch" type="search" id="filter" class="form-control"/>
+                    </div>
+                </div>
+                <div class="row custom">
+                    <div class="col-md-12">
+                        <div class="modal-data"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="modalsave" type="button" class="btn btn-success btn-xs" data-action="save">@SharedStrings.save</button>
+                <button type="button" class="btn btn-primary btn-xs" data-dismiss="modal" data-action="close">@SharedStrings.cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@Html.IncludeVersionedJs("/Scripts/app/ClosingCodes.js")

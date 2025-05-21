@@ -1,0 +1,487 @@
+﻿@using Resources.Task.Index
+<div id="planning" class="tab-pane">
+
+    <ul class="nav nav-tabs" id="navplanning">
+        <li class="active"><a data-toggle="tab" href="#plnpart">@TaskStrings.part</a></li>
+        <li><a data-toggle="tab" href="#plnmisccosts">@TaskStrings.misccosts</a></li>
+        <li><a data-toggle="tab" href="#plntool">@TaskStrings.tool</a></li>
+        <li><a data-toggle="tab" href="#plnlabor">@TaskStrings.labor</a></li>
+        <li><a data-toggle="tab" href="#plnpreview">@TaskStrings.summary</a></li>
+    </ul>
+    <div class="tab-content">
+        <div id="plnpart" class="tab-pane active">
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="grdPlannedParts"></div>
+                </div>
+            </div>
+            <br />
+            <div id="plannedpartsform" class="panel panel-default items">
+                <div class="panel-heading page-panel-heading">@TaskStrings.parts</div>
+                <div class="row">
+                    <div class="col-md-12" style="padding-right: 0">
+                        <div class="inline-toolbar left" style="border: none;" data-block="#plnpart">
+                            <div class="btn-group">
+                                <button class="btn btn-default btn-sm" title="Ctrl+R" selection-required="false" disabled id="btnAddPlannedPart"><i class="fa fa fa-plus fa-fw"></i>@TaskStrings.addnew</button>
+                                <button class="btn btn-default btn-sm" title="Ctrl+S" selection-required="false" disabled id="btnSavePlannedPart"><i class="fa fa-floppy-o fa-fw"></i>@TaskStrings.save</button>
+                                <button class="btn btn-default btn-sm" selection-required="true" title="Ctrl+D" disabled id="btnDeletePlannedPart"><i class="fa fa-trash-o fa-fw"></i>@TaskStrings.delete</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-body page-panel-body">
+                        <div class="row">
+                            <div class="col-md-5">
+                                <div class="row custom">
+                                    <div class="col-md-3">
+                                        @TaskStrings.activity
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="input-group">
+                                            <input type="text" required class="form-control" id="plannedpartactivity">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default" type="button" id="btnplannedpartactivity"><i class="fa fa-search fa-fw"></i></button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-3">
+                                        @TaskStrings.plandate
+                                    </div>
+                                    <div class="col-md-5">
+                                        <input type="text" calc-group="2" maxlength="10" class="form-control" ctrltype="datepicker" id="plannedpartdate" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="row custom">
+                                    <div class="col-md-3">
+                                        @TaskStrings.part
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="input-group">
+                                            <input type="text" readonly="readonly" required class="form-control" id="plannedpart">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default" type="button" id="btnplannedpart"><i class="fa fa-search fa-fw"></i></button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-3">
+                                        @TaskStrings.qty
+                                    </div>
+                                    <div class="col-md-5">
+                                        <input type="text" calc-group="1" required="" ctrltype="numeric" allowfloat="true" class="form-control" id="plannedpartqty">
+                                    </div>
+                                    <div class="col-md-1">
+                                        <input type="text" disabled="disabled" class="form-control" id="plannedpartuom">
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-3">
+                                        @TaskStrings.unitprice
+                                    </div>
+                                    <div class="col-md-5">
+                                        <input type="text" disabled="disabled" valtype="PRICE" ctrltype="numeric" allowfloat="true" class="form-control" id="plannedpartunitprice">
+                                    </div>
+                                    <div class="col-md-1">
+                                        <input type="text" disabled="disabled" class="form-control" id="plannedpartcurr">
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-3">
+                                        @TaskStrings.total
+                                    </div>
+                                    <div class="col-md-5">
+                                        <input type="text" disabled="disabled" class="form-control" id="plannedparttotal">
+                                    </div>
+                                    <div class="col-md-1">
+                                        <input type="text" disabled="disabled" class="form-control" id="plannedparttotalcurr">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="plnmisccosts" class="tab-pane">
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="grdPlannedMiscCosts"></div>
+                </div>
+            </div>
+            <br />
+            <div id="plannedmisccostsform" class="panel panel-default items">
+                <div class="panel-heading page-panel-heading">@TaskStrings.misccosts</div>
+                <div class="row">
+                    <div class="col-md-12" style="padding-right: 0">
+                        <div class="inline-toolbar left" style="border: none;" data-block="#plnmisccosts">
+                            <div class="btn-group">
+                                <button class="btn btn-default btn-sm" title="Ctrl+R" selection-required="false" disabled id="btnAddPlannedMiscCost"><i class="fa fa fa-plus fa-fw"></i>@TaskStrings.addnew</button>
+                                <button class="btn btn-default btn-sm" title="Ctrl+S" selection-required="false" disabled id="btnSavePlannedMiscCost"><i class="fa fa-floppy-o fa-fw"></i>@TaskStrings.save</button>
+                                <button class="btn btn-default btn-sm" selection-required="true" title="Ctrl+D" disabled id="btnDeletePlannedMiscCost"><i class="fa fa-trash-o fa-fw"></i>@TaskStrings.delete</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-body page-panel-body">
+                        <div class="row">
+                            <div class="col-md-5">
+                                <div class="row custom">
+                                    <div class="col-md-3">
+                                        @TaskStrings.activity
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="input-group">
+                                            <input type="text" required class="form-control" id="plannedmisccostactivity">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default" type="button" id="btnplannedmisccostactivity"><i class="fa fa-search fa-fw"></i></button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-3">
+                                        @TaskStrings.plandate
+                                    </div>
+                                    <div class="col-md-5">
+                                        <input type="text" calc-group="2" maxlength="10" class="form-control" required ctrltype="datepicker" id="plannedmisccostdate" />
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-3">
+                                        @TaskStrings.description
+                                    </div>
+                                    <div class="col-md-5">
+                                        <input type="text" maxlength="250" class="form-control" required id="plannedmisccostdesc" />
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-3">
+                                        @TaskStrings.type
+                                    </div>
+                                    <div class="col-md-4">
+                                        <select id="planned_misccosttype_parent" class="form-control" required>
+                                            <option value="">@TaskStrings.pleaseselect</option>
+                                            <option value="PART">@TaskStrings.part</option>
+                                            <option value="SERVICE">@TaskStrings.service</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <select id="planned_misccosttype" required class="form-control"></select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="row custom">
+                                    <div class="col-md-3">
+                                        @TaskStrings.unitprice
+                                    </div>
+                                    <div class="col-md-5">
+                                        <input type="text" calc-group="1" required valtype="PRICE" ctrltype="numeric" allowfloat="true" class="form-control" id="plannedmisccostunitprice">
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-3">
+                                        @TaskStrings.curr
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="input-group">
+                                            <input type="text" calc-group="2" required class="form-control" id="plannedmisccostcurr">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default" type="button" id="btnplannedmisccostcurr"><i class="fa fa-search fa-fw"></i></button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-3">
+                                        @TaskStrings.exch
+                                    </div>
+                                    <div class="col-md-5">
+                                        <input type="text" required valtype="EXCH" ctrltype="numeric" allowfloat="true" class="form-control" id="plannedmisccostexch">
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-3">
+                                        @TaskStrings.qty
+                                    </div>
+                                    <div class="col-md-5">
+                                        <input type="text" calc-group="1" required ctrltype="numeric" allowfloat="true" class="form-control" id="plannedmisccostqty">
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-3">
+                                        @TaskStrings.uom
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="input-group">
+                                            <input type="text" required class="form-control" id="plannedmisccostuom">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default" type="button" id="btnplannedmisccostuom"><i class="fa fa-search fa-fw"></i></button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-3">
+                                        @TaskStrings.total
+                                    </div>
+                                    <div class="col-md-5">
+                                        <input type="text" disabled="disabled" class="form-control" id="plannedmisccosttotal">
+                                    </div>
+                                    <div class="col-md-1">
+                                        <input type="text" disabled="disabled" class="form-control" id="plannedmisccosttotalcurr">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="plntool" class="tab-pane">
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="grdPlannedTools"></div>
+                </div>
+            </div>
+            <br />
+            <div id="plannedtoolsform" class="panel panel-default items">
+                <div class="panel-heading page-panel-heading">@TaskStrings.tool</div>
+                <div class="row">
+                    <div class="col-md-12" style="padding-right: 0">
+                        <div class="inline-toolbar left" style="border: none;" data-block="#plntool">
+                            <div class="btn-group">
+                                <button class="btn btn-default btn-sm" title="Ctrl+R" selection-required="false" disabled id="btnAddPlannedTool"><i class="fa fa fa-plus fa-fw"></i>@TaskStrings.addnew</button>
+                                <button class="btn btn-default btn-sm" title="Ctrl+S" selection-required="false" disabled id="btnSavePlannedTool"><i class="fa fa-floppy-o fa-fw"></i>@TaskStrings.save</button>
+                                <button class="btn btn-default btn-sm" selection-required="true" title="Ctrl+D" disabled id="btnDeletePlannedTool"><i class="fa fa-trash-o fa-fw"></i>@TaskStrings.delete</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-body page-panel-body">
+                        <div class="row">
+                            <div class="col-md-5">
+                                <div class="row custom">
+                                    <div class="col-md-3">
+                                        @TaskStrings.activity
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="input-group">
+                                            <input type="text" required class="form-control" id="plannedtoolactivity">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default" type="button" id="btnplannedtoolactivity"><i class="fa fa-search fa-fw"></i></button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-3">
+                                        @TaskStrings.tool
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="input-group">
+                                            <input type="text" required class="form-control" id="plannedtool">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default" type="button" id="btnplannedtool"><i class="fa fa-search fa-fw"></i></button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-3">
+                                        @TaskStrings.plandate
+                                    </div>
+                                    <div class="col-md-5">
+                                        <input type="text" maxlength="10" class="form-control" ctrltype="datepicker" id="plannedtooldate" />
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-3">
+                                        @TaskStrings.planperiod
+                                    </div>
+                                    <div class="col-md-5">
+                                        <input type="text" calc-group="1" required="" ctrltype="numeric" allowfloat="true" class="form-control" id="toolplanperiod">
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-3">
+                                        @TaskStrings.chargingperiod
+                                    </div>
+                                    <div class="col-md-5">
+                                        <input type="text" class="form-control" disabled="disabled" id="toolchargingperiod">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="row custom">
+                                    <div class="col-md-3">
+                                        @TaskStrings.exch
+                                    </div>
+                                    <div class="col-md-5">
+                                        <input type="text" required valtype="EXCH" ctrltype="numeric" allowfloat="true" class="form-control" id="plannedtoolexch">
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-3">
+                                        @TaskStrings.unitprice
+                                    </div>
+                                    <div class="col-md-5">
+                                        <input type="text" calc-group="1" valtype="PRICE" disabled="disabled" ctrltype="numeric" allowfloat="true" class="form-control" id="plannedtoolunitprice">
+                                    </div>
+                                    <div class="col-md-1">
+                                        <input type="text" disabled="disabled" class="form-control" id="plannedtoolcurr">
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-3">
+                                        @TaskStrings.total
+                                    </div>
+                                    <div class="col-md-5">
+                                        <input type="text" disabled="disabled" class="form-control" id="plannedtooltotal">
+                                    </div>
+                                    <div class="col-md-1">
+                                        <input type="text" disabled="disabled" class="form-control" id="plannedtooltotalcurr">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="plnlabor" class="tab-pane">
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="grdLabors"></div>
+                </div>
+            </div>
+            <br />
+            <div id="plannedlaborform" class="panel panel-default items">
+                <div class="panel-heading page-panel-heading">@TaskStrings.labor</div>
+                <div class="row">
+                    <div class="col-md-12" style="padding-right: 0">
+                        <div class="inline-toolbar left" style="border: none;" data-block="#plntool">
+                            <div class="btn-group">
+                                <button class="btn btn-default btn-sm" title="Ctrl+R" selection-required="false" disabled id="btnAddPlannedLabor"><i class="fa fa fa-plus fa-fw"></i>@TaskStrings.addnew</button>
+                                <button class="btn btn-default btn-sm" title="Ctrl+S" selection-required="false" disabled id="btnSavePlannedLabor"><i class="fa fa-floppy-o fa-fw"></i>@TaskStrings.save</button>
+                                <button class="btn btn-default btn-sm" selection-required="true" title="Ctrl+D" disabled id="btnDeletePlannedLabor"><i class="fa fa-trash-o fa-fw"></i>@TaskStrings.delete</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-body page-panel-body">
+                        <div class="row">
+                            <div class="col-md-5">
+                                <div class="row custom">
+                                    <div class="col-md-4">
+                                        @TaskStrings.activity
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="input-group">
+                                            <input type="text" required class="form-control" id="plannedlaboractivity">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default" type="button" id="btnplannedlaboractivity"><i class="fa fa-search fa-fw"></i></button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-4">
+                                        @TaskStrings.plannedstartdate
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="text" maxlength="16" id="plannedstartdate" required="" ctrltype="datetimepicker" class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-4">
+                                        @TaskStrings.plannedduration
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" id="plannedduration" required="" mctrltype="numeric" allowfloat="false" class="form-control" />
+                                    </div>
+                                    <div class="col-md-2">
+                                        <select id="planneddurationunit" required="" class="form-control">
+                                            <option value="DAY">@TaskStrings.day</option>
+                                            <option value="HOUR">@TaskStrings.hour</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-4">
+                                        @TaskStrings.province
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="input-group">
+                                            <input type="text"  maxlength="50" required class="form-control" id="plannedprovince">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default" type="button" id="btnplannedprovince"><i class="fa fa-search fa-fw"></i></button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="row custom">
+                                    <div class="col-md-5">
+                                        @TaskStrings.plannedtrade
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="input-group">
+                                            <input type="text"  maxlength="50" required class="form-control" id="plannedtrade">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default" type="button" id="btnplannedtrade"><i class="fa fa-search fa-fw"></i></button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-12">
+                                        <div class="row">
+                                            <div class="col-md-5">
+                                                <div class="row">
+                                                    <div class="col-md-8">
+                                                        @TaskStrings.plannedassignedto
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <h5 id="plannedassignedtocnt"></h5>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-7">
+                                                <div class="input-group" style="margin-left: 0.25em;">
+                                                    <input type="text" class="form-control" id="plannedassignedto" data-role="multival">
+                                                    <div class="input-group-btn">
+                                                        <button id="btnplnaddme" title="@TaskStrings.addme" class="btn btn-default" type="button"><i class="fa fa-btn fa-user-plus"></i></button>
+                                                        <button id="btnPlannedAssignedTo" title="@TaskStrings.addusers" class="btn btn-default" type="button"><i class="fa fa-btn fa-plus-circle"></i></button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="plnpreview" class="tab-pane">
+            <div class="row">
+                <div class="col-md-6">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <td style="width: 200px;background: #108ce2;color: #FFF;">@TaskStrings.linetype</td>
+                                <td style="width: 200px;background: #108ce2;color: #FFF;">@TaskStrings.amount</td>
+                                <td style="width: 100px;background: #108ce2;color: #FFF;">@TaskStrings.curr</td>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,328 @@
+﻿@using Resources.Shared.Index
+@using Resources.Task.Index
+<div id="activities" class="tab-pane">
+    <div class="row">
+        <div class="col-md-12">
+            <div id="grdActivities"></div>
+        </div>
+    </div>
+    <br />
+    <div id="activitiesform" class="panel panel-default items">
+        <div class="panel-heading page-panel-heading">@TaskStrings.activities</div>
+        <div class="row">
+            <div class="col-md-12" style="padding-right: 0">
+                <div class="inline-toolbar left" style="border: none;" data-block="#activities">
+                    <div class="btn-group">
+                        <button class="btn btn-default btn-sm" disabled title="Ctrl+R" id="btnAddActivity"><i class="fa fa fa-plus fa-fw"></i>@TaskStrings.addnew</button>
+                        <button class="btn btn-default btn-sm" disabled title="Ctrl+S" id="btnSaveActivity"><i class="fa fa-floppy-o fa-fw"></i>@TaskStrings.save</button>
+                        <button class="btn btn-default btn-sm" disabled title="Ctrl+D" id="btnDeleteActivity"><i class="fa fa-trash-o fa-fw"></i>@TaskStrings.delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel-body page-panel-body">
+            <div class="row">
+                <div class="col-md-5 act-left">
+                    <div class="row custom">
+                        <div class="col-md-4">
+                            @TaskStrings.line
+                        </div>
+                        <div class="col-md-7">
+                            <input type="text" disabled="disabled" maxlength="50" id="line" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="row custom">
+                        <div class="col-md-4">
+                            @TaskStrings.department
+                        </div>
+                        <div class="col-md-7">
+                            <div class="input-group">
+                                <input type="text" disableonupdate="yes" maxlength="50" required class="form-control" id="dep">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button" disableonupdate="yes" id="btnDepartment"><i class="fa fa-search fa-fw"></i></button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row custom">
+                        <div class="col-md-4">
+                            @TaskStrings.description
+                        </div>
+                        <div class="col-md-7">
+                            <input type="text" required maxlength="250" id="actdesc" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="row custom">
+                        <div class="col-md-4">
+                            @TaskStrings.trade
+                        </div>
+                        <div class="col-md-7">
+                            <div class="input-group">
+                                <input type="text" maxlength="50" required class="form-control" id="trade">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button" id="btntrade"><i class="fa fa-search fa-fw"></i></button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row custom">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            @TaskStrings.assignedto
+                                        </div>
+                                        <div class="col-md-6">
+                                            <h5 id="assignedtocnt"></h5>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-7">
+                                    <div class="input-group" style="margin-left: 0.25em;">
+                                        <input type="text" class="form-control" id="assignedto" data-role="multival">
+                                        <div class="input-group-btn">
+                                            <button id="btnaddme" title="@TaskStrings.addme" class="btn btn-default" type="button"><i class="fa fa-btn fa-user-plus"></i></button>
+                                            <button id="btnAssignedTo" title="@TaskStrings.addusers" class="btn btn-default" type="button"><i class="fa fa-btn fa-plus-circle"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row custom hidden">
+                        <div class="col-md-4">
+                            @TaskStrings.lmapprequired
+                        </div>
+                        <div class="col-md-7">
+                            <div class="checkbox checkbox-primary">
+                                <input type="checkbox" class="styled" disableonupdate="yes" id="lmapprovalrequired" />
+                                <label></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row custom hidden">
+                        <div class="col-md-4">
+                            @TaskStrings.privateactivity
+                        </div>
+                        <div class="col-md-7">
+                            <div class="checkbox checkbox-primary">
+                                <input type="checkbox" class="styled" id="actprivate" />
+                                <label></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row custom">
+                        <div class="col-md-4">
+                            @TaskStrings.completed
+                        </div>
+                        <div class="col-md-7">
+                            <div class="checkbox checkbox-primary">
+                                <input type="checkbox" class="styled" id="actcompleted" />
+                                <label></label>
+                            </div>
+                        </div>
+                    </div>
+                    @if (string.IsNullOrEmpty(UserManager.Instance.User.Supplier))
+                    {
+                        <div class="row custom hidden">
+                            <div class="col-md-4">
+                                @TaskStrings.logistics
+                            </div>
+                            <div class="col-md-7">
+                                <div class="checkbox checkbox-primary">
+                                    <input type="checkbox" class="styled" id="logistics" />
+                                    <label></label>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+                <div class="col-md-4">
+                    <div class="act-right">
+                        <div class="row custom">
+                            <div class="col-md-3">
+                                @TaskStrings.predecessor
+                            </div>
+                            <div class="col-md-8">
+                                <div class="input-group">
+                                    <input ctrltype="numeric" allowfloat="false" type="text" class="form-control" id="predecessor">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default" type="button" id="btnpredecessor"><i class="fa fa-search fa-fw"></i></button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row custom">
+                            <div class="col-md-3">
+                                @TaskStrings.datefrom
+                            </div>
+                            <div class="col-md-8">
+                                <input type="text" maxlength="16" id="schfrom" ctrltype="datetimepicker" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="row custom">
+                            <div class="col-md-3">
+                                @TaskStrings.dateto
+                            </div>
+                            <div class="col-md-8">
+                                <input type="text" maxlength="16" id="schto" ctrltype="datetimepicker" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="row custom">
+                            <div class="col-md-3">
+                                @TaskStrings.projectedtime
+                            </div>
+                            <div class="col-md-8">
+                                <input type="text" id="projectedtime" ctrltype="numeric" allowfloat="false" class="form-control" />
+                            </div>
+                        </div>
+                        <div id="divreason" class="row hidden" style="margin-top: 15px;">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        @TaskStrings.reason
+                                    </div>
+                                    <div class="col-md-8">
+                                        <textarea id="reason" style="width: 100%" rows="5"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 35px; text-align: center;">
+                        <div class="col-md-12">
+                            <div class="row custom">
+                                <div class="col-md-12 pos-left">
+                                    <button class="col-md-10 btn btn-info" type="button" id="btnActivityCalendar">
+                                        <div class="row">
+                                            <div class="col-md-8 pos-left">
+                                                <i class="fa fa-calendar fa-fw fa-ml-5" aria-hidden="true"></i> @TaskStrings.activitycalendar
+                                            </div>
+                                        </div>
+                                    </button>
+                                </div>
+                            </div>                   
+                            <div class="row custom">
+                                <div class="col-md-12 pos-left">
+                                    <button class="col-md-10 btn btn-primary" type="button" id="btnActivityEquipmentMaintenance">
+                                        <div class="row">
+                                            <div class="col-md-8 pos-left">
+                                                <i class="fa fa-cogs fa-fw fa-ml-5"></i> @TaskStrings.maintenanceequipment
+                                            </div>
+                                            <div class="col-md-4 pos-right">
+                                                <span id="actequipmentcnt" class="badge">0</span>
+                                            </div>
+                                        </div>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-12 pos-left">
+                                    <button class="col-md-10 btn btn-primary" type="button" id="btnActivityServiceCode">
+                                        <div class="row">
+                                            <div class="col-md-8 pos-left">
+                                                <i class="fa fa-plug fa-fw fa-ml-5"></i> @TaskStrings.servicecodes
+                                            </div>
+                                            <div class="col-md-4 pos-right">
+                                                <span id="actservicecodecnt" class="badge">0</span>
+                                            </div>
+                                        </div>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-12 pos-left">
+                                    <button class="col-md-10 btn btn-warning" type="button" id="btnRevisionHistory">
+                                        <div class="row">
+                                            <div class="col-md-8 pos-left">
+                                                <i class="fa fa-clock-o fa-fw fa-ml-5"></i> @TaskStrings.revisionhistory
+                                            </div>
+                                            <div class="col-md-4 pos-right">
+                                                <span id="revisioncount" class="badge">0</span>
+                                            </div>
+                                        </div>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 act-note">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label for="actmobilenote">@TaskStrings.mobilenote</label>
+                            <textarea id="actmobilenote" class="form-control" maxlength="200" rows="5"></textarea>
+                        </div>
+                    </div>
+                    <div class="row custom">
+                        <div class="col-md-12">
+                            <label for="actmobilenote">@TaskStrings.activitydurations</label>
+                            <div id="activitydurations"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row custom actapprovalbtnscontainer" style="display: none;">
+                <div class="col-md-12">
+                    <button class="btn btn-success btn-sm approval-btn" data-status="APP" id="btnApprove"><i class="fa fa-check-circle"></i> @TaskStrings.approve</button>&nbsp;
+                    <button class="btn btn-danger btn-sm approval-btn" data-status="REJ" id="btnReject"><i class="fa fa-times-circle"></i> @TaskStrings.reject</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" id="taskactivitycmntdoc" style="display: none;">
+        <div class="col-md-8">
+            <div class="panel panel-default" style="height: 450px;">
+                <div class="panel-heading task-panel-heading">@TaskStrings.comments</div>
+                <div class="panel-body">
+                    <textarea class="form-control" contenteditable rows="3" id="actcomment"></textarea>
+                    <div class="inline-toolbar">
+                        <button class="btn btn-primary btn-xs" id="addActivityComment"><i class="fa fa-plus-circle"></i> @TaskStrings.add</button>
+                    </div>
+                    <div id="activitycomments">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="panel panel-default" style="height: 450px;">
+                <div class="panel-heading task-panel-heading">@TaskStrings.docs</div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="progress">
+                                <div class="progress-bar" id="docuprogressact" role="progressbar" style="width: 0%; min-width: 2em;">0%</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row custom">
+                        <div class="col-md-12">
+                            <div id="fuploadact">
+                                <span class="btn btn-default fileinput-button" id="btnBrowseAct">
+                                    <i class="fa fa-search"></i>
+                                    <span>@TaskStrings.browse</span>
+                                    <input type="file" name="fuact" id="fuact" data-url="/UploadFile.ashx">
+                                </span>
+                                <button class="btn btn-default" id="btnuploadact" disabled="disabled"><i class="fa fa-cloud-upload"></i> @TaskStrings.upload</button>
+                                <span id="filenameact"></span>
+                            </div>
+                            <div id="docsact"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="modalsignature" role="dialog" aria-labelledby="modalsharedlbl" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="false">&times;</span></button>
+                <h4 class="modal-title" id="modaltitle">@TaskStrings.signature</h4>
+            </div>
+            <div class="modal-body"></div>
+        </div>
+    </div>
+</div>

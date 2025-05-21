@@ -1,0 +1,177 @@
+﻿@using Resources.Screens.Index
+@using System.Threading
+@{
+    Layout = "~/Views/Shared/Default.cshtml";
+}
+@Html.IncludeVersionedCss("/Content/summernote.css")
+@Html.IncludeVersionedCss("/Content/jquery/jquery.fileupload.css")
+@Html.IncludeVersionedCss("/Content/jquery/jquery.contextMenu.min.css")
+
+<div style="margin-top: 10px">
+    <div class="page-header">
+        <h4>@ScreenStrings.screens</h4>
+        <h6></h6>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tms-page-toolbar inline-toolbar left" data-block="#record">
+                <div class="btn-group">
+                    <button class="btn btn-default btn-sm" title="Ctrl+R" selection-required="false" id="btnNew"><i class="fa fa fa-plus fa-fw"></i> @ScreenStrings.addnew</button>
+                    <button class="btn btn-default btn-sm" title="Ctrl+S" selection-required="false" id="btnSave"><i class="fa fa-floppy-o fa-fw"></i> @ScreenStrings.save</button>
+                    <button class="btn btn-default btn-sm" title="Ctrl+U" selection-required="true" id="btnUndo"><i class="fa fa-undo fa-fw"></i> @ScreenStrings.undo</button>
+                    <button class="btn btn-default btn-sm" title="Ctrl+D" selection-required="true" id="btnDelete"><i class="fa fa-trash-o fa-fw"></i> @ScreenStrings.delete</button>
+                    <button class="btn btn-default btn-sm" title="Ctrl+H" selection-required="true" id="btnHistory" disabled="disabled"><i class="fa fa-bolt fa-fw"></i> @ScreenStrings.history</button>
+                    <button class="btn btn-default btn-sm" title="Ctrl+Q" selection-required="true" id="btnTranslations" disabled="disabled"><i class="fa fa-globe"></i> @ScreenStrings.translations</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <div class="scrollbar-macosx">
+                <div class="list-group"></div>
+            </div>
+        </div>
+        <div class="col-md-5" id="record">
+            <div class="panel panel-default">
+                <div class="panel-heading page-panel-heading">@ScreenStrings.record</div>
+                <div class="panel-body page-panel-body">
+                    <div class="row custom">
+                        <div class="col-md-2">
+                            @ScreenStrings.code
+                        </div>
+                        <div class="col-md-7">
+                            <input type="text" maxlength="50" id="code" required disableonupdate="yes" class="form-control form-code" />
+                        </div>
+                    </div>
+                    <div class="row custom">
+                        <div class="col-md-2">
+                            @ScreenStrings.description
+                        </div>
+                        <div class="col-md-7">
+                            <input type="text" maxlength="250" id="desc" required class="form-control" />
+                        </div>
+                    </div>
+                    <div class="row custom">
+                        <div class="col-md-2">
+                            @ScreenStrings.url
+                        </div>
+                        <div class="col-md-7">
+                            <input type="text" maxlength="250" class="form-control" id="url" />
+                        </div>
+                    </div>
+                    <div class="row custom">
+                        <div class="col-md-2">
+                            @ScreenStrings.controller
+                        </div>
+                        <div class="col-md-7">
+                            <input type="text" maxlength="250" class="form-control" id="controller" />
+                        </div>
+                    </div>
+                    <div class="row custom">
+                        <div class="col-md-2">
+                            @ScreenStrings.cls
+                        </div>
+                        <div class="col-md-7">
+                            <div class="input-group">
+                                <input type="text" maxlength="50" class="form-control" id="cls">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button" id="btnClass"><i class="fa fa-search fa-fw"></i></button>
+                                </span>
+                            </div><!-- /input-group -->
+                        </div>
+                    </div>
+                    <div class="row custom">
+                        <div class="col-md-2">
+                            @ScreenStrings.active
+                        </div>
+                        <div class="col-md-4">
+                            <div class="checkbox checkbox-primary">
+                                <input type="checkbox" class="styled" checked="checked" id="active" />
+                                <label></label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row custom">
+                        <div class="col-md-2">
+                            @ScreenStrings.guide
+                        </div>
+                        <div class="col-md-10">
+                            <label id="title"> @ScreenStrings.enduserguide</label>
+                            <div id="endusernoter">
+                                <textarea type="text" id="enduserguide"></textarea>
+                            </div>
+                            <div id="adminnoter">
+                                <textarea type="text" hidden id="adminguide"></textarea>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4" id="divCmntsAttachments">
+            <div class="panel panel-default" style="height: 450px;">
+                <div class="panel-heading task-panel-heading">@ScreenStrings.comments</div>
+                <div class="panel-body">
+                    <textarea class="form-control" contenteditable rows="3" id="comment"></textarea>
+                    <div class="inline-toolbar">
+                        <button class="btn btn-primary btn-xs" selection-required="true" id="addComment"><i class="fa fa-plus-circle"></i>@ScreenStrings.add</button>
+                    </div>
+                    <div id="comments" class="sm">
+                    </div>
+                </div>
+            </div>
+            <div id="divDocsAttachments">
+                <div class="panel panel-default" style="height: 372px;">
+                    <div class="panel-heading task-panel-heading">@ScreenStrings.docs</div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="progress">
+                                    <div class="progress-bar" id="docuprogress" role="progressbar" style="width: 0%; min-width: 2em;">0%</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row custom">
+                            <div class="col-md-12">
+                                <div id="fupload">
+                                    <span class="btn btn-default fileinput-button" id="btnBrowse">
+                                        <i class="fa fa-search"></i>
+                                        <span>@ScreenStrings.browse</span>
+                                        <input type="file" name="files[]" id="fu" multiple data-url="/UploadFile.ashx">
+                                    </span>
+                                    <button class="btn btn-default" id="btnupload" disabled="disabled"><i class="fa fa-cloud-upload"></i>@ScreenStrings.upload</button>
+                                    <div class="row custom">
+                                        <div class="col-md-12">
+                                            <div id="filename"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="docs" class="light-size"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@Html.IncludeVersionedJs("/Scripts/jquery/jquery.fileupload.js")
+@Html.IncludeVersionedJs("/Scripts/jquery/jquery.iframe-transport.js")
+
+@Html.IncludeVersionedJs("/Scripts/other/typeahead.bundle.js")
+@Html.IncludeVersionedJs("/Scripts/jquery/jquery.contextMenu.min.js")
+
+@Html.IncludeVersionedJs("/Scripts/custom/ovi.custom.list.js")
+@Html.IncludeVersionedJs("/Scripts/custom/ovi.custom.documents.js")
+@Html.IncludeVersionedJs("/Scripts/custom/ovi.custom.comments.js")
+@Html.IncludeVersionedJs("/Scripts/custom/ovi.custom.customfields.js")
+@Html.IncludeVersionedJs("/Scripts/other/summernote.min.js")
+@if (Thread.CurrentThread.CurrentUICulture.Name == "tr")
+{
+    @Html.IncludeVersionedJs("/Scripts/other/summernote.min.tr.js")
+}
+@Html.IncludeVersionedJs("/Scripts/app/Screens.js")

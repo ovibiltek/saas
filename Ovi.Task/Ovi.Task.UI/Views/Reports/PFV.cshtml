@@ -1,0 +1,157 @@
+﻿@using Resources.Reports.PFV
+@{
+    ViewBag.Title = "PFV";
+    Layout = "~/Views/Shared/Default.cshtml";
+}
+
+<div style="margin-top: 10px">
+    <div class="page-header">
+        <h4>@ReportPfvStrings.title</h4>
+        <h6></h6>
+    </div>
+    <form action="/Reports/GeneratePFV" method="POST" target="_blank" novalidate>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="tms-page-toolbar inline-toolbar left" data-block="#record">
+                    <div class="btn-group">
+                        <button class="btn btn-default btn-sm" title="Ctrl+R" selection-required="false" id="btnRun"><i class="fa fa fa-plus fa-fw"></i> @ReportPfvStrings.run</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" style="margin-top: 10px;" id="record">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading page-panel-heading">@ReportPfvStrings.parameters</div>
+                    <div class="panel-body page-panel-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="row custom">
+                                    <div class="col-md-3">
+                                        @ReportPfvStrings.organization
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="input-group">
+                                            <input type="text" maxlength="50" class="form-control" id="org">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default" type="button" id="btnorg"><i class="fa fa-search fa-fw"></i></button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-3">
+                                        @ReportPfvStrings.customer
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="input-group">
+                                            <input type="text" maxlength="50" class="form-control" name="Customer" id="customer">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default" type="button" id="btncustomer"><i class="fa fa-search fa-fw"></i></button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-3">
+                                        @ReportPfvStrings.project
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="input-group">
+                                            <input type="text" maxlength="50" class="form-control" name="Project" id="Project">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default" type="button" id="btnproject"><i class="fa fa-search fa-fw"></i></button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-3">
+                                        @ReportPfvStrings.task
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="input-group">
+                                            <input type="text" maxlength="50" class="form-control" name="Task" id="Task">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default" type="button" id="btntask"><i class="fa fa-search fa-fw"></i></button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-3">
+                                        @ReportPfvStrings.projecttype
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="input-group">
+                                            <input type="text" maxlength="50" class="form-control" name="ProjectType" id="ProjectType">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default" type="button" id="btnprojecttype"><i class="fa fa-search fa-fw"></i></button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-3">
+                                        @ReportPfvStrings.projectstatus
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="input-group">
+                                            <input type="text" maxlength="50" class="form-control" name="ProjectStatus" id="projectstatus">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default" type="button" id="btnprojectstatus"><i class="fa fa-search fa-fw"></i></button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-3">
+                                        @ReportPfvStrings.tasktype
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="input-group">
+                                            <input type="text" maxlength="50" class="form-control" name="Tasktype" id="Tasktype">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default" type="button" id="btntasktype"><i class="fa fa-search fa-fw"></i></button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="row custom">
+                                    <div class="col-md-3">
+                                        @ReportPfvStrings.datecreated
+                                    </div>
+                                    <div class="col-md-3">
+                                        <input type="text" ctrltype="datepicker" maxlength="50" class="form-control" name="CreatedStart" id="CreatedStart">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <input type="text" ctrltype="datepicker" maxlength="50" class="form-control" name="CreatedEnd" id="CreatedEnd">
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-3">
+                                        @ReportPfvStrings.outputtype
+                                    </div>
+                                    <div class="col-md-9">
+                                        <div class="radio radio-primary radio-inline">
+                                            <input type="radio" name="Type" id="pdf" value="PDF" disableonupdate="yes" checked>
+                                            <label for="pdf">@ReportPfvStrings.pdf</label>
+                                        </div>
+                                        <div class="radio radio-primary radio-inline">
+                                            <input type="radio" name="Type" id="xls" disableonupdate="yes" value="XLS">
+                                            <label for="xls">@ReportPfvStrings.xls</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+@Html.IncludeVersionedJs("/Scripts/app/ReportPFV.js")

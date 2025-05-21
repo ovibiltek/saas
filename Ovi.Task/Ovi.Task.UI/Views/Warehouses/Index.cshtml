@@ -1,0 +1,221 @@
+﻿@using Resources.Warehouses.Index
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Default.cshtml";
+}
+<div style="margin-top: 10px">
+    <div class="page-header">
+        <h4>@WarehouseStrings.warehouses</h4>
+        <h6></h6>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tms-page-toolbar inline-toolbar left" data-block="#record">
+                <div class="btn-group">
+                    <button class="btn btn-default btn-sm" title="Ctrl+R" selection-required="false" id="btnNew"><i class="fa fa fa-plus fa-fw"></i> @WarehouseStrings.addnew</button>
+                    <button class="btn btn-default btn-sm" title="Ctrl+S" selection-required="false" id="btnSave"><i class="fa fa-floppy-o fa-fw"></i> @WarehouseStrings.save</button>
+                    <button class="btn btn-default btn-sm" title="Ctrl+U" selection-required="true" id="btnUndo"><i class="fa fa-undo fa-fw"></i> @WarehouseStrings.undo</button>
+                    <button class="btn btn-default btn-sm" title="Ctrl+D" selection-required="true" id="btnDelete"><i class="fa fa-trash-o fa-fw"></i> @WarehouseStrings.delete</button>
+                    <button class="btn btn-default btn-sm" title="Ctrl+H" selection-required="true" id="btnHistory" disabled="disabled"><i class="fa fa-bolt fa-fw"></i> @WarehouseStrings.history</button>
+                    <button class="btn btn-default btn-sm" title="Ctrl+Q" selection-required="true" id="btnTranslations" disabled="disabled"><i class="fa fa-globe"></i> @WarehouseStrings.translations</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <div class="scrollbar-macosx">
+                <div class="list-group"></div>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <ul class="nav nav-tabs">
+                <li class="active"><a data-toggle="tab" href="#record">@WarehouseStrings.details</a></li>
+                <li><a href="#bins" enable-on-selection>@WarehouseStrings.bins</a></li>
+                <li><a href="#stock" enable-on-selection>@WarehouseStrings.stock</a></li>
+                <li><a href="#trx" enable-on-selection>@WarehouseStrings.trx</a></li>
+            </ul>
+            <div class="tab-content">
+                <div id="record" class="tab-pane active">
+                    <div class="panel panel-default">
+                        <div class="panel-body page-panel-body">
+                            <div class="row custom">
+                                <div class="col-md-2">
+                                    @WarehouseStrings.code
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="text" maxlength="50" id="code" required disableonupdate="yes" class="form-control form-code" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-2">
+                                    @WarehouseStrings.description
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="text" maxlength="250" id="desc" required class="form-control" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-2">
+                                    @WarehouseStrings.organization
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="input-group">
+                                        <input type="text" maxlength="50" disableonupdate="yes" class="form-control" required id="org">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" disableonupdate="yes" type="button" id="btnorg"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-2">
+                                    @WarehouseStrings.parent
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="input-group">
+                                        <input type="text" maxlength="50" class="form-control" required id="parent">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button" id="btnparent"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-2">
+                                    @WarehouseStrings.pricingmethod
+                                </div>
+                                <div class="col-md-4">
+                                    <select id="pricingmethod" disableonupdate="yes" required class="form-control">
+                                        <option value="">@WarehouseStrings.pleaseselect</option>
+                                        <option value="O">@WarehouseStrings.typeavarage</option>
+                                        <option value="FIFO">@WarehouseStrings.typefifo</option>
+                                        <option value="LIFO">@WarehouseStrings.typelifo</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-2">
+                                    @WarehouseStrings.warehouseman
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="input-group">
+                                        <input type="text" maxlength="50" class="form-control" required id="warehouseman">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button" id="btnwarehouseman"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div><!-- /input-group -->
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-2">
+                                    @WarehouseStrings.tool
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="text" maxlength="250" id="tool" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-2">
+                                    @WarehouseStrings.adr
+                                </div>
+                                <div class="col-md-4">
+                                    <textarea class="form-control" maxlength="1000" rows="3" id="fulladr" autocomplete="off" spellcheck="false"></textarea>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-2">
+                                    @WarehouseStrings.forallorganizations
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="checkbox checkbox-primary">
+                                        <input class="styled" type="checkbox" id="forallorganizations" />
+                                        <label></label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-2">
+                                    @WarehouseStrings.active
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="checkbox checkbox-primary">
+                                        <input class="styled" type="checkbox" checked="checked" id="active" />
+                                        <label></label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="bins" class="tab-pane">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="grdBins"></div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="panel panel-default">
+                        <div class="row">
+                            <div class="col-md-12" style="padding-right: 0">
+                                <div class="inline-toolbar left" style="border: none;" data-block="#bins">
+                                    <div class="btn-group">
+                                        <button class="btn btn-default btn-sm" title="Ctrl+R" selection-required="false" id="btnAddBin"><i class="fa fa fa-plus fa-fw"></i>@WarehouseStrings.addnew</button>
+                                        <button class="btn btn-default btn-sm" title="Ctrl+S" selection-required="false" id="btnSaveBin"><i class="fa fa-floppy-o fa-fw"></i>@WarehouseStrings.save</button>
+                                        <button class="btn btn-default btn-sm" title="Ctrl+D" selection-required="true" id="btnDeleteBin" disabled="disabled"><i class="fa fa-trash-o fa-fw"></i>@WarehouseStrings.delete</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-body page-panel-body">
+                            <div class="row custom">
+                                <div class="col-md-2">
+                                    @WarehouseStrings.code
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="text" maxlength="50" id="bincode" required disableonupdate="yes" class="form-control form-code" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-2">
+                                    @WarehouseStrings.description
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="text" maxlength="250" id="bindesc" required class="form-control" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-2">
+                                    @WarehouseStrings.active
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="checkbox checkbox-primary">
+                                        <input class="styled" type="checkbox" checked="checked" id="binactive" />
+                                        <label></label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="stock" class="tab-pane">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="grdStock"></div>
+                        </div>
+                    </div>
+                </div>
+                <div id="trx" class="tab-pane">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="grdPartTransactionLines"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@Html.IncludeVersionedJs("/Scripts/custom/ovi.custom.list.js")
+@Html.IncludeVersionedJs("/Scripts/app/Warehouses.js")

@@ -1,0 +1,69 @@
+﻿@using Resources.Operation.Index;
+
+@model Ovi.Task.Data.Entity.Task.TMTASKS
+
+@{
+    ViewBag.Title = "RateTask";
+    Layout = null;
+}
+<!doctype html>
+<html>
+<head>
+    <title>Değerlendirme</title>
+    @Html.IncludeVersionedCss("/Content/bootstrap/bootstrap.min.css")
+    @Html.IncludeVersionedCss("/Content/toastr/toastr.min.css")
+    @Html.IncludeVersionedCss("/Content/bootstrap/star-rating.min.css")
+</head>
+<body>
+    <br />
+    <div class="container">
+        <div class="well">
+            <div class="caption">
+                <div class="center-block">
+                    @if (!ViewData.ModelState.IsValid)
+                    {
+                        <ul class="list-group">
+                            @foreach (ModelState state in ViewData.ModelState.Values)
+                            {
+                                foreach (var error in state.Errors)
+                                {
+                                    <li class="list-group-item text-danger"><strong>@error.ErrorMessage</strong></li>
+                                }
+                            }
+                        </ul>
+                    }
+                    else
+                    {
+                        <div class="container-fluid" style="height: 475px; overflow-y: auto;">
+                            <div class="text-center">
+                                <h3><strong>@Model.TSK_ID - @Model.TSK_SHORTDESC</strong> </h3>
+                            </div>
+                            <br/>
+                            <div class="text-center">
+                                <h4>@OperationStrings.rateTask</h4>
+                                <input type="number" id="taskrating" class="rating" step="1" min="0" max="5" data-size="md" />
+                                <h4>@OperationStrings.comment</h4>
+                                <textarea id="ratingcomments" style="width: 100%" rows="15"></textarea>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <div class="text-center">
+                                <button type="button" class="btn btn-success btn-lg" id="saverating">@OperationStrings.save</button>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    @Html.IncludeVersionedJs("/Scripts/jquery/jquery-2.2.3.min.js")
+    @Html.IncludeVersionedJs("/Scripts/toastr/toastr.min.js")
+    @Html.IncludeVersionedJs("/Scripts/toastr/toastr.options.js")
+    @Html.IncludeVersionedJs("/Scripts/custom/ovi.custom.ajax.js")
+    @Html.IncludeVersionedJs("/Scripts/custom/ovi.custom.page.js")
+    @Html.IncludeVersionedJs("/Scripts/bootstrap/bootstrap.min.js")
+    @Html.IncludeVersionedJs("/Scripts/bootstrap/star-rating.min.js")
+    @Html.IncludeVersionedJs("/Scripts/app/RateTask.js")
+</body>
+</html>
+

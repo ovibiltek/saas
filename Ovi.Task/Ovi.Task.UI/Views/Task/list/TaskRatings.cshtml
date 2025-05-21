@@ -1,0 +1,103 @@
+﻿@using Resources.TaskRatings.Index
+@{
+    ViewBag.Title = "List";
+    Layout = "~/Views/Shared/Default.cshtml";
+}
+
+@Html.IncludeVersionedCss("/Content/jquery/jquery.contextMenu.min.css")
+<div style="margin-top: 10px">
+    <div class="page-header">
+        <h4>@TaskRatingStrings.title</h4>
+        <h6></h6>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div id="grdTaskRatings"></div>
+            <div class="sidebars">
+                <div class="sidebar right" style="right: -400px;">
+                    <div class="row">
+                        <div class="col-md-12" style="text-align: center; margin-top: 10px;">
+                            <button id="filter" class="btn btn-primary btn-xs"><i class="fa fa-filter"></i> @TaskRatingStrings.filter</button>
+                            <button id="clearfilter" class="btn btn-info btn-xs"><i class="fa fa-ban"></i> @TaskRatingStrings.reset</button>
+                            <button id="closesiderbar" class="btn btn-danger btn-xs"><i class="fa fa-times"></i> @TaskRatingStrings.close</button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="page-header">
+                                <h5>@TaskRatingStrings.created</h5>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <input type="text" ctrltype="datepicker" class="i-filter form-control" id="datecreated_start">
+                        </div>
+                        <div class="col-sm-6">
+                            <input type="text" ctrltype="datepicker" class="i-filter form-control" id="datecreated_end">
+                        </div>
+                    </div>
+                    <div class="row custom">
+                        <div class="col-md-12">
+                            <div class="page-header">
+                                <h5>@TaskRatingStrings.Completed</h5>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="text" ctrltype="datepicker" class="i-filter form-control" id="date_completed_start">
+                        </div>
+                        <div class="col-md-6">
+                            <input type="text" ctrltype="datepicker" class="i-filter form-control" id="date_completed_end">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="readingModal" tabindex="-1" role="dialog" aria-labelledby="readingModal" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">@TaskRatingStrings.review</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row custom">
+                        <div class="col-md-4">
+                            @TaskRatingStrings.review
+                        </div>
+                        <div class="col-md-8">
+                            <textarea class="form-control" id="reviewComment" rows="3"></textarea>
+                        </div>
+                    </div>
+                    <div class="row custom">
+                        <div class="col-md-4">
+                            @TaskRatingStrings.sendemail
+                        </div>
+                        <div class="col-md-8">
+                           <input type="checkbox" id="sendreviewmail"/>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="btnSaveReview" class="btn btn-primary" data-dismiss="modal">@TaskRatingStrings.save</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">@TaskRatingStrings.close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var inbox = "@ViewBag.id";
+</script>
+
+@Html.IncludeVersionedJs("/Scripts/jquery/jquery.sidebar.min.js")
+@Html.IncludeVersionedJs("/Scripts/jquery/jquery.contextMenu.min.js")
+@Html.IncludeVersionedJs("/Scripts/jquery/jquery.iframe-transport.js")
+@Html.IncludeVersionedJs("/Scripts/jquery/jquery.sidebar.min.js")
+@Html.IncludeVersionedJs("/Scripts/jquery/jquery.sidebar.min.js")
+@Html.IncludeVersionedJs("/Scripts/jquery/jquery.contextMenu.min.js")
+
+@Html.IncludeVersionedJs("/Scripts/app/TaskRatings.js")

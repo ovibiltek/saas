@@ -1,0 +1,321 @@
+﻿@using Resources.ServiceCodes.Index
+@{
+    Layout = "~/Views/Shared/Default.cshtml";
+}
+@Html.IncludeVersionedCss("/Content/jquery/jquery.fileupload.css")
+
+@Html.IncludeVersionedCss("/Content/jquery/jquery.contextMenu.min.css")
+
+@Html.IncludeVersionedCss("/Content/other/jqtree.css")
+
+<div style="margin-top: 10px">
+    <div class="page-header">
+        <h4>@ServiceCodeStrings.servicecodes</h4>
+        <h6></h6>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tms-page-toolbar inline-toolbar left" data-block="#record">
+                <div class="btn-group">
+                    <button class="btn btn-default btn-sm" title="Ctrl+R" selection-required="false" id="btnNew"><i class="fa fa fa-plus fa-fw"></i> @ServiceCodeStrings.addnew</button>
+                    <button class="btn btn-default btn-sm" title="Ctrl+C" selection-required="false" id="btnCopy"><i class="fa fa fa-copy fa-fw"></i> @ServiceCodeStrings.copy</button>
+                    <button class="btn btn-default btn-sm" title="Ctrl+S" selection-required="false" id="btnSave"><i class="fa fa-floppy-o fa-fw"></i> @ServiceCodeStrings.save</button>
+                    <button class="btn btn-default btn-sm" title="Ctrl+U" selection-required="true" id="btnUndo"><i class="fa fa-undo fa-fw"></i> @ServiceCodeStrings.undo</button>
+                    <button class="btn btn-default btn-sm" title="Ctrl+D" selection-required="true" id="btnDelete"><i class="fa fa-trash-o fa-fw"></i> @ServiceCodeStrings.delete</button>
+                    <button class="btn btn-default btn-sm" title="Ctrl+H" selection-required="true" id="btnHistory" disabled="disabled"><i class="fa fa-bolt fa-fw"></i> @ServiceCodeStrings.history</button>
+                    <button class="btn btn-default btn-sm" title="Ctrl+Q" selection-required="true" id="btnTranslations" disabled="disabled"><i class="fa fa-globe"></i> @ServiceCodeStrings.translations</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#list">@ServiceCodeStrings.list</a></li>
+        <li><a data-toggle="tab" href="#record">@ServiceCodeStrings.record</a></li>
+        <li><a enable-on-selection href="#servicecodesuppliers">@ServiceCodeStrings.supplier</a></li>
+    </ul>
+    <div class="tab-content">
+        <div id="list" class="tab-pane active">
+            <div id="grdServiceCodes"></div>
+        </div>
+        <div id="record" class="tab-pane">
+            <div class="row record-content">
+                <div class="col-md-4" id="divHeader">
+                    <div class="panel panel-default">
+                        <div class="panel-heading page-panel-heading">@ServiceCodeStrings.record</div>
+                        <div class="panel-body page-panel-body">
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @ServiceCodeStrings.code
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" maxlength="50" id="code" disabled="" class="form-control form-code" />
+                                </div>
+                            </div>
+
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @ServiceCodeStrings.organization
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <input type="text" disableonupdate="yes" maxlength="50" required class="form-control" id="org">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button" disableonupdate="yes" id="btnorg"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @ServiceCodeStrings.uom
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <input type="text" maxlength="50" required class="form-control" id="uom">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button" id="btnuom"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @ServiceCodeStrings.type
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <input type="text" maxlength="50" disableonupdate="yes" required data-entity="SERVICECODE" class="form-control" id="type">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" disableonupdate="yes" type="button" id="btntype"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div><!-- /input-group -->
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @ServiceCodeStrings.hierarchy
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <input type="text" required class="form-control" id="typelevel" tabindex="12" autocomplete="off">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button" id="btntypelevel" tabindex="-1" autocomplete="off"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @ServiceCodeStrings.description
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" maxlength="250" id="desc" required class="form-control form-desc" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @ServiceCodeStrings.unitprice
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" required ctrltype="numeric" valtype="PRICE" allowfloat="true" class="form-control" id="unitprice" tabindex="18" autocomplete="off">
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @ServiceCodeStrings.unitsaleprice
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" required ctrltype="numeric" valtype="PRICE" allowfloat="true" class="form-control" id="unitsalesprice" tabindex="18" autocomplete="off">
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @ServiceCodeStrings.currency
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <qtip data-hasqtip="27"><input required type="text" maxlength="50" class="form-control ui-autocomplete-input" id="currency" tabindex="19" autocomplete="off"></qtip>
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button" id="btncurrency" tabindex="-1" autocomplete="off"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @ServiceCodeStrings.tasktype
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <input type="text" maxlength="50" class="form-control" id="tasktype">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button" id="btntasktype"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @ServiceCodeStrings.active
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="checkbox checkbox-primary">
+                                        <input type="checkbox" class="styled" checked="checked" id="active" />
+                                        <label></label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @ServiceCodeStrings.chkpublic
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="checkbox checkbox-primary">
+                                        <input type="checkbox" class="styled" checked="checked" id="public" />
+                                        <label></label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+
+                </div>
+                <div class="col-md-4" id="divCmntsAttachments">
+                    <div class="panel panel-default" style="height: 450px;">
+                        <div class="panel-heading task-panel-heading"> @ServiceCodeStrings.comment</div>
+                        <div class="panel-body">
+                            <textarea class="form-control" contenteditable rows="3" id="comment"></textarea>
+                            <div class="inline-toolbar">
+                                <button class="btn btn-primary btn-xs" selection-required="true" id="addComment" @(Model == null ? "disabled" : string.Empty)><i class="fa fa-plus-circle"></i>  @ServiceCodeStrings.add</button>
+                            </div>
+                            <div id="comments" class="sm">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default" style="height: 360px;">
+                        <div class="panel-heading task-panel-heading">@ServiceCodeStrings.docs</div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="progress">
+                                        <div class="progress-bar" id="docuprogress" role="progressbar" style="width: 0%; min-width: 2em;">0%</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-12">
+                                    <div id="fupload">
+                                        <span class="btn btn-default fileinput-button" id="btnBrowse">
+                                            <i class="fa fa-search"></i>
+                                            <span> @ServiceCodeStrings.browse</span>
+                                            <input type="file" name="files[]" id="fu" multiple data-url="/UploadFile.ashx">
+                                        </span>
+                                        <button class="btn btn-default" id="btnupload" disabled="disabled"><i class="fa fa-cloud-upload"></i>  @ServiceCodeStrings.upload</button>
+                                        <div class="row custom">
+                                            <div class="col-md-12">
+                                                <div id="filename"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="docs"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal" id="modaltypelevels" role="dialog" aria-labelledby="modalsharedlbl" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="false">&times;</span></button>
+                            <h4 class="modal-title" id="modaltitle">@ServiceCodeStrings.hierarchy</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div id="scroll-container">
+                                        <div id="treelevel"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="servicecodesuppliers" class="tab-pane">
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="grdServiceCodeSuppliers"></div>
+                </div>
+            </div>
+            <br />
+            <div class="panel panel-default">
+                <div class="row">
+                    <div class="col-md-12" style="padding-right:0">
+                        <div class="inline-toolbar left" style="border:none;" data-block="#supp">
+                            <div class="btn-group">
+                                <button class="btn btn-default btn-sm" title="Ctrl+R" selection-required="false" id="btnAddSupplier"><i class="fa fa fa-plus fa-fw"></i>@ServiceCodeStrings.addnew</button>
+                                <button class="btn btn-default btn-sm" title="Ctrl+S" selection-required="false" id="btnSaveSupplier"><i class="fa fa-floppy-o fa-fw"></i>@ServiceCodeStrings.save</button>
+                                <button class="btn btn-default btn-sm" title="Ctrl+D" selection-required="true" id="btnDeleteSupplier"><i class="fa fa-trash-o fa-fw"></i>@ServiceCodeStrings.delete</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-body page-panel-body">
+                    <div class="row">
+                        <div class="col-md-6">                      
+                            <div id="divsuppliers" class="row custom ">
+                                <div class="col-md-3">
+                                    @ServiceCodeStrings.supplier
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="input-group">
+                                        <input type="text" required  maxlength="50" class="form-control uppercase" id="supplier">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default"  type="button" id="btnsupplier"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>  
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="modalaudit" role="dialog" aria-labelledby="modalsharedlbl" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="false">&times;</span></button>
+                <h4 class="modal-title" id="modaltitle"></h4>
+            </div>
+            <div class="modal-body"></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-xs" id="modalsave">@ServiceCodeStrings.save</button>
+            </div>
+        </div>
+    </div>
+</div>
+@Html.IncludeVersionedJs("/Scripts/other/tree.jquery.js")
+
+@Html.IncludeVersionedJs("/Scripts/jquery/jquery.fileupload.js")
+@Html.IncludeVersionedJs("/Scripts/jquery/jquery.iframe-transport.js")
+
+@Html.IncludeVersionedJs("/Scripts/other/numericInput.min.js")
+@Html.IncludeVersionedJs("/Scripts/other/typeahead.bundle.js")
+@Html.IncludeVersionedJs("/Scripts/jquery/jquery.contextMenu.min.js")
+
+@Html.IncludeVersionedJs("/Scripts/custom/ovi.custom.list.js")
+@Html.IncludeVersionedJs("/Scripts/custom/ovi.custom.documents.js")
+@Html.IncludeVersionedJs("/Scripts/custom/ovi.custom.comments.js")
+@Html.IncludeVersionedJs("/Scripts/custom/ovi.custom.customfields.js")
+@Html.IncludeVersionedJs("/Scripts/app/ServiceCodes.js")

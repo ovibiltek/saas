@@ -1,0 +1,72 @@
+﻿@using Resources.Models.Index
+@{
+    Layout = "~/Views/Shared/Default.cshtml";
+}
+<div style="margin-top: 10px">
+    <div class="page-header">
+        <h4>@ModelStrings.models</h4>
+        <h6></h6>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tms-page-toolbar inline-toolbar left" data-block="#record">
+                <div class="btn-group">
+                    <button class="btn btn-default btn-sm" title="Ctrl+R" selection-required="false" id="btnNew"><i class="fa fa fa-plus fa-fw"></i> @ModelStrings.addnew</button>
+                    <button class="btn btn-default btn-sm" title="Ctrl+S" selection-required="false" id="btnSave"><i class="fa fa-floppy-o fa-fw"></i> @ModelStrings.save</button>
+                    <button class="btn btn-default btn-sm" title="Ctrl+U" selection-required="true" id="btnUndo"><i class="fa fa-undo fa-fw"></i> @ModelStrings.undo</button>
+                    <button class="btn btn-default btn-sm" title="Ctrl+D" selection-required="true" id="btnDelete"><i class="fa fa-trash-o fa-fw"></i> @ModelStrings.delete</button>
+                    <button class="btn btn-default btn-sm" title="Ctrl+H" selection-required="true" id="btnHistory" disabled="disabled"><i class="fa fa-bolt fa-fw"></i> @ModelStrings.history</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <div class="scrollbar-macosx">
+                <div class="list-group"></div>
+            </div>
+        </div>
+        <div class="col-md-9" id="record">
+            <div class="panel panel-default">
+                <div class="panel-heading page-panel-heading">@ModelStrings.record</div>
+                <div class="panel-body page-panel-body">
+                    <div class="row custom">
+                        <div class="col-md-2">
+                            @ModelStrings.brand
+                        </div>
+                        <div class="col-md-4">
+                            <div class="input-group">
+                                <input type="text" maxlength="50" class="form-control" required id="brand">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button" id="btnbrand"><i class="fa fa-search fa-fw"></i></button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row custom">
+                        <div class="col-md-2">
+                            @ModelStrings.code
+                        </div>
+                        <div class="col-md-4">
+                            <input type="text" maxlength="50" id="code" required disableonupdate="yes" class="form-control uppercase" />
+                        </div>
+                    </div>
+                    <div class="row custom">
+                        <div class="col-md-2">
+                            @ModelStrings.active
+                        </div>
+                        <div class="col-md-4">
+                            <div class="checkbox checkbox-primary">
+                                <input type="checkbox" class="styled" checked="checked" id="active" />
+                                <label></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@Html.IncludeVersionedJs("/Scripts/custom/ovi.custom.list.js")
+@Html.IncludeVersionedJs("/Scripts/app/Models.js")

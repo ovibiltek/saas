@@ -1,0 +1,253 @@
+﻿@using Resources.Reports.TDR
+@{
+    ViewBag.Title = "CBS";
+    Layout = "~/Views/Shared/Default.cshtml";
+}
+@Html.IncludeVersionedCss("/Content/bootstrap/bootstrap-tagsinput.css")
+
+@Html.IncludeVersionedCss("/Content/jquery/jquery.fileupload.css")
+@Html.IncludeVersionedCss("/Content/jquery/jquery.contextMenu.min.css")
+
+
+<div style="margin-top: 10px">
+    <div class="page-header">
+        <h4>Görev Detay Analiz Raporu</h4>
+        <h6></h6>
+    </div>
+    <form action="/Reports/GenerateTDR" method="POST" target="_blank" novalidate>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="tms-page-toolbar inline-toolbar left" data-block="#record">
+                    <div class="btn-group">
+                        <button  class="btn btn-default btn-sm" title="Ctrl+R" selection-required="false" id="btnRun"><i class="fa fa fa-plus fa-fw"></i> @ReportTdrStrings.run</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" style="margin-top: 10px;" id="record">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading page-panel-heading">@ReportTdrStrings.parameters</div>
+                    <div class="panel-body page-panel-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="row custom">
+                                    <div class="col-md-3">
+                                        @ReportTdrStrings.organization
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="input-group">
+                                            <input type="text" maxlength="50" class="form-control"  id="org" name="Organization">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default" type="button" id="btnorg"><i class="fa fa-search fa-fw"></i></button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-3">
+                                        @ReportTdrStrings.department
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="input-group">
+                                            <input type="text" maxlength="50" class="form-control" name="Department" id="department">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default" type="button" id="btndepartment"><i class="fa fa-search fa-fw"></i></button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-3">
+                                        @ReportTdrStrings.taskcreated
+                                    </div>
+                                    <div class="col-md-3">
+                                        <input type="text" ctrltype="datepicker" maxlength="50" class="form-control"  name="TaskCreatedStart" id="TaskCreatedStart">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <input type="text" ctrltype="datepicker" maxlength="50" class="form-control"  name="TaskCreatedEnd" id="TaskCreatedEnd">
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-3">
+                                        @ReportTdrStrings.taskcompleted
+                                    </div>
+                                    <div class="col-md-3">
+                                        <input type="text" ctrltype="datepicker" maxlength="50" class="form-control"  name="TaskCompletedStart" id="TaskCompletedStart">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <input type="text" ctrltype="datepicker" maxlength="50" class="form-control"  name="TaskCompletedEnd" id="TaskCompletedEnd">
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-3">
+                                        @ReportTdrStrings.type
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="input-group">
+                                            <input type="text"  class="form-control" data-role="multival" name="Type" id="type">
+                                            <div class="input-group-btn">
+                                                <button id="btntype" class="btn btn-default" type="button"><i class="fa fa-btn fa-search"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-3">
+                                        @ReportTdrStrings.category
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="input-group">
+                                            <input type="text"  class="form-control" data-role="multival" name="Category" id="category">
+                                            <div class="input-group-btn">
+                                                <button id="btncategory" class="btn btn-default" type="button"><i class="fa fa-btn fa-search"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-3">
+                                        @ReportTdrStrings.tasktype
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="input-group">
+                                            <input type="text"  class="form-control" data-role="multival" name="TaskType" id="tasktype">
+                                            <div class="input-group-btn">
+                                                <button id="btntasktype" class="btn btn-default" type="button"><i class="fa fa-btn fa-search"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="row custom">
+                                    <div class="col-md-3">
+                                        @ReportTdrStrings.customer
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="input-group">
+                                            <input type="text" maxlength="50" class="form-control" name="Customer" id="customer">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default" type="button" id="btncustomer"><i class="fa fa-search fa-fw"></i></button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                              
+                                <div class="row custom">
+                                    <div class="col-md-3">
+                                        @ReportTdrStrings.customergroup
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="input-group">
+                                            <input type="text" maxlength="50" class="form-control" name="CustomerGroup" id="customergroup">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default" type="button" id="btncustomergroup"><i class="fa fa-search fa-fw"></i></button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-3">
+                                        @ReportTdrStrings.branch
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="input-group">
+                                            <input type="text" maxlength="50" class="form-control" name="Branch" id="branch">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default" type="button" id="btnbranch"><i class="fa fa-search fa-fw"></i></button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-3">
+                                        @ReportTdrStrings.province
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="input-group">
+                                            <input type="text" maxlength="50" class="form-control" name="Province" id="province">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default" type="button" id="btnprovince"><i class="fa fa-search fa-fw"></i></button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                @*<div class="row custom">
+            <div class="col-md-3">
+                @ReportTdrStrings.supplier
+            </div>
+            <div class="col-md-5">
+                <div class="input-group">
+                    <input type="text" maxlength="50" class="form-control" name="Supplier" id="supplier">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="button" id="btnsupplier"><i class="fa fa-search fa-fw"></i></button>
+                    </span>
+                </div>
+            </div>
+        </div>*@
+                                <div class="row custom">
+                                    <div class="col-md-3">
+                                        @ReportTdrStrings.status
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" data-role="multival" name="Status" id="status">
+                                            <div class="input-group-btn">
+                                                <button id="btnstatus" class="btn btn-default" type="button"><i class="fa fa-btn fa-search"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-3">
+                                        @ReportTdrStrings.passeddayslimit
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="input-group">
+                                            <input type="text" required value="5" ctrltype="numeric" maxlength="50" class="form-control required" name="PassedDaysLimit" id="passeddayslimit">
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-3">
+                                        @ReportTdrStrings.outputtype
+                                    </div>
+                                    <div class="col-md-9">
+                                        <div class="radio radio-primary radio-inline">
+                                            <input type="radio" name="OutputType" id="pdf" value="PDF" disableonupdate="yes" checked>
+                                            <label for="pdf">@ReportTdrStrings.pdf</label>
+                                        </div>
+                                        <div class="radio radio-primary radio-inline">
+                                            <input type="radio" name="OutputType" id="xls" disableonupdate="yes" value="XLS">
+                                            <label for="xls">@ReportTdrStrings.xls</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    
+</div>
+
+
+
+@Html.IncludeVersionedJs("/Scripts/jquery/jquery.fileupload.js")
+@Html.IncludeVersionedJs("/Scripts/jquery/jquery.iframe-transport.js")
+
+@Html.IncludeVersionedJs("/Scripts/other/typeahead.bundle.js")
+@Html.IncludeVersionedJs("/Scripts/jquery/jquery.contextMenu.min.js")
+
+@Html.IncludeVersionedJs("/Scripts/custom/ovi.custom.list.js")
+@Html.IncludeVersionedJs("/Scripts/custom/ovi.custom.documents.js")
+@Html.IncludeVersionedJs("/Scripts/custom/ovi.custom.comments.js")
+@Html.IncludeVersionedJs("/Scripts/custom/ovi.custom.customfields.js")
+
+@Html.IncludeVersionedJs("/Scripts/bootstrap/bootstrap-tagsinput.min.js")
+
+@Html.IncludeVersionedJs("/Scripts/app/ReportTDR.js")

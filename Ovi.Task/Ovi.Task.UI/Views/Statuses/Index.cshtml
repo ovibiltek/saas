@@ -1,0 +1,159 @@
+﻿@using Resources.Statuses.Index
+@using Resources.Types.Index
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Default.cshtml";
+}
+<div style="margin-top: 10px">
+    <div class="page-header">
+        <h4>@StatusStrings.statuses</h4>
+        <h6></h6>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tms-page-toolbar inline-toolbar left" data-block="#record">
+                <div class="btn-group">
+                    <button class="btn btn-default btn-sm" title="Ctrl+R" selection-required="false" id="btnNew"><i class="fa fa fa-plus fa-fw"></i> @StatusStrings.addnew</button>
+                    <button class="btn btn-default btn-sm" title="Ctrl+S" selection-required="false" id="btnSave"><i class="fa fa-floppy-o fa-fw"></i> @StatusStrings.save</button>
+                    <button class="btn btn-default btn-sm" title="Ctrl+U" selection-required="true" id="btnUndo"><i class="fa fa-undo fa-fw"></i> @StatusStrings.undo</button>
+                    <button class="btn btn-default btn-sm" title="Ctrl+D" selection-required="true" id="btnDelete"><i class="fa fa-trash-o fa-fw"></i> @StatusStrings.delete</button>
+                    <button class="btn btn-default btn-sm" title="Ctrl+H" selection-required="true" id="btnHistory" disabled="disabled"><i class="fa fa-bolt fa-fw"></i> @StatusStrings.history</button>
+                    <button class="btn btn-default btn-sm" title="Ctrl+Q" selection-required="true" id="btnTranslations" disabled="disabled"><i class="fa fa-globe"></i> @StatusStrings.translations</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <div class="scrollbar-macosx">
+                <div class="list-group"></div>
+            </div>
+        </div>
+        <div class="col-md-9" id="record">
+            <div class="panel panel-default">
+                <div class="panel-heading page-panel-heading">@StatusStrings.record</div>
+                <div class="panel-body page-panel-body">
+                    <div class="row custom">
+                        <div class="col-md-2">
+                            @StatusStrings.entity
+                        </div>
+                        <div class="col-md-4">
+                            <select id="entity" class="form-control" required disableonupdate="yes">
+                                <option value="">@StatusStrings.pleaseselect</option>
+                                <option value="TASK">@TypeStrings.task</option>
+                                <option value="PROGRESSPAYMENT">@TypeStrings.progresspayment</option>
+                                <option value="PROJECT">@TypeStrings.project</option>
+                                <option value="DAYOFFREQUEST">@TypeStrings.dayoffrequest</option>
+                                <option value="TIMEKEEPING">@TypeStrings.timekeeping</option>
+                                <option value="CONTRACT">@TypeStrings.contract</option>
+                                <option value="QUOTATION">@TypeStrings.quotation</option>
+                                <option value="INVOICE">@TypeStrings.invoice</option>
+                                <option value="SUPERVISION">@TypeStrings.supervision</option>
+                                <option value="SALESINVOICE">@TypeStrings.salesinvoice</option>
+                                <option value="REPORTING">@TypeStrings.reporting</option>
+                                <option value="PURCHASEORDER">@TypeStrings.purchaseorder</option>
+                                <option value="PURCHASEORDERREQUEST">@TypeStrings.purchasereq</option>
+                                <option value="ENTRUST">@TypeStrings.entrust</option>
+                                <option value="WAREHOUSETRANSFER">@TypeStrings.warehousetransfer</option>
+                                <option value="PRESALES">@TypeStrings.presales</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row custom">
+                        <div class="col-md-2">
+                            @StatusStrings.code
+                        </div>
+                        <div class="col-md-4">
+                            <input type="text" maxlength="4" id="code" required disableonupdate="yes" class="form-control form-code" />
+                        </div>
+                    </div>
+                    <div class="row custom">
+                        <div class="col-md-2">
+                            @StatusStrings.parentcode
+                        </div>
+                        <div class="col-md-4">
+                            <select id="parentcode" class="form-control" required disableonupdate="yes">
+                                <option value="">@StatusStrings.pleaseselect</option>
+                                <option value="Q">@StatusStrings.request</option>
+                                <option value="R">@StatusStrings.released</option>
+                                <option value="C">@StatusStrings.completed</option>
+                                <option value="W">@StatusStrings.waitingapproval</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row custom">
+                        <div class="col-md-2">
+                            @StatusStrings.description
+                        </div>
+                        <div class="col-md-4">
+                            <input type="text" maxlength="250" id="desc" required class="form-control" />
+                        </div>
+                    </div>
+                    <div class="row custom">
+                        <div class="col-md-2">
+                            @StatusStrings.css
+                        </div>
+                        <div class="col-md-4">
+                            <input type="text" maxlength="50" id="css" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="row custom">
+                        <div class="col-md-2">
+                            @StatusStrings.order
+                        </div>
+                        <div class="col-md-4">
+                            <input type="text" ctrltype="numeric" allowfloat="false" maxlength="50" id="order" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="row custom">
+                        <div class="col-md-2">
+                            @StatusStrings.approvalstep
+                        </div>
+                        <div class="col-md-4">
+                            <div class="checkbox checkbox-primary">
+                                <input class="styled" type="checkbox" id="approvalstep" />
+                                <label></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row custom">
+                        <div class="col-md-2">
+                            @StatusStrings.showonsearch
+                        </div>
+                        <div class="col-md-4">
+                            <div class="checkbox checkbox-primary">
+                                <input class="styled" type="checkbox" id="showonsearch" />
+                                <label></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row custom">
+                        <div class="col-md-2">
+                            @StatusStrings.newappointment
+                        </div>
+                        <div class="col-md-4">
+                            <div class="checkbox checkbox-primary">
+                                <input class="styled" type="checkbox" id="newappointment" />
+                                <label></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row custom">
+                        <div class="col-md-2">
+                            @StatusStrings.progresspayment
+                        </div>
+                        <div class="col-md-4">
+                            <div class="checkbox checkbox-primary">
+                                <input class="styled" type="checkbox" id="progresspayment" />
+                                <label></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@Html.IncludeVersionedJs("/Scripts/custom/ovi.custom.list.js")
+@Html.IncludeVersionedJs("/Scripts/app/Statuses.js")

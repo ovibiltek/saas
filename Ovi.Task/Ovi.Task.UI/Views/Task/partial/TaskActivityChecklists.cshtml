@@ -1,0 +1,95 @@
+﻿@using Resources.Task.Index
+<div id="taskactivitychecklists" class="tab-pane">
+    <div class="row">
+        <div class="col-md-12">
+            <div id="grdTaskActivityChecklists"></div>
+        </div>
+    </div>
+    <br />
+    <div id="taskactivitychecklistsform" class="panel panel-default items">
+        <div class="panel-heading page-panel-heading">@TaskStrings.checklists</div>
+        @if (string.IsNullOrEmpty(UserManager.Instance.User.Customer))
+        {
+            <div class="row">
+                <div class="col-md-12" style="padding-right: 0">
+                    <div class="inline-toolbar left" style="border: none;" data-block="#taskactivitychecklists">
+                        <div class="btn-group">
+                            <button class="btn btn-default btn-sm" selection-required="false" title="Ctrl+R" id="btnAddTaskActivityChecklist"><i class="fa fa fa-plus fa-fw"></i>@TaskStrings.addnew</button>
+                            <button class="btn btn-default btn-sm" selection-required="false" title="Ctrl+S" id="btnSaveTaskActivityChecklist"><i class="fa fa-floppy-o fa-fw"></i>@TaskStrings.save</button>
+                            <button class="btn btn-default btn-sm" selection-required="true" title="Ctrl+D" id="btnDeleteTaskActivityChecklist"><i class="fa fa-trash-o fa-fw"></i>@TaskStrings.delete</button>
+                            <button class="btn btn-success btn-sm" selection-required="true" id="btnCompleteTaskActivityChecklist"><i class="fa fa-check-circle-o fa-fw"></i>@TaskStrings.complete</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        <div class="panel-body page-panel-body">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="row" id="taskactivitychecklistform">
+                        <div class="col-md-12">
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @TaskStrings.activity
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <input type="text" disableonupdate="yes" required class="form-control" id="chkactivity">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" disableonupdate="yes" type="button" id="btnchkactivity"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @TaskStrings.checklist
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <input type="text" disableonupdate="yes" required class="form-control" id="chktemplate">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" disableonupdate="yes" type="button" id="btnchktemplate"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @TaskStrings.description
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" disableonupdate="yes" required class="form-control" id="chkdescription">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-9">
+                    <div class="row hidden" id="checklistcontrols">
+                        <div class="col-md-10">
+                            <div class="progress">
+                                <div class="progress-bar" id="chklistprogress" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0"></div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <span id="checklistcount"></span>
+                            @if (string.IsNullOrEmpty(UserManager.Instance.User.Customer))
+                            {
+                                <button type="button" id="btnSaveChecklist" class="btn btn-success btn-xs pull-right"><i class="fa fa-floppy-o" aria-hidden="true"></i> @TaskStrings.save</button>
+
+                            }
+                        </div>
+                    </div>
+                    <div clasS="row custom">
+                        <div class="col-md-12">
+                            <div class="checklistitems">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

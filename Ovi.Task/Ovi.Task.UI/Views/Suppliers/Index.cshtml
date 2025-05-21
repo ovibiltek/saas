@@ -1,0 +1,1444 @@
+﻿@using Resources.Suppliers.Index
+@using Resources.Users.Index
+
+@{
+    Layout = "~/Views/Shared/Default.cshtml";
+}
+
+@Html.IncludeVersionedCss("/Content/jquery/jquery.fileupload.css")
+@Html.IncludeVersionedCss("/Content/jquery/jquery.contextMenu.min.css")
+@Html.IncludeVersionedCss("/Content/graph.min.css")
+@Html.IncludeVersionedCss("/Content/bootstrap/bootstrap-tagsinput.css")
+
+<div style="margin-top: 10px">
+    <div class="page-header">
+        <h4>
+            @SupplierStrings.suppliers
+        </h4>
+        <h6></h6>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tms-page-toolbar inline-toolbar left" data-block="#record">
+                <div class="btn-group">
+                    <button class="btn btn-default btn-sm" title="Ctrl+R" selection-required="false" id="btnNew"><i class="fa fa fa-plus fa-fw"></i>@SupplierStrings.addnew</button>
+                    <button class="btn btn-default btn-sm" disabled="disabled" selection-required="false" title="Ctrl+S" id="btnSave"><i class="fa fa-floppy-o fa-fw"></i>@SupplierStrings.save</button>
+                    <button class="btn btn-default btn-sm" disabled="disabled" selection-required="true" title="Ctrl+U" id="btnUndo"><i class="fa fa-undo fa-fw"></i>@SupplierStrings.undo</button>
+                    <button class="btn btn-default btn-sm" disabled="disabled" selection-required="true" title="Ctrl+D" id="btnDelete"><i class="fa fa-trash-o fa-fw"></i>@SupplierStrings.delete</button>
+                    <button class="btn btn-default btn-sm" disabled="disabled" selection-required="true" title="Ctrl+H" id="btnHistory"><i class="fa fa-bolt fa-fw"></i>@SupplierStrings.history</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#list">@SupplierStrings.list</a></li>
+        <li><a data-toggle="tab" href="#record">@SupplierStrings.record</a></li>
+        <li><a enable-on-selection href="#workplacedetails">@SupplierStrings.workplacedetails</a></li>
+        <li><a enable-on-selection href="#users">@SupplierStrings.users</a></li>
+        <li><a enable-on-selection href="#vehicles">@SupplierStrings.vehicles</a></li>
+        <li><a enable-on-selection href="#documentsandcertificates">@SupplierStrings.documentsandcertificates</a></li>
+        <li><a enable-on-selection href="#deliveries">@SupplierStrings.deliveries</a></li>
+        <li><a enable-on-selection href="#tasks">@SupplierStrings.tasks</a></li>
+        <li><a enable-on-selection href="#supplierequipmanprices">@SupplierStrings.supplierequipmanprices</a></li>
+        <li><a enable-on-selection href="#kpi">@SupplierStrings.kpi</a></li>
+    </ul>
+    <div class="tab-content">
+        <div id="list" class="tab-pane active">
+            <div id="grdSuppliers"></div>
+        </div>
+        <div id="record" class="tab-pane">
+            <div class="row record-content">
+                <div class="col-md-4" id="divHeader">
+                    <div class="panel panel-default">
+                        <div class="panel-heading task-panel-heading">@SupplierStrings.record</div>
+                        <div class="panel-body">
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @SupplierStrings.code
+                                </div>
+                                <div class="col-md-8">
+                                    <input id="code" required type="text" disableonupdate="yes" class="form-control form-code" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @SupplierStrings.desc
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" maxlength="250" class="form-control" required id="desc" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @SupplierStrings.status
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <input type="text" maxlength="50" required class="form-control uppercase" id="status">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button" id="btnstatus"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @SupplierStrings.title
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" maxlength="250" id="title" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @SupplierStrings.organization
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <input type="text" disableonupdate="yes" maxlength="50" required class="form-control uppercase" id="org">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" disableonupdate="yes" type="button" id="btnorg"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @SupplierStrings.type
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <input type="text" maxlength="50" required data-entity="SUPPLIER" class="form-control uppercase" id="type">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button" id="btntype"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @SupplierStrings.category
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <input type="text" maxlength="50" class="form-control uppercase" id="category">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button" id="btncategory"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @SupplierStrings.region
+                                </div>
+                                <div class="col-md-7">
+                                    <input type="text" class="form-control" data-role="multival" id="region">
+                                </div>
+                                <div class="col-md-1">
+                                    <button id="btnaddregions" class="btn btn-default" type="button"><i class="fa fa-btn fa-plus"></i></button>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @SupplierStrings.tasktypes
+                                </div>
+                                <div class="col-md-7">
+                                    <input type="text" class="form-control" data-role="multival" id="tasktypes">
+                                </div>
+                                <div class="col-md-1">
+                                    <button id="btnaddtasktypes" class="btn btn-default" type="button"><i class="fa fa-btn fa-plus"></i></button>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @SupplierStrings.requestedby
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <input type="text" maxlength="50" class="form-control uppercase" id="requestedby">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button" id="btnrequestedby"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @SupplierStrings.province
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <input type="text" maxlength="50" class="form-control uppercase" required id="province">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button" id="btnprovince"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @SupplierStrings.district
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <input type="text" maxlength="50" class="form-control uppercase" required id="district">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button" id="btndistrict"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @SupplierStrings.fulladdress
+                                </div>
+                                <div class="col-md-8">
+                                    <textarea id="fulladdress" class="form-control" rows="6" maxlength="250"></textarea>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @SupplierStrings.phone
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" maxlength="50" ctrltype="phone" class="form-control" id="phone" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @SupplierStrings.phone2
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" maxlength="50" ctrltype="phone" class="form-control" id="phone2" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @SupplierStrings.fax
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" maxlength="50" ctrltype="phone" class="form-control" id="fax" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @SupplierStrings.email
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="email" maxlength="250" class="form-control" id="email" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @SupplierStrings.authorizedperson
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" maxlength="250" class="form-control" id="authorizedperson">
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @SupplierStrings.pricingstartdate
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" maxlength="10" ctrltype="datepicker" class="form-control" id="pricingstartdate" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @SupplierStrings.pricingenddate
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" maxlength="10" ctrltype="datepicker" class="form-control" id="pricingenddate" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @SupplierStrings.contractrenewalperiod
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" ctrltype="numeric" allowfloat="false" class="form-control" id="contractrenewalperiod" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @SupplierStrings.active
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="checkbox checkbox-primary">
+                                        <input class="styled" type="checkbox" checked="checked" id="active" />
+                                        <label></label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom hidden" id="divpassivereason">
+                                <div class="col-md-4">
+                                    @SupplierStrings.passivereason
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <input type="text" maxlength="50" class="form-control uppercase" id="passivereason">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button" id="btnpassivereason"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4" id="divCustomFields">
+                    <div class="panel panel-default" style="height: 350px;">
+                        <div class="panel-heading task-panel-heading">@SupplierStrings.accountinfo</div>
+                        <div class="panel-body">
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @SupplierStrings.accountcode
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" class="form-control" id="accountcode" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @SupplierStrings.paymentperiod
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <input type="text" loadstatusesonchange="yes" maxlength="50" class="form-control" id="paymentperiod">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button" id="btnpaymentperiod"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @SupplierStrings.taxoffice
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" maxlength="250" id="taxoffice" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @SupplierStrings.taxno
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" maxlength="50" id="taxno" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @SupplierStrings.tfs
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="checkbox checkbox-primary">
+                                        <input class="styled" type="checkbox" id="tfs" />
+                                        <label></label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default" style="height: 842px;">
+                        <div class="panel-heading task-panel-heading">@SupplierStrings.customfields</div>
+                        <div class="panel-body">
+                            <div id="cfcontainer"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4" id="divCmntsAttachments">
+                    <div class="panel panel-default" style="height: 450px;">
+                        <div class="panel-heading task-panel-heading">@SupplierStrings.comments</div>
+                        <div class="panel-body">
+                            <textarea class="form-control" contenteditable rows="3" id="comment"></textarea>
+                            <div class="inline-toolbar">
+                                <button class="btn btn-primary btn-xs" selection-required="true" id="addComment"><i class="fa fa-plus-circle"></i>@SupplierStrings.add</button>
+                            </div>
+                            <div id="comments" class="sm">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default" style="height: 372px;">
+                        <div class="panel-heading task-panel-heading">@SupplierStrings.docs</div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="progress">
+                                        <div class="progress-bar" id="docuprogress" role="progressbar" style="width: 0%; min-width: 2em;">0%</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-12">
+                                    <div id="fupload">
+                                        <span class="btn btn-default fileinput-button" id="btnBrowse">
+                                            <i class="fa fa-search"></i>
+                                            <span>@SupplierStrings.browse</span>
+                                            <input type="file" name="files[]" id="fu" multiple data-url="/UploadFile.ashx">
+                                        </span>
+                                        <button class="btn btn-default" id="btnupload" disabled="disabled"><i class="fa fa-cloud-upload"></i>@SupplierStrings.upload</button>
+                                        <div class="row custom">
+                                            <div class="col-md-12">
+                                                <div id="filename"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="docs" class="light-size"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="workplacedetails" class="tab-pane">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="panel panel-default" style="height: 400px;">
+                        <div class="panel-heading task-panel-heading">@SupplierStrings.workplacedetails</div>
+                        <div class="panel-body">
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @SupplierStrings.businessownership
+                                </div>
+                                <div class="col-md-8">
+                                    <select id="businessownership" class="form-control">
+                                        <option value="">@SupplierStrings.pleaseselect</option>
+                                        <option value="OWNER">@SupplierStrings.owner</option>
+                                        <option value="RENTAL">@SupplierStrings.rental </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @SupplierStrings.M2
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" ctrltype="numeric" allowfloat="false" class="i-filter form-control" id="m2">
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @SupplierStrings.signage
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="checkbox checkbox-primary">
+                                        <input class="styled" type="checkbox" id="signage" />
+                                        <label></label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom hidden" id="div_signagedate">
+                                <div class="col-md-4">
+                                    @SupplierStrings.signagedate
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" maxlength="10" class="form-control" ctrltype="datepicker" id="signagedate" />
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="panel panel-default" style="height: 372px;">
+                        <div class="panel-heading task-panel-heading">@SupplierStrings.workplacephotos</div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="progress_wp">
+                                        <div class="progress-bar" id="docuprogress_wp" role="progressbar" style="width: 0%; min-width: 2em;">0%</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-12">
+                                    <div id="fupload_wp">
+                                        <span class="btn btn-default fileinput-button" id="btnBrowse">
+                                            <i class="fa fa-search"></i>
+                                            <span>@SupplierStrings.browse</span>
+                                            <input type="file" name="files[]" id="fu_wp" multiple data-url="/UploadFile.ashx">
+                                        </span>
+                                        <button class="btn btn-default" id="btnupload_wp" disabled="disabled"><i class="fa fa-cloud-upload"></i>@SupplierStrings.upload</button>
+                                        <div class="row custom">
+                                            <div class="col-md-12">
+                                                <div id="filename_wp"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="docs_wp" class="mid-size"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="users" class="tab-pane">
+            <ul class="nav nav-pills">
+                <li class="active"><a data-toggle="tab" href="#userlist">@SupplierStrings.list</a></li>
+                <li><a data-toggle="tab" href="#userrecord">@SupplierStrings.record</a></li>
+                <li><a enable-on-selection href="#userqualifications">@SupplierStrings.qualifications</a></li>
+            </ul>
+            <div class="tab-content">
+                <div id="userlist" class="tab-pane  active">
+                    <div id="grdSupplierUsers" style="border-width: 0px;"></div>
+                </div>
+                <div id="userrecord" class="tab-pane ">
+                    <div class="col-md-12">
+                        <div class="inline-toolbar left" data-block="#userrecord">
+                            <div class="btn-group">
+                                <button class="btn btn-default btn-sm" selection-required="false" title="Ctrl+R" id="btnNewUser"><i class="fa fa-floppy-o fa-fw"></i>@SupplierStrings.addnew</button>
+                                <button class="btn btn-default btn-sm" selection-required="false" title="Ctrl+S" id="btnSaveUser"><i class="fa fa-floppy-o fa-fw"></i>@SupplierStrings.save</button>
+                                <button class="btn btn-default btn-sm" title="Ctrl+H" selection-required="true" id="btnUserHistory" disabled="disabled"><i class="fa fa-bolt fa-fw"></i> @SupplierStrings.history</button>
+                                <button class="btn btn-primary btn-sm" selection-required="true" id="btnNewPassword"><i class="fa fa-key fa-fw"></i>@SupplierStrings.newpassword</button>
+                                <button class="btn btn-warning btn-sm" selection-required="true" id="btnSendForApproval"><i class="fa fa-thumbs-up fa-fw"></i>@SupplierStrings.sendforapproval</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="panel panel-default">
+                                <div class="panel-heading page-panel-heading">@SupplierStrings.details</div>
+                                <div class="panel-body page-panel-body">
+                                    <div class="row custom">
+                                        <div class="col-md-4">
+                                            @SupplierStrings.namesurname
+                                        </div>
+                                        <div class="col-md-8">
+                                            <input type="text" maxlength="250" required class="form-control" id="usrdesc" />
+                                        </div>
+                                    </div>
+                                    <div class="row custom">
+                                        <div class="col-md-4">
+                                            @UserStrings.code
+                                        </div>
+                                        <div class="col-md-8">
+                                            <input type="text" maxlength="50" required disableonupdate="yes" class="form-control form-code" id="usrcode" />
+                                        </div>
+                                    </div>
+                                    <div class="row custom">
+                                        <div class="col-md-4">
+                                            @UserStrings.usergroup
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="input-group">
+                                                <input type="text" maxlength="50" class="form-control" required id="usergroup">
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-default" type="button" id="btnusergroup"><i class="fa fa-search fa-fw"></i></button>
+                                                </span>
+                                            </div>
+                                            <input disabled="disabled" id="usergroupdesc" class="form-control" />
+                                        </div>
+                                    </div>
+                                    <div class="row custom">
+                                        <div class="col-md-4">
+                                            @UserStrings.duty
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="input-group">
+                                                <input type="text" maxlength="50" class="form-control" id="duty">
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-default" type="button" id="btnduty"><i class="fa fa-search fa-fw"></i></button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row custom">
+                                        <div class="col-md-4">
+                                            @UserStrings.trade
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="input-group">
+                                                <input type="text" maxlength="50" class="form-control" required id="trade">
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-default" type="button" id="btntrade"><i class="fa fa-search fa-fw"></i></button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row custom">
+                                        <div class="col-md-4">
+                                            @UserStrings.email
+                                        </div>
+                                        <div class="col-md-8">
+                                            <input type="email" class="form-control" required id="usremail" />
+                                        </div>
+                                    </div>
+                                    <div class="row custom">
+                                        <div class="col-md-4">
+                                            @UserStrings.phonenumber
+                                        </div>
+                                        <div class="col-md-2">
+                                            <select class="phone-prefix" id="usrphonenumberpfx"></select>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <input type="text" class="form-control phone-number" id="usrphonenumber" />
+                                        </div>
+                                    </div>
+                                    <div class="row custom">
+                                        <div class="col-md-4">
+                                            @UserStrings.jobstartdate
+                                        </div>
+                                        <div class="col-md-8">
+                                            <input type="text" required="required" maxlength="10" class="form-control" ctrltype="datepicker" id="startdate" />
+                                        </div>
+                                    </div>
+                                    <div class="row custom">
+                                        <div class="col-md-4">
+                                            @UserStrings.jobenddate
+                                        </div>
+                                        <div class="col-md-8">
+                                            <input type="text" maxlength="10" class="form-control" ctrltype="datepicker" id="enddate" />
+                                        </div>
+                                    </div>
+                                    <div class="row custom hidden" id="divleavingreason">
+                                        <div class="col-md-4">
+                                            @UserStrings.leavingreason
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="input-group">
+                                                <input type="text" maxlength="50" class="form-control" id="leavingreason">
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-default" type="button" id="btnleavingreason"><i class="fa fa-search fa-fw"></i></button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    @if (string.IsNullOrEmpty(UserManager.Instance.User.Supplier))
+                                    {
+                                        <div class="row custom">
+                                            <div class="col-md-4">
+                                                @UserStrings.appstatus
+                                            </div>
+                                            <div class="col-md-8">
+                                                <div class="input-group">
+                                                    <input type="text" maxlength="50" required="required" class="form-control" id="appstatus">
+                                                    <span class="input-group-btn">
+                                                        <button class="btn btn-default" type="button" id="btnappstatus"><i class="fa fa-search fa-fw"></i></button>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row custom hidden" id="divreturnreason">
+                                            <div class="col-md-4">
+                                                @UserStrings.returnreason
+                                            </div>
+                                            <div class="col-md-8">
+                                                <textarea type="text" class="form-control" id="returnreason" style="width: 100%; height: 100px;" maxlength="250"></textarea>
+                                            </div>
+                                        </div>
+                                        if (1 == 2)
+                                        {
+                                            <div class="row custom">
+                                                <div class="col-md-4">
+                                                    @UserStrings.tms
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <div class="checkbox checkbox-primary">
+                                                        <input type="checkbox" class="styled" id="tms" />
+                                                        <label></label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row custom">
+                                                <div class="col-md-4">
+                                                    @UserStrings.mobile
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <div class="checkbox checkbox-primary">
+                                                        <input type="checkbox" class="styled" id="mobile" />
+                                                        <label></label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row custom">
+                                                <div class="col-md-4">
+                                                    @UserStrings.active
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <div class="checkbox checkbox-primary">
+                                                        <input type="checkbox" class="styled" id="active" />
+                                                        <label></label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                        }
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="panel panel-default">
+                                <div class="panel-heading page-panel-heading">@SupplierStrings.personnel</div>
+                                <div class="panel-body page-panel-body">
+                                    <div class="row custom">
+                                        <div class="col-md-4">
+                                            @UserStrings.birthdate
+                                        </div>
+                                        <div class="col-md-8">
+                                            <input type="text" maxlength="10" required="required" id="birthdate" ctrltype="datepicker" class="form-control" />
+                                        </div>
+                                    </div>
+                                    <div class="row custom">
+                                        <div class="col-md-4">
+                                            @UserStrings.tcnumber
+                                        </div>
+                                        <div class="col-md-8">
+                                            <input type="text" maxlength="11" required="required" onkeypress='return event.keyCode >= 48 && event.keyCode <= 57' class="form-control" id="tcnumber" />
+                                        </div>
+                                    </div>
+                                    <div class="row custom">
+                                        <div class="col-md-4">
+                                            @UserStrings.gender
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="radio radio-primary radio-inline">
+                                                <input type="radio" name="gtype" id="male" value="Erkek">
+                                                <label for="male1">@UserStrings.male</label>
+                                            </div>
+                                            <div class="radio radio-primary radio-inline">
+                                                <input type="radio" name="gtype" id="female" value="Kadın">
+                                                <label for="female1">@UserStrings.female</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row custom">
+                                        <div class="col-md-4">
+                                            @UserStrings.shoesize
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="input-group">
+                                                <input type="text" maxlength="50" class="form-control" required id="shoesize">
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-default" type="button" id="btnshoesize"><i class="fa fa-search fa-fw"></i></button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row custom">
+                                        <div class="col-md-4">
+                                            @UserStrings.tshirtsize
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="input-group">
+                                                <input type="text" maxlength="50" class="form-control" required id="tshirtsize">
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-default" type="button" id="btntshirtsize"><i class="fa fa-search fa-fw"></i></button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row custom">
+                                        <div class="col-md-4">
+                                            @UserStrings.pantsize
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="input-group">
+                                                <input type="text" maxlength="50" class="form-control" required id="pantsize">
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-default" type="button" id="btnpantsize"><i class="fa fa-search fa-fw"></i></button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row custom">
+                                        <div class="col-md-4">
+                                            @UserStrings.polarsize
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="input-group">
+                                                <input type="text" maxlength="50" class="form-control" required id="polarsize">
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-default" type="button" id="btnpolarsize"><i class="fa fa-search fa-fw"></i></button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row custom">
+                                        <div class="col-md-4">
+                                            @UserStrings.edustatus
+                                        </div>
+                                        <div class="col-md-8">
+                                            <select id="edustatus" required class="form-control">
+                                                <option value="">@UserStrings.pleaseselect</option>
+                                                <option value="İlköğretim">@UserStrings.primaryeducation</option>
+                                                <option value="Lise">@UserStrings.highschool</option>
+                                                <option value="Meslek Lisesi">@UserStrings.vocationalhighschool</option>
+                                                <option value="Lisans">@UserStrings.bachelordegree </option>
+                                                <option value="Yüksek Lisans">@UserStrings.postgraduate</option>
+                                                <option value="Doktora">@UserStrings.doctorate</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row custom">
+                                        <div class="col-md-4">
+                                            @UserStrings.lastgraduatedschool
+                                        </div>
+                                        <div class="col-md-8">
+                                            <input type="text" maxlength="50" required="required" class="form-control" id="lastgraduatedschool" />
+                                        </div>
+                                    </div>
+                                    <div class="row custom">
+                                        <div class="col-md-4">
+                                            @UserStrings.lastgraduateddepartment
+                                        </div>
+                                        <div class="col-md-8">
+                                            <input type="text" maxlength="50" required="required" class="form-control" id="lastgraduateddepartment" />
+                                        </div>
+                                    </div>
+                                    <div class="row custom">
+                                        <div class="col-md-4">
+                                            @UserStrings.lastgraduateddate
+                                        </div>
+                                        <div class="col-md-8">
+                                            <input type="text" maxlength="10" id="lastgraduateddate" ctrltype="datepicker" class="form-control" />
+                                        </div>
+                                    </div>
+
+                                    <div class="row custom">
+                                        <div class="col-md-4">
+                                            @UserStrings.drivinglicense
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="checkbox checkbox-primary">
+                                                <input class="styled" type="checkbox" id="drivinglicense" />
+                                                <label></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row custom">
+                                        <div class="col-md-4">
+                                            @UserStrings.licenseclass
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="input-group">
+                                                <input type="text" maxlength="50" class="form-control" id="licenseclass">
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-default" type="button" id="btnlicenseclass"><i class="fa fa-search fa-fw"></i></button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row custom">
+                                        <div class="col-md-4">
+                                            @UserStrings.licenseissuedate
+                                        </div>
+                                        <div class="col-md-8">
+                                            <input type="text" maxlength="10" id="licenseissuedate" ctrltype="datepicker" class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="panel panel-default">
+                                <div class="panel-heading page-panel-heading">@SupplierStrings.docs</div>
+                                <div class="panel-body page-panel-body">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="progress">
+                                                <div class="progress-bar" id="docuprogress_users" role="progressbar" style="width: 0%; min-width: 2em;">0%</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row custom">
+                                        <div class="col-md-3"><strong>@SupplierStrings.doctype</strong></div>
+                                        <div class="col-md-6">
+                                            <select class="form-control" id="doctype_users">
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row custom">
+                                        <div class="col-md-12">
+                                            <div id="fupload_users">
+                                                <span class="btn btn-default fileinput-button" disabled="disabled" id="btnBrowse_users">
+                                                    <i class="fa fa-search"></i>
+                                                    <span>@SupplierStrings.browse</span>
+                                                    <input type="file" name="files[]" id="fu_users" multiple disabled="disabled" data-url="/UploadFile.ashx">
+                                                </span>
+                                                <button class="btn btn-default" id="btnupload_users" disabled="disabled"><i class="fa fa-cloud-upload"></i> @SupplierStrings.upload</button>
+                                                <button class="btn btn-default" id="btnDownload_users" disabled="disabled"><i class="fa fa-download" aria-hidden="true"></i> @SupplierStrings.download</button>
+                                                <div class="row custom">
+                                                    <div class="col-md-12">
+                                                        <div id="filename_users"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div id="docs_users"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="userqualifications" class="tab-pane ">
+                    <div class="panel panel-default">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div id="grdUserQualifications"></div>
+                            </div>
+                        </div>
+                        <div class="inline-toolbar left" data-block="#userqualifications">
+                            <div class="btn-group">
+                                <button class="btn btn-default btn-sm" title="Ctrl+R" selection-required="false" id="btnAddUserQualifications" data-function="INSERT"><i class="fa fa fa-plus fa-fw"></i>@SupplierStrings.addnew</button>
+                                <button class="btn btn-default btn-sm" title="Ctrl+S" selection-required="false" data-function="SAVE" id="btnSaveUserQualifications"><i class="fa fa-floppy-o fa-fw"></i>@SupplierStrings.save</button>
+                                <button class="btn btn-default btn-sm" title="Ctrl+D" selection-required="true" data-function="DELETE" id="btnDeleteUserQualifications" disabled="disabled"><i class="fa fa-trash-o fa-fw"></i>@SupplierStrings.delete</button>
+                            </div>
+                        </div>
+                        <div class="panel-body page-panel-body">
+                            <div class="col-md-8">
+                                <div class="row custom">
+                                    <div class="col-md-4">
+                                        @UserStrings.qualification
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="input-group">
+                                            <input type="text" maxlength="50" class="form-control" required disableonupdate="yes" id="qualification">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default" type="button" id="btnqualifications"><i class="fa fa-search fa-fw"></i></button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-4">
+                                        @UserStrings.qualificationdesc
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" maxlength="250" disabled="disabled" class="form-control" id="qualificationdesc" />
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-4">
+                                        @UserStrings.startdate
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" maxlength="10" required class="form-control" ctrltype="datepicker" id="quastartdate" />
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-4">
+                                        @UserStrings.expirationdate
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" maxlength="10" required class="form-control" ctrltype="datepicker" id="expirationdate" />
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-4">
+                                        @UserStrings.note
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" maxlength="250" class="form-control" id="note" />
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-sm-4">
+                                        @UserStrings.temporarilydisqualified
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="checkbox checkbox-primary">
+                                            <input type="checkbox" class="styled" checked="checked" id="temporarilydisqualified" />
+                                            <label></label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-md-4">
+                                <div id="quafupload">
+                                    <div class="panel panel-default" style="height: 372px;">
+                                        <div class="panel-heading task-panel-heading">@SupplierStrings.docs</div>
+                                        <div class="panel-body">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="progress">
+                                                        <div class="progress-bar" id="quadocuprogress" role="progressbar" style="width: 0%; min-width: 2em;">0%</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row custom">
+                                                <div class="col-md-12">
+                                                    <div id="quafupload">
+                                                        <span class="btn btn-default fileinput-button" id="btnQuaBrowse" disabled="disabled">
+                                                            <i class="fa fa-search"></i>
+                                                            <span>@SupplierStrings.browse</span>
+                                                            <input type="file" disabled="disabled" name="files[]" id="quafu" multiple data-url="/UploadFile.ashx">
+                                                        </span>
+                                                        <button class="btn btn-default" id="btnquaupload" disabled="disabled"><i class="fa fa-cloud-upload"></i>@SupplierStrings.upload</button>
+                                                        <div class="row custom">
+                                                            <div class="col-md-4">
+                                                                <div id="quafilename"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div id="quadocs" class="light-size"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div id="vehicles" class="tab-pane">
+            <div class="panel panel-default">
+                <div class="panel-heading page-panel-heading">@SupplierStrings.vehicles</div>
+                <div id="grdSupplierVehicles" style="border-width: 0px;"></div>
+                <div class="inline-toolbar left" data-block="#vehicles">
+                    <div class="btn-group">
+                        <button class="btn btn-default btn-sm" title="Ctrl+R" selection-required="false" id="btnAddVehicle"><i class="fa fa fa-plus fa-fw"></i>@SupplierStrings.addnew</button>
+                        <button class="btn btn-default btn-sm" title="Ctrl+S" selection-required="false" id="btnSaveVehicle"><i class="fa fa-floppy-o fa-fw"></i>@SupplierStrings.save</button>
+                        <button class="btn btn-default btn-sm" title="Ctrl+D" selection-required="true" id="btnDeleteVehicle" disabled="disabled"><i class="fa fa-trash-o fa-fw"></i>@SupplierStrings.delete</button>
+                    </div>
+                </div>
+                <div class="panel-body page-panel-body">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="row custom">
+                                <div class="col-md-3">
+                                    @SupplierStrings.brand
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="input-group">
+                                        <input type="text" maxlength="50" class="form-control" required id="vehbrand">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button" id="btnvehbrand"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-3">
+                                    @SupplierStrings.model
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="input-group">
+                                        <input type="text" maxlength="50" class="form-control" required id="vehmodel">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button" id="btnvehmodel"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-3">
+                                    @SupplierStrings.licenseplate
+                                </div>
+                                <div class="col-md-5">
+                                    <input type="text" maxlength="50" class="form-control" required id="vehlicenseplate">
+
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-3">
+                                    @SupplierStrings.modelyear
+                                </div>
+                                <div class="col-md-5">
+                                    <input type="text" ctrltype="numeric" allowfloat="false" maxlength="4" class="form-control" required id="vehmodelyear">
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-3">
+                                    @SupplierStrings.color
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="input-group">
+                                        <input type="text" maxlength="50" class="form-control" required id="vehcolor">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button" id="btnvehcolor"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-3">
+                                    @SupplierStrings.vehiclewrap
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="checkbox checkbox-primary">
+                                        <input class="styled" type="checkbox" id="vehiclewrap" />
+                                        <label></label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom hidden" id="div_vehiclewrapdate">
+                                <div class="col-md-3">
+                                    @SupplierStrings.vehiclewrapdate
+                                </div>
+                                <div class="col-md-5">
+                                    <input type="text" maxlength="10" class="form-control" ctrltype="datepicker" id="vehiclewrapdate" />
+
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-3">
+                                    @SupplierStrings.ownership
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="input-group">
+                                        <input type="text" maxlength="50" class="form-control" required id="vehownership">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button" id="btnvehownership"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4" id="divVehicleAttachments">
+                            <div class="panel panel-default" style="height: 500px;">
+                                <div class="panel-heading task-panel-heading">@SupplierStrings.vehiclephotos</div>
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="progress">
+                                                <div class="progress-bar" id="docuprogress_vehicle" role="progressbar" style="width: 0%; min-width: 2em;">0%</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row custom">
+                                        <div class="col-md-12">
+                                            <div id="fupload_vehicle">
+                                                <span class="btn btn-default fileinput-button" id="btnVehicleBrowse">
+                                                    <i class="fa fa-search"></i>
+                                                    <span>@SupplierStrings.browse</span>
+                                                    <input type="file" name="files[]" id="fu_vehicle" multiple data-url="/UploadFile.ashx">
+                                                </span>
+                                                <button class="btn btn-default" id="btnupload_vehicle" disabled="disabled"><i class="fa fa-cloud-upload"></i>@SupplierStrings.upload</button>
+                                                <div class="row custom">
+                                                    <div class="col-md-12">
+                                                        <div id="filename_vehicle"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div id="docs_vehicle" class="light-size"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="documentsandcertificates" class="tab-pane">
+            <div class="panel panel-default">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div id="grdDocumentsAndCertificates"></div>
+                    </div>
+                </div>
+
+                <div class="inline-toolbar left" data-block="#documentsandcertificates">
+                    <div class="btn-group">
+                        <button class="btn btn-default btn-sm" title="Ctrl+R" selection-required="false" id="btnAddDocument" data-function="INSERT"><i class="fa fa fa-plus fa-fw"></i>@SupplierStrings.addnew</button>
+                        <button class="btn btn-default btn-sm" title="Ctrl+S" selection-required="false" data-function="SAVE" id="btnSaveDocument"><i class="fa fa-floppy-o fa-fw"></i>@SupplierStrings.save</button>
+                        <button class="btn btn-default btn-sm" title="Ctrl+D" selection-required="true" data-function="DELETE" id="btnDeleteDocument" disabled="disabled"><i class="fa fa-trash-o fa-fw"></i>@SupplierStrings.delete</button>
+                    </div>
+                </div>
+                <div class="panel-body page-panel-body">
+                    <div class="col-md-8">
+                        <div class="row custom">
+                            <div class="col-md-4">
+                                @SupplierStrings.documenttype
+                            </div>
+                            <div class="col-md-4">
+                                <div class="input-group">
+                                    <input type="text" maxlength="50" class="form-control" required id="documenttype">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default" type="button" id="btndocumenttype"><i class="fa fa-search fa-fw"></i></button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row custom">
+                            <div class="col-md-4">
+                                @SupplierStrings.description
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" maxlength="250" required class="form-control" id="documentdescription" />
+
+                            </div>
+                        </div>
+                        <div class="row custom">
+                            <div class="col-md-4">
+                                @SupplierStrings.startdate
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" maxlength="10" required id="documentstartdate" ctrltype="datepicker" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="row custom">
+                            <div class="col-md-4">
+                                @SupplierStrings.enddate
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" maxlength="10" required id="documentenddate" ctrltype="datepicker" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="deliveries" class="tab-pane">
+            <div class="panel panel-default">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div id="grdDelivery"></div>
+                    </div>
+                </div>
+                @if (string.IsNullOrEmpty(UserManager.Instance.User.Supplier))
+                {
+                    <div class="inline-toolbar left" data-block="#deliveries">
+                        <div class="btn-group">
+                            <button class="btn btn-default btn-sm" title="Ctrl+R" selection-required="false" id="btnAddDelivery" data-function="INSERT"><i class="fa fa fa-plus fa-fw"></i>@SupplierStrings.addnew</button>
+                            <button class="btn btn-default btn-sm" title="Ctrl+S" selection-required="false" data-function="SAVE" id="btnSaveDelivery"><i class="fa fa-floppy-o fa-fw"></i>@SupplierStrings.save</button>
+                            <button class="btn btn-default btn-sm" title="Ctrl+D" selection-required="true" data-function="DELETE" id="btnDeleteDelivery" disabled="disabled"><i class="fa fa-trash-o fa-fw"></i>@SupplierStrings.delete</button>
+                        </div>
+                    </div>
+                    <div class="panel-body page-panel-body">
+                        <div class="col-md-8">
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @SupplierStrings.user
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="input-group">
+                                        <input type="text" maxlength="50" class="form-control" required id="deliveryuser">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button" id="btndeliveryuser"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @SupplierStrings.deliverytype
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="input-group">
+                                        <input type="text" maxlength="50" class="form-control" required id="deliverytype">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button" id="btndeliverytype"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @SupplierStrings.quantity
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="text" required="required" ctrltype="numeric" allowfloat="false" maxlength="250" class="form-control" id="quantity" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @SupplierStrings.uom
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="input-group">
+                                        <input type="text" maxlength="50" class="form-control" required id="uom">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button" id="btnuom"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @SupplierStrings.deliverydate
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="text" maxlength="10" required class="form-control" ctrltype="datepicker" id="deliverydate" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div id="dvrfupload">
+                                <div class="panel panel-default" style="height: 372px;">
+                                    <div class="panel-heading task-panel-heading">@SupplierStrings.docs</div>
+                                    <div class="panel-body">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="progress">
+                                                    <div class="progress-bar" id="dvrdocuprogress" role="progressbar" style="width: 0%; min-width: 2em;">0%</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row custom">
+                                            <div class="col-md-12">
+                                                <div id="quafupload">
+                                                    <span class="btn btn-default fileinput-button" id="btnDvrBrowse" disabled="disabled">
+                                                        <i class="fa fa-search"></i>
+                                                        <span>@SupplierStrings.browse</span>
+                                                        <input type="file" disabled="disabled" name="files[]" id="dvrfu" multiple data-url="/UploadFile.ashx">
+                                                    </span>
+                                                    <button class="btn btn-default" id="btndvrupload" disabled="disabled"><i class="fa fa-cloud-upload"></i>@SupplierStrings.upload</button>
+                                                    <div class="row custom">
+                                                        <div class="col-md-4">
+                                                            <div id="dvrfilename"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div id="dvrdocs" class="light-size"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+        <div id="supplierequipmanprices" class="tab-pane">
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="grdSupplierEquipManPrices"></div>
+                </div>
+            </div>
+            <br />
+            <div class="panel panel-default">
+                <div class="row">
+                    <div class="col-md-12" style="padding-right: 0">
+                        <div class="inline-toolbar left" style="border: none;">
+                            <div class="btn-group">
+                                <button class="btn btn-default btn-sm" title="Ctrl+R" selection-required="false" id="btnAddSupplierEquipManPrices"><i class="fa fa fa-plus fa-fw"></i>@SupplierStrings.addnew</button>
+                                <button class="btn btn-default btn-sm" title="Ctrl+S" selection-required="false" id="btnSaveSupplierEquipManPrices"><i class="fa fa-floppy-o fa-fw"></i>@SupplierStrings.save</button>
+                                <button class="btn btn-default btn-sm" title="Ctrl+D" selection-required="true" id="btnDeleteSupplierEquipManPrices" disabled="disabled"><i class="fa fa-trash-o fa-fw"></i>@SupplierStrings.delete</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-body page-panel-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="row custom">
+                                <div class="col-md-2">
+                                    @SupplierStrings.periodictask
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="input-group">
+                                        <input type="text" maxlength="50" disabled="disabled" class="form-control" id="smpperiodictask">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" disabled="disabled" type="button" id="btnsmpperiodictask"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-2">
+                                    @SupplierStrings.equipmenttype
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="input-group">
+                                        <input type="text" maxlength="50" disableonupdate="yes" required class="form-control" id="smpequipmenttype">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" disableonupdate="yes" type="button" id="btnsmpequipmenttype"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-2">
+                                    @SupplierStrings.startdate
+                                </div>
+                                <div class="col-md-3">
+                                    <input type="text" ctrltype="datepicker" required class="form-control" id="smpstartdate">
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-2">
+                                    @SupplierStrings.enddate
+                                </div>
+                                <div class="col-md-3">
+                                    <input type="text" ctrltype="datepicker" required class="form-control" id="smpenddate">
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-2">
+                                    @SupplierStrings.unitprice
+                                </div>
+                                <div class="col-md-3">
+                                    <input type="text" required valtype="PRICE" ctrltype="numeric" allowfloat="true" class="form-control" id="smpprice">
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-2">
+                                    @SupplierStrings.currency
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="input-group">
+                                        <input type="text" required maxlength="50" class="form-control" id="smpcurrency">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button" id="btnsmpcurrency"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="tasks" class="tab-pane">
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="grdSupplierTasks"></div>
+                </div>
+            </div>
+        </div>
+        <div id="kpi" class="tab-pane"></div>
+    </div>
+</div>
+<div class="modal" id="modalaudit" role="dialog" aria-labelledby="modalsharedlbl" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="false">&times;</span></button>
+                <h4 class="modal-title" id="modaltitle"></h4>
+            </div>
+            <div class="modal-body"></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-xs" id="modalsave">@SupplierStrings.save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var inbox = "@ViewBag.id";
+</script>
+
+@Html.IncludeVersionedJs("/Scripts/jquery/jquery.fileupload.js")
+@Html.IncludeVersionedJs("/Scripts/jquery/jquery.iframe-transport.js")
+
+@Html.IncludeVersionedJs("/Scripts/other/numericInput.min.js")
+@Html.IncludeVersionedJs("/Scripts/other/typeahead.bundle.js")
+@Html.IncludeVersionedJs("/Scripts/bootstrap/bootstrap-tagsinput.min.js")
+@Html.IncludeVersionedJs("/Scripts/jquery/jquery.contextMenu.min.js")
+
+
+@Html.IncludeVersionedJs("/Scripts/chart/d3.v4.min.js")
+@Html.IncludeVersionedJs("/Scripts/chart/billboard.min.js")
+@Html.IncludeVersionedJs("/Scripts/app/widgets/DynamicCharts.js")
+
+@Html.IncludeVersionedJs("/Scripts/custom/ovi.custom.list.js")
+@Html.IncludeVersionedJs("/Scripts/custom/ovi.custom.documents.js")
+@Html.IncludeVersionedJs("/Scripts/custom/ovi.custom.comments.js")
+@Html.IncludeVersionedJs("/Scripts/custom/ovi.custom.customfields.js")
+@Html.IncludeVersionedJs("/Scripts/app/Suppliers.js")

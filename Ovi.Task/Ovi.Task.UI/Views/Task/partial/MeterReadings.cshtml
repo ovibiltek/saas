@@ -1,0 +1,74 @@
+﻿@using Resources.Task.Index
+<div id="meterreadings" class="tab-pane">
+    <div class="row">
+        <div class="col-md-12">
+            <div id="grdMeterReadings"></div>
+        </div>
+    </div>
+    <br />
+    <div id="meterreadingsform" class="panel panel-default items">
+        <div class="panel-heading page-panel-heading">@TaskStrings.meterreadings</div>
+        <div class="row">
+            <div class="col-md-12" style="padding-right: 0">
+                <div class="inline-toolbar left" style="border: none;" data-block="#meterreadings">
+                    <div class="btn-group">
+                        <button class="btn btn-default btn-sm" selection-required="false" title="Ctrl+R" id="btnAddMeterReading"><i class="fa fa fa-plus fa-fw"></i>@TaskStrings.addnew</button>
+                        <button class="btn btn-default btn-sm" selection-required="false" title="Ctrl+S" id="btnSaveMeterReading"><i class="fa fa-floppy-o fa-fw"></i>@TaskStrings.save</button>
+                        <button class="btn btn-default btn-sm" selection-required="true" title="Ctrl+D" id="btnDeleteMeterReading"><i class="fa fa-trash-o fa-fw"></i>@TaskStrings.delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel-body page-panel-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="row custom">
+                        <div class="col-md-3">
+                            @TaskStrings.activity
+                        </div>
+                        <div class="col-md-5">
+                            <div class="input-group">
+                                <input type="text" required class="form-control" id="mractivity">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button" id="btnmractivity"><i class="fa fa-search fa-fw"></i></button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row custom">
+                        <div class="col-md-3">
+                            @TaskStrings.date
+                        </div>
+                        <div class="col-md-5">
+                            <input type="text" calc-group="2" maxlength="10" class="form-control" required ctrltype="datepicker" id="meterreadingdate" />
+                        </div>
+                    </div>
+                    <div class="row custom">
+                        <div class="col-md-3">
+                            @TaskStrings.mractive
+                        </div>
+                        <div class="col-md-5">
+                            <input type="text" required ctrltype="numeric" allowfloat="true" class="form-control" id="mractive">
+                        </div>
+                    </div>
+                    <div class="row custom">
+                        <div class="col-md-3">
+                            @TaskStrings.mrinductive
+                        </div>
+                        <div class="col-md-5">
+                            <input type="text" required ctrltype="numeric" allowfloat="true" class="form-control" id="mrinductive">
+                        </div>
+                    </div>
+                    <div class="row custom">
+                        <div class="col-md-3">
+                            @TaskStrings.mrcapacitive
+                        </div>
+                        <div class="col-md-5">
+                            <input type="text" required ctrltype="numeric" allowfloat="true" class="form-control" id="mrcapacitive">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

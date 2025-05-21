@@ -1,0 +1,159 @@
+﻿@using Resources.WarehouseToWarehouse.Index
+@{
+    Layout = "~/Views/Shared/Default.cshtml";
+}
+
+@Html.IncludeVersionedCss("/Content/jquery/jquery.contextMenu.min.css")
+<div style="margin-top: 10px" id="record">
+    <div class="page-header">
+        <h4>@WarehouseToWarehouseStrings.warehousetowarehouse</h4>
+        <h6></h6>
+    </div>
+    <div class="row">
+        <div class="col-md-12" style="padding-right: 0px;">
+            <div class="tms-page-toolbar inline-toolbar left" data-block="#record">
+                <div class="btn-group">
+                    <button class="btn btn-default btn-sm" title="Ctrl+R" selection-required="false" id="btnNew"><i class="fa fa fa-plus fa-fw"></i> @WarehouseToWarehouseStrings.addnew</button>
+                    <button class="btn btn-default btn-sm" title="Ctrl+S" selection-required="false" id="btnSave"><i class="fa fa-floppy-o fa-fw"></i> @WarehouseToWarehouseStrings.save</button>
+                    <button class="btn btn-default btn-sm" title="Ctrl+U" selection-required="true" id="btnUndo"><i class="fa fa-undo fa-fw"></i> @WarehouseToWarehouseStrings.undo</button>
+                    <button class="btn btn-default btn-sm" title="Ctrl+D" selection-required="true" id="btnDelete"><i class="fa fa-trash-o fa-fw"></i> @WarehouseToWarehouseStrings.delete</button>
+                    <button class="btn btn-default btn-sm" title="Ctrl+H" selection-required="true" id="btnHistory" disabled="disabled"><i class="fa fa-bolt fa-fw"></i> @WarehouseToWarehouseStrings.history</button>
+                    <button class="btn btn-primary btn-sm pull-right" disabled="disabled" id="btnPerformProcess"><i class="fa fa-check-circle-o fa-fw"></i> @WarehouseToWarehouseStrings.performprocess</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="well">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="row custom">
+                    <div class="col-md-2">
+                        @WarehouseToWarehouseStrings.organization
+                    </div>
+                    <div class="col-md-6">
+                        <div class="input-group">
+                            <input type="text" maxlength="50" class="form-control" required id="org">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button" id="btnorg"><i class="fa fa-search fa-fw"></i></button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row custom">
+                    <div class="col-md-2">
+                        @WarehouseToWarehouseStrings.curr
+                    </div>
+                    <div class="col-md-6">
+                        <input type="text" disabled="disabled" id="curr" class="form-control" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+
+                <div class="row custom">
+                    <div class="col-md-2">
+                        @WarehouseToWarehouseStrings.fromwarehouse
+                    </div>
+                    <div class="col-md-6">
+                        <div class="input-group">
+                            <input type="text" maxlength="50" class="form-control" required id="fromwarehouse">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button" id="btnfromwarehouse"><i class="fa fa-search fa-fw"></i></button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row custom">
+                    <div class="col-md-2">
+                        @WarehouseToWarehouseStrings.frombin
+                    </div>
+                    <div class="col-md-6">
+                        <div class="input-group">
+                            <input type="text" maxlength="50" class="form-control" required id="frombin">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button" id="btnfrombin"><i class="fa fa-search fa-fw"></i></button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="row custom">
+                    <div class="col-md-2">
+                        @WarehouseToWarehouseStrings.towarehouse
+                    </div>
+                    <div class="col-md-6">
+                        <div class="input-group">
+                            <input type="text" maxlength="50" class="form-control" required id="towarehouse">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button" id="btntowarehouse"><i class="fa fa-search fa-fw"></i></button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row custom">
+                    <div class="col-md-2">
+                        @WarehouseToWarehouseStrings.tobin
+                    </div>
+                    <div class="col-md-6">
+                        <div class="input-group">
+                            <input type="text" maxlength="50" class="form-control" required id="tobin">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button" id="btntobin"><i class="fa fa-search fa-fw"></i></button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row custom">
+        <div class="col-md-12" style="padding-right: 0px;">
+            <div id="grdWarehouseToWarehouse"></div>
+        </div>
+    </div>
+    <div class="well">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="row custom">
+                    <div class="col-md-2">
+                        @WarehouseToWarehouseStrings.part
+                    </div>
+                    <div class="col-md-8">
+                        <div class="input-group">
+                            <input type="text" maxlength="50" class="form-control" required id="part">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button" id="btnpart"><i class="fa fa-search fa-fw"></i></button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row custom">
+                    <div class="col-md-2">
+                        @WarehouseToWarehouseStrings.quantity
+                    </div>
+                    <div class="col-md-8">
+                        <input type="text" ctrltype="numeric" allowfloat="true" required id="quantity" class="form-control" />
+                    </div>
+                </div>
+                <div class="row custom">
+                    <div class="col-md-2">
+                        @WarehouseToWarehouseStrings.uom
+                    </div>
+                    <div class="col-md-8">
+                        <input type="text" disabled="disabled" id="uom" class="form-control" />
+                    </div>
+                </div>
+                <div class="row custom">
+                    <div class="col-md-2">
+                        @WarehouseToWarehouseStrings.price
+                    </div>
+                    <div class="col-md-8">
+                        <input type="text" disabled="disabled" id="price" ctrltype="numeric" allowfloat="true" required class="form-control" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@Html.IncludeVersionedJs("/Scripts/app/WarehouseToWarehouse.js")

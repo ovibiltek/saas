@@ -1,0 +1,93 @@
+﻿@using Resources.Equipment.Index
+@using Resources.Shared.Index
+@using Resources.Task.Index
+@using Resources.TaskActivities.Index
+@{
+    ViewBag.Title = "List";
+    Layout = "~/Views/Shared/Default.cshtml";
+}
+
+@Html.IncludeVersionedCss("/Content/jquery/jquery.fileupload.css")
+
+<div style="margin-top: 10px">
+    <div class="page-header">
+        <h4>@EquipmentStrings.list</h4>
+        <h6></h6>
+    </div>
+    <div id="grdEquipmentsList"></div>
+</div>
+<div class="modal" id="modalcomments">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="false">&times;</span></button>
+                <h4 class="modal-title">@TaskActivitiesStrings.comments</h4>
+            </div>
+            <div class="modal-body">
+                <textarea class="form-control sm" rows="3" id="comment"></textarea>
+                @if (string.IsNullOrEmpty(UserManager.Instance.User.Customer) && string.IsNullOrEmpty(UserManager.Instance.User.Supplier))
+                {
+                    <div class="row custom">
+                        <div class="col-md-12">
+                            <div class="checkbox checkbox-inline checkbox-primary">
+                                <input type="checkbox" class="styled" id="visibletocustomer" />
+                                <label>@SharedStrings.visibletocustomer</label>
+                            </div>
+                            <div class="checkbox checkbox-inline checkbox-primary">
+                                <input type="checkbox" class="styled" id="visibletosupplier" />
+                                <label>@SharedStrings.visibletosupplier</label>
+                            </div>
+                        </div>
+                    </div>
+                }
+                <div class="inline-toolbar">
+                    <button class="btn btn-primary btn-xs" id="addComment"><i class="fa fa-plus-circle"></i> @TaskStrings.add</button>
+                </div>
+                <div id="comments"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-xs" data-dismiss="modal" aria-label="Close">@TaskStrings.ok</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="modaldocuments">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="false">&times;</span></button>
+                <h4 class="modal-title">@TaskActivitiesStrings.documents</h4>
+            </div>
+            <div class="modal-body" style="height: 400px; overflow-y: auto;">
+                <div id="fupload">
+                    <span class="btn btn-default fileinput-button" id="btnBrowse">
+                        <i class="fa fa-search"></i>
+                        <span>@TaskActivitiesStrings.browse</span>
+                        <input type="file" name="files[]" id="fu" multiple data-url="/UploadFile.ashx">
+                    </span>
+                    <button class="btn btn-default" id="btnupload" disabled="disabled"><i class="fa fa-cloud-upload"></i> @TaskActivitiesStrings.upload</button>
+                    <div class="row custom">
+                        <div class="col-md-12">
+                            <div id="filename"></div>
+                        </div>
+                    </div>
+                </div>
+                <div id="docs" class="tasklistdocs"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-xs" data-dismiss="modal" aria-label="Close">@TaskStrings.ok</button>
+            </div>
+        </div>
+    </div>
+</div>
+@Html.IncludeVersionedJs("/Scripts/jquery/jquery.fileupload.js")
+@Html.IncludeVersionedJs("/Scripts/jquery/jquery.iframe-transport.js")
+@Html.IncludeVersionedJs("/Scripts/jquery/jquery.sidebar.min.js")
+@Html.IncludeVersionedJs("/Scripts/jquery/jquery.contextMenu.min.js")
+
+
+@Html.IncludeVersionedJs("/Scripts/other/numericInput.min.js")
+@Html.IncludeVersionedJs("/Scripts/custom/ovi.custom.documents.js")
+@Html.IncludeVersionedJs("/Scripts/custom/ovi.custom.comments.js")
+
+@Html.IncludeVersionedJs("/Scripts/app/TaskEquipment.js")

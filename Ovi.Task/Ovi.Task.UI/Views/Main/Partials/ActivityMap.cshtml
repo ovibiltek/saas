@@ -1,0 +1,221 @@
+﻿@using Resources.ActivityMap.Index
+@using Resources.Main.Index
+
+<div class="target" id="activityMap">
+    <div class="page-header">
+        <h1>@MainStrings.activitymap</h1>
+    </div>
+    <div style="left: 4%;position: relative; width: 96%;">
+
+        <div style="margin-top: 10px">
+            <div class="row">
+                <div class="col-md-9">
+                    <div style="height: 800px" id="map"></div>
+                </div>
+                <div class="col-md-3" style="padding-right: 0px;">
+                    <div class="row">
+                        <div class="col-md-12" style="padding-right: 0px;">
+                            <div class="well">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <strong>Atanan</strong>
+                                    </div>
+                                    <div class="col-md-7">
+                                        <div class="radio radio-info radio-inline">
+                                            <input type="radio" id="plnunit_trade" name="plnunit" checked="checked" value="T">
+                                            <label for="plnunit_trade">Ekip</label>
+                                        </div>
+                                        <div class="radio radio-info radio-inline">
+                                            <input type="radio" name="plnunit" id="plnunit_employee" value="U">
+                                            <label for="plnunit_employee">
+                                                Personel
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-1">
+                                        <a title="" class="btn btn-default btn-sm" id="search"><i class="fa fa-search"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12" style="padding-right: 0px;">
+                            <div class="scrollbar-macosx">
+                                <div id="mapunit" class="list-group"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="sidebars">
+                <div class="sidebar right" style="right: -400px;">
+                    <div class="row">
+                        <div class="col-md-12" style="text-align: center; margin-top: 10px;">
+                            <button id="filter" class="btn btn-primary btn-xs"><i class="fa fa-filter"></i> @ActivityMapStrings.filter</button>
+                            <button id="clearfilter" class="btn btn-info btn-xs"><i class="fa fa-ban"></i> @ActivityMapStrings.reset</button>
+                            <button id="closesiderbar" class="btn btn-danger btn-xs"><i class="fa fa-times"></i> @ActivityMapStrings.close</button>
+                        </div>
+                    </div>
+                    <div class="row custom">
+                        <ul class="nav nav-tabs" id="filteroptions">
+                            <li class="active"><a data-toggle="tab" href="#list">@ActivityMapStrings.list</a></li>
+                            <li><a data-toggle="tab" href="#find">@ActivityMapStrings.find</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div id="list" class="tab-pane active">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="page-header">
+                                            <h5>@ActivityMapStrings.startdate</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <input type="text" ctrltype="datepicker" class="i-filter form-control" id="datestart">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="page-header">
+                                            <h5>@ActivityMapStrings.enddate</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <input type="text" ctrltype="datepicker" class="i-filter form-control" id="dateend">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="page-header">
+                                            <h5>@ActivityMapStrings.customer</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="input-group">
+                                            <input type="text" maxlength="50" class="form-control" id="customer">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default" type="button" id="btncustomer"><i class="fa fa-search fa-fw"></i></button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="page-header">
+                                            <h5>@ActivityMapStrings.type</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="input-group">
+                                            <input type="text" maxlength="50" class="form-control" id="type">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default" type="button" id="btntype"><i class="fa fa-search fa-fw"></i></button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="page-header">
+                                            <h5>@ActivityMapStrings.category</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="input-group">
+                                            <input type="text" maxlength="50" class="form-control" id="category">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default" type="button" id="btncategory"><i class="fa fa-search fa-fw"></i></button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="page-header">
+                                            <h5>@ActivityMapStrings.periodictask</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="input-group">
+                                            <input type="text" maxlength="50" class="form-control" id="periodictask">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default" type="button" id="btnperiodictask"><i class="fa fa-search fa-fw"></i></button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="find" class="tab-pane">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="page-header">
+                                            <h5>@ActivityMapStrings.task</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="input-group">
+                                            <input type="text" maxlength="50" class="form-control" id="task">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default" type="button" id="btntask"><i class="fa fa-search fa-fw"></i></button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="page-header">
+                                            <h5>@ActivityMapStrings.date</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <input type="text" ctrltype="datepicker" class="i-filter form-control" id="actdate">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="page-header">
+                                            <h5>@ActivityMapStrings.distance</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <input type="text" ctrltype="numeric" allowfloat="false" class="i-filter form-control" id="distance">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+@Html.IncludeVersionedJs("/Scripts/jquery/jquery.sidebar.min.js")
+@Html.IncludeVersionedJs("/Scripts/other/numericInput.min.js")
+@Html.IncludeVersionedJs("/Scripts/other/fontawesome-markers.min.js")
+@Html.IncludeVersionedJs("/Scripts/other/oms.min.js")
+@Html.IncludeVersionedJs("/Scripts/custom/ovi.custom.list.js")
+@{
+    var link = string.Format("https://maps.googleapis.com/maps/api/js?key={0}", ViewBag.GOOGLEMAPSKEY);
+}
+<script src="@link" async defer></script>

@@ -1,0 +1,214 @@
+﻿@using System.Globalization
+@using Resources.Main.Index
+
+<div class="target" id="kpi">
+    <div class="page-header">
+        <h1>@MainStrings.kpi</h1>
+    </div>
+    <div style="left: 4%;position: relative; width: 96%;" id="dashboard">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="row">
+                    <div class="col-md-3">
+                        <label for="chart-year">@MainStrings.year</label>
+                    </div>
+                    <div class="col-md-9">
+                        <select id="chart-year" group-ctrl="chart" style="width: 100%">
+                            <option value="ALL">*</option>
+                            @if (Model.years != null)
+                            {
+                                var yearsarr = Model.years.Split(',');
+                                if (yearsarr.Length == 2)
+                                {
+                                    var start = int.Parse(yearsarr[0]);
+                                    var end = int.Parse(yearsarr[1]);
+                                    for (var i = start; i <= end; i++)
+                                    {
+                                        <option @(i == DateTime.Now.Year ? "selected" : string.Empty) value="@i">@i</option>
+                                    }
+                                }
+                            }
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="row">
+                    <div class="col-md-3">
+                        <label for="chart-month">@MainStrings.month</label>
+                    </div>
+                    <div class="col-md-9">
+                        <select id="chart-month" group-ctrl="chart" style="width: 100%">
+                            <option value="ALL">*</option>
+                            @for (var i = 0; i < DateTimeFormatInfo.CurrentInfo.MonthNames.Length - 1; i++)
+                            {
+                                <option @((i + 1) == DateTime.Now.Month ? "selected" : string.Empty) value="@(i + 1)">@DateTimeFormatInfo.CurrentInfo.MonthNames[i]</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="row">
+                    <div class="col-md-3">
+                        <label for="chart-region">@MainStrings.region</label>
+                    </div>
+                    <div class="col-md-9">
+                        <select id="chart-region" group-ctrl="chart" style="width: 100%">
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="row">
+                    <div class="col-md-3">
+                        <label for="chart-customer">@MainStrings.customer</label>
+                    </div>
+                    <div class="col-md-9">
+                        <select id="chart-customer" group-ctrl="chart" style="width: 100%">
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="content">
+            
+            
+
+        </div>
+    </div>
+</div>
+
+
+@*<div id="divchart" class="panel panel-default target">
+    <div class="panel-heading">
+        <div class="row">
+            <div class="col-md-10">
+                <h4><i class="fa fa-line-chart"></i> @MainStrings.dashboard</h4>
+            </div>
+            <div class="col-md-2 pos-right">
+                <button id="comparekpis" class="btn btn-default btn-xs"><i class="fa fa-line-chart"></i></button>
+            </div>
+        </div>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div id="divchart01" class="col-md-6">
+                <div class="row">
+                    <div class="col-md-offset-2 col-md-4">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label for="chart01-year">@MainStrings.year</label>
+                            </div>
+                            <div class="col-md-9">
+                                <select id="chart01-year" group-ctrl="chart01" style="width: 100%">
+                                    <option value="ALL">*</option>
+                                    @if (Model.years != null)
+                                    {
+                                        var yearsarr = Model.years.Split(',');
+                                        if (yearsarr.Length == 2)
+                                        {
+                                            var start = int.Parse(yearsarr[0]);
+                                            var end = int.Parse(yearsarr[1]);
+                                            for (var i = start; i <= end; i++)
+                                            {
+                                                <option @(i == DateTime.Now.Year ? "selected" : string.Empty) value="@i">@i</option>
+                                            }
+                                        }
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label for="chart01-month">@MainStrings.month</label>
+                            </div>
+                            <div class="col-md-9">
+                                <select id="chart01-month" group-ctrl="chart01" style="width: 100%">
+                                    <option value="ALL">*</option>
+                                    @for (var i = 0; i < DateTimeFormatInfo.CurrentInfo.MonthNames.Length - 1; i++)
+                                    {
+                                        <option @((i + 1) == DateTime.Now.Month ? "selected" : string.Empty) value="@(i + 1)">@DateTimeFormatInfo.CurrentInfo.MonthNames[i]</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="col-md-12">
+                        <div id="chart01" style="height: 250px;"></div>
+                    </div>
+                </div>
+            </div>
+            <div id="divchart02" class="col-md-6">
+                <div class="row">
+                    <div class="col-md-offset-2 col-md-4">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label for="chart02-year">@MainStrings.year</label>
+                            </div>
+                            <div class="col-md-9">
+                                <select id="chart02-year" group-ctrl="chart02" style="width: 100%">
+                                    <option value="ALL">*</option>
+                                    @if (Model.years != null)
+                                    {
+                                        var yearsarr = Model.years.Split(',');
+                                        if (yearsarr.Length == 2)
+                                        {
+                                            var start = int.Parse(yearsarr[0]);
+                                            var end = int.Parse(yearsarr[1]);
+                                            for (var i = start; i <= end; i++)
+                                            {
+                                                <option @(i == DateTime.Now.Year ? "selected" : string.Empty) value="@i">@i</option>
+                                            }
+                                        }
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label for="chart02-month">@MainStrings.month</label>
+                            </div>
+                            <div class="col-md-9">
+                                <select id="chart02-month" group-ctrl="chart02" style="width: 100%">
+                                    <option value="ALL">*</option>
+                                    @for (var i = 0; i < DateTimeFormatInfo.CurrentInfo.MonthNames.Length - 1; i++)
+                                    {
+                                        <option @((i + 1) == DateTime.Now.Month - 1 ? "selected" : string.Empty) value="@(i + 1)">@DateTimeFormatInfo.CurrentInfo.MonthNames[i]</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="col-md-12">
+                        <div id="chart02" style="height: 250px;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div style="text-align: center" id="kpinav">
+                        </div>
+                    </div>
+                </div>
+                <div class="pull-right" style="display: none">
+                    <button id="chartdetails" disabled="disabled" class="btn btn-info btn-xs"><i class="fa fa-arrows-alt"></i> @MainStrings.details</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>*@
+

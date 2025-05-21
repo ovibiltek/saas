@@ -1,0 +1,107 @@
+﻿@using Resources.Task.Index
+@using Resources.TaskAmounts.Index
+@{
+    ViewBag.Title = "List";
+    Layout = "~/Views/Shared/Default.cshtml";
+}
+
+@Html.IncludeVersionedCss("/Content/jquery/jquery.contextMenu.min.css")
+<div style="margin-top: 10px">
+    <div class="page-header">
+        <h4>@TaskAmountStrings.titlem1</h4>
+        <h6></h6>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div id="grdTaskAmountsM1"></div>
+            <div class="sidebars">
+                <div class="sidebar right" style="right: -400px;">
+                    <div class="row">
+                        <div class="col-md-12" style="text-align: center; margin-top: 10px;">
+                            <button id="filter" class="btn btn-primary btn-xs"><i class="fa fa-filter"></i> @TaskAmountStrings.filter</button>
+                            <button id="clearfilter" class="btn btn-info btn-xs"><i class="fa fa-ban"></i> @TaskAmountStrings.reset</button>
+                            <button id="closesiderbar" class="btn btn-danger btn-xs"><i class="fa fa-times"></i> @TaskAmountStrings.close</button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="page-header">
+                                <h5>@TaskStrings.status</h5>
+                            </div>
+                        </div>
+                        <div class="col-md-12 filter-box" id="statuses">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="page-header">
+                                <h5>@TaskStrings.datecreated</h5>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <input type="text" ctrltype="datepicker" class="i-filter form-control" id="datecreated_start">
+                        </div>
+                        <div class="col-sm-6">
+                            <input type="text" ctrltype="datepicker" class="i-filter form-control" id="datecreated_end">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="page-header">
+                                <h5>@TaskStrings.daterequested</h5>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <input type="text" ctrltype="datepicker" class="i-filter form-control" id="daterequested_start">
+                        </div>
+                        <div class="col-sm-6">
+                            <input type="text" ctrltype="datepicker" class="i-filter form-control" id="daterequested_end">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="page-header">
+                                <h5>@TaskStrings.datecompleted</h5>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <input type="text" ctrltype="datepicker" class="i-filter form-control" id="datecompleted_start">
+                        </div>
+                        <div class="col-sm-6">
+                            <input type="text" ctrltype="datepicker" class="i-filter form-control" id="datecompleted_end">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="page-header">
+                                <h5>@TaskStrings.dateclosed</h5>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <input type="text" ctrltype="datepicker" class="i-filter form-control" id="dateclosed_start">
+                        </div>
+                        <div class="col-sm-6">
+                            <input type="text" ctrltype="datepicker" class="i-filter form-control" id="dateclosed_end">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="page-header">
+                                <h5>@TaskStrings.priority</h5>
+                            </div>
+                        </div>
+                        <div class="col-md-12 filter-box" id="priorities">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var inbox = "@ViewBag.id";
+</script>
+
+@Html.IncludeVersionedJs("/Scripts/jquery/jquery.sidebar.min.js")
+@Html.IncludeVersionedJs("/Scripts/jquery/jquery.contextMenu.min.js")
+@Html.IncludeVersionedJs("/Scripts/app/TaskAmountsM1.js")

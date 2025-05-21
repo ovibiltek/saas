@@ -1,0 +1,239 @@
+﻿@using Resources.ChecklistTemplates.Index
+@{
+    Layout = "~/Views/Shared/Default.cshtml";
+}
+<link href="~/Content/bootstrap/bootstrap-editable.css" rel="stylesheet" />
+<link href="~/Content/jquery/jquery.contextMenu.min.css" rel="stylesheet" />
+<div style="margin-top: 10px">
+    <div class="page-header">
+        <h4>@ChecklistTemplatesStrings.checklisttemplates</h4>
+        <h6></h6>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tms-page-toolbar inline-toolbar left" data-block="#record">
+                <div class="btn-group">
+                    <button class="btn btn-default btn-sm" title="Ctrl+R" selection-required="false" id="btnNew"><i class="fa fa fa-plus fa-fw"></i> @ChecklistTemplatesStrings.addnew</button>
+                    <button class="btn btn-default btn-sm" title="Ctrl+S" selection-required="false" id="btnSave"><i class="fa fa-floppy-o fa-fw"></i> @ChecklistTemplatesStrings.save</button>
+                    <button class="btn btn-default btn-sm" title="Ctrl+U" selection-required="true" id="btnUndo"><i class="fa fa-undo fa-fw"></i> @ChecklistTemplatesStrings.undo</button>
+                    <button class="btn btn-default btn-sm" title="Ctrl+D" selection-required="true" id="btnDelete"><i class="fa fa-trash-o fa-fw"></i> @ChecklistTemplatesStrings.delete</button>
+                    <button class="btn btn-default btn-sm" title="Ctrl+H" selection-required="true" id="btnHistory" disabled="disabled"><i class="fa fa-bolt fa-fw"></i> @ChecklistTemplatesStrings.history</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <ul class="nav nav-tabs">
+                <li class="active"><a data-toggle="tab" href="#list">@ChecklistTemplatesStrings.list</a></li>
+                <li><a data-toggle="tab" href="#record">@ChecklistTemplatesStrings.details</a></li>
+                <li><a href="#topics" enable-on-selection>@ChecklistTemplatesStrings.topics</a></li>
+            </ul>
+            <div class="tab-content">
+                <div id="list" class="tab-pane active">
+                    <div id="grdCheckListTemplates"></div>
+                </div>
+                <div id="record" class="tab-pane">
+                    <div class="panel panel-default">
+                        <div class="panel-heading page-panel-heading">@ChecklistTemplatesStrings.record</div>
+                        <div class="panel-body page-panel-body" id="recordview">
+                            <div class="row custom">
+                                <div class="col-md-2">
+                                    @ChecklistTemplatesStrings.code
+                                </div>
+                                <div class="col-md-2">
+                                    <input type="text" maxlength="50" id="code" required disableonupdate="yes" class="form-control form-code" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-2">
+                                    @ChecklistTemplatesStrings.description
+                                </div>
+                                <div class="col-md-2">
+                                    <input type="text" maxlength="250" id="desc" required class="form-control" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-2">
+                                    @ChecklistTemplatesStrings.organization
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="input-group">
+                                        <input type="text" maxlength="50" required class="form-control" id="org">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button" id="btnorg"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-2">
+                                    @ChecklistTemplatesStrings.sequential
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="checkbox checkbox-primary">
+                                        <input type="checkbox" class="styled" checked="checked" id="sequential" />
+                                        <label></label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-2">
+                                    @ChecklistTemplatesStrings.active
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="checkbox checkbox-primary">
+                                        <input type="checkbox" class="styled" checked="checked" id="active" />
+                                        <label></label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default items">
+                        <div class="panel-heading page-panel-heading">@ChecklistTemplatesStrings.items</div>
+                        <div class="panel-body page-panel-body padding5">
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" id="txtItem">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-primary" type="button" id="btnAddChklistItem"><i class="fa fa-plus fa-fw"></i> @ChecklistTemplatesStrings.add</button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr />
+                            <div class="row custom">
+                                <div class="col-md-1"><strong>@ChecklistTemplatesStrings.necessary</strong></div>
+                                <div class="col-md-1"><strong>@ChecklistTemplatesStrings.order</strong></div>
+                                <div class="col-md-3"><strong>@ChecklistTemplatesStrings.type</strong></div>
+                                <div class="col-md-1"><strong>@ChecklistTemplatesStrings.rate</strong></div>
+                                <div class="col-md-4"><strong>@ChecklistTemplatesStrings.itemdesc</strong></div>
+                                <div class="col-md-2"><strong>@ChecklistTemplatesStrings.topic</strong></div>
+
+                            </div>
+                            <div class="checklistitems">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="topics" class="tab-pane">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="grdTopics"></div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="panel panel-default">
+                        <div class="row">
+                            <div class="col-md-12" style="padding-right: 0">
+                                <div class="inline-toolbar left" style="border: none;" data-block="#topics">
+                                    <div class="btn-group">
+                                        <button class="btn btn-default btn-sm" title="Ctrl+R" selection-required="false" id="btnAddTopic" data-function="INSERT"><i class="fa fa fa-plus fa-fw"></i>@ChecklistTemplatesStrings.addnew</button>
+                                        <button class="btn btn-default btn-sm" title="Ctrl+S" selection-required="false" data-function="SAVE" id="btnSaveTopic"><i class="fa fa-floppy-o fa-fw"></i>@ChecklistTemplatesStrings.save</button>
+                                        <button class="btn btn-default btn-sm" title="Ctrl+D" selection-required="true" data-function="DELETE" id="btnDeleteTopic" disabled="disabled"><i class="fa fa-trash-o fa-fw"></i>@ChecklistTemplatesStrings.delete</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-body page-panel-body">
+                            <div class="row custom">
+                                <div class="col-md-2">
+                                    @ChecklistTemplatesStrings.code
+                                </div>
+                                <div class="col-md-2">
+                                    <input type="text" maxlength="50" id="topiccode" required disableonupdate="yes" class="form-control form-code" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-2">
+                                    @ChecklistTemplatesStrings.description
+                                </div>
+                                <div class="col-md-2">
+                                    <input type="text" maxlength="250" id="topicdescription" required class="form-control" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-2">
+                                    @ChecklistTemplatesStrings.allownewline
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="checkbox checkbox-primary">
+                                        <input type="checkbox" class="styled" id="allownewline" />
+                                        <label></label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-2">
+                                    @ChecklistTemplatesStrings.active
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="checkbox checkbox-primary">
+                                        <input class="styled" type="checkbox" checked="checked" id="topicactive" />
+                                        <label></label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="lookupvalues" role="dialog" aria-hidden="true">
+    <div class="modal-wide modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="false">&times;</span></button>
+                <h4 class="modal-title">@ChecklistTemplatesStrings.lookuplines</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-3">
+                        <input type="text" required placeholder="@ChecklistTemplatesStrings.code" class="form-control" id="txtCode">
+                    </div>
+                    <div class="col-md-5">
+                        <input type="text" required placeholder="@ChecklistTemplatesStrings.desc" class="form-control" id="txtDesc">
+                    </div>
+                    <div class="col-md-1">
+                        <div class="checkbox checkbox-primary">
+                            <input type="checkbox" class="styled" id="chkComments" />
+                            <label>@ChecklistTemplatesStrings.comments</label>
+                        </div>
+                    </div>
+                    <div class="col-md-1">
+                        <div class="checkbox checkbox-primary">
+                            <input type="checkbox" class="styled" id="chkDocuments" />
+                            <label>@ChecklistTemplatesStrings.documents</label>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <button class="btn btn-success col-md-12" type="button" id="btnSaveCheckListLookupLine" data-function="SAVE"><i class="fa fa-floppy-o fa-fw"></i> @ChecklistTemplatesStrings.save</button>
+                            </div>
+                            <div class="col-md-6">
+                                <button class="btn btn-primary col-md-12" type="button" id="btnAddCheckListLookupLine" data-function="INSERT"><i class="fa fa-plus fa-fw"></i> @ChecklistTemplatesStrings.addnew</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row custom">
+                    <div class="col-md-12">
+                        <div id="grdCheckListLookupLines"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@Html.IncludeVersionedJs("/Scripts/custom/ovi.custom.list.js")
+@Html.IncludeVersionedJs("/Scripts/bootstrap/bootstrap-editable.min.js")
+@Html.IncludeVersionedJs("/Scripts/other/numericInput.min.js")
+@Html.IncludeVersionedJs("/Scripts/jquery/jquery.contextMenu.min.js")
+@Html.IncludeVersionedJs("/Scripts/app/ChecklistTemplates.js")

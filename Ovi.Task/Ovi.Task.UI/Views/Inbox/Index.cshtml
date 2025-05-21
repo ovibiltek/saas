@@ -1,0 +1,221 @@
+﻿@using Resources.Inbox.Index
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Default.cshtml";
+}
+<link href="~/Content/bootstrap/bootstrap-colorpicker.min.css" rel="stylesheet" />
+<link href="~/Content/fontawesome-iconpicker.min.css" rel="stylesheet" />
+
+<div style="margin-top: 10px">
+    <div class="page-header">
+        <h4>
+            @InboxStrings.inbox
+        </h4>
+        <h6></h6>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tms-page-toolbar inline-toolbar left" data-block="#record">
+                <div class="btn-group">
+                    <button class="btn btn-default btn-sm" title="Ctrl+R" selection-required="false" id="btnNew"><i class="fa fa fa-plus fa-fw"></i>@InboxStrings.addnew</button>
+                    <button class="btn btn-default btn-sm" disabled="disabled" selection-required="false" title="Ctrl+S" id="btnSave"><i class="fa fa-floppy-o fa-fw"></i>@InboxStrings.save</button>
+                    <button class="btn btn-default btn-sm" disabled="disabled" selection-required="true" title="Ctrl+U" id="btnUndo"><i class="fa fa-undo fa-fw"></i>@InboxStrings.undo</button>
+                    <button class="btn btn-default btn-sm" disabled="disabled" selection-required="true" title="Ctrl+D" id="btnDelete"><i class="fa fa-trash-o fa-fw"></i>@InboxStrings.delete</button>
+                    <button class="btn btn-default btn-sm" disabled="disabled" selection-required="true" title="Ctrl+H" id="btnHistory"><i class="fa fa-bolt fa-fw"></i>@InboxStrings.history</button>
+                    <button class="btn btn-default btn-sm" title="Ctrl+Q" selection-required="true" id="btnTranslations" disabled="disabled"><i class="fa fa-globe"></i> @InboxStrings.translations</button>
+                    <button class="btn btn-default btn-sm" id="btnTestSql" selection-required="true" disabled="disabled"><i class="fa fa-check-square"></i> @InboxStrings.validatesql</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#list">@InboxStrings.list</a></li>
+        <li><a data-toggle="tab" href="#record">@InboxStrings.record</a></li>
+    </ul>
+    <div class="tab-content">
+        <div id="list" class="tab-pane active">
+            <div id="grdInbox"></div>
+            <div class="sidebars">
+                <div class="sidebar right" style="right: -400px;">
+                    <div class="row">
+                        <div class="col-md-12" style="text-align: center; margin-top: 10px;">
+                            <button id="filter" class="btn btn-primary btn-xs"><i class="fa fa-filter"></i> @InboxStrings.filter</button>
+                            <button id="clearfilter" class="btn btn-info btn-xs"><i class="fa fa-ban"></i> @InboxStrings.reset</button>
+                            <button id="closesiderbar" class="btn btn-danger btn-xs"><i class="fa fa-times"></i> @InboxStrings.close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="record" class="tab-pane">
+            <div class="row record-content">
+                <div class="col-md-12" id="divHeader">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">@InboxStrings.record</div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="row custom">
+                                        <div class="col-md-3">
+                                            @InboxStrings.code
+                                        </div>
+                                        <div class="col-md-9">
+                                            <input id="code" type="text" required disableonupdate="yes" class="form-control form-code" />
+                                        </div>
+                                    </div>
+                                    <div class="row custom">
+                                        <div class="col-md-3">
+                                            @InboxStrings.description
+                                        </div>
+                                        <div class="col-md-9">
+                                            <input type="text" maxlength="250" id="desc" required class="form-control" />
+                                        </div>
+                                    </div>
+                                    <div class="row custom">
+                                        <div class="col-md-3">
+                                            @InboxStrings.css
+                                        </div>
+                                        <div class="col-md-8">
+                                            <input type="text" maxlength="50" id="css" required class="form-control" />
+                                        </div>
+                                        <div class="col-md-1">
+                                            <i id="cssi"></i>
+                                        </div>
+                                    </div>
+                                    <div class="row custom">
+                                        <div class="col-md-3">
+                                            @InboxStrings.color
+                                        </div>
+                                        <div class="col-md-9">
+                                            <div class="input-group colpicker">
+                                                <input type="text" value="" class="form-control" id="color" />
+                                                <span class="input-group-addon"><i></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row custom">
+                                        <div class="col-md-3">
+                                            @InboxStrings.sql
+                                        </div>
+                                        <div class="col-md-9">
+                                            <textarea id="sql" spellcheck="false" style="width: 100%;" rows="10" class="form-control" required></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="row custom">
+                                        <div class="col-md-3">
+                                            @InboxStrings.condition
+                                        </div>
+                                        <div class="col-md-9">
+                                            <textarea id="condition" spellcheck="false" style="width: 100%;" rows="5" class="form-control" required></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="row custom">
+                                        <div class="col-md-3">
+                                            @InboxStrings.inboxtype
+                                        </div>
+                                        <div class="col-md-9">
+                                            <select id="inboxtype" required class="form-control">
+                                                <option value="PERSONAL">@InboxStrings.personalinbox</option>
+                                                <option value="PUBLIC">@InboxStrings.publicinbox</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row custom">
+                                        <div class="col-md-3">
+                                            @InboxStrings.inboxgroup
+                                        </div>
+                                        <div class="col-md-9">
+                                            <select id="inboxgroup" required class="form-control">
+                                                <option value="">@InboxStrings.pleaseselect</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row custom">
+                                        <div class="col-md-3">
+                                            @InboxStrings.screen
+                                        </div>
+                                        <div class="col-md-9">
+                                            <div class="input-group">
+                                                <input type="text" maxlength="50" required class="form-control" id="screen">
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-default" type="button" id="btnScreen"><i class="fa fa-search fa-fw"></i></button>
+                                                </span>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="row custom">
+                                        <div class="col-md-3">
+                                            @InboxStrings.order
+                                        </div>
+                                        <div class="col-md-9">
+                                            <input type="text" ctrltype="numeric" id="order" class="form-control" />
+                                        </div>
+                                    </div>
+                                    <div class="row custom">
+                                        <div class="col-md-3">
+                                            @InboxStrings.resulttype
+                                        </div>
+                                        <div class="col-md-9">
+                                            <select id="resulttype" required class="form-control">
+                                                <option value="QUANTITY">@InboxStrings.quantity</option>
+                                                <option value="PRICE">@InboxStrings.price</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row custom">
+                                        <div class="col-md-3">
+                                            @InboxStrings.active
+                                        </div>
+                                        <div class="col-md-9">
+                                            <div class="checkbox checkbox-primary">
+                                                <input class="styled" type="checkbox" checked="checked" id="active" />
+                                                <label></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row custom">
+                                        <div class="col-md-3">
+                                            @InboxStrings.isvalidated
+                                        </div>
+                                        <div class="col-md-9">
+                                            <div class="checkbox checkbox-primary">
+                                                <input class="styled" type="checkbox" disabled="disabled" id="isvalidated" />
+                                                <label></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <h4><i class="fa fa-info"></i>  @InboxStrings.informationtext</h4>
+                                    <hr />
+                                    <div id="infobox"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal" id="modalaudit" role="dialog" aria-labelledby="modalsharedlbl" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="false">&times;</span></button>
+                    <h4 class="modal-title" id="modaltitle"></h4>
+                </div>
+                <div class="modal-body"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary btn-xs" id="modalsave">@InboxStrings.save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    @Html.IncludeVersionedJs("/Scripts/other/fontawesome-iconpicker.min.js")
+    @Html.IncludeVersionedJs("/Scripts/other/numericInput.min.js")
+    @Html.IncludeVersionedJs("/Scripts/bootstrap/bootstrap-colorpicker.min.js")
+    @Html.IncludeVersionedJs("/Scripts/custom/ovi.custom.list.js")
+    
+    @Html.IncludeVersionedJs("/Scripts/app/Inbox.js")

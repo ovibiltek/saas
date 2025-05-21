@@ -1,0 +1,891 @@
+﻿@using Resources.Customers.Index
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Default.cshtml";
+}
+
+@Html.IncludeVersionedCss("/Content/jquery/jquery.fileupload.css")
+@Html.IncludeVersionedCss("/Content/InfoTooltip.css")
+@Html.IncludeVersionedCss("/Content/jquery/jquery.contextMenu.min.css")
+@Html.IncludeVersionedCss("/Content/graph.min.css")
+@Html.IncludeVersionedCss("/Content/bootstrap/bootstrap-tagsinput.css")
+
+
+<div style="margin-top: 10px">
+    <div class="page-header">
+        <h4>@CustomerStrings.customers</h4>
+        <h6></h6>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tms-page-toolbar inline-toolbar left" data-block="#record">
+                <div class="btn-group">
+                    <button class="btn btn-default btn-sm" title="Ctrl+R" selection-required="false" id="btnNew"><i class="fa fa fa-plus fa-fw"></i> @CustomerStrings.addnew</button>
+                    <button class="btn btn-default btn-sm" title="Ctrl+S" selection-required="false" id="btnSave"><i class="fa fa-floppy-o fa-fw"></i> @CustomerStrings.save</button>
+                    <button class="btn btn-default btn-sm" title="Ctrl+U" selection-required="true" id="btnUndo"><i class="fa fa-undo fa-fw"></i> @CustomerStrings.undo</button>
+                    <button class="btn btn-default btn-sm" title="Ctrl+D" selection-required="true" id="btnDelete"><i class="fa fa-trash-o fa-fw"></i> @CustomerStrings.delete</button>
+                    <button class="btn btn-default btn-sm" title="Ctrl+H" selection-required="true" id="btnHistory" disabled="disabled"><i class="fa fa-bolt fa-fw"></i> @CustomerStrings.history</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#list">@CustomerStrings.list</a></li>
+        <li><a data-toggle="tab" default-on-reset href="#record">@CustomerStrings.record</a></li>
+        <li><a enable-on-selection href="#pricing">@CustomerStrings.pricing</a></li>
+        <li><a enable-on-selection href="#tasks">@CustomerStrings.tasks</a></li>
+        <li><a enable-on-selection href="#checkamount">@CustomerStrings.checkamount</a></li>
+        <li><a enable-on-selection href="#eqpconfig">@CustomerStrings.eqpconfig</a></li>
+        <li><a enable-on-selection href="#taskstatusmail">@CustomerStrings.tskstatusmail</a></li>
+        <li><a enable-on-selection href="#kpi">@CustomerStrings.kpi</a></li>
+    </ul>
+    <div class="tab-content">
+        <div id="list" class="tab-pane active">
+            <div id="grdCustomers"></div>
+        </div>
+        <div id="record" class="tab-pane">
+            <div class="row record-content">
+                <div class="col-md-8" id="divHeader">
+                    <div class="panel panel-default" style="height: 842px;">
+                        <div class="panel-heading page-panel-heading">@CustomerStrings.record</div>
+                        <div class="panel-body page-panel-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="row custom">
+                                        <div class="col-md-4">
+                                            @CustomerStrings.code
+                                        </div>
+                                        <div class="col-md-8">
+                                            <input type="text" maxlength="50" id="code" required disableonupdate="yes" class="form-control form-code" />
+                                        </div>
+                                    </div>
+                                    <div class="row custom">
+                                        <div class="col-md-4">
+                                            @CustomerStrings.desc
+                                        </div>
+                                        <div class="col-md-8">
+                                            <input type="text" maxlength="250" id="desc" required class="form-control" />
+                                        </div>
+                                    </div>
+                                    <div class="row custom">
+                                        <div class="col-md-4">
+                                            @CustomerStrings.prefix
+                                        </div>
+                                        <div class="col-md-8">
+                                            <input type="text" maxlength="5" id="branchprefix" required disableonupdate="yes" class="form-control form-code" />
+                                        </div>
+                                    </div>
+                                    <div class="row custom">
+                                        <div class="col-md-4">
+                                            @CustomerStrings.title
+                                        </div>
+                                        <div class="col-md-8">
+                                            <input type="text" maxlength="250" id="title" class="form-control" />
+                                        </div>
+                                    </div>
+                                    <div class="row custom">
+                                        <div class="col-md-4">
+                                            @CustomerStrings.organization
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="input-group">
+                                                <input type="text" maxlength="50" disableonupdate="yes" class="form-control" required id="org">
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-default" disableonupdate="yes" type="button" id="btnorg"><i class="fa fa-search fa-fw"></i></button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row custom">
+                                        <div class="col-md-4">
+                                            @CustomerStrings.typ
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="input-group">
+                                                <input type="text" disableonupdate="yes" maxlength="50" required data-entity="CUSTOMER" class="form-control" id="type">
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-default" disableonupdate="yes" type="button" id="btntype"><i class="fa fa-search fa-fw"></i></button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row custom">
+                                        <div class="col-md-4">
+                                            @CustomerStrings.workingcondition
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="input-group">
+                                                <input type="text" maxlength="50" required class="form-control" id="workingstatus">
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-default" type="button" id="btnworkingstatus"><i class="fa fa-search fa-fw"></i></button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row custom">
+                                        <div class="col-md-4">
+                                            @CustomerStrings.customergroup
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="input-group">
+                                                <input type="text" maxlength="50" class="form-control" id="customergroup">
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-default" type="button" id="btncustomergroup"><i class="fa fa-search fa-fw"></i></button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row custom">
+                                        <div class="col-md-4">
+                                            @CustomerStrings.sector
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="input-group">
+                                                <input type="text" maxlength="50" class="form-control" id="sector">
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-default" type="button" id="btnsector"><i class="fa fa-search fa-fw"></i></button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row custom">
+                                        <div class="col-md-4">
+                                            @CustomerStrings.customerservicerepresentative
+                                        </div>
+                                        <div class="col-md-8">
+                                            <input type="text" maxlength="250" class="form-control" id="csr">
+                                        </div>
+                                    </div>
+                                    <div class="row custom">
+                                        <div class="col-md-4">
+                                            @CustomerStrings.operationsofficer
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="input-group">
+                                                <input type="text" maxlength="50" class="form-control" id="oo">
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-default" type="button" id="btnoo"><i class="fa fa-search fa-fw"></i></button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row custom">
+                                        <div class="col-md-4">
+                                            @CustomerStrings.salesauthority
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="input-group">
+                                                <input type="text" maxlength="50" class="form-control" id="sa">
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-default" type="button" id="btnsa"><i class="fa fa-search fa-fw"></i></button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row custom">
+                                        <div class="col-md-4">
+                                            @CustomerStrings.reportingresponsible
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="input-group">
+                                                <input type="text" maxlength="50" class="form-control" id="reportingresponsible">
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-default" type="button" id="btnreportingresponsible"><i class="fa fa-search fa-fw"></i></button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row custom">
+                                        <div class="col-md-4">
+                                            @CustomerStrings.projectmanager
+                                        </div>
+                                        <div class="col-md-7">
+                                            <input type="text" class="form-control" data-role="multival" id="pm">
+                                        </div>
+                                        <div class="col-md-1">
+                                            <button id="btnpmusers" class="btn btn-default" type="button"><i class="fa fa-btn fa-plus"></i></button>
+                                        </div>
+                                    </div>
+                                    <div class="row custom">
+                                        <div class="col-md-4">
+                                            @CustomerStrings.progresspaymentresponsible
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="input-group">
+                                                <input type="text" maxlength="50" class="form-control" id="pspresponsible">
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-default" type="button" id="btnpspresponsible"><i class="fa fa-search fa-fw"></i></button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row custom">
+                                        <div class="col-md-4">
+                                            @CustomerStrings.phone01
+                                        </div>
+                                        <div class="col-md-8">
+                                            <input type="text" maxlength="250" ctrltype="phone" class="form-control" id="phone01">
+                                        </div>
+                                    </div>
+                                    <div class="row custom">
+                                        <div class="col-md-4">
+                                            @CustomerStrings.phone02
+                                        </div>
+                                        <div class="col-md-8">
+                                            <input type="text" maxlength="250" ctrltype="phone" class="form-control" id="phone02">
+                                        </div>
+                                    </div>
+                                    <div class="row custom">
+                                        <div class="col-md-4">
+                                            @CustomerStrings.fax
+                                        </div>
+                                        <div class="col-md-8">
+                                            <input type="text" maxlength="250" ctrltype="phone" class="form-control" id="fax">
+                                        </div>
+                                    </div>
+                                    <div class="row custom">
+                                        <div class="col-md-4">
+                                            @CustomerStrings.web
+                                        </div>
+                                        <div class="col-md-8">
+                                            <input type="text" maxlength="250" class="form-control" id="web">
+                                        </div>
+                                    </div>
+                                    <div class="row custom">
+                                        <div class="col-md-4">
+                                            @CustomerStrings.address
+                                        </div>
+                                        <div class="col-md-8">
+                                            <textarea id="address" style="width: 100%; height: 100px;"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="row custom">
+                                        <div class="col-md-4">
+                                            @CustomerStrings.billingaddress
+                                        </div>
+                                        <div class="col-md-8">
+                                            <textarea id="billingaddress" spellcheck="false" style="width: 100%; height: 100px;"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="row custom">
+                                        <div class="col-md-4">
+                                            @CustomerStrings.notes
+                                        </div>
+                                        <div class="col-md-8">
+                                            <textarea id="notes" spellcheck="false" style="width: 100%; height: 100px;" maxlength="500"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="row custom">
+                                        <div class="col-md-4">
+                                            @CustomerStrings.notify
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="checkbox checkbox-primary">
+                                                <input type="checkbox" class="styled" checked="checked" id="notify" />
+                                                <label></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row custom">
+                                        <div class="col-md-4">
+                                            @CustomerStrings.checkstartlabordistance
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="checkbox checkbox-primary">
+                                                <input type="checkbox" class="styled" id="checkstartlabordistance" />
+                                                <label></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row custom">
+                                        <div class="col-md-4">
+                                            @CustomerStrings.checkendlabordistance
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="checkbox checkbox-primary">
+                                                <input type="checkbox" class="styled" id="checkendlabordistance" />
+                                                <label></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row custom">
+                                        <div class="col-md-4">
+                                            @CustomerStrings.active
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="checkbox checkbox-primary">
+                                                <input type="checkbox" class="styled" checked="checked" id="active" />
+                                                <label></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="row custom">
+                                        <div class="col-md-4">
+                                            @CustomerStrings.province
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="input-group">
+                                                <input type="text" maxlength="50" class="form-control uppercase" id="province">
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-default" type="button" id="btnprovince"><i class="fa fa-search fa-fw"></i></button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row custom">
+                                        <div class="col-md-4">
+                                            @CustomerStrings.district
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="input-group">
+                                                <input type="text" maxlength="50" class="form-control uppercase" id="district">
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-default" type="button" id="btndistrict"><i class="fa fa-search fa-fw"></i></button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row custom">
+                                        <div class="col-md-4">
+                                            @CustomerStrings.contactperson01
+                                        </div>
+                                        <div class="col-md-8">
+                                            <input type="text" maxlength="250" class="form-control" id="contactperson01">
+                                        </div>
+                                    </div>
+                                    <div class="row custom">
+                                        <div class="col-md-4">
+                                            @CustomerStrings.contactperson02
+                                        </div>
+                                        <div class="col-md-8">
+                                            <input type="text" maxlength="250" class="form-control" id="contactperson02">
+                                        </div>
+                                    </div>
+                                    <div class="row custom">
+                                        <div class="col-md-4">
+                                            @CustomerStrings.accountcode
+                                        </div>
+                                        <div class="col-md-8">
+                                            <input type="text" maxlength="250" id="accountcode" class="form-control" />
+                                        </div>
+                                    </div>
+                                    <div class="row custom">
+                                        <div class="col-md-4">
+                                            @CustomerStrings.paymentperiod
+                                        </div>
+                                        <div class="col-md-8">
+                                            <input type="text" maxlength="250" id="paymentperiod" ctrltype="numeric" allowfloat="false" class="form-control" />
+                                        </div>
+                                    </div>
+                                    <div class="row custom">
+                                        <div class="col-md-4">
+                                            @CustomerStrings.progresspaymentperiod
+                                        </div>
+                                        <div class="col-md-8">
+                                            <input type="text" maxlength="250" id="progresspaymentperiod" ctrltype="numeric" allowfloat="false" class="form-control" />
+                                        </div>
+                                    </div>
+                                    <div class="row custom">
+                                        <div class="col-md-4">
+                                            @CustomerStrings.taxoffice
+                                        </div>
+                                        <div class="col-md-8">
+                                            <input type="text" maxlength="250" id="taxoffice" class="form-control" />
+                                        </div>
+                                    </div>
+                                    <div class="row custom">
+                                        <div class="col-md-4">
+                                            @CustomerStrings.taxno
+                                        </div>
+                                        <div class="col-md-8">
+                                            <input type="text" maxlength="250" id="taxno" class="form-control" />
+                                        </div>
+                                    </div>
+                                    <div class="row custom">
+                                        <div class="col-md-4">
+                                            @CustomerStrings.priority
+                                        </div>
+                                        <div class="col-md-8">
+                                            <input type="text" maxlength="250" id="priority" class="form-control" />
+                                        </div>
+                                    </div>
+                                    <div class="row custom">
+                                        <div class="col-md-4">
+                                            @CustomerStrings.ert
+                                        </div>
+                                        <div class="col-md-8">
+                                            <input type="text" maxlength="250" id="emergencyrespondtime" ctrltype="numeric" allowfloat="true" class="form-control" />
+                                        </div>
+                                    </div>
+                                    <div class="row custom">
+                                        <div class="col-md-4">
+                                            @CustomerStrings.barcodelength
+                                        </div>
+                                        <div class="col-md-8">
+                                            <input type="text" id="barcodelength" ctrltype="numeric" allowfloat="false" class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4" id="divFunctions">
+                    <div id="divCustomFields">
+                        <div class="panel panel-default">
+                            <div class="panel-heading task-panel-heading">@CustomerStrings.customfields</div>
+                            <div class="panel-body">
+                                <div id="cfcontainer"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default" style="height: 450px;">
+                        <div class="panel-heading task-panel-heading">@CustomerStrings.comments</div>
+                        <div class="panel-body">
+                            <textarea class="form-control" contenteditable rows="3" id="comment"></textarea>
+                            <div class="inline-toolbar">
+                                <button class="btn btn-primary btn-xs" selection-required="true" id="addComment"><i class="fa fa-plus-circle"></i>@CustomerStrings.add</button>
+                            </div>
+                            <div id="comments" class="sm">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default" style="height: 372px;">
+                        <div class="panel-heading task-panel-heading">@CustomerStrings.docs</div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="progress">
+                                        <div class="progress-bar" id="docuprogress" role="progressbar" style="width: 0%; min-width: 2em;">0%</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-12">
+                                    <div id="fupload">
+                                        <span class="btn btn-default fileinput-button" id="btnBrowse">
+                                            <i class="fa fa-search"></i>
+                                            <span>@CustomerStrings.browse</span>
+                                            <input type="file" name="files[]" id="fu" multiple data-url="/UploadFile.ashx">
+                                        </span>
+                                        <button class="btn btn-default" id="btnupload" disabled="disabled"><i class="fa fa-cloud-upload"></i>@CustomerStrings.upload</button>
+                                        <div class="row custom">
+                                            <div class="col-md-12">
+                                                <div id="filename"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="docs" class="light-size"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="pricing" class="tab-pane">
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="grdPricing"></div>
+                </div>
+            </div>
+            <br />
+            <div class="panel panel-default">
+                <div class="row">
+                    <div class="col-md-12" style="padding-right: 0">
+                        <div class="inline-toolbar left" style="border: none;" data-block="#pricing">
+                            <div class="btn-group">
+                                <button class="btn btn-default btn-sm" title="Ctrl+R" selection-required="false" id="btnAddPricing"><i class="fa fa fa-plus fa-fw"></i>@CustomerStrings.addnew</button>
+                                <button class="btn btn-default btn-sm" title="Ctrl+S" selection-required="false" id="btnSavePricing"><i class="fa fa-floppy-o fa-fw"></i>@CustomerStrings.save</button>
+                                <button class="btn btn-default btn-sm" title="Ctrl+D" selection-required="true" id="btnDeletePricing" disabled="disabled"><i class="fa fa-trash-o fa-fw"></i>@CustomerStrings.delete</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-body page-panel-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="row custom">
+                                <div class="col-md-3">
+                                    @CustomerStrings.pricingcode
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="input-group">
+                                        <input type="text" maxlength="50" disableonupdate="yes" class="form-control" required id="pricingcode">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" disableonupdate="yes" type="button" id="btnpricingcode"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-3">
+                                    @CustomerStrings.startdate
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="text" ctrltype="datepicker" required class="form-control" id="startdate">
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-3">
+                                    @CustomerStrings.enddate
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="text" ctrltype="datepicker" required class="form-control" id="enddate">
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-3">
+                                    @CustomerStrings.taskcategory
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="input-group">
+                                        <input type="text" required class="form-control" id="taskcategory">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button" id="btntaskcategory"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom hidden" id="divperiodictask">
+                                <div class="col-md-3">
+                                    @CustomerStrings.periodictask
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" id="periodictask">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button" id="btnperiodictask"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-3">
+                                    @CustomerStrings.note
+                                </div>
+                                <div class="col-md-6">
+                                    <textarea id="note" style="width: 100%; height: 100px;"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div id="pricingparameterdetails"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="tasks" class="tab-pane">
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="grdCustomerTasks"></div>
+                </div>
+            </div>
+        </div>
+        <div id="checkamount" class="tab-pane">
+            <div class="panel panel-default">
+                <div class="panel-heading page-panel-heading">@CustomerStrings.checkamount</div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="inline-toolbar left" data-block="#checkamount">
+
+                            <div class="row">
+                                <div class="col-md-1">
+                                    <div class="btn-group">
+                                        <button class="btn btn-default btn-sm" selection-required="false" @*data-function="SAVE"*@ id="btnSaveCheckAmounts"><i class="fa fa-floppy-o fa-fw"></i> @CustomerStrings.save</button>
+                                    </div>
+                                </div>
+                                <div class="col-md-1">
+                                    <div class="infoTooltip" id="printinfobox" data-direction="left">
+                                        <div class="infoTooltip__initiator">
+                                            <!-- element with tooltip hover call -->
+                                            <i class="fa fa-info-circle"></i>
+                                        </div>
+                                        <div class="infoTooltip__item">
+                                            @Html.Raw(CustomerStrings.checkamountmessage)
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-body page-panel-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="checkamounts"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="eqpconfig" class="tab-pane">
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="grdEqpconfig"></div>
+                </div>
+            </div>
+            <br />
+            <div class="panel panel-default">
+                <div class="row">
+                    <div class="col-md-12" style="padding-right: 0">
+                        <div class="inline-toolbar left" style="border: none;" data-block="#eqpconfig">
+                            <div class="row">
+                                <div class="btn-group">
+                                    <div class="col-md-11">
+                                        <button class="btn btn-default btn-sm" title="Ctrl+R" selection-required="false" id="btnAddEqpconfig"><i class="fa fa fa-plus fa-fw"></i>@CustomerStrings.addnew</button>
+                                        <button class="btn btn-default btn-sm" title="Ctrl+S" selection-required="false" id="btnSaveEqpconfig"><i class="fa fa-floppy-o fa-fw"></i>@CustomerStrings.save</button>
+                                        <button class="btn btn-default btn-sm" title="Ctrl+D" selection-required="true" id="btnDeleteEqpconfig" disabled="disabled"><i class="fa fa-trash-o fa-fw"></i>@CustomerStrings.delete</button>
+
+                                    </div>
+                                    <div class="col-md-1">
+                                        <div class="infoTooltip" id="printinfobox" data-direction="bottom">
+                                            <div class="infoTooltip__initiator">
+                                                <!-- element with tooltip hover call -->
+                                                <i class="fa fa-info-circle"></i>
+                                            </div>
+                                            <div class="infoTooltip__item">
+                                                @Html.Raw(CustomerStrings.eqpconfigmessage)
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-body page-panel-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="row custom">
+                                <div class="col-md-3">
+                                    @CustomerStrings.taskcategory
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="input-group">
+                                        <input type="text" required class="form-control" id="eqpconfigtaskcategory">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button" id="btneqpconfigtaskcategory"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" style="margin-top: 15px;">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        Görev Türü
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="input-group" style="margin-left: 0.25em;">
+                                            <input type="text" disableoncomplete class="form-control" required id="eqpconfigtasktype" data-role="multival">
+                                            <div class="input-group-btn">
+                                                <button id="btneqpconfigtasktype" disableoncomplete title="Tip Ekle" class="btn btn-default" type="button"><i class="fa fa-btn fa-plus-circle"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div id="eqpconfigdetails"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="taskstatusmail" class="tab-pane">
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="grdTaskStatusMail"></div>
+                </div>
+            </div>
+            <br />
+            <div class="panel panel-default">
+                <div class="row">
+                    <div class="col-md-12" style="padding-right: 0">
+                        <div class="inline-toolbar left" style="border: none;" data-block="#taskstatusmail">
+                            <div class="btn-group">
+                                <button class="btn btn-default btn-sm" title="Ctrl+R" selection-required="false" id="btnAddTaskStatusMail"><i class="fa fa fa-plus fa-fw"></i>@CustomerStrings.addnew</button>
+                                <button class="btn btn-default btn-sm" title="Ctrl+S" selection-required="false" id="btnSaveTaskStatusMail"><i class="fa fa-floppy-o fa-fw"></i>@CustomerStrings.save</button>
+                                <button class="btn btn-default btn-sm" title="Ctrl+D" selection-required="true" id="btnDeleteTaskStatusMail" disabled="disabled"><i class="fa fa-trash-o fa-fw"></i>@CustomerStrings.delete</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-body page-panel-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="row custom ">
+                                <div class="col-md-3">
+                                    @CustomerStrings.status
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" id="taskstatus">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button" id="btntaskstatus"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom ">
+                                <div class="col-md-3">
+                                    @CustomerStrings.taskinccategories
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" data-role="multival" id="taskinccategories">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button" id="btntaskinccategories"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom ">
+                                <div class="col-md-3">
+                                    @CustomerStrings.taskexccategories
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" data-role="multival" id="taskexccategories">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button" id="btntaskexccategories"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-3">
+                                    @CustomerStrings.addattach
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="checkbox checkbox-primary">
+                                        <input type="checkbox" class="styled" id="addAttachments" />
+                                        <label></label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-3">
+                                    @CustomerStrings.mailto
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="text" maxlength="250" id="mailto" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @CustomerStrings.brncsr
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="checkbox checkbox-primary">
+                                        <input type="checkbox" class="styled" id="brncsr" />
+                                        <label></label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @CustomerStrings.brnregresponsible
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="checkbox checkbox-primary">
+                                        <input type="checkbox" class="styled" id="brnregresponsible" />
+                                        <label></label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @CustomerStrings.brnauthorized
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="checkbox checkbox-primary">
+                                        <input type="checkbox" class="styled" id="brnauthorized" />
+                                        <label></label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @CustomerStrings.brncustomerpm
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="checkbox checkbox-primary">
+                                        <input type="checkbox" class="styled" id="brncustomerpm" />
+                                        <label></label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="kpi" class="tab-pane"></div>
+    </div>
+    <div class="sidebars">
+        <div class="sidebar right" style="right: -400px;">
+            <div class="row">
+                <div class="col-md-12" style="text-align: center; margin-top: 10px;">
+                    <button id="filter" class="btn btn-primary btn-xs"><i class="fa fa-filter"></i> @CustomerStrings.filter</button>
+                    <button id="clearfilter" class="btn btn-info btn-xs"><i class="fa fa-ban"></i> @CustomerStrings.reset</button>
+                    <button id="closesiderbar" class="btn btn-danger btn-xs"><i class="fa fa-times"></i> @CustomerStrings.close</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="page-header">
+                        <h5>@CustomerStrings.createdstart</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <input type="text" ctrltype="datepicker" class="i-filter form-control" id="createdstart">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="page-header">
+                        <h5>@CustomerStrings.createdend</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <input type="text" ctrltype="datepicker" class="i-filter form-control" id="createdend">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    var inbox = "@ViewBag.id";
+</script>
+
+@Html.IncludeVersionedJs("/Scripts/jquery/jquery.fileupload.js")
+@Html.IncludeVersionedJs("/Scripts/jquery/jquery.iframe-transport.js")
+@Html.IncludeVersionedJs("/Scripts/bootstrap/bootstrap-tagsinput.min.js")
+@Html.IncludeVersionedJs("/Scripts/jquery/jquery.contextMenu.min.js")
+@Html.IncludeVersionedJs("/Scripts/other/typeahead.bundle.js")
+@Html.IncludeVersionedJs("/Scripts/jquery/jquery.sidebar.min.js")
+@Html.IncludeVersionedJs("/Scripts/custom/ovi.custom.documents.js")
+@Html.IncludeVersionedJs("/Scripts/custom/ovi.custom.comments.js")
+@Html.IncludeVersionedJs("/Scripts/custom/ovi.custom.entitylookup.js")
+@Html.IncludeVersionedJs("/Scripts/custom/ovi.custom.customfields.js")
+@Html.IncludeVersionedJs("/Scripts/other/numericInput.min.js")
+
+@Html.IncludeVersionedJs("/Scripts/chart/d3.v4.min.js")
+@Html.IncludeVersionedJs("/Scripts/chart/billboard.min.js")
+@Html.IncludeVersionedJs("/Scripts/app/widgets/DynamicCharts.js")
+
+@Html.IncludeVersionedJs("/Scripts/app/Customers.js")

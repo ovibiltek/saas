@@ -1,0 +1,573 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="abneg" xml:space="preserve">
+    <value>AB -</value>
+  </data>
+  <data name="abpos" xml:space="preserve">
+    <value>AB +</value>
+  </data>
+  <data name="active" xml:space="preserve">
+    <value>Aktif</value>
+  </data>
+  <data name="addnew" xml:space="preserve">
+    <value>Yeni</value>
+  </data>
+  <data name="altemail" xml:space="preserve">
+    <value>Alternatif E-Posta</value>
+  </data>
+  <data name="aneg" xml:space="preserve">
+    <value>A -</value>
+  </data>
+  <data name="annualleave" xml:space="preserve">
+    <value>Yıllık İzin</value>
+  </data>
+  <data name="apos" xml:space="preserve">
+    <value>A +</value>
+  </data>
+  <data name="authorizeddepartments" xml:space="preserve">
+    <value>Yetkili Departmanlar</value>
+  </data>
+  <data name="bachelordegree" xml:space="preserve">
+    <value>Lisans</value>
+  </data>
+  <data name="bloodgroup" xml:space="preserve">
+    <value>Kan Grubu</value>
+  </data>
+  <data name="bneg" xml:space="preserve">
+    <value>B -</value>
+  </data>
+  <data name="bpos" xml:space="preserve">
+    <value>B +</value>
+  </data>
+  <data name="browse" xml:space="preserve">
+    <value>Gözat</value>
+  </data>
+  <data name="cancel" xml:space="preserve">
+    <value>Vazgeç</value>
+  </data>
+  <data name="code" xml:space="preserve">
+    <value>Kod</value>
+  </data>
+  <data name="criminalrecord" xml:space="preserve">
+    <value>Adli Sicil Kaydı</value>
+  </data>
+  <data name="customer" xml:space="preserve">
+    <value>Müşteri</value>
+  </data>
+  <data name="customfields" xml:space="preserve">
+    <value>Özel Alanlar</value>
+  </data>
+  <data name="defaultinbox" xml:space="preserve">
+    <value>Varsayılan Gelen Kutusu</value>
+  </data>
+  <data name="defaultorg" xml:space="preserve">
+    <value>Varsayılan</value>
+  </data>
+  <data name="delete" xml:space="preserve">
+    <value>Sil</value>
+  </data>
+  <data name="department" xml:space="preserve">
+    <value>Departman</value>
+  </data>
+  <data name="description" xml:space="preserve">
+    <value>Tanım</value>
+  </data>
+  <data name="diploma" xml:space="preserve">
+    <value>Okul Diploma</value>
+  </data>
+  <data name="doctorate" xml:space="preserve">
+    <value>Doktora</value>
+  </data>
+  <data name="done" xml:space="preserve">
+    <value>Yapıldı</value>
+  </data>
+  <data name="drivinglicense" xml:space="preserve">
+    <value>Ehliyet</value>
+  </data>
+  <data name="edustatus" xml:space="preserve">
+    <value>Egitim Durumu</value>
+  </data>
+  <data name="email" xml:space="preserve">
+    <value>E-Posta</value>
+  </data>
+  <data name="emergencycontactaffinity" xml:space="preserve">
+    <value>Acil Durumda Ulaşılacak Kişinin Yakınlığı</value>
+  </data>
+  <data name="emergencycontactname" xml:space="preserve">
+    <value>Acil Durumda Ulaşılacak Kişi</value>
+  </data>
+  <data name="emergencycontactphone" xml:space="preserve">
+    <value>Acil Durumda Ulaşılacak Kişinin Telefonu</value>
+  </data>
+  <data name="end" xml:space="preserve">
+    <value>Bitiş</value>
+  </data>
+  <data name="jobenddate" xml:space="preserve">
+    <value>İşten Ayrılma Tarihi</value>
+  </data>
+  <data name="exempt" xml:space="preserve">
+    <value>Muaf</value>
+  </data>
+  <data name="female" xml:space="preserve">
+    <value>Kadın</value>
+  </data>
+  <data name="fulladdress" xml:space="preserve">
+    <value>Açık Adres</value>
+  </data>
+  <data name="fusenumber" xml:space="preserve">
+    <value>Sigorta Numarası</value>
+  </data>
+  <data name="gender" xml:space="preserve">
+    <value>Cinsiyet</value>
+  </data>
+  <data name="highschool" xml:space="preserve">
+    <value>Lise</value>
+  </data>
+  <data name="history" xml:space="preserve">
+    <value>Tarihçe</value>
+  </data>
+  <data name="Maintelephonenumber" xml:space="preserve">
+    <value>Ev Telefonu</value>
+  </data>
+  <data name="hrpersonalinfo" xml:space="preserve">
+    <value>İK/Özlük Bilgileri</value>
+  </data>
+  <data name="identificationcard" xml:space="preserve">
+    <value>Nüfus Cüzdanı</value>
+  </data>
+  <data name="inboxpersonal" xml:space="preserve">
+    <value>Kişisel</value>
+  </data>
+  <data name="inboxpublic" xml:space="preserve">
+    <value>Genel</value>
+  </data>
+  <data name="isgtrainingdocument" xml:space="preserve">
+    <value>İSG Egitim Dökümanı</value>
+  </data>
+  <data name="kkdform" xml:space="preserve">
+    <value>KKD Form</value>
+  </data>
+  <data name="language" xml:space="preserve">
+    <value>Dil</value>
+  </data>
+  <data name="lastgraduateddate" xml:space="preserve">
+    <value>Mezun Oldugu Tarih</value>
+  </data>
+  <data name="lastgraduateddepartment" xml:space="preserve">
+    <value>Mezun Oldugu Bölüm</value>
+  </data>
+  <data name="lastgraduatedschool" xml:space="preserve">
+    <value>Mezun Oldugu Okul</value>
+  </data>
+  <data name="list" xml:space="preserve">
+    <value>Liste</value>
+  </data>
+  <data name="male" xml:space="preserve">
+    <value>Erkek</value>
+  </data>
+  <data name="maritalstatus" xml:space="preserve">
+    <value>Medeni Hal</value>
+  </data>
+  <data name="married" xml:space="preserve">
+    <value>Evli</value>
+  </data>
+  <data name="medicalreport" xml:space="preserve">
+    <value>Sağlık Raporu</value>
+  </data>
+  <data name="militaryservice" xml:space="preserve">
+    <value>Askerlik Durumu</value>
+  </data>
+  <data name="mobile" xml:space="preserve">
+    <value>Mobil</value>
+  </data>
+  <data name="newpassword" xml:space="preserve">
+    <value>Yeni Şifre</value>
+  </data>
+  <data name="notdone" xml:space="preserve">
+    <value>Yapılmadı</value>
+  </data>
+  <data name="officenumber" xml:space="preserve">
+    <value>İş Telefonu</value>
+  </data>
+  <data name="Oneg" xml:space="preserve">
+    <value>0 -</value>
+  </data>
+  <data name="Opos" xml:space="preserve">
+    <value>0 +</value>
+  </data>
+  <data name="organization" xml:space="preserve">
+    <value>Organizasyon</value>
+  </data>
+  <data name="organizations" xml:space="preserve">
+    <value>Organizasyonlar</value>
+  </data>
+  <data name="password" xml:space="preserve">
+    <value>Şifre</value>
+  </data>
+  <data name="passwordagain" xml:space="preserve">
+    <value>Şifre Tekrar</value>
+  </data>
+  <data name="personalemail" xml:space="preserve">
+    <value>Kişisel E-Mail</value>
+  </data>
+  <data name="phonenumber" xml:space="preserve">
+    <value>Cep Telefonu Numarası</value>
+  </data>
+  <data name="photo" xml:space="preserve">
+    <value>Fotoğraf</value>
+  </data>
+  <data name="placeofbirth" xml:space="preserve">
+    <value>Doğum Yeri</value>
+  </data>
+  <data name="pleaseselect" xml:space="preserve">
+    <value>Lütfen Seçiniz</value>
+  </data>
+  <data name="postgraduate" xml:space="preserve">
+    <value>Yüksek Lisans</value>
+  </data>
+  <data name="postponed" xml:space="preserve">
+    <value>Tecilli</value>
+  </data>
+  <data name="pricingcode" xml:space="preserve">
+    <value>Fiyatlandırma Kodu</value>
+  </data>
+  <data name="primaryeducation" xml:space="preserve">
+    <value>İlköğretim</value>
+  </data>
+  <data name="pswdcomplexity" xml:space="preserve">
+    <value>Şifre en az 8 karakter uzunluğunda olmalıdır ve büyük harf, küçük harf, özel karakter (!@#$%^&amp;*.), sayı içermelidir.</value>
+  </data>
+  <data name="qty" xml:space="preserve">
+    <value>Miktar</value>
+  </data>
+  <data name="qualificationcertificate" xml:space="preserve">
+    <value>Mesleki Yeterlilik Belgesi</value>
+  </data>
+  <data name="record" xml:space="preserve">
+    <value>Kayıt</value>
+  </data>
+  <data name="registrationnumber" xml:space="preserve">
+    <value>Sicil Numarası</value>
+  </data>
+  <data name="requestor" xml:space="preserve">
+    <value>İstekçi</value>
+  </data>
+  <data name="retrievefromad" xml:space="preserve">
+    <value>AD'den Al</value>
+  </data>
+  <data name="save" xml:space="preserve">
+    <value>Kaydet</value>
+  </data>
+  <data name="shift" xml:space="preserve">
+    <value>Vardiya</value>
+  </data>
+  <data name="shoesize" xml:space="preserve">
+    <value>Ayakkabı Numarası</value>
+  </data>
+  <data name="single" xml:space="preserve">
+    <value>Bekar</value>
+  </data>
+  <data name="sskentrydeclaration" xml:space="preserve">
+    <value>SSK Giriş Bildirgesi</value>
+  </data>
+  <data name="start" xml:space="preserve">
+    <value>Başlangıç</value>
+  </data>
+  <data name="startdate" xml:space="preserve">
+    <value>Başlangıç Tarihi</value>
+  </data>
+  <data name="supplier" xml:space="preserve">
+    <value>Tedarikçi</value>
+  </data>
+  <data name="tcnumber" xml:space="preserve">
+    <value>TC Kimlik No</value>
+  </data>
+  <data name="timekeepingofficer" xml:space="preserve">
+    <value>Puantaj Sorumlusu</value>
+  </data>
+  <data name="title" xml:space="preserve">
+    <value>Ünvan</value>
+  </data>
+  <data name="tms" xml:space="preserve">
+    <value>TMS</value>
+  </data>
+  <data name="trade" xml:space="preserve">
+    <value>Ekip</value>
+  </data>
+  <data name="type" xml:space="preserve">
+    <value>Kullanıcı Tipi</value>
+  </data>
+  <data name="undo" xml:space="preserve">
+    <value>Geri</value>
+  </data>
+  <data name="upload" xml:space="preserve">
+    <value>Yükle</value>
+  </data>
+  <data name="usergroup" xml:space="preserve">
+    <value>Kullanıcı Grubu</value>
+  </data>
+  <data name="users" xml:space="preserve">
+    <value>Kullanıcılar</value>
+  </data>
+  <data name="usertradeexceptions" xml:space="preserve">
+    <value>Ekip İstisnaları</value>
+  </data>
+  <data name="viewweeklycalendar" xml:space="preserve">
+    <value>Haftalık Takvimi Görüntüle</value>
+  </data>
+  <data name="year" xml:space="preserve">
+    <value>Yıl</value>
+  </data>
+  <data name="birthdate" xml:space="preserve">
+    <value>Doğum Tarihi</value>
+  </data>
+  <data name="docs" xml:space="preserve">
+    <value>Döküman</value>
+  </data>
+  <data name="doctype" xml:space="preserve">
+    <value>Döküman Tipi</value>
+  </data>
+  <data name="unspecified" xml:space="preserve">
+    <value>Belirsiz</value>
+  </data>
+  <data name="add" xml:space="preserve">
+    <value>Ekle</value>
+  </data>
+  <data name="comments" xml:space="preserve">
+    <value>Yorumlar</value>
+  </data>
+  <data name="visibletocustomer" xml:space="preserve">
+    <value>Müşteriye Görünür</value>
+  </data>
+  <data name="download" xml:space="preserve">
+    <value>İndir</value>
+  </data>
+  <data name="boo" xml:space="preserve">
+    <value>Çalışma Saati Girilebilir</value>
+  </data>
+  <data name="visibletosupplier" xml:space="preserve">
+    <value>Tedarikçiye Görünür</value>
+  </data>
+  <data name="polarsize" xml:space="preserve">
+    <value>Polar Bedeni</value>
+  </data>
+  <data name="licenseclass" xml:space="preserve">
+    <value>Ehliyet Sınıfı</value>
+  </data>
+  <data name="licenseissuedate" xml:space="preserve">
+    <value>Ehliyet Veriliş Tarihi</value>
+  </data>
+  <data name="pantsize" xml:space="preserve">
+    <value>Pantolon Bedeni</value>
+  </data>
+  <data name="tshirtsize" xml:space="preserve">
+    <value>T-Shirt Bedeni</value>
+  </data>
+  <data name="certificationnumber" xml:space="preserve">
+    <value>Sertifika No</value>
+  </data>
+  <data name="costofcourse" xml:space="preserve">
+    <value>Eğitim Maliyeti</value>
+  </data>
+  <data name="coursedate" xml:space="preserve">
+    <value>Eğitim Başlangıç Tarihi</value>
+  </data>
+  <data name="day" xml:space="preserve">
+    <value>Gün</value>
+  </data>
+  <data name="durationofcourse" xml:space="preserve">
+    <value>Eğitim Süresi</value>
+  </data>
+  <data name="educationplace" xml:space="preserve">
+    <value>Eğitim Yeri</value>
+  </data>
+  <data name="expirationdate" xml:space="preserve">
+    <value>Bitiş Tarihi</value>
+  </data>
+  <data name="hour" xml:space="preserve">
+    <value>Saat</value>
+  </data>
+  <data name="institutionofcourse" xml:space="preserve">
+    <value>Eğitim Kurumu</value>
+  </data>
+  <data name="month" xml:space="preserve">
+    <value>Ay</value>
+  </data>
+  <data name="nameoftrainer" xml:space="preserve">
+    <value>Eğitmen</value>
+  </data>
+  <data name="note" xml:space="preserve">
+    <value>Not</value>
+  </data>
+  <data name="qualification" xml:space="preserve">
+    <value>Yetkinlik</value>
+  </data>
+  <data name="qualificationdesc" xml:space="preserve">
+    <value>Yetkinlik Tanımı</value>
+  </data>
+  <data name="recordcreationdate" xml:space="preserve">
+    <value>Kayıt Oluşturma Tarihi</value>
+  </data>
+  <data name="temporarilydisqualified" xml:space="preserve">
+    <value>Geçici Dondur</value>
+  </data>
+  <data name="week" xml:space="preserve">
+    <value>Hafta</value>
+  </data>
+  <data name="enddate" xml:space="preserve">
+    <value>Bitiş Tarihi</value>
+  </data>
+  <data name="jobstartdate" xml:space="preserve">
+    <value>İşe Başlama Tarihi</value>
+  </data>
+  <data name="appstatus" xml:space="preserve">
+    <value>Onay Durumu</value>
+  </data>
+  <data name="vocationalhighschool" xml:space="preserve">
+    <value>Meslek Lisesi</value>
+  </data>
+  <data name="duty" xml:space="preserve">
+    <value>Görevi</value>
+  </data>
+  <data name="returnreason" xml:space="preserve">
+    <value>İade Nedeni</value>
+  </data>
+  <data name="leavingreason" xml:space="preserve">
+    <value>İşten Ayrılma Nedeni</value>
+  </data>
+  <data name="lockcount" xml:space="preserve">
+    <value>Geçersiz şifre deneme sayısı</value>
+  </data>
+  <data name="activitymap" xml:space="preserve">
+    <value>Aktivite Haritası</value>
+  </data>
+  <data name="calendar" xml:space="preserve">
+    <value>Takvim</value>
+  </data>
+  <data name="defaultMainsection" xml:space="preserve">
+    <value>Varsayılan Başlangıç Bölümü</value>
+  </data>
+  <data name="inbox" xml:space="preserve">
+    <value>Gelen Kutusu</value>
+  </data>
+  <data name="kpi" xml:space="preserve">
+    <value>Gösterge Paneli</value>
+  </data>
+</root>

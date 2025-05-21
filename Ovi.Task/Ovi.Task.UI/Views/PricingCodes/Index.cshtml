@@ -1,0 +1,143 @@
+﻿@using Resources.PricingCodes.Index
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Default.cshtml";
+}
+
+<div style="margin-top: 10px">
+    <div class="page-header">
+        <h4>@PricingCodeStrings.pricingcodes</h4>
+        <h6></h6>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tms-page-toolbar inline-toolbar left" data-block="#record">
+                <div class="btn-group">
+                    <button class="btn btn-default btn-sm" title="Ctrl+R" selection-required="false" id="btnNew"><i class="fa fa fa-plus fa-fw"></i> @PricingCodeStrings.addnew</button>
+                    <button class="btn btn-default btn-sm" title="Ctrl+S" selection-required="false" id="btnSave"><i class="fa fa-floppy-o fa-fw"></i> @PricingCodeStrings.save</button>
+                    <button class="btn btn-default btn-sm" title="Ctrl+U" selection-required="true" id="btnUndo"><i class="fa fa-undo fa-fw"></i> @PricingCodeStrings.undo</button>
+                    <button class="btn btn-default btn-sm" title="Ctrl+D" selection-required="true" id="btnDelete"><i class="fa fa-trash-o fa-fw"></i> @PricingCodeStrings.delete</button>
+                    <button class="btn btn-default btn-sm" title="Ctrl+H" selection-required="true" id="btnHistory" disabled="disabled"><i class="fa fa-bolt fa-fw"></i> @PricingCodeStrings.history</button>
+                    <button class="btn btn-default btn-sm" title="Ctrl+Q" selection-required="true" id="btnTranslations" disabled="disabled"><i class="fa fa-globe"></i> @PricingCodeStrings.translations</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <div class="scrollbar-macosx">
+                <div class="list-group"></div>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <ul class="nav nav-tabs">
+                <li class="active"><a data-toggle="tab" href="#record">@PricingCodeStrings.record</a></li>
+                <li><a enable-on-selection href="#pricing">@PricingCodeStrings.pricing</a></li>
+            </ul>
+            <div class="tab-content">
+                <div id="record" class="tab-pane active">
+                    <div class="panel panel-default">
+                        <div class="panel-heading page-panel-heading">@PricingCodeStrings.record</div>
+                        <div class="panel-body page-panel-body">
+                            <div class="row custom">
+                                <div class="col-md-2">
+                                    @PricingCodeStrings.code
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="text" maxlength="50" class="form-control form-code" disableonupdate="yes" required id="code" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-2">
+                                    @PricingCodeStrings.description
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="text" maxlength="250" class="form-control" required id="desc" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-2">
+                                    @PricingCodeStrings.group
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="text" maxlength="250" class="form-control" required id="group" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-2">
+                                    @PricingCodeStrings.active
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="checkbox checkbox-primary">
+                                        <input class="styled" type="checkbox" checked="checked" id="active" />
+                                        <label></label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="pricing" class="tab-pane">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="grdPricings"></div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="panel panel-default">
+                        <div class="row">
+                            <div class="col-md-12" style="padding-right:0">
+                                <div class="inline-toolbar left" style="border:none;" data-block="#pricing">
+                                    <div class="btn-group">
+                                        <button class="btn btn-default btn-sm" title="Ctrl+R" selection-required="false" id="btnAddPricingParemeter"><i class="fa fa fa-plus fa-fw"></i>@PricingCodeStrings.addnew</button>
+                                        <button class="btn btn-default btn-sm" title="Ctrl+S" selection-required="false" id="btnSavePricingParameter"><i class="fa fa-floppy-o fa-fw"></i>@PricingCodeStrings.save</button>
+                                        <button class="btn btn-default btn-sm" title="Ctrl+D" selection-required="true" id="btnDeletePricingParameter" disabled="disabled"><i class="fa fa-trash-o fa-fw"></i>@PricingCodeStrings.delete</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-body page-panel-body">
+                            <div class="row custom">
+                                <div class="col-md-2">
+                                    @PricingCodeStrings.currency
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="input-group">
+                                        <input type="text" maxlength="50" class="form-control" required id="currency">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button" id="btncurrency"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    @PricingCodeStrings.startdate
+                                </div>
+                                <div class="col-md-3">
+                                    <input type="text" ctrltype="datepicker" maxlength="50" id="startdate" required class="form-control" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-2">
+                                    @PricingCodeStrings.price
+                                </div>
+                                <div class="col-md-3">
+                                    <input type="text" maxlength="250" id="price" required  class="form-control" />
+                                </div>
+                                <div class="col-md-2">
+                                    @PricingCodeStrings.enddate
+                                </div>
+                                <div class="col-md-3">
+                                    <input type="text" ctrltype="datepicker" maxlength="250" id="enddate" required class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@Html.IncludeVersionedJs("/Scripts/other/numericInput.min.js")
+@Html.IncludeVersionedJs("/Scripts/custom/ovi.custom.list.js")
+@Html.IncludeVersionedJs("/Scripts/app/PricingCodes.js")

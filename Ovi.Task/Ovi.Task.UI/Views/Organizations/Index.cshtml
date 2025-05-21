@@ -1,0 +1,163 @@
+﻿@using Resources.Organizations.Index
+@{
+    Layout = "~/Views/Shared/Default.cshtml";
+}
+<div style="margin-top: 10px">
+    <div class="page-header">
+        <h4>@OrganizationStrings.organizations</h4>
+        <h6></h6>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tms-page-toolbar inline-toolbar left" data-block="#record">
+                <div class="btn-group">
+                    <button class="btn btn-default btn-sm" title="Ctrl+R" selection-required="false" id="btnNew"><i class="fa fa fa-plus fa-fw"></i> @OrganizationStrings.addnew</button>
+                    <button class="btn btn-default btn-sm" title="Ctrl+S" selection-required="false" id="btnSave"><i class="fa fa-floppy-o fa-fw"></i> @OrganizationStrings.save</button>
+                    <button class="btn btn-default btn-sm" title="Ctrl+U" selection-required="true" id="btnUndo"><i class="fa fa-undo fa-fw"></i> @OrganizationStrings.undo</button>
+                    <button class="btn btn-default btn-sm" title="Ctrl+D" selection-required="true" id="btnDelete"><i class="fa fa-trash-o fa-fw"></i> @OrganizationStrings.delete</button>
+                    <button class="btn btn-default btn-sm" title="Ctrl+H" selection-required="true" id="btnHistory" disabled="disabled"><i class="fa fa-bolt fa-fw"></i> @OrganizationStrings.history</button>
+                    <button class="btn btn-default btn-sm" title="Ctrl+Q" selection-required="true" id="btnTranslations" disabled="disabled"><i class="fa fa-globe"></i> @OrganizationStrings.translations</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <div class="scrollbar-macosx">
+                <div class="list-group"></div>
+            </div>
+        </div>
+        <div class="col-md-9" id="record">
+            <div class="panel panel-default">
+                <div class="panel-heading page-panel-heading">@OrganizationStrings.record</div>
+                <div class="panel-body page-panel-body">
+                    <div class="row custom">
+                        <div class="col-md-2">
+                            @OrganizationStrings.code
+                        </div>
+                        <div class="col-md-4">
+                            <input type="text" maxlength="50" id="code" required disableonupdate="yes" class="form-control form-code" />
+                        </div>
+                    </div>
+                    <div class="row custom">
+                        <div class="col-md-2">
+                            @OrganizationStrings.description
+                        </div>
+                        <div class="col-md-4">
+                            <input type="text" maxlength="250" id="desc" required class="form-control" />
+                        </div>
+                    </div>
+                    <div class="row custom">
+                        <div class="col-md-2">
+                            @OrganizationStrings.email
+                        </div>
+                        <div class="col-md-4">
+                            <input type="email" class="form-control" id="email" />
+                        </div>
+                    </div>
+                    <div class="row custom">
+                        <div class="col-md-2">
+                            @OrganizationStrings.currency
+                        </div>
+                        <div class="col-md-4">
+                            <div class="input-group">
+                                <input type="text" maxlength="50" disableonupdate="yes" class="form-control" required id="currency">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" disableonupdate="yes" type="button" id="btncurrency"><i class="fa fa-search fa-fw"></i></button>
+                                </span>
+                            </div><!-- /input-group -->
+                        </div>
+                    </div>
+                    <div class="row custom">
+                        <div class="col-md-2">
+                            @OrganizationStrings.type
+                        </div>
+                        <div class="col-md-4">
+                            <div class="input-group">
+                                <input type="text" maxlength="50" class="form-control" id="type">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button" id="btntype"><i class="fa fa-search fa-fw"></i></button>
+                                </span>
+                            </div><!-- /input-group -->
+                        </div>
+                    </div>
+                    <div class="row custom">
+                        <div class="col-md-2">
+                            @OrganizationStrings.customer
+                        </div>
+                        <div class="col-md-4">
+                            <div class="input-group">
+                                <input type="text" maxlength="50" class="form-control" id="customer">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button" id="btncustomer"><i class="fa fa-search fa-fw"></i></button>
+                                </span>
+                            </div><!-- /input-group -->
+                        </div>
+                    </div>
+                    <div class="row custom">
+                        <div class="col-md-2">
+                            @OrganizationStrings.branch
+                        </div>
+                        <div class="col-md-4">
+                            <div class="input-group">
+                                <input type="text" maxlength="50" class="form-control" id="branch">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button" id="btnbranch"><i class="fa fa-search fa-fw"></i></button>
+                                </span>
+                            </div><!-- /input-group -->
+                        </div>
+                    </div>
+                    <div class="row custom">
+                        <div class="col-md-2">
+                            @OrganizationStrings.department
+                        </div>
+                        <div class="col-md-4">
+                            <div class="input-group">
+                                <input type="text" maxlength="50" class="form-control" id="department">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button" id="btndepartment"><i class="fa fa-search fa-fw"></i></button>
+                                </span>
+                            </div><!-- /input-group -->
+                        </div>
+                    </div>
+                    <div class="row custom">
+                        <div class="col-md-2">
+                            @OrganizationStrings.locationrequired
+                        </div>
+                        <div class="col-md-4">
+                            <div class="checkbox checkbox-primary">
+                                <input type="checkbox" class="styled" checked="checked" id="locationrequired" />
+                                <label></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row custom">
+                        <div class="col-md-2">
+                            @OrganizationStrings.autoclosetask
+                        </div>
+                        <div class="col-md-4">
+                            <div class="checkbox checkbox-primary">
+                                <input type="checkbox" class="styled" id="autoclosetask" />
+                                <label></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row custom">
+                        <div class="col-md-2">
+                            @OrganizationStrings.active
+                        </div>
+                        <div class="col-md-4">
+                            <div class="checkbox checkbox-primary">
+                                <input type="checkbox" class="styled" checked="checked" id="active" />
+                                <label></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@Html.IncludeVersionedJs("/Scripts/custom/ovi.custom.list.js")
+@Html.IncludeVersionedJs("/Scripts/app/Organizations.js")

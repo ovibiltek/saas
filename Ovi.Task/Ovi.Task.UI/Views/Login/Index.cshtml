@@ -1,0 +1,78 @@
+﻿@using Resources.Login.Index
+
+@{
+    Layout = null;
+}
+
+@{
+    string clientId = System.Configuration.ConfigurationManager.AppSettings["ClientId"];
+}
+
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>@Model.AppTitle</title>
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta name="robots" content="index, follow" />
+    <meta charset="utf-8" />
+    <meta name="copyright" content="Ovi Bilişim Teknolojileri" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    @Html.IncludeVersionedCss("/Content/bootstrap/bootstrap.min.css")
+    @Html.IncludeVersionedCss("/Content/login.css")
+    @Html.IncludeVersionedCss("/Content/toastr/toastr.min.css")
+    @Html.IncludeVersionedCss("/Content/font-awesome.min.css")
+    @Html.IncludeVersionedCss("/Content/loading.css")
+
+</head>
+<body>
+    <div class="load-bar" style="margin-top: 0px;">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+    </div>
+
+    <div class="login-wrap">
+        <div style="text-align: center">
+            <img style="width:100%" src="@(Model!=null && !string.IsNullOrEmpty(Model.CustomLogo) ? Model.CustomLogo : "/Content/images/tms.png")" />
+        </div>
+        <div class="form">
+            <div id="fakeinputs">
+                <input style="display:none;" type="text" id="fakeuser" />
+                <input style="display:none;" type="password" id="fakepassword" />
+            </div>
+            <input type="text" placeholder="@LoginStrings.username" autocomplete="new-password" data-type="input" id="un" />
+            <input placeholder="@LoginStrings.password" autocomplete="new-password" type="password" id="pw" />
+            <button id="btnLogin">@LoginStrings.login</button>
+            <div style="text-align: center; color: #f57f01; padding-top: 10px;">
+                <strong>
+                    <a href="/SSO/Login" target="_blank">
+                        SSO İLE GİRİŞ
+                    </a>
+                </strong>
+            </div>
+        </div>
+        <div style="text-align: center; color: #f57f01; padding-top: 10px;">
+            <strong><i class="fa fa-copyright"></i> 2015 <a style="color:#f57f01" href="http://www.ovibt.com" target="_blank">OVİ BİLİŞİM TEKNOLOJİLERİ</a></strong>
+        </div>
+    </div>
+
+    @Html.IncludeVersionedJs("/Scripts/jquery/jquery-2.2.3.min.js")
+    @Html.IncludeVersionedJs("/Scripts/toastr/toastr.min.js")
+    @Html.IncludeVersionedJs("/Scripts/toastr/toastr.options.js")
+    @Html.IncludeVersionedJs("/Scripts/custom/ovi.custom.shared.js")
+    @Html.IncludeVersionedJs("/Scripts/custom/ovi.custom.ajax.js")
+    @Html.IncludeVersionedJs("/Scripts/custom/ovi.custom.page.js")
+    @Html.IncludeVersionedJs("/Scripts/jquery/jquery.hotkeys.js")
+    @Html.IncludeVersionedJs("/Scripts/other/querydata.min.js")
+    @Html.IncludeVersionedJs("/Scripts/velocity/velocity.min.js")
+    @Html.IncludeVersionedJs("/Scripts/velocity/velocity.ui.min.js")
+    @Html.IncludeVersionedJs("/Scripts/moment/moment.min.js")
+    @Html.IncludeVersionedJs("/Scripts/app/Login.js")
+    <script>
+        var usernotfound = "@LoginStrings.usernotfound";
+        var userpasswordinvalid = "@LoginStrings.userpasswordinvalid";
+    </script>
+</body>
+</html>

@@ -1,0 +1,155 @@
+﻿@using Resources.MyProfile.Index
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Default.cshtml";
+}
+
+@Html.IncludeVersionedCss("/Content/jquery/jquery.fileupload.css")
+
+<div style="margin-top: 10px">
+
+    <div class="page-header">
+        <h4>@MyProfileStrings.profile</h4>
+        <h6></h6>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tms-page-toolbar inline-toolbar left">
+                <div class="btn-group">
+                    <button class="btn btn-default btn-sm" title="Ctrl+S" id="btnSave"><i class="fa fa-floppy-o fa-fw"></i> @MyProfileStrings.save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div id="record">
+                <div class="panel panel-default">
+                    <div class="panel-heading page-panel-heading">@MyProfileStrings.record</div>
+                    <div class="panel-body page-panel-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="row custom">
+                                    <div class="col-md-12">
+                                        <button class="btn btn-primary btn-sm" selection-required="true" id="btnNewPassword"><i class="fa fa-key fa-fw"></i>@MyProfileStrings.newpassword</button>
+                                    </div>
+                                </div>
+                                <hr />
+                                <div class="row custom">
+                                    <div class="col-md-4">
+                                        @MyProfileStrings.code
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input type="text" maxlength="50" disabled="disabled" class="form-control" id="code" />
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-4">
+                                        @MyProfileStrings.description
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input type="text" maxlength="250" disabled="disabled" class="form-control" id="desc" />
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-4">
+                                        @MyProfileStrings.language
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="input-group">
+                                            <input type="text" autocomplete="false" maxlength="50" class="form-control" required id="language">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default" type="button" id="btnlanguages"><i class="fa fa-search fa-fw"></i></button>
+                                            </span>
+                                        </div><!-- /input-group -->
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-4">
+                                        @MyProfileStrings.defaultinbox
+                                    </div>
+                                    <div class="col-md-8">
+                                        <select id="defaultinbox" required class="form-control">
+                                            <option value="">@MyProfileStrings.pleaseselect</option>
+                                            <option value="PERSONAL">@MyProfileStrings.inboxpersonal</option>
+                                            <option value="PUBLIC">@MyProfileStrings.inboxpublic</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3" style="text-align: center;">
+                                <div class="row">
+                                    <div class="col-md-12" id="imgprv">
+                                        <img class="userscrpic" src="~/files/profile/default.png" />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <span class="btn btn-default fileinput-button" id="btnBrowse" disabled="disabled">
+                                            <i class="fa fa-search"></i>
+                                            <span>@MyProfileStrings.browse</span>
+                                            <input type="file" name="fu" id="fu" data-url="/UploadFile.ashx">
+                                        </span>
+                                        <span class="btn btn-default" id="btnRetriveFromAD" disabled="disabled">
+                                            <i class="fa fa-search"></i>
+                                            <span>@MyProfileStrings.retrievefromad</span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="modalpass" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="false">&times;</span></button>
+                <h4 class="modal-title" id="modaltitle">@MyProfileStrings.newpassword</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row custom">
+                    <div class="col-md-4">
+                        @MyProfileStrings.password
+                    </div>
+                    <div class="col-md-6">
+                        <div class="input-group">
+                            <input type="text" data-dblcheck="#passwordagain" class="form-control" id="password">
+                            <span class="input-group-addon"><i class="fa fa-key fa-fw"></i></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row custom">
+                    <div class="col-md-4">
+                        @MyProfileStrings.passwordagain
+                    </div>
+                    <div class="col-md-6">
+                        <div class="input-group">
+                            <input type="text" data-dblcheck="#password" class="form-control" id="passwordagain">
+                            <span class="input-group-addon"><i class="fa fa-key fa-fw"></i></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row custom">
+                    <div class="col-md-12">
+                        <div id="passwarning" class="alert alert-info"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> @MyProfileStrings.pswdcomplexity</div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success btn-xs"  disabled="disabled" id="btnSavePswd"><i class="fa fa-floppy-o"></i> @MyProfileStrings.save</button>
+                <button type="button" data-dismiss="modal" class="btn btn-danger btn-xs" id="cancel"><i class="fa fa-close"></i> @MyProfileStrings.cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@Html.IncludeVersionedJs("/Scripts/custom/ovi.custom.list.js")
+@Html.IncludeVersionedJs("/Scripts/jquery/jquery.fileupload.js")
+@Html.IncludeVersionedJs("/Scripts/jquery/jquery.iframe-transport.js")
+@Html.IncludeVersionedJs("/Scripts/other/load-image.all.min.js")
+@Html.IncludeVersionedJs("/Scripts/app/MyProfile.js")

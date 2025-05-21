@@ -1,0 +1,99 @@
+﻿@using Resources.ProgressPayments.Index
+<div id="progresspayment" class="tab-pane">
+    <div class="row">
+        <div class="col-md-10">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <td style="width: 100px;background: #108ce2;color: #FFF;">@ProgressPaymentStrings.task</td>
+                    <td style="width: 100px;background: #108ce2;color: #FFF;">@ProgressPaymentStrings.taskdescription</td>
+                    <td style="width: 80px;background: #108ce2;color: #FFF;">@ProgressPaymentStrings.activity</td>
+                    <td style="width: 100px;background: #108ce2;color: #FFF;">@ProgressPaymentStrings.item & @ProgressPaymentStrings.cost </td>
+                    <td style="width: 100px;background: #108ce2;color: #FFF;">@ProgressPaymentStrings.description</td>
+                    <td style="width: 60px;background: #108ce2;color: #FFF;">@ProgressPaymentStrings.quantity</td>
+                    <td style="width: 60px;background: #108ce2;color: #FFF;">@ProgressPaymentStrings.amendment</td>
+                    <td style="width: 60px;background: #108ce2;color: #FFF;">@ProgressPaymentStrings.amendmentquantity</td>
+                    <td style="width: 50px;background: #108ce2;color: #FFF;">@ProgressPaymentStrings.uom</td>
+                    <td style="width: 60px;background: #108ce2;color: #FFF;">@ProgressPaymentStrings.unitprice</td>
+                    <td style="width: 60px;background: #108ce2;color: #FFF;">@ProgressPaymentStrings.amendmentpercent</td>
+                    <td style="width: 60px;background: #108ce2;color: #FFF;">@ProgressPaymentStrings.amendment</td>
+                    <td style="width: 80px;background: #108ce2;color: #FFF;">@ProgressPaymentStrings.unitpriceofsale</td>
+                    <td style="width: 60px;background: #108ce2;color: #FFF;">@ProgressPaymentStrings.totalprice</td>
+                </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+        <div class="col-md-2">
+            <div class="well">
+                <div class="row custom">
+                    <div class="col-md-6">
+                        <strong>@ProgressPaymentStrings.cost.ToUpper() </strong>
+                    </div>
+                    <div class="col-md-6">
+                        <span class="pull-right" id="cost"></span>
+                    </div>
+                </div>
+                <div class="row custom">
+                    <div class="col-md-6">
+                        <strong>@ProgressPaymentStrings.calculated </strong>
+                    </div>
+                    <div class="col-md-6">
+                        <span class="pull-right" id="calculated"></span>
+                    </div>
+                </div>
+                <div class="row custom">
+                    <div class="col-md-6">
+                        <strong>@ProgressPaymentStrings.profit </strong>
+                    </div>
+                    <div class="col-md-6">
+                        <span class="pull-right" id="profit"></span>
+                    </div>
+                </div>
+                <div class="row custom">
+                    <div class="col-md-6">
+                        <strong>@ProgressPaymentStrings.amount </strong>
+                    </div>
+                    <div class="col-md-6">
+                        <span class="pull-right" id="amount"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <hr/>
+                </div>
+                <div class="row custom">
+                    <div class="col-md-6">
+                        <strong>@ProgressPaymentStrings.service </strong>
+                    </div>
+                    <div class="col-md-6">
+                        <span class="pull-right" id="servicesum"></span>
+                    </div>
+                </div>
+                <div class="row custom">
+                    <div class="col-md-6">
+                        <strong>@ProgressPaymentStrings.hourlyfee </strong>
+                    </div>
+                    <div class="col-md-6">
+                        <span class="pull-right" id="hourlysum"></span>
+                    </div>
+                </div>
+                <div class="row custom">
+                    <div class="col-md-6">
+                        <strong>@ProgressPaymentStrings.part </strong>
+                    </div>
+                    <div class="col-md-6">
+                        <span class="pull-right" id="partsum"></span>
+                    </div>
+                </div>
+                <div class="row custom">
+                    <div class="col-md-6">
+                        <strong>@ProgressPaymentStrings.misccost </strong>
+                    </div>
+                    <div class="col-md-6">
+                        <span class="pull-right" id="misccostsum"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

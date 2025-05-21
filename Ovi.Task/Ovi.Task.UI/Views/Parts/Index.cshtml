@@ -1,0 +1,346 @@
+﻿@using Resources.Part.Index
+@{
+    Layout = "~/Views/Shared/Default.cshtml";
+}
+
+@Html.IncludeVersionedCss("/Content/jquery/jquery.fileupload.css")
+
+@Html.IncludeVersionedCss("/Content/jquery/jquery.contextMenu.min.css")
+
+@Html.IncludeVersionedCss("/Content/other/jqtree.css")
+
+
+<div style="margin-top: 10px">
+    <div class="page-header">
+        <h4>
+            @PartStrings.parts
+        </h4>
+        <h6></h6>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tms-page-toolbar inline-toolbar left" data-block="#record">
+                <div class="btn-group">
+                    <button class="btn btn-default btn-sm" title="Ctrl+R" selection-required="false" id="btnNew"><i class="fa fa fa-plus fa-fw"></i> @PartStrings.addnew</button>
+                    <button class="btn btn-default btn-sm" title="Ctrl+C" selection-required="false" id="btnCopy"><i class="fa fa fa-copy fa-fw"></i> @PartStrings.copy</button>
+                    <button class="btn btn-default btn-sm" disabled="disabled" selection-required="false" title="Ctrl+S" id="btnSave"><i class="fa fa-floppy-o fa-fw"></i> @PartStrings.save</button>
+                    <button class="btn btn-default btn-sm" disabled="disabled" selection-required="true" title="Ctrl+U" id="btnUndo"><i class="fa fa-undo fa-fw"></i> @PartStrings.undo</button>
+                    <button class="btn btn-default btn-sm" disabled="disabled" selection-required="true" title="Ctrl+D" id="btnDelete"><i class="fa fa-trash-o fa-fw"></i> @PartStrings.delete</button>
+                    <button class="btn btn-default btn-sm" disabled="disabled" selection-required="true" title="Ctrl+H" id="btnHistory"><i class="fa fa-bolt fa-fw"></i> @PartStrings.history</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#list">@PartStrings.list</a></li>
+        <li><a data-toggle="tab" href="#record">@PartStrings.record</a></li>
+        <li><a href="#stock" enable-on-selection>@PartStrings.stock</a></li>
+        <li><a href="#trx" enable-on-selection>@PartStrings.trx</a></li>
+        <li><a href="#fixedpartcosts" enable-on-selection>@PartStrings.fixedpartcosts</a></li>
+    </ul>
+    <div class="tab-content">
+        <div id="list" class="tab-pane active">
+            <div id="grdParts"></div>
+        </div>
+        <div id="record" class="tab-pane">
+            <div class="row record-content">
+                <div class="col-md-4" id="divHeader">
+                    <div class="panel panel-default">
+                        <div class="panel-heading task-panel-heading">@PartStrings.record</div>
+                        <div class="panel-body task-panel-body">
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @PartStrings.code
+                                </div>
+                                <div class="col-md-8">
+                                    <input id="code" disabled="disabled" type="text" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @PartStrings.organization
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <input type="text" disableonupdate="yes" maxlength="50" required class="form-control" id="org">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" disableonupdate="yes" type="button" id="btnorg"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @PartStrings.type
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <input type="text" maxlength="50" disableonupdate="yes" required data-entity="PART" class="form-control" id="type">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" disableonupdate="yes" type="button" id="btntype"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div><!-- /input-group -->
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @PartStrings.typelevel
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <input type="text" required class="form-control" id="partlevel">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button" id="btnpartlevel"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @PartStrings.desc
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" maxlength="250" class="form-control form-desc" required id="desc" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @PartStrings.brand
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <input type="text" maxlength="50" class="form-control" id="brand">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button" id="btnbrand"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @PartStrings.uom
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <input type="text" disableonupdate="yes" maxlength="50" required class="form-control" id="uom">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" disableonupdate="yes" type="button" id="btnuom"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @PartStrings.unitsalesprice
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" ctrltype="numeric" valtype="PRICE" allowfloat="true" class="form-control" id="unitsalesprice">
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @PartStrings.currency
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <input type="text" maxlength="50" class="form-control" id="currency">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button" id="btncurrency"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @PartStrings.active
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="checkbox checkbox-primary">
+                                        <input type="checkbox" class="styled" checked="checked" id="active" />
+                                        <label></label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4" id="divCustomFields">
+                    <div class="panel panel-default" style="height: 830px;">
+                        <div class="panel-heading task-panel-heading">@PartStrings.customfields</div>
+                        <div class="panel-body">
+                            <div id="cfcontainer"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4" id="divCmntsAttachments">
+                    <div class="panel panel-default" style="height: 450px;">
+                        <div class="panel-heading task-panel-heading">@PartStrings.comments</div>
+                        <div class="panel-body">
+                            <textarea class="form-control" contenteditable rows="3" id="comment"></textarea>
+                            <div class="inline-toolbar">
+                                <button class="btn btn-primary btn-xs" selection-required="true" id="addComment" @(Model == null ? "disabled" : string.Empty)><i class="fa fa-plus-circle"></i> @PartStrings.add</button>
+                            </div>
+                            <div id="comments" class="sm">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default" style="height: 360px;">
+                        <div class="panel-heading task-panel-heading">@PartStrings.docs</div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="progress">
+                                        <div class="progress-bar" id="docuprogress" role="progressbar" style="width: 0%; min-width: 2em;">0%</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-12">
+                                    <div id="fupload">
+                                        <span class="btn btn-default fileinput-button" id="btnBrowse">
+                                            <i class="fa fa-search"></i>
+                                            <span>@PartStrings.browse</span>
+                                            <input type="file" name="files[]" id="fu" multiple data-url="/UploadFile.ashx">
+                                        </span>
+                                        <button class="btn btn-default" id="btnupload" disabled="disabled"><i class="fa fa-cloud-upload"></i> @PartStrings.upload</button>
+                                        <div class="row custom">
+                                            <div class="col-md-12">
+                                                <div id="filename"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="docs"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="stock" class="tab-pane">
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="grdStock"></div>
+                </div>
+            </div>
+        </div>
+        <div id="trx" class="tab-pane">
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="grdPartTransactionLines"></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="fixedpartcosts" class="tab-pane">
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="grdFixedPartCosts"></div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="row">
+                    <div class="col-md-12" style="padding-right: 0">
+                        <div class="inline-toolbar left" style="border: none;" data-block="#bins">
+                            <div class="btn-group">
+                                <button class="btn btn-default btn-sm" title="Ctrl+R" selection-required="false" id="btnAddFixedPartCosts"><i class="fa fa fa-plus fa-fw"></i>@PartStrings.addnew</button>
+                                <button class="btn btn-default btn-sm" title="Ctrl+S" selection-required="false" id="btnSaveFixedPartCosts"><i class="fa fa-floppy-o fa-fw"></i>@PartStrings.save</button>
+                                <button class="btn btn-default btn-sm" title="Ctrl+D" selection-required="true" id="btnDeleteFixedPartCosts" disabled="disabled"><i class="fa fa-trash-o fa-fw"></i>@PartStrings.delete</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row custom">
+                    <div class="row custom">
+                        <div class="col-md-2">
+                            @PartStrings.startdate
+                        </div>
+                        <div class="col-md-3">
+                            <input type="text" maxlength="10" required class="form-control" ctrltype="datepicker" id="startdate" />
+                        </div>
+                    </div>
+                    <div class="row custom">
+                        <div class="col-md-2">
+                            @PartStrings.enddate
+                        </div>
+                        <div class="col-md-3">
+                            <input type="text" maxlength="10" required class="form-control" ctrltype="datepicker" id="enddate" />
+                        </div>
+                    </div>
+                    <div class="row custom">
+                        <div class="col-md-2">
+                            @PartStrings.price
+                        </div>
+                        <div class="col-md-3">
+                            <input type="text" maxlength="250" id="fixedpartcost" required class="form-control" />
+                        </div>
+                    </div>
+                    <div class="row custom">
+                        <div class="col-md-2">
+                            @PartStrings.curr
+                        </div>
+                        <div class="col-md-3">
+                            <div class="input-group">
+                                <input type="text" maxlength="50" required class="form-control" id="fixedpartcostcurr">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button" id="btnfixedpartcostcurr"><i class="fa fa-search fa-fw"></i></button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="modal" id="modalaudit" role="dialog" aria-labelledby="modalsharedlbl" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="false">&times;</span></button>
+                <h4 class="modal-title" id="modaltitle"></h4>
+            </div>
+            <div class="modal-body"></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-xs" id="modalsave">@PartStrings.save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="modaltypelevels" role="dialog" aria-labelledby="modalsharedlbl" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="false">&times;</span></button>
+                <h4 class="modal-title" id="modaltitle">@PartStrings.typelevel  </h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div id="scroll-container">
+                            <div id="treelevel"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+@Html.IncludeVersionedJs("/Scripts/jquery/jquery.fileupload.js")
+@Html.IncludeVersionedJs("/Scripts/jquery/jquery.iframe-transport.js")
+
+@Html.IncludeVersionedJs("/Scripts/other/numericInput.min.js")
+@Html.IncludeVersionedJs("/Scripts/other/tree.jquery.js")
+@Html.IncludeVersionedJs("/Scripts/other/typeahead.bundle.js")
+@Html.IncludeVersionedJs("/Scripts/jquery/jquery.contextMenu.min.js")
+
+@Html.IncludeVersionedJs("/Scripts/custom/ovi.custom.list.js")
+@Html.IncludeVersionedJs("/Scripts/custom/ovi.custom.documents.js")
+@Html.IncludeVersionedJs("/Scripts/custom/ovi.custom.comments.js")
+@Html.IncludeVersionedJs("/Scripts/custom/ovi.custom.customfields.js")
+@Html.IncludeVersionedJs("/Scripts/app/Parts.js")

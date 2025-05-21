@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="CUP" targetNamespace="http://tempuri.org/CUP.xsd" xmlns:mstns="http://tempuri.org/CUP.xsd" xmlns="http://tempuri.org/CUP.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="CUP" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="CUP" msprop:Generator_UserDSName="CUP">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="REPORT" msprop:Generator_TableClassName="REPORTDataTable" msprop:Generator_TableVarName="tableREPORT" msprop:Generator_TablePropName="REPORT" msprop:Generator_RowDeletingName="REPORTRowDeleting" msprop:Generator_RowChangingName="REPORTRowChanging" msprop:Generator_RowEvHandlerName="REPORTRowChangeEventHandler" msprop:Generator_RowDeletedName="REPORTRowDeleted" msprop:Generator_UserTableName="REPORT" msprop:Generator_RowChangedName="REPORTRowChanged" msprop:Generator_RowEvArgName="REPORTRowChangeEvent" msprop:Generator_RowClassName="REPORTRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="CAT_ROWID" msprop:Generator_ColumnVarNameInTable="columnCAT_ROWID" msprop:Generator_ColumnPropNameInRow="CAT_ROWID" msprop:Generator_ColumnPropNameInTable="CAT_ROWIDColumn" msprop:Generator_UserColumnName="CAT_ROWID" type="xs:int" minOccurs="0" />
+              <xs:element name="CAT_DESC" msprop:Generator_ColumnVarNameInTable="columnCAT_DESC" msprop:Generator_ColumnPropNameInRow="CAT_DESC" msprop:Generator_ColumnPropNameInTable="CAT_DESCColumn" msprop:Generator_UserColumnName="CAT_DESC" type="xs:string" minOccurs="0" />
+              <xs:element name="CAT_TYPCODE" msprop:Generator_ColumnVarNameInTable="columnCAT_TYPCODE" msprop:Generator_ColumnPropNameInRow="CAT_TYPCODE" msprop:Generator_ColumnPropNameInTable="CAT_TYPCODEColumn" msprop:Generator_UserColumnName="CAT_TYPCODE" type="xs:string" minOccurs="0" />
+              <xs:element name="CAT_CUSCODE" msprop:Generator_ColumnVarNameInTable="columnCAT_CUSCODE" msprop:Generator_ColumnPropNameInRow="CAT_CUSCODE" msprop:Generator_ColumnPropNameInTable="CAT_CUSCODEColumn" msprop:Generator_UserColumnName="CAT_CUSCODE" type="xs:string" minOccurs="0" />
+              <xs:element name="CAT_TASKCOUNT" msprop:Generator_ColumnVarNameInTable="columnCAT_TASKCOUNT" msprop:Generator_ColumnPropNameInRow="CAT_TASKCOUNT" msprop:Generator_ColumnPropNameInTable="CAT_TASKCOUNTColumn" msprop:Generator_UserColumnName="CAT_TASKCOUNT" type="xs:int" minOccurs="0" />
+              <xs:element name="CAT_ACTCOUNT" msprop:Generator_ColumnVarNameInTable="columnCAT_ACTCOUNT" msprop:Generator_ColumnPropNameInRow="CAT_ACTCOUNT" msprop:Generator_ColumnPropNameInTable="CAT_ACTCOUNTColumn" msprop:Generator_UserColumnName="CAT_ACTCOUNT" type="xs:int" minOccurs="0" />
+              <xs:element name="CAT_PSPPART" msprop:Generator_ColumnVarNameInTable="columnCAT_PSPPART" msprop:Generator_ColumnPropNameInRow="CAT_PSPPART" msprop:Generator_ColumnPropNameInTable="CAT_PSPPARTColumn" msprop:Generator_UserColumnName="CAT_PSPPART" type="xs:decimal" minOccurs="0" />
+              <xs:element name="CAT_PSPLABOR" msprop:Generator_ColumnVarNameInTable="columnCAT_PSPLABOR" msprop:Generator_ColumnPropNameInRow="CAT_PSPLABOR" msprop:Generator_ColumnPropNameInTable="CAT_PSPLABORColumn" msprop:Generator_UserColumnName="CAT_PSPLABOR" type="xs:decimal" minOccurs="0" />
+              <xs:element name="CAT_PSPSUM" msprop:Generator_ColumnVarNameInTable="columnCAT_PSPSUM" msprop:Generator_ColumnPropNameInRow="CAT_PSPSUM" msprop:Generator_ColumnPropNameInTable="CAT_PSPSUMColumn" msprop:Generator_UserColumnName="CAT_PSPSUM" type="xs:decimal" minOccurs="0" />
+              <xs:element name="CAT_COSTPART" msprop:Generator_ColumnVarNameInTable="columnCAT_COSTPART" msprop:Generator_ColumnPropNameInRow="CAT_COSTPART" msprop:Generator_ColumnPropNameInTable="CAT_COSTPARTColumn" msprop:Generator_UserColumnName="CAT_COSTPART" type="xs:decimal" minOccurs="0" />
+              <xs:element name="CAT_COSTLABOR" msprop:Generator_ColumnVarNameInTable="columnCAT_COSTLABOR" msprop:Generator_ColumnPropNameInRow="CAT_COSTLABOR" msprop:Generator_ColumnPropNameInTable="CAT_COSTLABORColumn" msprop:Generator_UserColumnName="CAT_COSTLABOR" type="xs:decimal" minOccurs="0" />
+              <xs:element name="CAT_COSTSUM" msprop:Generator_ColumnVarNameInTable="columnCAT_COSTSUM" msprop:Generator_ColumnPropNameInRow="CAT_COSTSUM" msprop:Generator_ColumnPropNameInTable="CAT_COSTSUMColumn" msprop:Generator_UserColumnName="CAT_COSTSUM" type="xs:decimal" minOccurs="0" />
+              <xs:element name="CAT_PROFITPART" msprop:Generator_ColumnVarNameInTable="columnCAT_PROFITPART" msprop:Generator_ColumnPropNameInRow="CAT_PROFITPART" msprop:Generator_ColumnPropNameInTable="CAT_PROFITPARTColumn" msprop:Generator_UserColumnName="CAT_PROFITPART" type="xs:decimal" minOccurs="0" />
+              <xs:element name="CAT_PROFITLABOR" msprop:Generator_ColumnVarNameInTable="columnCAT_PROFITLABOR" msprop:Generator_ColumnPropNameInRow="CAT_PROFITLABOR" msprop:Generator_ColumnPropNameInTable="CAT_PROFITLABORColumn" msprop:Generator_UserColumnName="CAT_PROFITLABOR" type="xs:decimal" minOccurs="0" />
+              <xs:element name="CAT_PROFITSUM" msprop:Generator_ColumnVarNameInTable="columnCAT_PROFITSUM" msprop:Generator_ColumnPropNameInRow="CAT_PROFITSUM" msprop:Generator_ColumnPropNameInTable="CAT_PROFITSUMColumn" msprop:Generator_UserColumnName="CAT_PROFITSUM" type="xs:decimal" minOccurs="0" />
+              <xs:element name="CAT_AVGPLANTIME" msprop:Generator_ColumnVarNameInTable="columnCAT_AVGPLANTIME" msprop:Generator_ColumnPropNameInRow="CAT_AVGPLANTIME" msprop:Generator_ColumnPropNameInTable="CAT_AVGPLANTIMEColumn" msprop:Generator_UserColumnName="CAT_AVGPLANTIME" type="xs:decimal" minOccurs="0" />
+              <xs:element name="CAT_AVGACTIONTIME" msprop:Generator_ColumnVarNameInTable="columnCAT_AVGACTIONTIME" msprop:Generator_ColumnPropNameInRow="CAT_AVGACTIONTIME" msprop:Generator_ColumnPropNameInTable="CAT_AVGACTIONTIMEColumn" msprop:Generator_UserColumnName="CAT_AVGACTIONTIME" type="xs:decimal" minOccurs="0" />
+              <xs:element name="CAT_AVGCOMPLETEDTIME" msprop:Generator_ColumnVarNameInTable="columnCAT_AVGCOMPLETEDTIME" msprop:Generator_ColumnPropNameInRow="CAT_AVGCOMPLETEDTIME" msprop:Generator_ColumnPropNameInTable="CAT_AVGCOMPLETEDTIMEColumn" msprop:Generator_UserColumnName="CAT_AVGCOMPLETEDTIME" type="xs:decimal" minOccurs="0" />
+              <xs:element name="CAT_AVGCLOSINGTIME" msprop:Generator_ColumnVarNameInTable="columnCAT_AVGCLOSINGTIME" msprop:Generator_ColumnPropNameInRow="CAT_AVGCLOSINGTIME" msprop:Generator_ColumnPropNameInTable="CAT_AVGCLOSINGTIMEColumn" msprop:Generator_UserColumnName="CAT_AVGCLOSINGTIME" type="xs:decimal" minOccurs="0" />
+              <xs:element name="CAT_AVGPSPTIME" msprop:Generator_ColumnVarNameInTable="columnCAT_AVGPSPTIME" msprop:Generator_ColumnPropNameInRow="CAT_AVGPSPTIME" msprop:Generator_ColumnPropNameInTable="CAT_AVGPSPTIMEColumn" msprop:Generator_UserColumnName="CAT_AVGPSPTIME" type="xs:decimal" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="REPORTSUM" msprop:Generator_TableClassName="REPORTSUMDataTable" msprop:Generator_TableVarName="tableREPORTSUM" msprop:Generator_TablePropName="REPORTSUM" msprop:Generator_RowDeletingName="REPORTSUMRowDeleting" msprop:Generator_RowChangingName="REPORTSUMRowChanging" msprop:Generator_RowEvHandlerName="REPORTSUMRowChangeEventHandler" msprop:Generator_RowDeletedName="REPORTSUMRowDeleted" msprop:Generator_UserTableName="REPORTSUM" msprop:Generator_RowChangedName="REPORTSUMRowChanged" msprop:Generator_RowEvArgName="REPORTSUMRowChangeEvent" msprop:Generator_RowClassName="REPORTSUMRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="CAT_ROWID" msprop:Generator_ColumnVarNameInTable="columnCAT_ROWID" msprop:Generator_ColumnPropNameInRow="CAT_ROWID" msprop:Generator_ColumnPropNameInTable="CAT_ROWIDColumn" msprop:Generator_UserColumnName="CAT_ROWID" type="xs:int" minOccurs="0" />
+              <xs:element name="CAT_AVGPLANTIME" msprop:Generator_ColumnVarNameInTable="columnCAT_AVGPLANTIME" msprop:Generator_ColumnPropNameInRow="CAT_AVGPLANTIME" msprop:Generator_ColumnPropNameInTable="CAT_AVGPLANTIMEColumn" msprop:Generator_UserColumnName="CAT_AVGPLANTIME" type="xs:decimal" minOccurs="0" />
+              <xs:element name="CAT_AVGACTIONTIME" msprop:Generator_ColumnVarNameInTable="columnCAT_AVGACTIONTIME" msprop:Generator_ColumnPropNameInRow="CAT_AVGACTIONTIME" msprop:Generator_ColumnPropNameInTable="CAT_AVGACTIONTIMEColumn" msprop:Generator_UserColumnName="CAT_AVGACTIONTIME" type="xs:decimal" minOccurs="0" />
+              <xs:element name="CAT_AVGCOMPLETEDTIME" msprop:Generator_ColumnVarNameInTable="columnCAT_AVGCOMPLETEDTIME" msprop:Generator_ColumnPropNameInRow="CAT_AVGCOMPLETEDTIME" msprop:Generator_ColumnPropNameInTable="CAT_AVGCOMPLETEDTIMEColumn" msprop:Generator_UserColumnName="CAT_AVGCOMPLETEDTIME" type="xs:decimal" minOccurs="0" />
+              <xs:element name="CAT_AVGCLOSINGTIME" msprop:Generator_ColumnVarNameInTable="columnCAT_AVGCLOSINGTIME" msprop:Generator_ColumnPropNameInRow="CAT_AVGCLOSINGTIME" msprop:Generator_ColumnPropNameInTable="CAT_AVGCLOSINGTIMEColumn" msprop:Generator_UserColumnName="CAT_AVGCLOSINGTIME" type="xs:decimal" minOccurs="0" />
+              <xs:element name="CAT_AVGPSPTIME" msprop:Generator_ColumnVarNameInTable="columnCAT_AVGPSPTIME" msprop:Generator_ColumnPropNameInRow="CAT_AVGPSPTIME" msprop:Generator_ColumnPropNameInTable="CAT_AVGPSPTIMEColumn" msprop:Generator_UserColumnName="CAT_AVGPSPTIME" type="xs:decimal" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="REPORTPARAMETERS" msprop:Generator_TableClassName="REPORTPARAMETERSDataTable" msprop:Generator_TableVarName="tableREPORTPARAMETERS" msprop:Generator_TablePropName="REPORTPARAMETERS" msprop:Generator_RowDeletingName="REPORTPARAMETERSRowDeleting" msprop:Generator_RowChangingName="REPORTPARAMETERSRowChanging" msprop:Generator_RowEvHandlerName="REPORTPARAMETERSRowChangeEventHandler" msprop:Generator_RowDeletedName="REPORTPARAMETERSRowDeleted" msprop:Generator_UserTableName="REPORTPARAMETERS" msprop:Generator_RowChangedName="REPORTPARAMETERSRowChanged" msprop:Generator_RowEvArgName="REPORTPARAMETERSRowChangeEvent" msprop:Generator_RowClassName="REPORTPARAMETERSRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="CUSTOMER" msprop:Generator_ColumnVarNameInTable="columnCUSTOMER" msprop:Generator_ColumnPropNameInRow="CUSTOMER" msprop:Generator_ColumnPropNameInTable="CUSTOMERColumn" msprop:Generator_UserColumnName="CUSTOMER" type="xs:string" minOccurs="0" />
+              <xs:element name="TASKTYPE" msprop:Generator_ColumnVarNameInTable="columnTASKTYPE" msprop:Generator_ColumnPropNameInRow="TASKTYPE" msprop:Generator_ColumnPropNameInTable="TASKTYPEColumn" msprop:Generator_UserColumnName="TASKTYPE" type="xs:string" minOccurs="0" />
+              <xs:element name="TASKCOMPLETEDSTART" msprop:Generator_ColumnVarNameInTable="columnTASKCOMPLETEDSTART" msprop:Generator_ColumnPropNameInRow="TASKCOMPLETEDSTART" msprop:Generator_ColumnPropNameInTable="TASKCOMPLETEDSTARTColumn" msprop:Generator_UserColumnName="TASKCOMPLETEDSTART" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="TASKCOMPLETEDEND" msprop:Generator_ColumnVarNameInTable="columnTASKCOMPLETEDEND" msprop:Generator_ColumnPropNameInRow="TASKCOMPLETEDEND" msprop:Generator_ColumnPropNameInTable="TASKCOMPLETEDENDColumn" msprop:Generator_UserColumnName="TASKCOMPLETEDEND" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="REPORTUSER" msprop:Generator_ColumnVarNameInTable="columnREPORTUSER" msprop:Generator_ColumnPropNameInRow="REPORTUSER" msprop:Generator_ColumnPropNameInTable="REPORTUSERColumn" msprop:Generator_UserColumnName="REPORTUSER" type="xs:string" minOccurs="0" />
+              <xs:element name="REPORTDATE" msprop:Generator_ColumnVarNameInTable="columnREPORTDATE" msprop:Generator_ColumnPropNameInRow="REPORTDATE" msprop:Generator_ColumnPropNameInTable="REPORTDATEColumn" msprop:Generator_UserColumnName="REPORTDATE" type="xs:dateTime" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

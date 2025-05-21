@@ -1,0 +1,25 @@
+﻿@using Resources.Mobile.Index
+@{
+    ViewBag.Title = "Sessions";
+    Layout = "~/Views/Shared/Default.cshtml";
+}
+
+<div style="margin-top: 10px">
+    <div class="page-header">
+        <h4>@MobileStrings.SessionList</h4>
+        <h6></h6>
+    </div>
+</div>
+<ul class="nav nav-tabs" id="navpurchaseorders">
+    <li class="active"><a data-toggle="tab" href="#list">@MobileStrings.List</a></li>
+    <li><a enable-on-selection href="#parameters">@MobileStrings.Parameters</a></li>
+</ul>
+<div class="tab-content">
+    <div id="list" class="tab-pane active">
+        <div id="grdMobileSessions"></div>
+    </div>
+    <div id="parameters" class="tab-pane">
+        <div id="grdMobileSessionParameters"></div>
+    </div>
+</div>
+@Html.IncludeVersionedJs("/Scripts/app/MobileSessions.js")

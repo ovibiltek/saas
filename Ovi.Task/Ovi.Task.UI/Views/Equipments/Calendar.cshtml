@@ -1,0 +1,208 @@
+﻿@using System.Threading
+@using Resources.Equipment.Index
+@using Resources.Shared.Index
+@{
+    Layout = "~/Views/Shared/Default.cshtml";
+}
+
+<style>
+    .qtip-custom .qtip-content {
+        text-align: center;
+        font-weight: bold;
+        font-size: 16px;
+        padding: 1em;
+        background: #dd4b39;
+    }
+</style>
+
+@Html.IncludeVersionedCss("/Content/jquery/jquery.fileupload.css")
+@Html.IncludeVersionedCss("/Content/bootstrap/bootstrap-year-calendar.min.css")
+@Html.IncludeVersionedCss("/Content/jquery/jquery.contextMenu.min.css")
+
+
+<div style="margin-top: 10px">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading task-panel-heading">
+                    <div class="pull-left">@EquipmentStrings.calendar</div>
+                    <div class="pull-right"><h4 id="date"></h4></div>
+                </div>
+                <div class="panel-body">
+                    <div class="well">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="row">
+                                    <div class="col-md-4"><strong>@EquipmentStrings.customer</strong> </div>
+                                    <div class="col-md-8">
+                                        <div class="input-group">
+                                            <input type="text" maxlength="50" class="form-control" id="customer">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default" type="button" id="btncustomer"><i class="fa fa-search fa-fw"></i></button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="row">
+                                    <div class="col-md-4"><strong>@EquipmentStrings.branch</strong></div>
+                                    <div class="col-md-8">
+                                        <div class="input-group">
+                                            <input type="text" maxlength="50" class="form-control" id="branch">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default" type="button" id="btnbranch"><i class="fa fa-search fa-fw"></i></button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="row">
+                                    <div class="col-md-4"><strong>@EquipmentStrings.type</strong></div>
+                                    <div class="col-md-8">
+                                        <div class="input-group">
+                                            <input type="text" maxlength="50" data-entity="EQUIPMENT" class="form-control" id="type">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default" type="button" id="btntype"><i class="fa fa-search fa-fw"></i></button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="row">
+                                    <div class="col-md-4"><strong>@EquipmentStrings.equipment</strong></div>
+                                    <div class="col-md-7">
+                                        <div class="input-group">
+                                            <input type="text" maxlength="50" class="form-control" id="equipment">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default" type="button" id="btnequipment"><i class="fa fa-search fa-fw"></i></button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-1">
+                                        <button class="btn btn-success" type="button" id="btnfilter"><i class="fa fa-refresh fa-fw"></i></button>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="calendar" style="overflow: hidden"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading task-panel-heading">@EquipmentStrings.tasks</div>
+                <div class="panel-body">
+                    <div id="grdEquipmentCalendarTaskList"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="modalcomments">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="false">&times;</span></button>
+                <h4 class="modal-title">@EquipmentStrings.comments</h4>
+            </div>
+            <div class="modal-body" style="height: 400px; overflow-y: auto;">
+                <textarea class="form-control sm" rows="3" id="comment"></textarea>
+                @if (string.IsNullOrEmpty(UserManager.Instance.User.Customer))
+                {
+                    <div class="row custom">
+                        <div class="col-md-12">
+                            <div class="checkbox checkbox-inline checkbox-primary">
+                                <input type="checkbox" class="styled" id="visibletocustomer" />
+                                <label>@SharedStrings.visibletocustomer</label>
+                            </div>
+                            @if (string.IsNullOrEmpty(UserManager.Instance.User.Supplier))
+                            {
+                                <div class="checkbox checkbox-inline checkbox-primary">
+                                    <input type="checkbox" class="styled" id="visibletosupplier" />
+                                    <label>@SharedStrings.visibletosupplier</label>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                }
+                <div class="inline-toolbar">
+                    <button class="btn btn-primary btn-xs" id="addComment"><i class="fa fa-plus-circle"></i> @EquipmentStrings.add</button>
+                </div>
+                <div id="comments"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-xs" data-dismiss="modal" aria-label="Close">@EquipmentStrings.ok</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="modaldocuments">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="false">&times;</span></button>
+                <h4 class="modal-title">@EquipmentStrings.documents</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="progress">
+                            <div class="progress-bar" id="docuprogress" role="progressbar" style="width: 0%; min-width: 2em;">0%</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row custom">
+                    <div class="col-md-3"><strong>@EquipmentStrings.doctype</strong></div>
+                    <div class="col-md-6">
+                        <select class="form-control" id="doctype">
+                            <option class="default" value="">@EquipmentStrings.unspecified</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row custom">
+                    <div class="col-md-12">
+                        <div id="fupload">
+                            <span class="btn btn-default fileinput-button" id="btnBrowse">
+                                <i class="fa fa-search"></i>
+                                <span>@EquipmentStrings.browse</span>
+                                <input type="file" name="files[]" id="fu" multiple data-url="/UploadFile.ashx">
+                            </span>
+                            <button class="btn btn-default" id="btnupload" disabled="disabled"><i class="fa fa-cloud-upload"></i> @EquipmentStrings.upload</button>
+                            <div class="row custom">
+                                <div class="col-md-12">
+                                    <div id="filename"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="docs" class="tasklistdocs"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-xs" data-dismiss="modal" aria-label="Close">@EquipmentStrings.ok</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@Html.IncludeVersionedJs("/Scripts/bootstrap/bootstrap-year-calendar.min.js")
+@if (Thread.CurrentThread.CurrentUICulture.Name == "tr")
+{
+    @Html.IncludeVersionedJs("/Scripts/bootstrap/bootstrap-year-calendar.tr.js")
+}
+@Html.IncludeVersionedJs("/Scripts/jquery/jquery.contextMenu.min.js")
+@Html.IncludeVersionedJs("/Scripts/jquery/jquery.iframe-transport.js")
+@Html.IncludeVersionedJs("/Scripts/jquery/jquery.fileupload.js")
+
+@Html.IncludeVersionedJs("/Scripts/custom/ovi.custom.documents.js")
+@Html.IncludeVersionedJs("/Scripts/custom/ovi.custom.comments.js")
+@Html.IncludeVersionedJs("/Scripts/app/EquipmentCalendar.js")
+
+

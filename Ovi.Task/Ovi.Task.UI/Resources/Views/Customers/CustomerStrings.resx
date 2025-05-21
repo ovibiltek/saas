@@ -1,0 +1,392 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="accountcode" xml:space="preserve">
+    <value>Account Code</value>
+  </data>
+  <data name="active" xml:space="preserve">
+    <value>Active</value>
+  </data>
+  <data name="add" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="addattach" xml:space="preserve">
+    <value>Add Attach</value>
+  </data>
+  <data name="addnew" xml:space="preserve">
+    <value>New</value>
+  </data>
+  <data name="address" xml:space="preserve">
+    <value>Address</value>
+  </data>
+  <data name="barcodelength" xml:space="preserve">
+    <value>Barcode Length</value>
+  </data>
+  <data name="billingaddress" xml:space="preserve">
+    <value>Billing Address</value>
+  </data>
+  <data name="brnauthorized" xml:space="preserve">
+    <value>Authorized (Branch)</value>
+  </data>
+  <data name="brncsr" xml:space="preserve">
+    <value>Customer Service Representative E-Mail (Branch)</value>
+  </data>
+  <data name="brncustomerpm" xml:space="preserve">
+    <value>Customer Manager (Customer)</value>
+  </data>
+  <data name="brnregresponsible" xml:space="preserve">
+    <value>Responsible (Region)</value>
+  </data>
+  <data name="browse" xml:space="preserve">
+    <value>Browse</value>
+  </data>
+  <data name="checkamount" xml:space="preserve">
+    <value>Check Amount</value>
+  </data>
+  <data name="checkamountmessage" xml:space="preserve">
+    <value>Please indicate the categories you want to be excluded from amount control. &lt;br&gt;
+&lt;br&gt;
+&lt;p&gt;&lt;i class="fa fa-star" aria-hidden="true"&gt;&lt;/i&gt;All selected categories will be excluded.&lt;/p&gt;</value>
+  </data>
+  <data name="checkendlabordistance" xml:space="preserve">
+    <value>Check End Labor Distance</value>
+  </data>
+  <data name="checkstartlabordistance" xml:space="preserve">
+    <value>Check Start Labor Distance</value>
+  </data>
+  <data name="close" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="code" xml:space="preserve">
+    <value>Code</value>
+  </data>
+  <data name="comments" xml:space="preserve">
+    <value>Comments</value>
+  </data>
+  <data name="contactperson01" xml:space="preserve">
+    <value>Contact Person 1</value>
+  </data>
+  <data name="contactperson02" xml:space="preserve">
+    <value>Contact Person 2</value>
+  </data>
+  <data name="createdend" xml:space="preserve">
+    <value>Date Created End</value>
+  </data>
+  <data name="createdstart" xml:space="preserve">
+    <value>Date Created Start</value>
+  </data>
+  <data name="customerequipmanprices" xml:space="preserve">
+    <value>Customer Equipment Maintenance Prices</value>
+  </data>
+  <data name="customergroup" xml:space="preserve">
+    <value>Customer Group</value>
+  </data>
+  <data name="customers" xml:space="preserve">
+    <value>Customers</value>
+  </data>
+  <data name="customerservicerepresentative" xml:space="preserve">
+    <value>Customer Service Representative</value>
+  </data>
+  <data name="customfields" xml:space="preserve">
+    <value>Custom Fields</value>
+  </data>
+  <data name="delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="desc" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="district" xml:space="preserve">
+    <value>District</value>
+  </data>
+  <data name="docs" xml:space="preserve">
+    <value>Documents</value>
+  </data>
+  <data name="enddate" xml:space="preserve">
+    <value>End Date</value>
+  </data>
+  <data name="eqpconfig" xml:space="preserve">
+    <value>Equipment Selection Preferences</value>
+  </data>
+  <data name="eqpconfigmessage" xml:space="preserve">
+    <value>You can select the task categories and task types for which you want equipment selection to be enforced at task closing.</value>
+  </data>
+  <data name="equipmenttype" xml:space="preserve">
+    <value>Equipment Type</value>
+  </data>
+  <data name="ert" xml:space="preserve">
+    <value>Emergency Respond Time (Hour)</value>
+  </data>
+  <data name="fax" xml:space="preserve">
+    <value>Fax</value>
+  </data>
+  <data name="filter" xml:space="preserve">
+    <value>Filter</value>
+  </data>
+  <data name="history" xml:space="preserve">
+    <value>History</value>
+  </data>
+  <data name="kpi" xml:space="preserve">
+    <value>KPI</value>
+  </data>
+  <data name="list" xml:space="preserve">
+    <value>List</value>
+  </data>
+  <data name="mailto" xml:space="preserve">
+    <value>Mail To</value>
+  </data>
+  <data name="note" xml:space="preserve">
+    <value>Note</value>
+  </data>
+  <data name="notes" xml:space="preserve">
+    <value>Notes</value>
+  </data>
+  <data name="notify" xml:space="preserve">
+    <value>Notify</value>
+  </data>
+  <data name="operationsofficer" xml:space="preserve">
+    <value>Operation Officer</value>
+  </data>
+  <data name="organization" xml:space="preserve">
+    <value>Organization</value>
+  </data>
+  <data name="paymentperiod" xml:space="preserve">
+    <value>Payment Period</value>
+  </data>
+  <data name="periodictask" xml:space="preserve">
+    <value>Periodic Task</value>
+  </data>
+  <data name="phone01" xml:space="preserve">
+    <value>Phone 1</value>
+  </data>
+  <data name="phone02" xml:space="preserve">
+    <value>Phone 2</value>
+  </data>
+  <data name="prefix" xml:space="preserve">
+    <value>Prefix</value>
+  </data>
+  <data name="price" xml:space="preserve">
+    <value>Price</value>
+  </data>
+  <data name="pricing" xml:space="preserve">
+    <value>Pricing</value>
+  </data>
+  <data name="pricingcode" xml:space="preserve">
+    <value>Pricing Code</value>
+  </data>
+  <data name="priority" xml:space="preserve">
+    <value>Priority</value>
+  </data>
+  <data name="progresspaymentperiod" xml:space="preserve">
+    <value>Progress Payment Period</value>
+  </data>
+  <data name="progresspaymentresponsible" xml:space="preserve">
+    <value>Progress Payment Responsible</value>
+  </data>
+  <data name="projectmanager" xml:space="preserve">
+    <value>Customer Manager</value>
+  </data>
+  <data name="province" xml:space="preserve">
+    <value>Province</value>
+  </data>
+  <data name="record" xml:space="preserve">
+    <value>Record</value>
+  </data>
+  <data name="reportingresponsible" xml:space="preserve">
+    <value>Reporting Responsible</value>
+  </data>
+  <data name="reset" xml:space="preserve">
+    <value>Reset</value>
+  </data>
+  <data name="salesauthority" xml:space="preserve">
+    <value>Sales Authority</value>
+  </data>
+  <data name="save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="sector" xml:space="preserve">
+    <value>Sector</value>
+  </data>
+  <data name="servicecode" xml:space="preserve">
+    <value>Service Code</value>
+  </data>
+  <data name="servicecodes" xml:space="preserve">
+    <value>Service Codes</value>
+  </data>
+  <data name="startdate" xml:space="preserve">
+    <value>Start Date</value>
+  </data>
+  <data name="status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="taskcategory" xml:space="preserve">
+    <value>Task Category</value>
+  </data>
+  <data name="taskexccategories" xml:space="preserve">
+    <value>Excluded Task Categories</value>
+  </data>
+  <data name="taskinccategories" xml:space="preserve">
+    <value>Included Task Categories</value>
+  </data>
+  <data name="tasks" xml:space="preserve">
+    <value>Tasks</value>
+  </data>
+  <data name="tasktype" xml:space="preserve">
+    <value>Task Type</value>
+  </data>
+  <data name="taxno" xml:space="preserve">
+    <value>Tax No</value>
+  </data>
+  <data name="taxoffice" xml:space="preserve">
+    <value>Tax Office</value>
+  </data>
+  <data name="title" xml:space="preserve">
+    <value>Title</value>
+  </data>
+  <data name="tskeqpcontrol" xml:space="preserve">
+    <value>Task Equipment Control</value>
+  </data>
+  <data name="tskstatusmail" xml:space="preserve">
+    <value>Task Status Mail</value>
+  </data>
+  <data name="typ" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="undo" xml:space="preserve">
+    <value>Undo</value>
+  </data>
+  <data name="unitprice" xml:space="preserve">
+    <value>Unit Price</value>
+  </data>
+  <data name="unitpurchaseprice" xml:space="preserve">
+    <value>Unit Purchase Price</value>
+  </data>
+  <data name="unitsalesprice" xml:space="preserve">
+    <value>Unit Sales Price</value>
+  </data>
+  <data name="upload" xml:space="preserve">
+    <value>Upload</value>
+  </data>
+  <data name="web" xml:space="preserve">
+    <value>Web</value>
+  </data>
+  <data name="workingcondition" xml:space="preserve">
+    <value>Working Condition</value>
+  </data>
+</root>

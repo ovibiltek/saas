@@ -1,0 +1,111 @@
+﻿@using Resources.Task.Index
+<div id="toolusage" class="tab-pane">
+    <div class="row">
+        <div class="col-md-12">
+            <div id="grdToolUsage"></div>
+        </div>
+    </div>
+    <br />
+    <div id="toolusageform" class="panel panel-default items">
+        <div class="panel-heading page-panel-heading">@TaskStrings.tool</div>
+        <div class="row">
+            <div class="col-md-12" style="padding-right: 0">
+                <div class="inline-toolbar left" style="border: none;" data-block="#toolusage">
+                    <div class="btn-group">
+                        <button class="btn btn-default btn-sm" title="Ctrl+R" selection-required="false" disabled id="btnAddToolUsage"><i class="fa fa fa-plus fa-fw"></i>@TaskStrings.addnew</button>
+                        <button class="btn btn-default btn-sm" title="Ctrl+S" selection-required="false" disabled id="btnSaveToolUsage"><i class="fa fa-floppy-o fa-fw"></i>@TaskStrings.save</button>
+                        <button class="btn btn-default btn-sm" selection-required="true" title="Ctrl+D" disabled id="btnDeleteToolUsage"><i class="fa fa-trash-o fa-fw"></i>@TaskStrings.delete</button>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-body page-panel-body">
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="row custom">
+                            <div class="col-md-3">
+                                @TaskStrings.activity
+                            </div>
+                            <div class="col-md-5">
+                                <div class="input-group">
+                                    <input type="text" required class="form-control" id="toolusageactivity">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default" type="button" id="btntoolusageactivity"><i class="fa fa-search fa-fw"></i></button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row custom">
+                            <div class="col-md-3">
+                                @TaskStrings.tool
+                            </div>
+                            <div class="col-md-5">
+                                <div class="input-group">
+                                    <input type="text" required class="form-control" id="toolusagetool">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default" type="button" id="btntoolusagetool"><i class="fa fa-search fa-fw"></i></button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row custom">
+                            <div class="col-md-3">
+                                @TaskStrings.plandate
+                            </div>
+                            <div class="col-md-5">
+                                <input type="text" maxlength="10" class="form-control" ctrltype="datepicker" id="toolusagedate" />
+                            </div>
+                        </div>
+                        <div class="row custom">
+                            <div class="col-md-3">
+                                @TaskStrings.planperiod
+                            </div>
+                            <div class="col-md-5">
+                                <input type="text" calc-group="1" required="" ctrltype="numeric" allowfloat="true" class="form-control" id="toolusageperiod">
+                            </div>
+                        </div>
+                        <div class="row custom">
+                            <div class="col-md-3">
+                                @TaskStrings.chargingperiod
+                            </div>
+                            <div class="col-md-5">
+                                <input type="text" class="form-control" disabled="disabled" id="toolusagechargingperiod">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="row custom">
+                            <div class="col-md-3">
+                                @TaskStrings.exch
+                            </div>
+                            <div class="col-md-5">
+                                <input type="text" required valtype="EXCH" ctrltype="numeric" allowfloat="true" class="form-control" id="toolusageexch">
+                            </div>
+                        </div>
+                        <div class="row custom">
+                            <div class="col-md-3">
+                                @TaskStrings.unitprice
+                            </div>
+                            <div class="col-md-5">
+                                <input type="text" calc-group="1" valtype="PRICE" disabled="disabled" ctrltype="numeric" allowfloat="true" class="form-control" id="toolusageunitprice">
+                            </div>
+                            <div class="col-md-1">
+                                <input type="text" disabled="disabled" class="form-control" id="toolusagecurr">
+                            </div>
+                        </div>
+                        <div class="row custom">
+                            <div class="col-md-3">
+                                @TaskStrings.total
+                            </div>
+                            <div class="col-md-5">
+                                <input type="text" disabled="disabled" class="form-control" id="toolusagetotal">
+                            </div>
+                            <div class="col-md-1">
+                                <input type="text" disabled="disabled" class="form-control" id="toolusagetotalcurr">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

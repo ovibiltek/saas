@@ -1,0 +1,66 @@
+﻿@using Resources.MobileNotification.Index
+@using Resources.Shared.Index
+
+@{
+    Layout = "~/Views/Shared/Default.cshtml";
+}
+
+
+<div style="margin-top: 10px">
+    <div class="page-header">
+        <h4>
+            @MobileNotification.mobilenotifications
+        </h4>
+        <h6></h6>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-8" id="divHeader">
+        <div class="panel panel-default">
+            <div class="panel-heading task-panel-heading">Gönder</div>
+            <div class="panel-body task-panel-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="col-md-3">
+                            @MobileNotification.groups
+                        </div>
+                        <div class="col-md-9" id="groups">
+                            
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="row custom">
+                            <div class="col-md-3">
+                                @MobileNotification.title
+                            </div>
+                            <div class="col-md-9">
+                                <input maxlength="50" required id="title" type="text" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="row custom">
+                            <div class="col-md-3">
+                                @MobileNotification.message
+                            </div>
+                            <div class="col-md-9">
+                                <textarea id="message" required maxlength="1000" style="width: 100%; height: 100px;"></textarea>
+                            </div>
+                        </div>
+                        <div class="row custom">
+                            <div class="col-md-3">
+                                @MobileNotification.parameters
+                            </div>
+                            <div class="col-md-9">
+                                <textarea id="parameters" maxlength="1000" style="width: 100%; height: 100px;"></textarea>
+                            </div>
+                        </div>
+                        <div class="row custom">
+                            <button id="sendNotify" class="btn btn-sm btn-success pull-right">@MobileNotification.send</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@Html.IncludeVersionedJs("/Scripts/app/MobileNotification.js")

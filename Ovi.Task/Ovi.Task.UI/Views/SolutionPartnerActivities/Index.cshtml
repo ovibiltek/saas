@@ -1,0 +1,1488 @@
+﻿@using Resources.SolutionPartnerActivities.Index
+@using Resources.Shared.Index
+@using Resources.Task.Index
+@using Resources.Quotations.Index
+@using Resources.TaskActivities.Index
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Default.cshtml";
+}
+
+@Html.IncludeVersionedCss("/Content/bootstrap/bootstrap-tagsinput.css")
+@Html.IncludeVersionedCss("/Content/jquery/jquery.fileupload.css")
+
+@Html.IncludeVersionedCss("/Content/bootstrap/bootstrap-slider.css")
+@Html.IncludeVersionedCss("/Content/bootstrap/bootstrap-editable.css")
+@Html.IncludeVersionedCss("/Content/bootstrap/bootstrap-switch.min.css")
+@Html.IncludeVersionedCss("/Content/jquery/jquery.contextMenu.min.css")
+
+@Html.IncludeVersionedCss("/Content/fullcalendar.min.css")
+@Html.IncludeVersionedCss("/Content/jquery/jquery.contextMenu.min.css")
+@Html.IncludeVersionedCss("/Content/other/jqtree.css")
+
+<div style="margin-top: 10px">
+    <div class="page-header">
+        <h4>@SolutionPartnerActivitiesStrings.solutionpartneractivities</h4>
+        <h6></h6>
+    </div>
+    <div id="pagediv">
+        <div class="row">
+            <div class="col-md-12">
+                <div id="grdTaskActivities"></div>
+                <div class="sidebars">
+                    <div class="sidebar right" style="right: -400px;">
+                        <div class="row">
+                            <div class="col-md-12" style="text-align: center; margin-top: 10px;">
+                                <button id="filter" class="btn btn-primary btn-xs"><i class="fa fa-filter"></i> @TaskActivitiesStrings.filter</button>
+                                <button id="clearfilter" class="btn btn-info btn-xs"><i class="fa fa-ban"></i> @TaskActivitiesStrings.reset</button>
+                                <button id="closesiderbar" class="btn btn-danger btn-xs"><i class="fa fa-times"></i> @TaskActivitiesStrings.close</button>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="page-header">
+                                    <h5>@TaskStrings.status</h5>
+                                </div>
+                            </div>
+                            <div class="col-md-12 filter-box" id="statuses">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="page-header">
+                                    <h5>@TaskStrings.datecreated</h5>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <input type="text" ctrltype="datepicker" class="i-filter form-control" id="datecreated_start">
+                            </div>
+                            <div class="col-sm-6">
+                                <input type="text" ctrltype="datepicker" class="i-filter form-control" id="datecreated_end">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="page-header">
+                                    <h5>@TaskStrings.activeplanningdate</h5>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <input type="text" ctrltype="datepicker" class="i-filter form-control" id="apd_start">
+                            </div>
+                            <div class="col-sm-6">
+                                <input type="text" ctrltype="datepicker" class="i-filter form-control" id="apd_end">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="page-header">
+                                    <h5>@TaskStrings.daterequested</h5>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <input type="text" ctrltype="datepicker" class="i-filter form-control" id="daterequested_start">
+                            </div>
+                            <div class="col-sm-6">
+                                <input type="text" ctrltype="datepicker" class="i-filter form-control" id="daterequested_end">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="page-header">
+                                    <h5>@TaskStrings.datecompleted</h5>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <input type="text" ctrltype="datepicker" class="i-filter form-control" id="datecompleted_start">
+                            </div>
+                            <div class="col-sm-6">
+                                <input type="text" ctrltype="datepicker" class="i-filter form-control" id="datecompleted_end">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="page-header">
+                                    <h5>@TaskStrings.dateclosed</h5>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <input type="text" ctrltype="datepicker" class="i-filter form-control" id="dateclosed_start">
+                            </div>
+                            <div class="col-sm-6">
+                                <input type="text" ctrltype="datepicker" class="i-filter form-control" id="dateclosed_end">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="page-header">
+                                    <h5>@TaskActivitiesStrings.filter01</h5>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <input type="text" ctrltype="numeric" allowfloat="false" allownegative="false" class="i-filter form-control" id="deadlineval">
+                            </div>
+                        </div>
+                        <div class="row custom">
+                            <div class="col-md-12">
+                                <div class="checkbox checkbox-primary">
+                                    <input type="checkbox" id="mytasks" />
+                                    <label>@TaskActivitiesStrings.mytasks</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="checkbox checkbox-primary">
+                                    <input type="checkbox" id="inmyregion" />
+                                    <label><span>@TaskActivitiesStrings.filter02</span></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="page-header">
+                                    <h5>@TaskStrings.priority</h5>
+                                </div>
+                            </div>
+                            <div class="col-md-12 filter-box" id="priorities">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div id="record">
+                <div class="col-md-4">
+                    <div class="row custom" style="padding-top: 0px;">
+                        <div class="panel panel-default">
+                            <div class="panel-heading page-panel-heading">@SolutionPartnerActivitiesStrings.customerinfo</div>
+                            <div class="panel-body page-panel-body">
+                                <div class="row custom">
+                                    <div class="col-md-4">
+                                        @SolutionPartnerActivitiesStrings.taskid - @SolutionPartnerActivitiesStrings.activityno
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input type="text" maxlength="50" id="taskid" disabled required disableonupdate="yes" class="form-control form-code" />
+                                    </div>
+                                </div>
+
+                                <div class="row custom">
+                                    <div class="col-md-4">
+                                        @SolutionPartnerActivitiesStrings.customer
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input type="text" maxlength="50" id="customer" disabled required disableonupdate="yes" class="form-control form-code" />
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-4">
+                                        @SolutionPartnerActivitiesStrings.branch
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input type="text" maxlength="50" id="branch" disabled required disableonupdate="yes" class="form-control form-code" />
+                                    </div>
+                                </div>
+
+                                <div class="row custom">
+                                    <div class="col-md-4">
+                                        @SolutionPartnerActivitiesStrings.branchadress
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input type="text" maxlength="50" id="branchadress" disabled class="form-control form-code" />
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-4">
+                                        @SolutionPartnerActivitiesStrings.lastquono
+                                    </div>
+                                    <div class="col-md-8">
+                                        <span class="fa fa-check fa-lg" id="lastquotationno" aria-hidden="true">
+                                            &nbsp;&nbsp;<a href="javascript: void(0)" id="quolink" hidden></a>
+                                            &nbsp;&nbsp;<a @*data-target="#modalQuotation" data-toggle="modal"*@ href="javascript: void(0)" id="quomodal" hidden></a>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-4">
+                                        @SolutionPartnerActivitiesStrings.invno
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input type="text" maxlength="50" id="invno" required disabled disableonupdate="yes" class="form-control form-code" />
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-4">
+                                        @SolutionPartnerActivitiesStrings.detail
+                                    </div>
+                                    <div class="col-md-8">
+                                        <textarea class="form-control" maxlength="1000" disabled rows="3" id="tasknote" autocomplete="off"></textarea>
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-12 no-padding">
+                                        <div class="well hidden taskwarning" id="warnings">
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="row custom" style="padding-top: 0px;">
+                        <div class="panel panel-default">
+                            <div class="panel-heading page-panel-heading">@SolutionPartnerActivitiesStrings.workinfo</div>
+                            <div class="panel-body page-panel-body" style="padding-bottom: 0px;">
+                                <div class="row custom">
+                                    <div class="col-md-4">
+                                        @SolutionPartnerActivitiesStrings.category
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input type="text" maxlength="50" id="category" disabled required disableonupdate="yes" class="form-control form-code" />
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-4">
+                                        @SolutionPartnerActivitiesStrings.periodictask
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input type="text" maxlength="50" id="periodictask" disabled class="form-control form-code" />
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-4">
+                                        @SolutionPartnerActivitiesStrings.shortdesc
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input type="text" maxlength="50" id="shortdesc" disabled required disableonupdate="yes" class="form-control form-code" />
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-4">
+                                        @SolutionPartnerActivitiesStrings.equipment
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="input-group">
+                                            <input type="text" maxlength="50" disabled class="form-control" id="tskeqp">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default" type="button" id="btntskeqp"><i class="fa fa-search fa-fw"></i></button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-4">
+                                        @SolutionPartnerActivitiesStrings.plandate
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="input-group">
+                                            <input type="text" maxlength="16" id="plndate" ctrltype="datetimepicker" class="form-control" />
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default" type="button" id="btnsaveplandate"><i class="fa fa-check fa-fw"></i></button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-4">
+                                        @SolutionPartnerActivitiesStrings.createddate
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input type="text" maxlength="50" id="created" required disabled disableonupdate="yes" class="form-control form-code" />
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-4">
+                                        @SolutionPartnerActivitiesStrings.plannedstart
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input type="text" maxlength="50" id="plannedstart" disabled required disableonupdate="yes" class="form-control form-code" />
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-4">
+                                        @SolutionPartnerActivitiesStrings.activitystatus
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input type="text" maxlength="50" id="activitystatus" required disabled disableonupdate="yes" class="form-control form-code" />
+                                    </div>
+                                </div>
+                                <div class="row custom" style="padding-top: 20px;">
+                                    <div class="col-md-6">
+                                        <button class="col-md-12 btn btn-lg btn-success" type="button" id="btnCompleteActivity">
+                                            <div class="row">
+                                                <div class="col-md-12 pos-left">
+                                                    <i class="fa fa-stop fa-fw fa-ml-5"></i><text style="padding-left: 5px;" id="btnCompleteActivityText"><b> @SolutionPartnerActivitiesStrings.completeactivity </b></text>
+                                                </div>
+
+                                            </div>
+                                        </button>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <button class="col-md-12 btn btn-lg btn-success" type="button" id="btnCloseActivity">
+                                            <div class="row">
+                                                <div class="col-md-8 pos-left">
+                                                    <i class="fa fa-send fa-fw fa-ml-5"></i><text style="padding-left: 5px;" id="btnCloseActivityText">@SolutionPartnerActivitiesStrings.sendforapproval</text>
+                                                </div>
+                                                <div class="col-md-4 pos-right">
+                                                </div>
+                                            </div>
+                                        </button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div id="divfunctions">
+                    <div class="panel panel-default">
+                        <div class="panel-heading page-panel-heading">@SolutionPartnerActivitiesStrings.functions</div>
+                        <div class="panel-body page-panel-body" style="padding-bottom: 0px;">
+                            <div class="row">
+                                <div class="col-md-12 pos-left">
+                                    <button class="col-md-12 btn btn-primary" type="button" id="btnActivityEquipmentMaintenance">
+                                        <div class="row">
+                                            <div class="col-md-8 pos-left">
+                                                <i class="fa fa-cogs fa-fw fa-ml-5"></i> @SolutionPartnerActivitiesStrings.maintenanceequipment
+                                            </div>
+                                            <div class="col-md-4 pos-right">
+                                                <span id="actequipmentcnt" class="badge">0</span>
+                                            </div>
+                                        </div>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-12 pos-left">
+                                    <button class="col-md-12 btn btn-primary" type="button" id="btnActivityServiceCode">
+                                        <div class="row">
+                                            <div class="col-md-8 pos-left">
+                                                <i class="fa fa-plug fa-fw fa-ml-5"></i> @SolutionPartnerActivitiesStrings.servicecodes
+                                            </div>
+                                            <div class="col-md-4 pos-right">
+                                                <span id="actservicecodecnt" class="badge">0</span>
+                                            </div>
+                                        </div>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-12 pos-left">
+                                    <button class="col-md-12 btn btn-primary" type="button" id="btnMiscCostPart" data-typ="PART">
+                                        <div class="row">
+                                            <div class="col-md-8 pos-left">
+                                                <i class="fa fa-cart-plus fa-fw fa-ml-5"></i> @SolutionPartnerActivitiesStrings.eqpusage
+                                            </div>
+                                            <div class="col-md-4 pos-right">
+                                                <span id="MiscCostPartCnt" class="badge">0</span>
+                                            </div>
+                                        </div>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-12 pos-left">
+                                    <button class="col-md-12 btn btn-primary" type="button" id="btnIssueReturn" data-typ="PART">
+                                        <div class="row">
+                                            <div class="col-md-8 pos-left">
+                                                <i class="fa fa-cart-plus fa-fw fa-ml-5"></i> @SolutionPartnerActivitiesStrings.issuereturn
+                                            </div>
+                                            <div class="col-md-4 pos-right">
+                                                <span id="issuereturncount" class="badge">0</span>
+                                            </div>
+                                        </div>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-12 pos-left">
+                                    <button class="col-md-12 btn btn-primary" type="button" id="btnMiscCostServiceCodes" data-typ="SERVICE">
+                                        <div class="row">
+                                            <div class="col-md-8 pos-left">
+                                                <i class="fa fa-plus fa-fw fa-ml-5"></i> @SolutionPartnerActivitiesStrings.othercosts
+                                            </div>
+                                            <div class="col-md-4 pos-right">
+                                                <span id="miscCostServiceCodes" class="badge">0</span>
+                                            </div>
+                                        </div>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-12 pos-left">
+                                    <button class="col-md-12 btn btn-primary" type="button" id="btnBookedHours">
+                                        <div class="row">
+                                            <div class="col-md-8 pos-left">
+                                                <i class="fa fa-clock-o fa-fw fa-ml-5"></i> @SolutionPartnerActivitiesStrings.bookedhours
+                                            </div>
+                                            <div class="col-md-4 pos-right">
+                                                <span id="bookedhourscnt" class="badge">0</span>
+                                            </div>
+                                        </div>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-12 pos-left">
+                                    <button class="col-md-12 btn btn-primary" type="button" id="btnActivityComments">
+                                        <div class="row">
+                                            <div class="col-md-8 pos-left">
+                                                <i class="fa fa-comments fa-fw fa-ml-5"></i> @SolutionPartnerActivitiesStrings.comments
+                                            </div>
+                                            <div class="col-md-4 pos-right">
+                                                <span id="actcommentscnt" class="badge">0</span>
+                                            </div>
+                                        </div>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-12 pos-left">
+                                    <button class="col-md-12 btn btn-primary" type="button" id="btnActivityDocuments">
+                                        <div class="row">
+                                            <div class="col-md-8 pos-left">
+                                                <i class="fa fa-file fa-fw fa-ml-5"></i> @SolutionPartnerActivitiesStrings.documents
+                                            </div>
+                                            <div class="col-md-4 pos-right">
+                                                <span id="actdocumentscnt" class="badge">0</span>
+                                            </div>
+                                        </div>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-3 pos-left">
+                                    <button class="col-md-12 btn btn-info" type="button" id="btnContactInfo">
+                                        <div class="row">
+                                            <div class="col-md-8 pos-left">
+                                                <i class="fa fa-phone fa-fw fa-ml-5"></i> @SolutionPartnerActivitiesStrings.contact
+                                            </div>
+                                        </div>
+                                    </button>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div id="grdTaskActivityPricing"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="modalchecklist" data-id="@((Model != null  && Model.TSK_ID != 0 ) ? Model.TSK_ID : 0)" role="dialog" aria-labelledby="modalsharedlbl" aria-hidden="true">
+    <div class="modal-dialog modal-wide">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h4 class="modal-title">@SolutionPartnerActivitiesStrings.checklist</h4>
+                    </div>
+                    <div class="col-md-6 pos-right" style="padding-right: 0;">
+                        <button type="button" class="btn btn-xs btn-danger" data-dismiss="modal" aria-label="Close"><i class="fa fa-times"></i></button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="progress">
+                    <div class="progress-bar" id="chklistprogress" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0"></div>
+                </div>
+                <br />
+                <div class="checklistitems">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btnSaveChecklist" class="btn btn-success btn-xs"><i class="fa fa-floppy-o" aria-hidden="true"></i> @SolutionPartnerActivitiesStrings.save</button>
+                <button type="button" class="btn btn-primary btn-xs" data-dismiss="modal"><i class="fa fa-ban" aria-hidden="true"></i> @SolutionPartnerActivitiesStrings.cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="modalTaskActivityEquipments" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="false">&times;</span></button>
+                <h4 class="modal-title">@SolutionPartnerActivitiesStrings.maintenanceequipment</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row custom">
+                    <div class="col-md-5">
+                    </div>
+                    <div class="col-md-5">
+                        <select id="isbarcode" class="form-control" required disableonupdate="yes">
+                            <option value="barcode">@SolutionPartnerActivitiesStrings.withbarcode</option>
+                            <option value="nobarcode">@SolutionPartnerActivitiesStrings.withoutbarcode</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <button class="btn btn-primary col-md-12" type="button" id="btnTaskActivityEquipmentSave"><i class="fa fa-plus fa-fw"></i>@SolutionPartnerActivitiesStrings.add</button>
+                    </div>
+                </div>
+                <div class="row custom activityequipment">
+                    <div class="row custom">
+                        <div class="col-md-10">
+                            <input type="text" maxlength="50" class="form-control" id="filterCheckBoxes">
+                        </div>
+                        <div class="col-md-2">
+                            <button id="btnfilterCheckBoxes" type="button" style="float: right" class="btn btn-default col-md-12"><i class="fa fa-search"></i> @SolutionPartnerActivitiesStrings.filter</button>
+                        </div>
+                    </div>
+                    <div id="maintenanceequipments" style="height: 250px; overflow-y: auto;">
+                    </div>
+                </div>
+                <div class="row custom activityequipmenttype hidden">
+                    <div class="col-md-2">
+                        @SolutionPartnerActivitiesStrings.equipmenttype
+                    </div>
+                    <div class="col-md-5">
+                        <div class="input-group">
+                            <input type="text" maxlength="50" class="form-control" id="taskactivityequipmenttype">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button" id="btnTaskActivityEquipmentType"><i class="fa fa-search fa-fw"></i></button>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-md-1">
+                        @SolutionPartnerActivitiesStrings.quantity
+                    </div>
+                    <div class="col-md-4">
+                        <div class="input-group">
+                            <input ctrltype="numeric" allowfloat="false" type="text" class="form-control" id="taskactivityequipmentquan" value="1">
+                        </div>
+                    </div>
+                </div>
+                <div class="row custom">
+                    <div class="col-md-12">
+                        <div id="grdActivityEquipments"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="modalTaskActivityServiceCodes" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="false">&times;</span></button>
+                <h4 class="modal-title">@SolutionPartnerActivitiesStrings.servicecodes</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row custom">
+                    <div class="col-md-3">
+                        @SolutionPartnerActivitiesStrings.servicecode
+                    </div>
+                    <div class="col-md-4">
+                        <div class="input-group">
+                            <input type="text" required="required" placeholder="@SolutionPartnerActivitiesStrings.choseservicecode" maxlength="50" class="form-control" id="servicecode">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button" id="btnServiceCode"><i class="fa fa-search fa-fw"></i></button>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="input-group">
+                            <input type="text" required="required" class="form-control" ctrltype="numeric" allowfloat="true" placeholder="@SolutionPartnerActivitiesStrings.qty" id="serviceqty" aria-describedby="serviceqty-uom">
+                            <span class="input-group-addon" id="serviceqty-uom">&nbsp;</span>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <button class="btn btn-primary col-md-12" type="button" id="btnTaskActivityServiceCodesSave"><i class="fa fa-plus fa-fw"></i>@SolutionPartnerActivitiesStrings.add</button>
+                    </div>
+                </div>
+                <div class="row custom">
+                    <div class="col-md-12">
+                        <div id="grdActivityServiceCodes"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="modalcomments">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="false">&times;</span></button>
+                <h4 class="modal-title">@SolutionPartnerActivitiesStrings.comments</h4>
+            </div>
+            <div class="modal-body" style="height: 400px; overflow-y: auto;">
+                <textarea class="form-control sm" rows="3" id="comment"></textarea>
+                <div class="row custom hidden">
+                    <div class="col-md-12">
+                        <div class="checkbox checkbox-inline hidden checkbox-primary">
+                            <input type="checkbox" class="styled hidden" id="visibletocustomer" />
+                            <label>@SharedStrings.visibletocustomer</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="inline-toolbar">
+                    <button class="btn btn-primary btn-xs" id="addComment"><i class="fa fa-plus-circle"></i> @SolutionPartnerActivitiesStrings.add</button>
+                </div>
+                <div id="comments"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-xs" data-dismiss="modal" aria-label="Close">@SolutionPartnerActivitiesStrings.ok</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="modaldocuments">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="false">&times;</span></button>
+                <h4 class="modal-title">@SolutionPartnerActivitiesStrings.documents</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="progress">
+                            <div class="progress-bar" id="docuprogress" role="progressbar" style="width: 0%; min-width: 2em;">0%</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row custom">
+                    <div class="col-md-3"><strong>@SolutionPartnerActivitiesStrings.doctype</strong></div>
+                    <div class="col-md-6">
+                        <select class="form-control" id="doctype">
+                            <option class="default" value="">@SolutionPartnerActivitiesStrings.unspecified</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row custom">
+                    <div class="col-md-12">
+                        <div id="fupload">
+                            <span class="btn btn-default fileinput-button" id="btnBrowse">
+                                <i class="fa fa-search"></i>
+                                <span>@SolutionPartnerActivitiesStrings.browse</span>
+                                <input type="file" name="files[]" id="fu" multiple data-url="/UploadFile.ashx">
+                            </span>
+                            <button class="btn btn-default" id="btnupload" disabled="disabled"><i class="fa fa-cloud-upload"></i> @SolutionPartnerActivitiesStrings.upload</button>
+                            @if (string.IsNullOrEmpty(UserManager.Instance.User.Supplier))
+                            {
+                                <button class="btn btn-default" id="btnDownload" disabled="disabled"><i class="fa fa-download" aria-hidden="true"></i> @SolutionPartnerActivitiesStrings.download</button>
+                            }                            
+                            <div class="row custom">
+                                <div class="col-md-12">
+                                    <div id="filename"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="docs" class="tasklistdocs"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-xs" data-dismiss="modal" aria-label="Close">@SolutionPartnerActivitiesStrings.ok</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="modalMiscCost" class="modal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="false">&times;</span></button>
+                <h4 class="modal-title" id="msctitle">@SolutionPartnerActivitiesStrings.misccosts</h4>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-danger" role="alert" id="alert">
+                    <strong>
+                        @SolutionPartnerActivitiesStrings.customalert
+                    </strong>
+                </div>
+                <div id="misccosts" class="tab-pane">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="grdMiscCosts"></div>
+                        </div>
+                    </div>
+                    <br />
+                    <div id="misccostsform" class="panel panel-default items">
+                        <div class="row">
+                            <div class="col-md-12" style="padding-right: 0">
+                                <div class="inline-toolbar left" style="border: none;" data-block="#misccosts">
+                                    <div class="btn-group">
+                                        <button class="btn btn-default btn-sm" title="Ctrl+R" selection-required="false" disabled id="btnAddMiscCost"><i class="fa fa fa-plus fa-fw"></i>@SolutionPartnerActivitiesStrings.addnew</button>
+                                        <button class="btn btn-default btn-sm" title="Ctrl+S" selection-required="false" disabled id="btnSaveMiscCost"><i class="fa fa-floppy-o fa-fw"></i>@SolutionPartnerActivitiesStrings.save</button>
+                                        <button class="btn btn-default btn-sm" selection-required="true" title="Ctrl+D" disabled id="btnDeleteMiscCost"><i class="fa fa-trash-o fa-fw"></i>@SolutionPartnerActivitiesStrings.delete</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel-body page-panel-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="row custom">
+                                            <div class="col-md-3">
+                                                @SolutionPartnerActivitiesStrings.date
+                                            </div>
+                                            <div class="col-md-8">
+                                                <input type="text" calc-group="2" maxlength="10" class="form-control" required ctrltype="datepicker" id="misccostdate" />
+                                            </div>
+                                        </div>
+                                        <div class="row custom">
+                                            <div class="col-md-3">
+                                                @SolutionPartnerActivitiesStrings.type
+                                            </div>
+                                            <div class="col-md-8">
+                                                <select id="misccosttype" required class="form-control"></select>
+                                            </div>
+                                        </div>
+                                        <div class="hidden" id="misccostpartcontainer">
+                                            <div class="row custom">
+                                                <div class="col-md-3">
+                                                    @SolutionPartnerActivitiesStrings.part
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control" disabled="disabled" id="misccostpart">
+                                                        <span class="input-group-btn">
+                                                            <button class="btn btn-default" type="button" disabled="disabled" id="btnmisccostpart"><i class="fa fa-search fa-fw"></i></button>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row custom">
+                                                <div class="col-md-3">
+                                                    @SolutionPartnerActivitiesStrings.partreference
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <input type="text" class="form-control" id="misccostpartreference">
+                                                </div>
+                                            </div>
+                                            <div class="row custom">
+                                                <div class="col-md-3">
+                                                    @SolutionPartnerActivitiesStrings.partisnotfound
+                                                </div>
+                                                <div class="col-md-5">
+                                                    <div class="checkbox checkbox-primary">
+                                                        <input type="checkbox" class="styled" id="partisnotfound" />
+                                                        <label></label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row custom">
+                                            <div class="col-md-3">
+                                                @SolutionPartnerActivitiesStrings.description
+                                            </div>
+                                            <div class="col-md-8">
+                                                <input type="text" maxlength="250" class="form-control" required id="misccostdesc" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="row custom">
+                                            <div class="col-md-3">
+                                                @SolutionPartnerActivitiesStrings.unitprice
+                                            </div>
+                                            <div class="col-md-7">
+                                                <input type="text" calc-group="1" required valtype="PRICE" ctrltype="numeric" allowfloat="true" class="form-control" id="misccostunitprice">
+                                            </div>
+                                        </div>
+                                        <div class="row custom">
+                                            <div class="col-md-3">
+                                                @SolutionPartnerActivitiesStrings.curr
+                                            </div>
+                                            <div class="col-md-7">
+                                                <div class="input-group">
+                                                    <input type="text" calc-group="2" required class="form-control" id="misccostcurr">
+                                                    <span class="input-group-btn">
+                                                        <button class="btn btn-default" type="button" id="btnmisccostcurr"><i class="fa fa-search fa-fw"></i></button>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row custom">
+                                            <div class="col-md-3">
+                                                @SolutionPartnerActivitiesStrings.exch
+                                            </div>
+                                            <div class="col-md-7">
+                                                <input type="text" calc-group="1" required valtype="EXCH" ctrltype="numeric" allowfloat="true" class="form-control" id="misccostexch">
+                                            </div>
+                                        </div>
+                                        <div class="row custom">
+                                            <div class="col-md-3">
+                                                @SolutionPartnerActivitiesStrings.qty
+                                            </div>
+                                            <div class="col-md-7">
+                                                <input type="text" calc-group="1" required ctrltype="numeric" allowfloat="true" class="form-control" id="misccostqty">
+                                            </div>
+                                        </div>
+                                        <div class="row custom">
+                                            <div class="col-md-3">
+                                                @SolutionPartnerActivitiesStrings.uom
+                                            </div>
+                                            <div class="col-md-7">
+                                                <div class="input-group">
+                                                    <input type="text" required class="form-control" id="misccostuom">
+                                                    <span class="input-group-btn">
+                                                        <button class="btn btn-default" type="button" id="btnmisccostuom"><i class="fa fa-search fa-fw"></i></button>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row custom hidden">
+                                            <div class="col-md-3">
+                                                @SolutionPartnerActivitiesStrings.invoice
+                                            </div>
+                                            <div class="col-md-7">
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control" id="misccostinvoice">
+                                                    <span class="input-group-btn">
+                                                        <button class="btn btn-default" type="button" id="btnmisccostinvoice"><i class="fa fa-search fa-fw"></i></button>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row custom">
+                                            <div class="col-md-3">
+                                                @SolutionPartnerActivitiesStrings.total
+                                            </div>
+                                            <div class="col-md-7">
+                                                <input type="text" disabled="disabled" class="form-control" id="misccosttotal">
+                                            </div>
+                                            <div class="col-md-2">
+                                                <input type="text" disabled="disabled" class="form-control" id="misccosttotalcurr">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="modalIssueReturns" class="modal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="false">&times;</span></button>
+                <h4 class="modal-title" id="issiuereturntitle">@TaskStrings.parts</h4>
+            </div>
+            <div class="modal-body">
+                <div id="issueReturns">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="grdIssueReturn"></div>
+                        </div>
+                    </div>
+                    <br />
+                    <div id="issueReturnForm" class="panel panel-default items">
+                        <div class="row">
+                            <div class="col-md-12" style="padding-right: 0">
+                                <div class="inline-toolbar left" style="border: none;" data-block="#issueReturns">
+                                    <div class="btn-group">
+                                        <button class="btn btn-default btn-sm" title="Ctrl+R" selection-required="false" id="btnAddIssueReturn"><i class="fa fa fa-plus fa-fw"></i>@SolutionPartnerActivitiesStrings.addnew</button>
+                                        <button class="btn btn-default btn-sm" title="Ctrl+S" selection-required="false" id="btnSaveIssueReturn"><i class="fa fa-floppy-o fa-fw"></i>@SolutionPartnerActivitiesStrings.save</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel-body page-panel-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="row custom">
+                                            <div class="col-md-3">
+                                                @TaskStrings.trxtype
+                                            </div>
+                                            <div class="col-md-8">
+                                                <select id="trxtype" class="form-control" required>
+                                                    <option value="">@TaskStrings.pleaseselect</option>
+                                                    <option value="I">@TaskStrings.typeissue</option>
+                                                    <option value="RT">@TaskStrings.typereturn</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="row custom">
+                                            <div class="col-md-3">
+                                                @TaskStrings.warehouse
+                                            </div>
+                                            <div class="col-md-8">
+                                                <div class="input-group">
+                                                    <input type="text" required class="form-control" id="warehouse">
+                                                    <span class="input-group-btn">
+                                                        <button class="btn btn-default" type="button" id="btnwarehouse"><i class="fa fa-search fa-fw"></i></button>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row custom">
+                                            <div class="col-md-3">
+                                                @TaskStrings.part
+                                            </div>
+                                            <div class="col-md-8">
+                                                <div class="input-group">
+                                                    <input type="text" readonly="readonly" required class="form-control" id="part">
+                                                    <span class="input-group-btn">
+                                                        <button class="btn btn-default" type="button" id="btnparts"><i class="fa fa-search fa-fw"></i></button>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row custom">
+                                            <div class="col-md-3">
+                                                @TaskStrings.description
+                                            </div>
+                                            <div class="col-md-8">
+                                                <input type="text" disabled="disabled" class="form-control" id="partdesc">
+                                            </div>
+                                        </div>
+                                        <div class="row custom">
+                                            <div class="col-md-3">
+                                                @TaskStrings.partreference
+                                            </div>
+                                            <div class="col-md-8">
+                                                <input type="text" class="form-control" id="partreference">
+                                            </div>
+                                        </div>
+                                        <div class="row custom">
+                                            <div class="col-md-3">
+                                                @TaskStrings.uom
+                                            </div>
+                                            <div class="col-md-8">
+                                                <input type="text" disabled="disabled" class="form-control" id="partuom">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="row custom">
+                                            <div class="col-md-3">
+                                                @TaskStrings.bin
+                                            </div>
+                                            <div class="col-md-8">
+                                                <div class="input-group">
+                                                    <input type="text" readonly="readonly" required class="form-control" id="bin">
+                                                    <span class="input-group-btn">
+                                                        <button class="btn btn-default" type="button" id="btnbin"><i class="fa fa-search fa-fw"></i></button>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row custom">
+                                            <div class="col-md-3">
+                                                @TaskStrings.binqty
+                                            </div>
+                                            <div class="col-md-8">
+                                                <input type="text" disabled="disabled" class="form-control" id="binqty">
+                                            </div>
+                                        </div>
+
+                                        <div class="row custom">
+                                            <div class="col-md-3">
+                                                @TaskStrings.reqqty
+                                            </div>
+                                            <div class="col-md-8">
+                                                <input type="text" required ctrltype="numeric" allowfloat="true" class="form-control" id="reqqty">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="completeActivity" class="modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="false">&times;</span></button>
+                <h4 class="modal-title">@SolutionPartnerActivitiesStrings.completeactivity</h4>
+            </div>
+            <div class="modal-body ">
+                <div class="row custom">
+                    <div class="col-md-3">
+                        @SolutionPartnerActivitiesStrings.state
+                    </div>
+                    <div class="col-md-8">
+                        <select id="statetype" class="form-control" required>
+                            <option class="default" value="">@SolutionPartnerActivitiesStrings.pleaseselect</option>
+                            <option value="COMPLETE">@SolutionPartnerActivitiesStrings.complete</option>
+                            <option value="HOLD">@SolutionPartnerActivitiesStrings.hold</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="typeselected">
+                    <div class="row custom">
+                        <div class="col-md-3">
+                            @SolutionPartnerActivitiesStrings.statedetail
+                        </div>
+                        <div class="col-md-8">
+                            <select id="activityclosetype" class="form-control" required>
+                                <option class="default" value="">@SolutionPartnerActivitiesStrings.pleaseselect</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row custom hidden" id="teklifwarning">
+                        <div class="col-md-3">
+
+                        </div>
+                        <div class="col-md-8">
+                            <div class="alert alert-danger" role="alert">
+                                <p>
+                                    <b>
+                                        Dikkat! Sistem aktiviteyi tamamlayacak ve otomatik yeni bir aktivite oluşturacaktır. Lütfen yeni oluşucak aktivite için teklifinizi veriniz.
+                                    </b>
+                                </p>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="row custom">
+                        <div class="col-md-3">
+                            @SolutionPartnerActivitiesStrings.note
+                        </div>
+                        <div class="col-md-8">
+                            <textarea required class="form-control" placeholder="@SolutionPartnerActivitiesStrings.addcomment" maxlength="500" contenteditable="" rows="3" id="activityclosenote" autocomplete="off"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-xs typeselected" id="btnSaveCompleteActivity">@SolutionPartnerActivitiesStrings.ok</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="modalbookedhours" class="modal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="false">&times;</span></button>
+                <h4 class="modal-title" id="modalbookedhourstitle">@SolutionPartnerActivitiesStrings.bookedhours</h4>
+            </div>
+            <div class="modal-body">
+                <div id="bookedhours" class="tab-pane">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="grdBooHours"></div>
+                        </div>
+                    </div>
+                    <br />
+                    <div id="bookedhoursform" class="panel panel-default">
+                        <div class="panel-heading page-panel-heading">@TaskStrings.bookedhours</div>
+                        <div class="row">
+                            <div class="col-md-12" style="padding-right: 0">
+                                <div class="inline-toolbar left" style="border: none;" data-block="#bookedhours">
+                                    <div class="btn-group">
+                                        <button class="btn btn-default btn-sm" selection-required="false" title="Ctrl+R" disabled id="btnAddBookedHours"><i class="fa fa fa-plus fa-fw"></i>@TaskStrings.addnew</button>
+                                        <button class="btn btn-default btn-sm" selection-required="false" title="Ctrl+S" disabled id="btnSaveBookedHours"><i class="fa fa-floppy-o fa-fw"></i>@TaskStrings.save</button>
+                                        <button class="btn btn-default btn-sm" selection-required="true" title="Ctrl+D" disabled id="btnDeleteBookedHours"><i class="fa fa-trash-o fa-fw"></i>@TaskStrings.delete</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-body page-panel-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="row custom">
+                                        <div class="col-md-3">
+                                            @TaskStrings.user
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="input-group">
+                                                <input type="text" required disableonupdate="yes" class="form-control" id="boouser">
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-default" disableonupdate="yes" type="button" id="btnboouser"><i class="fa fa-search fa-fw"></i></button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row custom">
+                                        <div class="col-md-3">
+                                            @TaskStrings.date
+                                        </div>
+                                        <div class="col-md-8">
+                                            <input type="text" required disableonupdate="yes" maxlength="10" id="bookdate" ctrltype="datepicker" class="form-control" />
+                                        </div>
+                                    </div>
+                                    <div class="row custom">
+                                        <div class="col-md-3">
+                                            @TaskStrings.startend
+                                        </div>
+                                        <div class="col-md-2">
+                                            <input type="text" required maxlength="5" class="form-control" ctrltype="timepicker" id="bookstart" />
+                                        </div>
+                                        <div class="col-md-2">
+                                            <input type="text" required maxlength="5" class="form-control" ctrltype="timepicker" id="bookend" />
+                                        </div>
+                                        <div class="col-md-2">
+                                            <input type="text" maxlength="5" disabled="disabled" class="form-control" id="calchours" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="panel panel-default bookedhourssummaryblck">
+                                        <div class="panel-heading">@TaskStrings.bookedhourssummary</div>
+                                        <div class="panel-body">
+                                            <div id="bookedhourssummaryblck">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="quototaskdiv" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="false">&times;</span></button>
+                <h4 class="modal-title">Teklifler</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row custom">
+                    <div class="col-md-12">
+                        <div class="alert alert-info" role="alert">
+                            @TaskStrings.quototaskcountmessage
+                        </div>
+                    </div>
+                </div>
+                <div class="row custom">
+                    <div class="col-md-12">
+                        <div id="grdquototask"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="modalQuotation" class="modal">
+    <div class="modal-dialog modal-lg" style=" overflow-y: initial !important">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="false">&times;</span></button>
+                <h4 class="modal-title" id="quotationTitle">Teklifler</h4>
+            </div>
+            <div class="modal-body" style="height: 650px; overflow-y: auto;">
+                <div class="alert alert-danger" role="alert" id="alert">
+                    <strong>
+                        @SolutionPartnerActivitiesStrings.quolinewarn
+                    </strong>
+                </div>
+                <div id="quotationstable" class="tab-pane">
+                    <div class="row custom">
+                        <div class="col-md-12">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <td style="width: 100px;background: #108ce2;color: #FFF;">@SolutionPartnerActivitiesStrings.description</td>
+                                        <td style="width: 60px;background: #108ce2;color: #FFF;"> @SolutionPartnerActivitiesStrings.type</td>
+                                        <td style="width: 60px;background: #108ce2;color: #FFF;"> @SolutionPartnerActivitiesStrings.qty</td>
+                                        <td style="width: 60px;background: #108ce2;color: #FFF;"> @SolutionPartnerActivitiesStrings.uom</td>
+                                        <td style="width: 60px;background: #108ce2;color: #FFF;"> @SolutionPartnerActivitiesStrings.unitprice</td>
+                                        <td style="width: 60px;background: #108ce2;color: #FFF;"> @QuotationStrings.discountrate</td>
+                                        <td style="width: 60px;background: #108ce2;color: #FFF;"> @QuotationStrings.discountedunitprice</td>
+                                        <td style="width: 60px;background: #108ce2;color: #FFF;">  @SolutionPartnerActivitiesStrings.unittotal</td>
+                                        <td style="width: 60px;background: #108ce2;color: #FFF;">@QuotationStrings.currency</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr id="sectionlines">
+                                    </tr>
+                                    <tr>
+                                        <td colspan="12" style="background:#bdc7ce"><strong>@SolutionPartnerActivitiesStrings.total : </strong> <strong id="quototal"></strong></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row custom">
+                        <div id="quotationsform" class="panel panel-default items">
+                            <div class="col-md-6">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">@SolutionPartnerActivitiesStrings.misccosts</div>
+                                    <div class="panel-body">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="row custom">
+                                                    <div class="col-md-4">
+                                                        Id
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                        <input disabled="disabled" id="quomisccostid" type="text" class="form-control" tabindex="104" autocomplete="off">
+                                                    </div>
+                                                </div>
+                                                <div class="row custom">
+                                                    <div class="col-md-4">
+                                                        @SolutionPartnerActivitiesStrings.type
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <select id="quomisccosttypeparent" class="form-control required" required="" tabindex="105" autocomplete="off">
+                                                            <option value="">@QuotationStrings.pleaseselect</option>
+                                                            <option value="PART">@QuotationStrings.part</option>
+                                                            <option value="SERVICE">@QuotationStrings.service</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <select id="quomisccosttype" required="" class="form-control required" tabindex="106" autocomplete="off"></select>
+                                                    </div>
+                                                </div>
+                                                <div class="row custom">
+                                                    <div class="col-md-4">
+                                                        @SolutionPartnerActivitiesStrings.description
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                        <input type="text" maxlength="250" class="form-control required" required="" id="quomisccostdesc" tabindex="107" autocomplete="off">
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="hidden" id="quomisccostpartcontainer">
+                                                    <div class="row custom">
+                                                        <div class="col-md-4">
+                                                            @SolutionPartnerActivitiesStrings.part
+                                                        </div>
+                                                        <div class="col-md-8">
+                                                            <div class="input-group">
+                                                                <input type="text" class="form-control ui-autocomplete-input" disabled="" id="quomisccostpart" data-id="" autocomplete="off" tabindex="109">
+                                                                <span class="input-group-btn">
+                                                                    <button class="btn btn-default" type="button" disabled="" id="btnquomisccostpart" tabindex="-1" autocomplete="off"><i class="fa fa-search fa-fw"></i></button>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row custom">
+                                                        <div class="col-md-4">
+                                                            @SolutionPartnerActivitiesStrings.partisnotfound
+                                                        </div>
+                                                        <div class="col-md-8">
+                                                            <div class="checkbox checkbox-primary">
+                                                                <input type="checkbox" class="styled" id="quopartisnotfound" tabindex="111" autocomplete="off">
+                                                                <label></label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="hidden" id="quomisccostservicecontainer">
+                                                    <div class="row custom">
+                                                        <div class="col-md-4">
+                                                            @SolutionPartnerActivitiesStrings.servicecode
+                                                        </div>
+                                                        <div class="col-md-8">
+                                                            <div class="input-group">
+                                                                <input type="text" class="form-control ui-autocomplete-input" id="quomisccostservicecode" autocomplete="off" tabindex="112">
+                                                                <span class="input-group-btn">
+                                                                    <button class="btn btn-default" type="button" id="btnquomisccostservicecode" tabindex="-1" autocomplete="off"><i class="fa fa-search fa-fw"></i></button>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row custom">
+                                                        <div class="col-md-4">
+                                                            @SolutionPartnerActivitiesStrings.servicecodenotfound
+                                                        </div>
+                                                        <div class="col-md-8">
+                                                            <div class="checkbox checkbox-primary">
+                                                                <input type="checkbox" class="styled" id="quoservicecodeisnotfound" tabindex="114" autocomplete="off">
+                                                                <label></label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row custom">
+                                                    <div class="col-md-4">
+                                                        @SolutionPartnerActivitiesStrings.brand
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                        <input type="text" maxlength="250" class="form-control" id="quomisccostbrand" tabindex="108" autocomplete="off">
+                                                    </div>
+                                                </div>
+                                                <div class="row custom">
+                                                    <div class="col-md-4">
+                                                        @SolutionPartnerActivitiesStrings.qty
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                        <input type="text" calc-group="3" required="" ctrltype="numeric" allowfloat="true" class="form-control required" id="quomisccostqty" tabindex="115" autocomplete="off">
+                                                    </div>
+                                                </div>
+                                                <div class="row custom">
+                                                    <div class="col-md-4">
+                                                        @SolutionPartnerActivitiesStrings.uom
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                        <div class="input-group">
+                                                            <input type="text" required="" class="form-control ui-autocomplete-input required" id="quomisccostuom" autocomplete="off" tabindex="116">
+                                                            <span class="input-group-btn">
+                                                                <button class="btn btn-default" type="button" id="btnquomisccostuom" tabindex="-1" autocomplete="off"><i class="fa fa-search fa-fw"></i></button>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row custom">
+                                                    <div class="col-md-4">
+                                                        @SolutionPartnerActivitiesStrings.reference
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                        <input type="text" maxlength="250" class="form-control" id="quomisccostreference" tabindex="118" autocomplete="off">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 no-padding">
+                                <div class="row">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">@QuotationStrings.quotationsummary</div>
+                                        <div class="panel-body">
+                                            <div class="row">
+                                                <div class="row custom">
+                                                    <div class="col-md-4">
+                                                        @SolutionPartnerActivitiesStrings.unitprice
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                        <input type="text" ctrltype="numeric" allowfloat="true" calc-group="3" maxlength="10" class="form-control" id="quomisccostunitpurchaseprice" tabindex="65" autocomplete="off">
+                                                    </div>
+                                                </div>
+                                                <div class="row custom">
+                                                    <div class="col-md-4">
+                                                        @QuotationStrings.discountrate
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                        <input type="text" maxlength="10" ctrltype="numeric" allowfloat="true" min="0" max="100" calc-group="3" class="form-control" id="quomisccostpurchasediscountrate" tabindex="66" autocomplete="off">
+                                                    </div>
+                                                </div>
+                                                <div class="row custom">
+                                                    <div class="col-md-4">
+                                                        @QuotationStrings.discountedunitprice
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                        <input type="text" maxlength="10" disabled="disabled" calc-group="3" class="form-control" id="quomisccostpurchasediscountedunitprice" tabindex="67" autocomplete="off">
+                                                    </div>
+                                                </div>
+                                                <div class="row custom">
+                                                    <div class="col-md-4">
+                                                        @SolutionPartnerActivitiesStrings.unittotal
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                        <input type="text" maxlength="10" disabled="disabled" class="form-control" id="quomisccosttotalpurchaseprice" tabindex="68" autocomplete="off">
+                                                    </div>
+                                                </div>
+                                                <div class="row custom">
+                                                    <div class="col-md-4">
+                                                        @QuotationStrings.currency
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                        <div class="input-group">
+                                                            <input type="text" calc-group="1" maxlength="50" class="form-control ui-autocomplete-input" id="misccostpurchasepricecurr" autocomplete="off" tabindex="69">
+                                                            <span class="input-group-btn">
+                                                                <button class="btn btn-default" type="button" id="btnquomisccostpurchasepricecurr" tabindex="-1" autocomplete="off"><i class="fa fa-search fa-fw"></i></button>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row custom">
+                                                    <div class="col-md-4">
+                                                        @QuotationStrings.exch
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                        <input type="text" valtype="EXCH" ctrltype="numeric" allowfloat="true" class="form-control" id="quomisccostpurchaseexch" tabindex="71" autocomplete="off">
+                                                    </div>
+                                                </div>
+                                                <div class="row custom">
+                                                    <button class="col-md-6 btn btn-primary" type="button" id="btnAddQuo" autocomplete="off">
+                                                        <i class="fa fa-plus"></i> @SolutionPartnerActivitiesStrings.save
+                                                    </button>
+                                                    <button class="col-md-offset-1 col-md-5 btn btn-success" type="button" id="btnSendQuo" autocomplete="off">
+                                                        <i class="fa fa-send"></i>  @SolutionPartnerActivitiesStrings.send
+                                                    </button>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="confirmquo" style="z-index: 9999;" role="dialog" data-easein="flipBounceYIn" aria-labelledby="modalsharedlbl" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <h4>@SolutionPartnerActivitiesStrings.quolinepopup</h4>
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn btn-danger btn-xs" id="yes"><i class="fa fa-check-circle"></i> @SharedStrings.yes</button>
+                <button type="button" data-dismiss="modal" class="btn btn-xs" id="cancel"><i class="fa fa-close"></i> @SharedStrings.no</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="modaltaskcontactinfo">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="false">&times;</span></button>
+                <h4 class="modal-title">@TaskStrings.contact</h4>
+            </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-xs" data-dismiss="modal" aria-label="Close">@TaskStrings.ok</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    var inbox = "@ViewBag.id";
+</script>
+
+
+@Html.IncludeVersionedJs("/Scripts/other/tree.jquery.js")
+@Html.IncludeVersionedJs("/Scripts/bootstrap/bootstrap-tagsinput.min.js")
+@Html.IncludeVersionedJs("/Scripts/custom/ovi.custom.list.js")
+@Html.IncludeVersionedJs("/Scripts/other/fontawesome-markers.min.js")
+@Html.IncludeVersionedJs("/Scripts/other/querydata.min.js")
+@Html.IncludeVersionedJs("/Scripts/jquery/jquery.fileupload.js")
+@Html.IncludeVersionedJs("/Scripts/jquery/jquery.iframe-transport.js")
+@Html.IncludeVersionedJs("/Scripts/jquery/jquery.sidebar.min.js")
+@Html.IncludeVersionedJs("/Scripts/bootstrap/bootstrap-slider.js")
+@Html.IncludeVersionedJs("/Scripts/bootstrap/bootstrap-editable.min.js")
+@Html.IncludeVersionedJs("/Scripts/bootstrap/bootstrap-switch.min.js")
+@Html.IncludeVersionedJs("/Scripts/other/numericInput.min.js")
+@Html.IncludeVersionedJs("/Scripts/other/typeahead.bundle.js")
+@Html.IncludeVersionedJs("/Scripts/jquery/jquery.contextMenu.min.js")
+
+@Html.IncludeVersionedJs("/Scripts/custom/ovi.custom.list.js")
+@Html.IncludeVersionedJs("/Scripts/custom/ovi.custom.entitylookup.js")
+@Html.IncludeVersionedJs("/Scripts/custom/ovi.custom.documents.js")
+@Html.IncludeVersionedJs("/Scripts/custom/ovi.custom.comments.js")
+@Html.IncludeVersionedJs("/Scripts/custom/ovi.custom.customfields.js")
+
+@Html.IncludeVersionedJs("/Scripts/other/color-hash.js")
+@Html.IncludeVersionedJs("/Scripts/jquery/jquery.contextMenu.min.js")
+@Html.IncludeVersionedJs("/Scripts/app/SolutionPartnerActivities.js")

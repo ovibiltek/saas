@@ -1,0 +1,15 @@
+﻿@using Resources.PurchaseOrders.Index
+
+@{
+    ViewBag.Title = "List";
+    Layout = "~/Views/Shared/Default.cshtml";
+}
+<div style="margin-top: 10px">
+    <div class="page-header">
+        <h4>@PurchaseOrders.requestlist</h4>
+        <h6></h6>
+    </div>
+    <div id="grdPurchaseOrderList"></div>
+</div>
+
+@Html.IncludeVersionedJs("/Scripts/app/PurchaseOrderRequestList.js")

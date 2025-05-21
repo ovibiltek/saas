@@ -1,0 +1,249 @@
+﻿@using Resources.GridDesigner.Index
+@{
+    Layout = "~/Views/Shared/Default.cshtml";
+}
+
+@Html.IncludeVersionedCss("/Content/jquery/jquery.fileupload.css")
+@Html.IncludeVersionedCss("/Content/jquery/jquery.contextMenu.min.css")
+
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs/dt-1.11.5/b-2.2.2/b-colvis-2.2.2/kt-2.6.4/sc-2.0.5/sb-1.3.2/datatables.min.css" />
+
+<div style="margin-top: 10px">
+    <div class="page-header">
+        <h4>
+            GridDesigner
+        </h4>
+        <h6></h6>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tms-page-toolbar inline-toolbar left" data-block="#record">
+                <div class="btn-group">
+                    <button class="btn btn-default btn-sm" title="Ctrl+R" selection-required="false" id="btnNew"><i class="fa fa-plus fa-fw"></i>@GridDesignerStrings._new</button>
+                    <button class="btn btn-default btn-sm" disabled="disabled" selection-required="false" title="Ctrl+S" id="btnSaveGrid"><i class="fa fa-floppy-o fa-fw"></i>@GridDesignerStrings.save</button>
+                    <button class="btn btn-default btn-sm" disabled="disabled" selection-required="true" title="Ctrl+U" id="btnUndo"><i class="fa fa-undo fa-fw"></i>@GridDesignerStrings.undo</button>
+                    <button class="btn btn-default btn-sm" disabled="disabled" selection-required="true" title="Ctrl+D" id="btnDelete"><i class="fa fa-trash-o fa-fw"></i>@GridDesignerStrings.delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#list">@GridDesignerStrings.list</a></li>
+        <li><a data-toggle="tab" href="#record">@GridDesignerStrings.gridconf</a></li>
+        <li><a enable-on-selection href="#colconf">@GridDesignerStrings.columnconf</a></li>
+    </ul>
+
+    <div class="tab-content">
+        <div id="list" class="tab-pane active">
+            <div id="grdGrids"></div>
+        </div>
+        <div id="record" class="tab-pane">
+            <div class="row record-content">
+                <div class="col-md-4" id="divHeader">
+                    <div class="panel panel-default" style="height: 842px;">
+                        <div class="panel-heading task-panel-heading">Kayıt</div>
+                        <div class="panel-body task-panel-body">
+
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @GridDesignerStrings.tablename
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <input type="text" maxlength="50" readonly disableonupdate="yes" required class="form-control uppercase" id="code">
+                                        <span class="input-group-btn">
+                                            <button disableonupdate="yes" class="btn btn-default" type="button" id="btntables"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="divgridheaderconfiguration">
+                                <div class="row custom">
+                                    <div class="col-md-4">
+                                        @GridDesignerStrings.screencode
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input id="screencode" required type="text" disableonupdate="yes" class="form-control form-code" />
+                                    </div>
+                                </div>
+
+                                <div class="row custom">
+                                    <div class="col-md-4">
+                                        @GridDesignerStrings.title
+                                    </div>
+                                    <div class="col-md-2">
+                                        <select id="titlelangs" class="form-control">
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="col-md-12 input-group" id="titlegroup">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-4">
+                                        @GridDesignerStrings.info
+                                    </div>
+                                    <div class="col-md-2">
+                                        <select id="infolangs" class="form-control">
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="col-md-12 input-group" id="infogroup">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row custom">
+                                    <div class="col-md-4">
+                                        @GridDesignerStrings.keyfield
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="input-group col-md-12">
+                                            <select id="keyfield" required class="form-control"></select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class=" row custom">
+                                    <div class="col-md-4">
+                                        @GridDesignerStrings.orderfield
+                                    </div>
+                                    <div class="col-md-3">
+                                        <select id="orderdirection" class="form-control"></select>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <select id="orderfield" required class="form-control"></select>
+                                    </div>
+                                </div>
+
+                                <div class=" row custom">
+                                    <div class="col-md-4">
+                                        @GridDesignerStrings.primarytextfield
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="input-group col-md-12">
+                                            <select id="primarytextfield" required class="form-control"></select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class=" row custom">
+                                    <div class="col-md-4">
+                                        @GridDesignerStrings.primarycodefield
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="input-group col-md-12">
+                                            <select id="primarycodefield" required class="form-control"></select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row custom">
+                                    <div class="col-md-4">
+                                        @GridDesignerStrings.rightclickfunctions
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <button class="btn btn-success btn-sm" id="add_rcf"><i class="fa fa-plus fa-fw"></i> @GridDesignerStrings.add</button>
+                                                <button class="btn btn-danger btn-sm" id="delete_rcf"><i class="fa fa-minus fa-fw"></i> @GridDesignerStrings.delete</button>
+                                                <button class="btn btn-info btn-sm" id="update_rcf"><i class="fa fa-pencil-square-o fa-fw"></i> @GridDesignerStrings.update</button>
+                                                <button class="btn btn-default btn-sm" id="clear_rcf"><i class="fa fa-times fa-fw"></i> @GridDesignerStrings.clear</button>
+                                            </div>
+                                        </div>
+                                        <div class="row custom">
+                                            <div class="col-md-12">
+                                                <select id="rcf_list" class="form-control"></select>
+                                            </div>
+                                        </div>
+                                        <div class="row custom">
+                                            <div class="col-md-2">
+                                                @GridDesignerStrings.name
+                                            </div>
+                                            <div class="col-md-4">
+                                                <select id="rightclicklangs" class="form-control">
+                                                </select>
+                                            </div>
+                                            <div class="input-group" id="rightclickgroup">
+                                            </div>
+                                        </div>
+                                        <div class="row custom">
+                                            <div class="col-md-2">
+                                                @GridDesignerStrings.data
+                                            </div>
+                                            <div class="col-md-10">
+                                                <select id="rightclickdata" class="form-control"></select>
+                                            </div>
+                                        </div>
+                                        <div class="row custom">
+                                            <div class="col-md-2">
+                                                @GridDesignerStrings.url
+                                            </div>
+                                            <div class="col-md-10">
+                                                <input id="rightclickurl" type="text" class="form-control" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="colconf" class="tab-pane">
+            <div class="divgridcolumnconfiguration">
+                <div class="col-md-6">
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading page-panel-heading">@GridDesignerStrings.columnconf</div>
+                        <div class="panel-body page-panel-body">
+
+                            <table id="colconftable" class="display" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th>@GridDesignerStrings.columnname</th>
+                                        <th>@GridDesignerStrings.fieldtype</th>
+
+                                        <th>@GridDesignerStrings.columnwidth</th>
+                                        <th>@GridDesignerStrings.disabled</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="displayarea">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading page-panel-heading">@GridDesignerStrings.columntitleediting</div>
+                        <div class="panel-body page-panel-body">
+
+                            <table id="titletable" class="display" width="100%">
+                                <thead>
+                                    <tr id="stringtitle">
+                                    </tr>
+                                </thead>
+                                <tbody id="displayareaforcolumntitle">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@Html.IncludeVersionedJs("/Scripts/jquery/jquery.contextMenu.min.js")
+
+@Html.IncludeVersionedJs("/Scripts/custom/ovi.custom.list.js")
+
+<script type="text/javascript" src="https://cdn.datatables.net/v/bs/dt-1.11.5/b-2.2.2/b-colvis-2.2.2/kt-2.6.4/sc-2.0.5/sb-1.3.2/datatables.min.js"></script>
+@Html.IncludeVersionedJs("/Scripts/app/GridDesigner.js")

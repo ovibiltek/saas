@@ -1,0 +1,49 @@
+﻿@using Resources.Customers.Index
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Default.cshtml";
+}
+
+
+@Html.IncludeVersionedCss("/Content/graph.min.css")
+@Html.IncludeVersionedCss("/Content/bootstrap/bootstrap-tagsinput.css")
+
+
+<div style="margin-top: 10px">
+    <div class="page-header">
+        <h4>_Crm Dashboard</h4>
+        <h6></h6>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+          
+            <div class="page-header">
+                <h5>Teklif Sahibi</h5>
+            </div>
+            <div class="col-md-2 input-group">
+                <input type="text"  maxlength="50" class="form-control uppercase" id="relatedperson"  />
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="button" id="btnrelatedperson"><i class="fa fa-search fa-fw"></i></button>
+                    <button class="btn btn-default" type="button" id="btnclearrelatedperson"><i class="fa fa-eraser fa-fw"></i></button>
+                </span>
+               
+            </div>
+        </div>
+    </div>
+    <div id="kpi" class="tab-pane">
+
+    </div>
+
+</div>
+
+
+
+
+
+@Html.IncludeVersionedJs("/Scripts/bootstrap/bootstrap-tagsinput.min.js")
+@Html.IncludeVersionedJs("/Scripts/chart/d3.v4.min.js")
+@Html.IncludeVersionedJs("/Scripts/chart/billboard.min.js")
+@Html.IncludeVersionedJs("/Scripts/app/widgets/DynamicCharts.js")
+@Html.IncludeVersionedJs("/Scripts/app/CrmDashboard.js")
+
+

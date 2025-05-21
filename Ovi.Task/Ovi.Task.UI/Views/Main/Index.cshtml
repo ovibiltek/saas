@@ -1,0 +1,93 @@
+﻿@using System.Threading
+@using Resources.Main.Index
+
+@model  Ovi.Task.UI.Models.MainModel
+@{
+    ViewBag.Title = "Index2";
+    Layout = "~/Views/Shared/Default.cshtml";
+}
+
+<style>
+    .select2-container {
+        padding-right: 5px;
+    }
+
+    .target {
+        display: none;
+    }
+</style>
+@Html.IncludeVersionedCss("/Content/hoverSideBar.css")
+
+<div class="wrapper">
+    <ul class="sidebar" id="sideBar">
+        <li id="inbox" class="menuItem">
+            <i class="fa fa-inbox" aria-hidden="true"></i>
+            <div class="slider">
+                <p>@MainStrings.inbox</p>
+            </div>
+        </li>
+        <li id="kpi" class="menuItem">
+            <i class="fa fa-line-chart" aria-hidden="true"></i>
+            <div class="slider">
+                <p>@MainStrings.kpi</p>
+            </div>
+        </li>
+        <li id="calendar" class="menuItem">
+            <i class="fa fa-calendar" aria-hidden="true"></i>
+            <div class="slider">
+                <p>@MainStrings.calendar</p>
+            </div>
+        </li>
+        @if (string.IsNullOrEmpty(UserManager.Instance.User.Supplier)) {
+            <li id="activityMap" class="menuItem">
+                <i class="fa fa-map" aria-hidden="true"></i>
+                <div class="slider">
+                    <p>@MainStrings.activitymap</p>
+                </div>
+            </li>
+        }
+       
+    </ul>
+</div>
+
+<div style="margin-top: 5px;visibility: hidden" id="wrapper">
+    <div class="row">
+        <div class="col-md-12">
+            @Html.Partial("Partials/Inbox")
+            @Html.Partial("Partials/KPI")
+            @Html.Partial("Partials/Calendar")
+            @if (string.IsNullOrEmpty(UserManager.Instance.User.Supplier))
+            {
+                @Html.Partial("Partials/ActivityMap")
+            }
+        </div>
+    </div>
+</div>
+
+    @*<div style="margin-top: 5px;visibility: hidden" id="wrapper">
+        <div class="row tms-Main-head">
+            <div class="col-md-12">
+                @Html.Partial("Partials/Inbox")
+            </div>
+            <div class="col-md-12">
+                @Html.Partial("Partials/Chart")
+                @Html.Partial("Partials/Agenda")
+            </div>
+        </div>
+    </div>*@
+
+
+
+    @Html.IncludeVersionedJs("/Scripts/chart/d3.v4.min.js")
+    @Html.IncludeVersionedJs("/Scripts/chart/billboard.min.js")
+    @Html.IncludeVersionedJs("/Scripts/other/waypoints.min.js")
+    @Html.IncludeVersionedJs("/Scripts/jquery/jquery.counterup.min.js")
+    @Html.IncludeVersionedJs("/Scripts/other/aui-min.js")
+
+    @if (Thread.CurrentThread.CurrentUICulture.Name == "tr")
+    {
+        @Html.IncludeVersionedJs("/Scripts/other/aui_tr-TR.js")
+    }
+    
+    @Html.IncludeVersionedJs("/Scripts/app/widgets/Charts.js")
+    @Html.IncludeVersionedJs("/Scripts/app/Dashboard.js")

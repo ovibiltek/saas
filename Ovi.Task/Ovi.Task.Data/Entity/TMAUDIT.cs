@@ -1,0 +1,27 @@
+﻿using System;
+
+namespace Ovi.Task.Data.Entity
+{
+    public class TMAUDIT
+    {
+        public virtual long AUD_ID { get; set; }
+
+        public virtual string AUD_SUBJECT { get; set; }
+
+        public virtual string AUD_SOURCE { get; set; }
+
+        public virtual string AUD_ACTION { get; set; }
+
+        public virtual string AUD_REFID { get; set; }
+
+        public virtual string AUD_FROM { get; set; }
+
+        public virtual string AUD_TO { get; set; }
+
+        public virtual DateTime AUD_CREATED { get; set; }
+
+        public virtual string AUD_CREATEDBY { get; set; }
+
+        public virtual int AUD_RECORDVERSION { get; set; }
+    }
+}

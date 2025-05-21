@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="CUE" targetNamespace="http://tempuri.org/CUE.xsd" xmlns:mstns="http://tempuri.org/CUE.xsd" xmlns="http://tempuri.org/CUE.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="CUE" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="CUE" msprop:Generator_UserDSName="CUE">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="LINES" msprop:Generator_TableClassName="LINESDataTable" msprop:Generator_TableVarName="tableLINES" msprop:Generator_TablePropName="LINES" msprop:Generator_RowDeletingName="LINESRowDeleting" msprop:Generator_RowChangingName="LINESRowChanging" msprop:Generator_RowEvHandlerName="LINESRowChangeEventHandler" msprop:Generator_RowDeletedName="LINESRowDeleted" msprop:Generator_UserTableName="LINES" msprop:Generator_RowChangedName="LINESRowChanged" msprop:Generator_RowEvArgName="LINESRowChangeEvent" msprop:Generator_RowClassName="LINESRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="MUSTERI" msprop:Generator_ColumnVarNameInTable="columnMUSTERI" msprop:Generator_ColumnPropNameInRow="MUSTERI" msprop:Generator_ColumnPropNameInTable="MUSTERIColumn" msprop:Generator_UserColumnName="MUSTERI" type="xs:string" minOccurs="0" />
+              <xs:element name="TANIM" msprop:Generator_ColumnVarNameInTable="columnTANIM" msprop:Generator_ColumnPropNameInRow="TANIM" msprop:Generator_ColumnPropNameInTable="TANIMColumn" msprop:Generator_UserColumnName="TANIM" type="xs:string" minOccurs="0" />
+              <xs:element name="GRUP" msprop:Generator_ColumnVarNameInTable="columnGRUP" msprop:Generator_ColumnPropNameInRow="GRUP" msprop:Generator_ColumnPropNameInTable="GRUPColumn" msprop:Generator_UserColumnName="GRUP" type="xs:string" minOccurs="0" />
+              <xs:element name="MUSTERI_OLUSTURMA" msprop:Generator_ColumnVarNameInTable="columnMUSTERI_OLUSTURMA" msprop:Generator_ColumnPropNameInRow="MUSTERI_OLUSTURMA" msprop:Generator_ColumnPropNameInTable="MUSTERI_OLUSTURMAColumn" msprop:Generator_UserColumnName="MUSTERI_OLUSTURMA" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="AKTIF" msprop:Generator_ColumnVarNameInTable="columnAKTIF" msprop:Generator_ColumnPropNameInRow="AKTIF" msprop:Generator_ColumnPropNameInTable="AKTIFColumn" msprop:Generator_UserColumnName="AKTIF" type="xs:string" minOccurs="0" />
+              <xs:element name="TOPLAM_SUBE" msprop:Generator_ColumnVarNameInTable="columnTOPLAM_SUBE" msprop:Generator_ColumnPropNameInRow="TOPLAM_SUBE" msprop:Generator_ColumnPropNameInTable="TOPLAM_SUBEColumn" msprop:Generator_UserColumnName="TOPLAM_SUBE" type="xs:int" minOccurs="0" />
+              <xs:element name="TOPLAM_AKTIF_SUBE" msprop:Generator_ColumnVarNameInTable="columnTOPLAM_AKTIF_SUBE" msprop:Generator_ColumnPropNameInRow="TOPLAM_AKTIF_SUBE" msprop:Generator_ColumnPropNameInTable="TOPLAM_AKTIF_SUBEColumn" msprop:Generator_UserColumnName="TOPLAM_AKTIF_SUBE" type="xs:int" minOccurs="0" />
+              <xs:element name="TOPLAM_BAKIM_IS_EMRI" msprop:Generator_ColumnVarNameInTable="columnTOPLAM_BAKIM_IS_EMRI" msprop:Generator_ColumnPropNameInRow="TOPLAM_BAKIM_IS_EMRI" msprop:Generator_ColumnPropNameInTable="TOPLAM_BAKIM_IS_EMRIColumn" msprop:Generator_UserColumnName="TOPLAM_BAKIM_IS_EMRI" type="xs:int" minOccurs="0" />
+              <xs:element name="TOPLAM_BAKIM_YAPILAN_SUBE" msprop:Generator_ColumnVarNameInTable="columnTOPLAM_BAKIM_YAPILAN_SUBE" msprop:Generator_ColumnPropNameInRow="TOPLAM_BAKIM_YAPILAN_SUBE" msprop:Generator_ColumnPropNameInTable="TOPLAM_BAKIM_YAPILAN_SUBEColumn" msprop:Generator_UserColumnName="TOPLAM_BAKIM_YAPILAN_SUBE" type="xs:int" minOccurs="0" />
+              <xs:element name="EKIPMANI_OLAN_SUBE" msprop:Generator_ColumnVarNameInTable="columnEKIPMANI_OLAN_SUBE" msprop:Generator_ColumnPropNameInRow="EKIPMANI_OLAN_SUBE" msprop:Generator_ColumnPropNameInTable="EKIPMANI_OLAN_SUBEColumn" msprop:Generator_UserColumnName="EKIPMANI_OLAN_SUBE" type="xs:int" minOccurs="0" />
+              <xs:element name="EKIPMANI_OLMAYAN_SUBE" msprop:Generator_ColumnVarNameInTable="columnEKIPMANI_OLMAYAN_SUBE" msprop:Generator_ColumnPropNameInRow="EKIPMANI_OLMAYAN_SUBE" msprop:Generator_ColumnPropNameInTable="EKIPMANI_OLMAYAN_SUBEColumn" msprop:Generator_UserColumnName="EKIPMANI_OLMAYAN_SUBE" type="xs:int" minOccurs="0" />
+              <xs:element name="TOPLAM_EKIPMAN_SAYISI" msprop:Generator_ColumnVarNameInTable="columnTOPLAM_EKIPMAN_SAYISI" msprop:Generator_ColumnPropNameInRow="TOPLAM_EKIPMAN_SAYISI" msprop:Generator_ColumnPropNameInTable="TOPLAM_EKIPMAN_SAYISIColumn" msprop:Generator_UserColumnName="TOPLAM_EKIPMAN_SAYISI" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

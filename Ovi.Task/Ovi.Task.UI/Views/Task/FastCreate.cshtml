@@ -1,0 +1,305 @@
+﻿@using Resources.Shared.Index
+@using Resources.Task.Index
+@{
+    ViewBag.Title = "FastCreate";
+    Layout = "~/Views/Shared/Default.cshtml";
+}
+
+
+@Html.IncludeVersionedCss("/Content/bootstrap/bootstrap-tagsinput.css")
+@Html.IncludeVersionedCss("/Content/jquery/jquery.fileupload.css")
+
+@Html.IncludeVersionedCss("/Content/bootstrap/bootstrap-slider.css")
+@Html.IncludeVersionedCss("/Content/bootstrap/bootstrap-editable.css")
+@Html.IncludeVersionedCss("/Content/bootstrap/bootstrap-switch.min.css")
+@Html.IncludeVersionedCss("/Content/jquery/jquery.contextMenu.min.css")
+
+@Html.IncludeVersionedCss("/Content/fullcalendar.min.css")
+@Html.IncludeVersionedCss("/Content/jquery/jquery.contextMenu.min.css")
+
+@{
+    // Web.config'den değer alınır
+    var showTaskType = ConfigHelper.Get("ShowTaskType");
+    var hideCustomer = ConfigHelper.Get("HideCustomer");
+
+    var isVisible = showTaskType == "+"; // Eğer "+" ise görünür olacak, değilse gizlenecek
+    var isCustomerVisible = !(hideCustomer == "+"); // Eğer "+" ise görünür olacak, değilse gizlenecek
+
+}
+
+<div style="margin-top: 10px">
+    <div class="page-header">
+        <h4>Hızlı Talep Oluştur</h4>
+        <h6></h6>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tms-page-toolbar inline-toolbar left" data-block="#record">
+                <div class="row">
+                    <div class="col-lg-6 col-md-8">
+                        <div class="pos-left">
+                            <div class="btn-group">
+                                <button class="btn btn-default btn-sm" selection-required="false" title="Ctrl+R" id="btnNew"><i class="fa fa fa-plus fa-fw"></i> @TaskStrings.addnew</button>
+                                <button class="btn btn-default btn-sm" selection-required="false" title="Ctrl+S" id="btnSave"><i class="fa fa-floppy-o fa-fw"></i> @TaskStrings.save</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12" id="taskcontent">
+            <ul class="nav nav-tabs" id="navtasks">
+                <li class="active">
+                    <a data-toggle="tab" href="#record">@TaskStrings.details</a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div id="record" class="tab-pane active">
+                    <div class="row record-content">
+                        <div class="col-md-8" id="divHeader">
+                            <div class="panel panel-default">
+                                <div class="panel-heading task-panel-heading">@TaskStrings.record</div>
+                                <div class="panel-body task-panel-body">
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="row custom">
+                                                <div class="col-md-4">
+                                                    @TaskStrings.taskno
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <input disabled="disabled" alwaysdisabled="yes" id="taskno" type="text" class="form-control" />
+                                                </div>
+                                            </div>
+                                            <div class="row custom">
+                                                <div class="col-md-4">
+                                                    @TaskStrings.organization
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <div class="input-group">
+                                                        <input type="text" loadstatusesonchange="yes" disabled maxlength="50" required class="form-control" id="org">
+                                                        <span class="input-group-btn">
+                                                            <button class="btn btn-default" type="button" disabled id="btnorg"><i class="fa fa-search fa-fw"></i></button>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row custom">
+                                                <div class="col-md-4">
+                                                    @TaskStrings.priority
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <select class="form-control" disableoncomplete required id="priority" data-selected="">
+                                                        <option class="default" value="">@TaskStrings.pleaseselect</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="row custom" id="divTaskType" style="@(isVisible ? "" : "display:none;")">
+                                                <div class="col-md-4">
+                                                    @TaskStrings.tasktype
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <div class="input-group">
+                                                        <input type="text" maxlength="50" required class="form-control" id="tasktype">
+                                                        <span class="input-group-btn">
+                                                            <button class="btn btn-default" type="button" id="btntasktype"><i class="fa fa-search fa-fw"></i></button>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row custom">
+                                                <div class="col-md-4">
+                                                    @TaskStrings.shortdesc
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <input type="text" maxlength="80" disableoncomplete class="form-control" required id="shortdesc" />
+                                                </div>
+                                            </div>
+                                            <div class="row custom">
+                                                <!--Not-->
+                                                <div class="col-md-4">
+                                                    @TaskStrings.note
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <textarea class="form-control" required maxlength="1000" contenteditable="" rows="3" id="tasknote" autocomplete="off"></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="row custom hidden">
+                                                <div class="col-md-4">
+                                                    @TaskStrings.reference
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <input type="text" maxlength="50" disableoncomplete class="form-control" id="reference" />
+                                                </div>
+                                            </div>
+                                            <div class="row custom" id="divCustomer" style="@(isCustomerVisible ?  "" : "display:none;" )">
+                                                <div class="row custom">
+                                                    <div class="col-md-4">
+                                                        @TaskStrings.customer
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                        <div class="input-group">
+                                                            <input type="text" disableoncomplete checksimilaronchange="true" maxlength="50" required class="form-control" id="customer">
+                                                            <span class="input-group-btn">
+                                                                <button class="btn btn-default" disableoncomplete type="button" id="btncustomer"><i class="fa fa-search fa-fw"></i></button>
+                                                            </span>
+                                                        </div>
+                                                        <input type="text" maxlength="250" disabled="disabled" class="form-control" id="customerdesc">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row custom">
+                                                <div class="col-md-4">
+                                                    @TaskStrings.branch
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <div class="input-group">
+                                                        <input type="text" disableoncomplete checksimilaronchange="true" maxlength="50" required class="form-control" id="branch">
+                                                        <span class="input-group-btn">
+                                                            <button class="btn btn-default" disableoncomplete type="button" id="btnbranch"><i class="fa fa-search fa-fw"></i></button>
+                                                        </span>
+                                                    </div>
+                                                    <input type="text" maxlength="250" disabled="disabled" class="form-control" id="branchdesc">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="row custom">
+                                                <div class="col-md-4">
+                                                    @TaskStrings.daterequested
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <input type="text" id="daterequested" disableoncomplete required ctrltype="datetimepicker" class="form-control" />
+                                                </div>
+                                            </div>
+                                            <div class="row custom">
+                                                <div class="col-md-4">
+                                                    @TaskStrings.deadline
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <input type="text" id="deadline" disableoncomplete maxlength="10" ctrltype="datepicker" class="form-control" />
+                                                </div>
+                                            </div>
+                                            <div class="row custom">
+                                                <div class="col-md-4">
+                                                    @TaskStrings.requestedby
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <input type="text" disabled="disabled" maxlength="50" class="form-control" id="requestedby">
+                                                </div>
+                                            </div>
+                                            <div class="row custom">
+                                                <div class="col-md-4">
+                                                    @TaskStrings.createdby
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <input type="text" disabled="disabled" maxlength="50" class="form-control" id="createdby">
+                                                </div>
+                                            </div>
+                                            <div class="row custom">
+                                                <div class="col-md-4">
+                                                    @TaskStrings.datecreated
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <input type="text" id="datecreated" disabled="disabled" class="form-control" />
+                                                </div>
+                                            </div>
+                                            <div class="row custom">
+                                                <div class="col-md-12">
+                                                    <div id="divCustomFields">
+                                                        <div class="panel panel-default" style="height: 600px;">
+                                                            <div class="panel-heading task-panel-heading">
+                                                                <div class="row">
+                                                                    <div class="col-md-12">
+                                                                        @TaskStrings.customfieldsandfunctions
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="panel-body">
+                                                                <div class="row">
+                                                                    <div class="col-md-12">
+                                                                        <div id="cfcontainer"></div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4" id="divCmntsAttachments">
+                            <div class="row">
+                                <div class="col-md-12 no-padding">
+                                    <div class="well hidden taskwarning" id="warnings">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-default" style="height: 600px;">
+                                <div class="panel-heading task-panel-heading">@TaskStrings.docs</div>
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="progress">
+                                                <div class="progress-bar" id="docuprogress" role="progressbar" style="width: 0%; min-width: 2em;">0%</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row custom">
+                                        <div class="col-md-12">
+                                            <div id="fupload">
+                                                <span class="btn btn-default fileinput-button" id="btnBrowse">
+                                                    <i class="fa fa-search"></i>
+                                                    <span>@TaskStrings.browse</span>
+                                                    <input type="file" name="files[]" id="fu" multiple data-url="/UploadFile.ashx">
+                                                </span>
+                                                <div class="row custom">
+                                                    <div class="col-md-12">
+                                                        <div id="filename"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div id="docs" class="light-size"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="modaltasktype" role="dialog" aria-labelledby="modalsharedlbl" aria-hidden="true">
+    <div class="modal-dialog modal-wide">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="false">&times;</span></button>
+                <h4 class="modal-title">@TaskStrings.tasktype</h4>
+            </div>
+            <div class="modal-body">
+                <div id="taskTypes" class="row">
+
+                </div>
+            </div>
+            <div class="modal-footer text-right">
+                <button class="btn btn-primary btn-xs" id="btnTaskTypeOK"><i class="fa fa-fw fa-check"></i> @TaskStrings.ok</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@Html.IncludeVersionedJs("/Scripts/custom/ovi.custom.entitylookup.js")
+@Html.IncludeVersionedJs("/Scripts/other/numericInput.min.js")
+@Html.IncludeVersionedJs("/Scripts/jquery/jquery.fileupload.js")
+@Html.IncludeVersionedJs("/Scripts/jquery/jquery.iframe-transport.js")
+@Html.IncludeVersionedJs("/Scripts/custom/ovi.custom.customfields.js")
+@Html.IncludeVersionedJs("/Scripts/custom/ovi.custom.documents.js")
+@Html.IncludeVersionedJs("/Scripts/app/FastTask.js")

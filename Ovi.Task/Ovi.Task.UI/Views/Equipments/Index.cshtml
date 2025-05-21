@@ -1,0 +1,700 @@
+﻿@using Resources.Equipment.Index
+@using Resources.Shared.Index
+@{
+    Layout = "~/Views/Shared/Default.cshtml";
+}
+
+@Html.IncludeVersionedCss("/Content/jquery/jquery.fileupload.css")
+
+@Html.IncludeVersionedCss("/Content/jquery/jquery.contextMenu.min.css")
+
+@Html.IncludeVersionedCss("/Content/other/jqtree.css")
+
+<div style="margin-top: 10px">
+    <div class="page-header">
+        <h4>
+            @EquipmentStrings.equipments
+        </h4>
+        <h6></h6>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tms-page-toolbar inline-toolbar left" data-block="#record">
+                <div class="btn-group">
+                    <button class="btn btn-default btn-sm" title="Ctrl+R" selection-required="false" id="btnNew"><i class="fa fa fa-plus fa-fw"></i> @EquipmentStrings.addnew</button>
+                    <button class="btn btn-default btn-sm" disabled="disabled" selection-required="false" title="Ctrl+S" id="btnSave"><i class="fa fa-floppy-o fa-fw"></i> @EquipmentStrings.save</button>
+                    <button class="btn btn-default btn-sm" disabled="disabled" selection-required="true" title="Ctrl+U" id="btnUndo"><i class="fa fa-undo fa-fw"></i> @EquipmentStrings.undo</button>
+                    <button class="btn btn-default btn-sm" disabled="disabled" selection-required="true" title="Ctrl+D" id="btnDelete"><i class="fa fa-trash-o fa-fw"></i> @EquipmentStrings.delete</button>
+                    <button class="btn btn-default btn-sm" disabled="disabled" selection-required="true" title="Ctrl+H" id="btnHistory"><i class="fa fa-bolt fa-fw"></i> @EquipmentStrings.history</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#list">@EquipmentStrings.list</a></li>
+        <li><a data-toggle="tab" href="#record">@EquipmentStrings.record</a></li>
+        <li><a enable-on-selection href="#task">@EquipmentStrings.tasks</a></li>
+        <li><a enable-on-selection href="#warranty">@EquipmentStrings.warranty</a></li>
+
+    </ul>
+    <div class="tab-content">
+        <div id="list" class="tab-pane active">
+            <div id="grdEquipments"></div>
+        </div>
+        <div id="record" class="tab-pane">
+            <div class="row record-content">
+                <div class="col-md-4" id="divHeader">
+                    <div class="panel panel-default">
+                        <div class="panel-heading task-panel-heading">@EquipmentStrings.record</div>
+                        <div class="panel-body task-panel-body">
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @EquipmentStrings.id
+                                </div>
+                                <div class="col-md-8">
+                                    <input id="id" disabled="disabled" type="text" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+
+                                <div class="col-md-4">
+                                    @EquipmentStrings.code
+                                </div>
+                                <div class="col-md-8">
+                                    <input id="code" required type="text" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @EquipmentStrings.organization
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <input type="text" maxlength="50" required class="form-control" id="org">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button" id="btnorg"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @EquipmentStrings.department
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <input type="text" disableonupdate="yes" maxlength="50" required class="form-control" id="department">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" disableonupdate="yes" type="button" id="btndepartment"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @EquipmentStrings.desc
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" maxlength="50" class="form-control" required id="desc" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @EquipmentStrings.type
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <input type="text" maxlength="50" required data-entity="EQUIPMENT" class="form-control" id="type">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button" id="btntype"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @EquipmentStrings.typelevel
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" id="eqplevel">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button" id="btneqplevel"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @EquipmentStrings.brand
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <input type="text" required maxlength="50" class="form-control" id="brand">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button" id="btnbrand"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @EquipmentStrings.model
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" maxlength="50" required class="form-control" id="model" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @EquipmentStrings.serialno
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" maxlength="50" required class="form-control" id="serialno" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @EquipmentStrings.zone
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <input type="text" maxlength="50" class="form-control" id="zone">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button" id="btnzone"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @EquipmentStrings.parentequipment
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <input type="text" maxlength="50" class="form-control" id="parentequipment">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button" id="btnparentequipment"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @EquipmentStrings.customer
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <input type="text" disableonupdate="yes" required maxlength="50" class="form-control" id="customer">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" disableonupdate="yes" type="button" id="btncustomer"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @EquipmentStrings.branch
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <input type="text" required maxlength="50" class="form-control" id="branch">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button" id="btnbranch"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @EquipmentStrings.location
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <input type="text" required maxlength="50" class="form-control" id="location">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button" id="btnlocation"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @EquipmentStrings.defmaintenancetrade
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <input type="text" maxlength="50" class="form-control" id="defmaintenancetrade">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button" id="btndefmaintenancetrade"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @EquipmentStrings.rating
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <input type="text" maxlength="50" class="form-control" id="rating">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button" id="btnrating"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @EquipmentStrings.guaranteestatus
+                                </div>
+                                <div class="col-md-8">
+                                    <select class="form-control" required id="guaranteestatus">
+                                        <option value="">@EquipmentStrings.pleaseselect</option>
+                                        <option value="HAVE">@EquipmentStrings.have</option>
+                                        <option value="NOTHAVE">@EquipmentStrings.nothave</option>
+                                        <option value="UNKNOWN">@EquipmentStrings.unknown</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @EquipmentStrings.manufacturingyear
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" id="manufacturingyear" ctrltype="yearpicker" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @EquipmentStrings.insdate
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" id="insdate" ctrltype="datepicker" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @EquipmentStrings.price
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" id="price" valtype="PRICE" ctrltype="numeric" allowfloat="true" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @EquipmentStrings.importancelevel
+                                </div>
+                                <div class="col-md-8">
+                                    <select class="form-control" id="importancelevel">
+                                        <option value="">@EquipmentStrings.pleaseselect</option>
+                                        <option value="VERYIMPORTANT">@EquipmentStrings.veryimportant</option>
+                                        <option value="IMPORTANT">@EquipmentStrings.important</option>
+                                        <option value="NORMAL">@EquipmentStrings.normal</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @EquipmentStrings.periodicmaintenancerequired
+                                </div>
+                                <div class="col-md-8">
+                                    <select class="form-control" required id="periodicmaintenancerequired">
+                                        <option value="">@EquipmentStrings.pleaseselect</option>
+                                        <option value="YES">@EquipmentStrings.yes</option>
+                                        <option value="NO">@EquipmentStrings.no</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @EquipmentStrings.referenceno
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" id="referenceno" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @EquipmentStrings.equipmenthealth
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <input type="text" maxlength="50" class="form-control uppercase" id="equipmenthealth">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button" id="btnequipmenthealth"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @EquipmentStrings.active
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="checkbox checkbox-primary">
+                                        <input class="styled" type="checkbox" checked="checked" id="active" />
+                                        <label></label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4" id="divCustomFields">
+                    <div class="panel panel-default" style="height: 842px;">
+                        <div class="panel-heading task-panel-heading">@EquipmentStrings.customfields</div>
+                        <div class="panel-body">
+                            <div id="cfcontainer"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4" id="divCmntsAttachments">
+                    <div class="panel panel-default" style="height: 450px;">
+                        <div class="panel-heading task-panel-heading">@EquipmentStrings.comments</div>
+                        <div class="panel-body">
+                            <textarea class="form-control" contenteditable rows="3" id="comment"></textarea>
+                            @if (string.IsNullOrEmpty(UserManager.Instance.User.Customer))
+                            {
+                                <div class="row custom">
+                                    <div class="col-md-12">
+                                        <div class="checkbox checkbox-inline checkbox-primary">
+                                            <input type="checkbox" class="styled" id="visibletocustomer" />
+                                            <label>@SharedStrings.visibletocustomer</label>
+                                        </div>
+                                        @if (string.IsNullOrEmpty(UserManager.Instance.User.Supplier))
+                                        {
+                                            <div class="checkbox  checkbox-inline checkbox-primary">
+                                                <input type="checkbox" class="styled" id="visibletosupplier" />
+                                                <label>@SharedStrings.visibletosupplier</label>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            }
+                            <div class="inline-toolbar">
+                                <button class="btn btn-primary btn-xs" selection-required="true" id="addComment" @(Model == null ? "disabled" : string.Empty)><i class="fa fa-plus-circle"></i> @EquipmentStrings.add</button>
+                            </div>
+                            <div id="comments" class="sm">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default" style="height: 372px;">
+                        <div class="panel-heading task-panel-heading">@EquipmentStrings.docs</div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="progress">
+                                        <div class="progress-bar" id="docuprogress" role="progressbar" style="width: 0%;min-width: 2em;">0%</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-12">
+                                    <div id="fupload">
+                                        <span class="btn btn-default fileinput-button" id="btnBrowse">
+                                            <i class="fa fa-search"></i>
+                                            <span>@EquipmentStrings.browse</span>
+                                            <input type="file" name="files[]" id="fu" multiple data-url="/UploadFile.ashx">
+                                        </span>
+                                        <button class="btn btn-default" id="btnupload" disabled="disabled"><i class="fa fa-cloud-upload"></i> @EquipmentStrings.upload</button>
+                                        <div class="row custom">
+                                            <div class="col-md-12">
+                                                <div id="filename"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="docs" class="light-size"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="task" class="tab-pane">
+            <div id="grdEquipmentsList"></div>
+        </div>
+        <div id="warranty" class="tab-pane">
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="grdEquipmentWarranty"></div>
+                </div>
+            </div>
+            <br />
+            <div class="panel panel-default">
+                <div class="row">
+                    <div class="col-md-12" style="padding-right:0">
+                        <div class="inline-toolbar left" style="border:none;" data-block="#warranty">
+                            <div class="btn-group">
+                                <button class="btn btn-default btn-sm" title="Ctrl+R" selection-required="false" id="btnAddWarranty"><i class="fa fa fa-plus fa-fw"></i>@EquipmentStrings.addnew</button>
+                                <button class="btn btn-default btn-sm" title="Ctrl+S" selection-required="false" id="btnSaveWarranty"><i class="fa fa-floppy-o fa-fw"></i>@EquipmentStrings.save</button>
+                                <button class="btn btn-default btn-sm" title="Ctrl+D" selection-required="true" id="btnDeleteWarranty" disabled="disabled"><i class="fa fa-trash-o fa-fw"></i>@EquipmentStrings.delete</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-body page-panel-body">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @EquipmentStrings.recordid
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" maxlength="50" disabled="disabled" class="form-control" id="warrantyid">
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @EquipmentStrings.warrantytype
+                                </div>
+                                <div class="col-md-8">
+                                    <select class="form-control" id="warrantytype" required>
+                                        <option value="">@EquipmentStrings.pleaseselect</option>
+                                        <option value="MANUFACTURER">@EquipmentStrings.manufacturer</option>
+                                        <option value="VENDOR">@EquipmentStrings.vendor</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @EquipmentStrings.warrantyduration
+                                </div>
+                                <div class="col-md-8">
+                                    <select class="form-control" id="warrantyduration" required>
+                                        <option value="">@EquipmentStrings.pleaseselect</option>
+                                        <option value="CALENDARDAY">@EquipmentStrings.calendarday</option>
+                                        <option value="USAGE">@EquipmentStrings.usage</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div id="divcalinputs" class="hidden">
+                                <div class="row custom">
+                                    <div class="col-md-4">
+                                        @EquipmentStrings.warrantystartdate
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input type="text" id="warrantystartdate" ctrltype="datepicker" class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-4">
+                                        @EquipmentStrings.warrantyenddate
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input type="text" id="warrantyenddate" ctrltype="datepicker" class="form-control" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="divusageinputs" class="hidden">
+
+                                <div class="row custom">
+                                    <div class="col-md-4">
+                                        @EquipmentStrings.warrantystartusage
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input type="text" id="warrantystartusage" ctrltype="numeric" allowfloat="false" class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-4">
+                                        @EquipmentStrings.warrantyendusage
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input type="text" id="warrantyendusage" ctrltype="numeric" allowfloat="false" class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-4">
+                                        @EquipmentStrings.uom
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="input-group">
+                                            <input type="text" maxlength="50" class="form-control" id="uom">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default" type="button" id="btnuom"><i class="fa fa-search fa-fw"></i></button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @EquipmentStrings.endwarning
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" id="endwarning" required ctrltype="numeric" allowfloat="false" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @EquipmentStrings.laborlimit
+                                </div>
+                                <div class="col-md-1">
+                                    <div class="checkbox checkbox-primary">
+                                        <input class="styled" type="checkbox" id="chklabor" />
+                                        <label></label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="text" id="laborlimit" disabled="disabled" valtype="PRICE" ctrltype="numeric" allowfloat="true" class="form-control" />
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="input-group">
+                                        <input type="text" maxlength="50" disabled="disabled" class="form-control" id="laborcurrency">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" disabled="disabled" type="button" id="btnlaborcurrency"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @EquipmentStrings.partlimit
+                                </div>
+                                <div class="col-md-1">
+                                    <div class="checkbox checkbox-primary">
+                                        <input class="styled" type="checkbox" id="chkpart" />
+                                        <label></label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="text" id="partlimit" valtype="PRICE" disabled="disabled" ctrltype="numeric" allowfloat="true" class="form-control" />
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="input-group">
+                                        <input type="text" maxlength="50" class="form-control" disabled="disabled" id="partcurrency">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button" disabled="disabled" id="btnpartcurrency"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="modalaudit" role="dialog" aria-labelledby="modalsharedlbl" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="false">&times;</span></button>
+                <h4 class="modal-title" id="modaltitle"></h4>
+            </div>
+            <div class="modal-body"></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-xs" id="modalsave">@EquipmentStrings.save</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="modaltypelevels" role="dialog" aria-labelledby="modalsharedlbl" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="false">&times;</span></button>
+                <h4 class="modal-title" id="modaltitle">@EquipmentStrings.typelevel  </h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div id="scroll-container">
+                            <div id="treelevel"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="modalcomments">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="false">&times;</span></button>
+                <h4 class="modal-title">@EquipmentStrings.comments</h4>
+            </div>
+            <div class="modal-body">
+                <textarea class="form-control sm" rows="3" id="commentmodal"></textarea>
+                @if (string.IsNullOrEmpty(UserManager.Instance.User.Customer) && string.IsNullOrEmpty(UserManager.Instance.User.Supplier))
+                {
+                    <div class="row custom">
+                        <div class="col-md-12">
+                            <div class="checkbox checkbox-inline checkbox-primary">
+                                <input type="checkbox" class="styled" id="visibletocustomermodal" />
+                                <label>@SharedStrings.visibletocustomer</label>
+                            </div>
+                            <div class="checkbox checkbox-inline checkbox-primary">
+                                <input type="checkbox" class="styled" id="visibletosuppliermodal" />
+                                <label>@SharedStrings.visibletosupplier</label>
+                            </div>
+                        </div>
+                    </div>
+                }
+                <div class="inline-toolbar">
+                    <button class="btn btn-primary btn-xs" id="addCommentmodal"><i class="fa fa-plus-circle"></i> @EquipmentStrings.add</button>
+                </div>
+                <div id="commentsmodal"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-xs" data-dismiss="modal" aria-label="Close">@EquipmentStrings.ok</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="modaldocuments">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="false">&times;</span></button>
+                <h4 class="modal-title">@EquipmentStrings.documents</h4>
+            </div>
+            <div class="modal-body" style="height: 400px; overflow-y: auto;">
+                <div id="fuploadModal">
+                    <span class="btn btn-default fileinput-button" id="btnBrowse">
+                        <i class="fa fa-search"></i>
+                        <span>@EquipmentStrings.browse</span>
+                        <input type="file" name="files[]" id="fumodal" multiple data-url="/UploadFile.ashx">
+                    </span>
+                    <button class="btn btn-default" id="btnuploadModal" disabled="disabled"><i class="fa fa-cloud-upload"></i> @EquipmentStrings.upload</button>
+                    <div class="row custom">
+                        <div class="col-md-12">
+                            <div id="filenameModal"></div>
+                        </div>
+                    </div>
+                </div>
+                <div id="docsmodal" class="tasklistdocs"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-xs" data-dismiss="modal" aria-label="Close">@EquipmentStrings.ok</button>
+            </div>
+        </div>
+    </div>
+</div>
+@Html.IncludeVersionedJs("/Scripts/jquery/jquery.fileupload.js")
+@Html.IncludeVersionedJs("/Scripts/jquery/jquery.iframe-transport.js")
+
+@Html.IncludeVersionedJs("/Scripts/other/numericInput.min.js")
+@Html.IncludeVersionedJs("/Scripts/other/tree.jquery.js")
+@Html.IncludeVersionedJs("/Scripts/other/typeahead.bundle.js")
+@Html.IncludeVersionedJs("/Scripts/jquery/jquery.contextMenu.min.js")
+
+@Html.IncludeVersionedJs("/Scripts/custom/ovi.custom.list.js")
+@Html.IncludeVersionedJs("/Scripts/custom/ovi.custom.documents.js")
+@Html.IncludeVersionedJs("/Scripts/custom/ovi.custom.comments.js")
+@Html.IncludeVersionedJs("/Scripts/custom/ovi.custom.entitylookup.js")
+@Html.IncludeVersionedJs("/Scripts/custom/ovi.custom.customfields.js")
+@Html.IncludeVersionedJs("/Scripts/app/Equipments.js")

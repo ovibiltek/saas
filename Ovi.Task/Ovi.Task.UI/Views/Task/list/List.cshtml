@@ -1,0 +1,87 @@
+﻿@using Resources.Task.Index
+@using Resources.TaskList.Index
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Default.cshtml";
+}
+<div style="margin-top: 10px">
+    <div class="page-header">
+        <h4>@TaskStrings.performancelist</h4>
+        <h6></h6>
+    </div>
+    <div id="grdTaskPerformance"></div>
+    <div class="sidebars">
+        <div class="sidebar right" style="right: -400px;">
+            <div class="row">
+                <div class="col-md-12" style="text-align: center; margin-top: 10px;">
+                    <button id="filter" class="btn btn-primary btn-xs"><i class="fa fa-filter"></i> @TaskListStrings.filter</button>
+                    <button id="clearfilter" class="btn btn-info btn-xs"><i class="fa fa-ban"></i> @TaskListStrings.reset</button>
+                    <button id="closesiderbar" class="btn btn-danger btn-xs"><i class="fa fa-times"></i> @TaskListStrings.close</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="page-header">
+                        <h5>@TaskStrings.status</h5>
+                    </div>
+                </div>
+                <div class="col-md-12 filter-box" id="statuses">
+                </div>
+            </div>
+            <div class="row custom">
+                <div class="col-md-12">
+                    <div class="page-header">
+                        <h5>@TaskStrings.daterequested</h5>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <input type="text" ctrltype="datepicker" class="i-filter form-control" id="date_start">
+                </div>
+                <div class="col-md-6">
+                    <input type="text" ctrltype="datepicker" class="i-filter form-control" id="date_end">
+                </div>
+            </div>
+            <div class="row custom">
+                <div class="col-md-12">
+                    <div class="page-header">
+                        <h5>@TaskStrings.datecreated</h5>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <input type="text" ctrltype="datepicker" class="i-filter form-control" id="date_created_start">
+                </div>
+                <div class="col-md-6">
+                    <input type="text" ctrltype="datepicker" class="i-filter form-control" id="date_created_end">
+                </div>
+            </div>
+            <div class="row custom">
+                <div class="col-md-12">
+                    <div class="page-header">
+                        <h5>@TaskStrings.datecompleted</h5>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <input type="text" ctrltype="datepicker" class="i-filter form-control" id="date_completed_start">
+                </div>
+                <div class="col-md-6">
+                    <input type="text" ctrltype="datepicker" class="i-filter form-control" id="date_completed_end">
+                </div>
+            </div>
+            <div class="row custom">
+                <div class="col-md-12">
+                    <div class="page-header">
+                        <h5>@TaskStrings.dateclosed</h5>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <input type="text" ctrltype="datepicker" class="i-filter form-control" id="date_closed_start">
+                </div>
+                <div class="col-md-6">
+                    <input type="text" ctrltype="datepicker" class="i-filter form-control" id="date_closed_end">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@Html.IncludeVersionedJs("/Scripts/jquery/jquery.sidebar.min.js")
+@Html.IncludeVersionedJs("/Scripts/app/TaskPerformanceList.js")

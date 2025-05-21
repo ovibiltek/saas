@@ -1,0 +1,180 @@
+﻿@using Resources.KPI.Index
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Default.cshtml";
+}
+<link href="~/Content/fontawesome-iconpicker.min.css" rel="stylesheet" />
+<div style="margin-top: 10px">
+    <div class="page-header">
+        <h4>@KPIStrings.kpi</h4>
+        <h6></h6>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tms-page-toolbar inline-toolbar left" data-block="#record">
+                <div class="btn-group">
+                    <button class="btn btn-default btn-sm" title="Ctrl+R" selection-required="false" id="btnNew"><i class="fa fa fa-plus fa-fw"></i> @KPIStrings.addnew</button>
+                    <button class="btn btn-default btn-sm" title="Ctrl+S" selection-required="false" id="btnSave"><i class="fa fa-floppy-o fa-fw"></i> @KPIStrings.save</button>
+                    <button class="btn btn-default btn-sm" title="Ctrl+U" selection-required="true" id="btnUndo"><i class="fa fa-undo fa-fw"></i> @KPIStrings.undo</button>
+                    <button class="btn btn-default btn-sm" title="Ctrl+D" selection-required="true" id="btnDelete"><i class="fa fa-trash-o fa-fw"></i> @KPIStrings.delete</button>
+                    <button class="btn btn-default btn-sm" title="Ctrl+H" selection-required="true" id="btnHistory" disabled="disabled"><i class="fa fa-bolt fa-fw"></i> @KPIStrings.history</button>
+                    <button class="btn btn-default btn-sm" title="Ctrl+Q" selection-required="true" id="btnTranslations" disabled="disabled"><i class="fa fa-globe"></i> @KPIStrings.translations</button>
+                    <button class="btn btn-default btn-sm" id="btnTestSql" selection-required="true" disabled="disabled"><i class="fa fa-check-square"></i> @KPIStrings.validatesql</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <div class="scrollbar-macosx">
+                <div class="list-group"></div>
+            </div>
+        </div>
+        <div class="col-md-9" id="record">
+            <div class="panel panel-default">
+                <div class="panel-heading page-panel-heading">@KPIStrings.record</div>
+                <div class="panel-body page-panel-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="row custom">
+                                <div class="col-md-3">
+                                    @KPIStrings.code
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" maxlength="50" id="code" required disableonupdate="yes" class="form-control form-code" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-3">
+                                    @KPIStrings.description
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" maxlength="250" id="desc" required class="form-control" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-3">
+                                    @KPIStrings.sql
+                                </div>
+                                <div class="col-md-8">
+                                    <textarea id="sql" style="width: 100%;" rows="10" class="form-control" required></textarea>
+                                </div>
+                            </div>
+
+                            <div class="row custom">
+                                <div class="col-md-3">
+                                    @KPIStrings.kpitype
+                                </div>
+                                <div class="col-md-8">
+                                    <select id="kpitype" required class="form-control">
+                                        <option value="PIE">@KPIStrings.piechart</option>
+                                        <option value="DONUT">@KPIStrings.donut</option>
+                                        <option value="LINE">@KPIStrings.line</option>
+                                        <option value="GAUGE">@KPIStrings.gauge</option>
+                                        <option value="BAR">@KPIStrings.bar</option>
+
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-3">
+                                    @KPIStrings.order
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" ctrltype="numeric" id="order" class="form-control" />
+                                </div>
+                            </div>
+                            <div id="gaugeoptions" class="hidden">
+                                <div class="row custom">
+                                    <div class="col-md-3">
+                                        @KPIStrings.minvalue
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input type="text" ctrltype="numeric" id="minvalue" class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-3">
+                                        @KPIStrings.maxvalue
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input type="text" ctrltype="numeric" id="maxvalue" class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-3">
+                                        @KPIStrings.threshold
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input type="text" id="threshold" class="form-control" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-3">
+                                    @KPIStrings.group
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <input type="text" maxlength="50" required="" class="form-control" id="group">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button" id="btngroup"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-3">
+                                    @KPIStrings.size
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" ctrltype="numeric" id="size" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-3">
+                                    @KPIStrings.userinfo
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" maxlength="80"  id="userinfo" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-3">
+                                    @KPIStrings.active
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="checkbox checkbox-primary">
+                                        <input class="styled" type="checkbox" checked="checked" id="active" />
+                                        <label></label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-3">
+                                    @KPIStrings.isvalidated
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="checkbox checkbox-primary">
+                                        <input class="styled" type="checkbox" disabled="disabled" id="isvalidated" />
+                                        <label></label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <h4><i class="fa fa-info"></i>  @KPIStrings.informationtext</h4>
+                            <hr />
+                            <div id="infobox"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@Html.IncludeVersionedJs("/Scripts/other/fontawesome-iconpicker.min.js")
+@Html.IncludeVersionedJs("/Scripts/other/numericInput.min.js")
+@Html.IncludeVersionedJs("/Scripts/custom/ovi.custom.list.js")
+@Html.IncludeVersionedJs("/Scripts/app/KPI.js")

@@ -1,0 +1,29 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>TMS Mobile</title>
+</head>
+<body>
+    <div>
+        TMS Mobile is not available!
+    </div>
+</body>
+</html>
+
+<div class="page-header" style="margin-top: 70px;">
+    <h4>Ops!Something went wrong.</h4>
+    <h6></h6>
+</div>
+<div class="jumbotron">
+    <div class="container">
+        <p style="text-align: center;"><i class="fa fa-fire-extinguisher fa-4x"></i></p>
+        <h2 class="text-danger">@Model.Exception.Message</h2>
+        <h3 class="text-danger"></h3>
+    </div>
+</div>

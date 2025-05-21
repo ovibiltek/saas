@@ -1,0 +1,15 @@
+﻿@using Resources.QuotationLineDetails.Index
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Default.cshtml";
+}
+<div style="margin-top: 10px">
+    <div class="page-header">
+        <h4>@QuotationLineDetailsStrings.title</h4>
+        <h6></h6>
+    </div>
+    <div id="grdQuotationLineDetails"></div>
+</div>
+
+@Html.IncludeVersionedJs("/Scripts/jquery/jquery.sidebar.min.js")
+@Html.IncludeVersionedJs("/Scripts/app/QuotationLineDetails.js")

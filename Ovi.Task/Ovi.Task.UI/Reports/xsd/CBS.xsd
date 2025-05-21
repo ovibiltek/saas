@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="CBS" targetNamespace="http://tempuri.org/CBS.xsd" xmlns:mstns="http://tempuri.org/CBS.xsd" xmlns="http://tempuri.org/CBS.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="CBS" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="CBS" msprop:Generator_UserDSName="CBS">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="REPORT" msprop:Generator_TableClassName="REPORTDataTable" msprop:Generator_TableVarName="tableREPORT" msprop:Generator_RowChangedName="REPORTRowChanged" msprop:Generator_TablePropName="REPORT" msprop:Generator_RowDeletingName="REPORTRowDeleting" msprop:Generator_RowChangingName="REPORTRowChanging" msprop:Generator_RowEvHandlerName="REPORTRowChangeEventHandler" msprop:Generator_RowDeletedName="REPORTRowDeleted" msprop:Generator_RowClassName="REPORTRow" msprop:Generator_UserTableName="REPORT" msprop:Generator_RowEvArgName="REPORTRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="CUS_NO" msprop:Generator_ColumnVarNameInTable="columnCUS_NO" msprop:Generator_ColumnPropNameInRow="CUS_NO" msprop:Generator_ColumnPropNameInTable="CUS_NOColumn" msprop:Generator_UserColumnName="CUS_NO" type="xs:int" minOccurs="0" />
+              <xs:element name="CUS_DESC" msprop:Generator_ColumnVarNameInTable="columnCUS_DESC" msprop:Generator_ColumnPropNameInRow="CUS_DESC" msprop:Generator_ColumnPropNameInTable="CUS_DESCColumn" msprop:Generator_UserColumnName="CUS_DESC" type="xs:string" minOccurs="0" />
+              <xs:element name="CUS_TSKCNT" msprop:Generator_ColumnVarNameInTable="columnCUS_TSKCNT" msprop:Generator_ColumnPropNameInRow="CUS_TSKCNT" msprop:Generator_ColumnPropNameInTable="CUS_TSKCNTColumn" msprop:Generator_UserColumnName="CUS_TSKCNT" type="xs:short" minOccurs="0" />
+              <xs:element name="CUS_ACTCNT" msprop:Generator_ColumnVarNameInTable="columnCUS_ACTCNT" msprop:Generator_ColumnPropNameInRow="CUS_ACTCNT" msprop:Generator_ColumnPropNameInTable="CUS_ACTCNTColumn" msprop:Generator_UserColumnName="CUS_ACTCNT" type="xs:short" minOccurs="0" />
+              <xs:element name="CUS_AR_SUM" msprop:Generator_ColumnVarNameInTable="columnCUS_AR_SUM" msprop:Generator_ColumnPropNameInRow="CUS_AR_SUM" msprop:Generator_ColumnPropNameInTable="CUS_AR_SUMColumn" msprop:Generator_UserColumnName="CUS_AR_SUM" type="xs:decimal" minOccurs="0" />
+              <xs:element name="CUS_KO_SUM" msprop:Generator_ColumnVarNameInTable="columnCUS_KO_SUM" msprop:Generator_ColumnPropNameInRow="CUS_KO_SUM" msprop:Generator_ColumnPropNameInTable="CUS_KO_SUMColumn" msprop:Generator_UserColumnName="CUS_KO_SUM" type="xs:decimal" minOccurs="0" />
+              <xs:element name="CUS_ON_SUM" msprop:Generator_ColumnVarNameInTable="columnCUS_ON_SUM" msprop:Generator_ColumnPropNameInRow="CUS_ON_SUM" msprop:Generator_ColumnPropNameInTable="CUS_ON_SUMColumn" msprop:Generator_UserColumnName="CUS_ON_SUM" type="xs:decimal" minOccurs="0" />
+              <xs:element name="CUS_UY_SUM" msprop:Generator_ColumnVarNameInTable="columnCUS_UY_SUM" msprop:Generator_ColumnPropNameInRow="CUS_UY_SUM" msprop:Generator_ColumnPropNameInTable="CUS_UY_SUMColumn" msprop:Generator_UserColumnName="CUS_UY_SUM" type="xs:decimal" minOccurs="0" />
+              <xs:element name="CUS_UI_SUM" msprop:Generator_ColumnVarNameInTable="columnCUS_UI_SUM" msprop:Generator_ColumnPropNameInRow="CUS_UI_SUM" msprop:Generator_ColumnPropNameInTable="CUS_UI_SUMColumn" msprop:Generator_UserColumnName="CUS_UI_SUM" type="xs:decimal" minOccurs="0" />
+              <xs:element name="CUS_BK_SUM" msprop:Generator_ColumnVarNameInTable="columnCUS_BK_SUM" msprop:Generator_ColumnPropNameInRow="CUS_BK_SUM" msprop:Generator_ColumnPropNameInTable="CUS_BK_SUMColumn" msprop:Generator_UserColumnName="CUS_BK_SUM" type="xs:decimal" minOccurs="0" />
+              <xs:element name="CUS_TM_SUM" msprop:Generator_ColumnVarNameInTable="columnCUS_TM_SUM" msprop:Generator_ColumnPropNameInRow="CUS_TM_SUM" msprop:Generator_ColumnPropNameInTable="CUS_TM_SUMColumn" msprop:Generator_UserColumnName="CUS_TM_SUM" type="xs:decimal" minOccurs="0" />
+              <xs:element name="CUS_YGS_SUM" msprop:Generator_ColumnVarNameInTable="columnCUS_YGS_SUM" msprop:Generator_ColumnPropNameInRow="CUS_YGS_SUM" msprop:Generator_ColumnPropNameInTable="CUS_YGS_SUMColumn" msprop:Generator_UserColumnName="CUS_YGS_SUM" type="xs:decimal" minOccurs="0" />
+              <xs:element name="CUS_OZ_SUM" msprop:Generator_ColumnVarNameInTable="columnCUS_OZ_SUM" msprop:Generator_ColumnPropNameInRow="CUS_OZ_SUM" msprop:Generator_ColumnPropNameInTable="CUS_OZ_SUMColumn" msprop:Generator_UserColumnName="CUS_OZ_SUM" type="xs:decimal" minOccurs="0" />
+              <xs:element name="CUS_SA_SUM" msprop:Generator_ColumnVarNameInTable="columnCUS_SA_SUM" msprop:Generator_ColumnPropNameInRow="CUS_SA_SUM" msprop:Generator_ColumnPropNameInTable="CUS_SA_SUMColumn" msprop:Generator_UserColumnName="CUS_SA_SUM" type="xs:decimal" minOccurs="0" />
+              <xs:element name="CUS_YE_SUM" msprop:Generator_ColumnVarNameInTable="columnCUS_YE_SUM" msprop:Generator_ColumnPropNameInRow="CUS_YE_SUM" msprop:Generator_ColumnPropNameInTable="CUS_YE_SUMColumn" msprop:Generator_UserColumnName="CUS_YE_SUM" type="xs:decimal" minOccurs="0" />
+              <xs:element name="CUS_PROJELIISLER_SUM" msprop:Generator_ColumnVarNameInTable="columnCUS_PROJELIISLER_SUM" msprop:Generator_ColumnPropNameInRow="CUS_PROJELIISLER_SUM" msprop:Generator_ColumnPropNameInTable="CUS_PROJELIISLER_SUMColumn" msprop:Generator_UserColumnName="CUS_PROJELIISLER_SUM" type="xs:decimal" minOccurs="0" />
+              <xs:element name="CUS_DGR_SUM" msprop:Generator_ColumnVarNameInTable="columnCUS_DGR_SUM" msprop:Generator_ColumnPropNameInRow="CUS_DGR_SUM" msprop:Generator_ColumnPropNameInTable="CUS_DGR_SUMColumn" msprop:Generator_UserColumnName="CUS_DGR_SUM" type="xs:decimal" minOccurs="0" />
+              <xs:element name="CUS_BT_SUM" msprop:Generator_ColumnVarNameInTable="columnCUS_BT_SUM" msprop:Generator_ColumnPropNameInRow="CUS_BT_SUM" msprop:Generator_ColumnPropNameInTable="CUS_BT_SUMColumn" msprop:Generator_UserColumnName="CUS_BT_SUM" type="xs:decimal" minOccurs="0" />
+              <xs:element name="CUS_COST_SUM" msprop:Generator_ColumnVarNameInTable="columnCUS_COST_SUM" msprop:Generator_ColumnPropNameInRow="CUS_COST_SUM" msprop:Generator_ColumnPropNameInTable="CUS_COST_SUMColumn" msprop:Generator_UserColumnName="CUS_COST_SUM" type="xs:decimal" minOccurs="0" />
+              <xs:element name="CUS_ACTIVE" msprop:Generator_ColumnVarNameInTable="columnCUS_ACTIVE" msprop:Generator_ColumnPropNameInRow="CUS_ACTIVE" msprop:Generator_ColumnPropNameInTable="CUS_ACTIVEColumn" msprop:Generator_UserColumnName="CUS_ACTIVE" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="REPORTPARAMETERS" msprop:Generator_TableClassName="REPORTPARAMETERSDataTable" msprop:Generator_TableVarName="tableREPORTPARAMETERS" msprop:Generator_RowChangedName="REPORTPARAMETERSRowChanged" msprop:Generator_TablePropName="REPORTPARAMETERS" msprop:Generator_RowDeletingName="REPORTPARAMETERSRowDeleting" msprop:Generator_RowChangingName="REPORTPARAMETERSRowChanging" msprop:Generator_RowEvHandlerName="REPORTPARAMETERSRowChangeEventHandler" msprop:Generator_RowDeletedName="REPORTPARAMETERSRowDeleted" msprop:Generator_RowClassName="REPORTPARAMETERSRow" msprop:Generator_UserTableName="REPORTPARAMETERS" msprop:Generator_RowEvArgName="REPORTPARAMETERSRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ORGANIZATION" msprop:Generator_ColumnVarNameInTable="columnORGANIZATION" msprop:Generator_ColumnPropNameInRow="ORGANIZATION" msprop:Generator_ColumnPropNameInTable="ORGANIZATIONColumn" msprop:Generator_UserColumnName="ORGANIZATION" type="xs:string" minOccurs="0" />
+              <xs:element name="DEPARTMENT" msprop:Generator_ColumnVarNameInTable="columnDEPARTMENT" msprop:Generator_ColumnPropNameInRow="DEPARTMENT" msprop:Generator_ColumnPropNameInTable="DEPARTMENTColumn" msprop:Generator_UserColumnName="DEPARTMENT" type="xs:string" minOccurs="0" />
+              <xs:element name="TASKCOMPLETEDSTART" msprop:Generator_ColumnVarNameInTable="columnTASKCOMPLETEDSTART" msprop:Generator_ColumnPropNameInRow="TASKCOMPLETEDSTART" msprop:Generator_ColumnPropNameInTable="TASKCOMPLETEDSTARTColumn" msprop:Generator_UserColumnName="TASKCOMPLETEDSTART" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="TASKCOMPLETEDEND" msprop:Generator_ColumnVarNameInTable="columnTASKCOMPLETEDEND" msprop:Generator_ColumnPropNameInRow="TASKCOMPLETEDEND" msprop:Generator_ColumnPropNameInTable="TASKCOMPLETEDENDColumn" msprop:Generator_UserColumnName="TASKCOMPLETEDEND" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="REPORTUSER" msprop:Generator_ColumnVarNameInTable="columnREPORTUSER" msprop:Generator_ColumnPropNameInRow="REPORTUSER" msprop:Generator_ColumnPropNameInTable="REPORTUSERColumn" msprop:Generator_UserColumnName="REPORTUSER" type="xs:string" minOccurs="0" />
+              <xs:element name="REPORTDATE" msprop:Generator_ColumnVarNameInTable="columnREPORTDATE" msprop:Generator_ColumnPropNameInRow="REPORTDATE" msprop:Generator_ColumnPropNameInTable="REPORTDATEColumn" msprop:Generator_UserColumnName="REPORTDATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="PSPONLY" msprop:Generator_ColumnVarNameInTable="columnPSPONLY" msprop:Generator_ColumnPropNameInRow="PSPONLY" msprop:Generator_ColumnPropNameInTable="PSPONLYColumn" msprop:Generator_UserColumnName="PSPONLY" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:length value="1" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="HIDEPARAMETERS" msprop:Generator_ColumnVarNameInTable="columnHIDEPARAMETERS" msprop:Generator_ColumnPropNameInRow="HIDEPARAMETERS" msprop:Generator_ColumnPropNameInTable="HIDEPARAMETERSColumn" msprop:Generator_UserColumnName="HIDEPARAMETERS" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="GRAFIK_01" msprop:Generator_TableClassName="GRAFIK_01DataTable" msprop:Generator_TableVarName="tableGRAFIK_01" msprop:Generator_TablePropName="GRAFIK_01" msprop:Generator_RowDeletingName="GRAFIK_01RowDeleting" msprop:Generator_RowChangingName="GRAFIK_01RowChanging" msprop:Generator_RowEvHandlerName="GRAFIK_01RowChangeEventHandler" msprop:Generator_RowDeletedName="GRAFIK_01RowDeleted" msprop:Generator_UserTableName="GRAFIK_01" msprop:Generator_RowChangedName="GRAFIK_01RowChanged" msprop:Generator_RowEvArgName="GRAFIK_01RowChangeEvent" msprop:Generator_RowClassName="GRAFIK_01Row">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Onarım" msprop:Generator_ColumnVarNameInTable="columnOnarım" msprop:Generator_ColumnPropNameInRow="Onarım" msprop:Generator_ColumnPropNameInTable="OnarımColumn" msprop:Generator_UserColumnName="Onarım" type="xs:decimal" minOccurs="0" />
+              <xs:element name="Bakım_x002C_Ölçüm_x002C__x0020_Yasal_x0020_Denetleme" msprop:Generator_ColumnVarNameInTable="_columnBakım_Ölçüm__Yasal_Denetleme" msprop:Generator_ColumnPropNameInRow="_Bakım_Ölçüm__Yasal_Denetleme" msprop:Generator_ColumnPropNameInTable="_Bakım_Ölçüm__Yasal_DenetlemeColumn" msprop:Generator_UserColumnName="Bakım,Ölçüm, Yasal Denetleme" type="xs:decimal" minOccurs="0" />
+              <xs:element name="Malzeme_x0020_Satışı" msprop:Generator_ColumnVarNameInTable="columnMalzeme_Satışı" msprop:Generator_ColumnPropNameInRow="Malzeme_Satışı" msprop:Generator_ColumnPropNameInTable="Malzeme_SatışıColumn" msprop:Generator_UserColumnName="Malzeme Satışı" type="xs:decimal" minOccurs="0" />
+              <xs:element name="Teknik_x0020_İşletme" msprop:Generator_ColumnVarNameInTable="columnTeknik_İşletme" msprop:Generator_ColumnPropNameInRow="Teknik_İşletme" msprop:Generator_ColumnPropNameInTable="Teknik_İşletmeColumn" msprop:Generator_UserColumnName="Teknik İşletme" type="xs:decimal" minOccurs="0" />
+              <xs:element name="Kurulum_x002F_Montaj" msprop:Generator_ColumnVarNameInTable="_columnKurulum_Montaj" msprop:Generator_ColumnPropNameInRow="_Kurulum_Montaj" msprop:Generator_ColumnPropNameInTable="_Kurulum_MontajColumn" msprop:Generator_UserColumnName="Kurulum/Montaj" type="xs:decimal" minOccurs="0" />
+              <xs:element name="Diğer" msprop:Generator_ColumnVarNameInTable="columnDiğer" msprop:Generator_ColumnPropNameInRow="Diğer" msprop:Generator_ColumnPropNameInTable="DiğerColumn" msprop:Generator_UserColumnName="Diğer" type="xs:decimal" minOccurs="0" />
+              <xs:element name="Bakım_x0020_Tespitleri" msprop:Generator_ColumnVarNameInTable="columnBakım_Tespitleri" msprop:Generator_ColumnPropNameInRow="Bakım_Tespitleri" msprop:Generator_ColumnPropNameInTable="Bakım_TespitleriColumn" msprop:Generator_UserColumnName="Bakım Tespitleri" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

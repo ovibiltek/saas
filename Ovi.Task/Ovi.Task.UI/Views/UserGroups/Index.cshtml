@@ -1,0 +1,286 @@
+﻿@using System.Threading
+@using Resources.UserGroups.Index
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Default.cshtml";
+}
+@Html.IncludeVersionedCss("/Content/summernote.css")
+<div style="margin-top: 10px">
+    <div class="page-header">
+        <h4>@UserGroupStrings.usergroups</h4>
+        <h6></h6>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tms-page-toolbar inline-toolbar left" data-block="#record">
+                <div class="btn-group">
+                    <button class="btn btn-default btn-sm" title="Ctrl+R" selection-required="false" id="btnNew"><i class="fa fa fa-plus fa-fw"></i> @UserGroupStrings.addnew</button>
+                    <button class="btn btn-default btn-sm" title="Ctrl+S" selection-required="false" id="btnSave"><i class="fa fa-floppy-o fa-fw"></i> @UserGroupStrings.save</button>
+                    <button class="btn btn-default btn-sm" title="Ctrl+U" selection-required="true" id="btnUndo"><i class="fa fa-undo fa-fw"></i> @UserGroupStrings.undo</button>
+                    <button class="btn btn-default btn-sm" title="Ctrl+D" selection-required="true" id="btnDelete"><i class="fa fa-trash-o fa-fw"></i> @UserGroupStrings.delete</button>
+                    <button class="btn btn-default btn-sm" title="Ctrl+H" selection-required="true" id="btnHistory" disabled="disabled"><i class="fa fa-bolt fa-fw"></i> @UserGroupStrings.history</button>
+                    <button class="btn btn-default btn-sm" title="ctrl+Q" selection-required="true" id="btnTranslations" disabled="disabled"><i class="fa fa-globe"></i> @UserGroupStrings.translations</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <div class="scrollbar-macosx">
+                <div class="list-group"></div>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <ul class="nav nav-tabs">
+                <li class="active"><a data-toggle="tab" default-on-reset href="#record">@UserGroupStrings.record</a></li>
+                <li><a href="#menu" enable-on-selection>@UserGroupStrings.menu</a></li>
+                <li><a href="#inbox" enable-on-selection>@UserGroupStrings.inbox</a></li>
+                <li><a href="#kpi" enable-on-selection>@UserGroupStrings.kpi</a></li>
+                <li><a href="#holdreason" enable-on-selection>@UserGroupStrings.holdreasons</a></li>
+                <li><a href="#screennotifications" enable-on-selection>@UserGroupStrings.notification</a></li>
+                <li><a href="#mobilenotifications" enable-on-selection>@UserGroupStrings.mobileNotif</a></li>
+            </ul>
+            <div class="tab-content">
+                <div id="record" class="tab-pane active">
+                    <div class="panel panel-default">
+                        <div class="panel-heading page-panel-heading">@UserGroupStrings.record</div>
+                        <div class="panel-body page-panel-body">
+                            <div class="row custom">
+                                <div class="col-md-2">
+                                    @UserGroupStrings.code
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="text" maxlength="50" id="code" required disableonupdate="yes" class="form-control form-code" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-2">
+                                    @UserGroupStrings.description
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="text" maxlength="250" id="desc" required class="form-control" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-2">
+                                    @UserGroupStrings.cls
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="text" maxlength="250" id="class" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-2">
+                                    @UserGroupStrings.active
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="checkbox checkbox-primary">
+                                        <input type="checkbox" class="styled" checked="checked" id="active" />
+                                        <label></label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading page-panel-heading">@UserGroupStrings.authorizations</div>
+                        <div class="panel-body page-panel-body">
+                            <div class="row custom">
+                                <div class="col-md-2">
+                                    @UserGroupStrings.lockchecklist
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="checkbox checkbox-primary">
+                                        <input class="styled" type="checkbox" id="lock" />
+                                        <label></label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="menu" class="tab-pane">
+                    <div class="panel panel-default">
+                        <div class="panel-heading page-panel-heading">@UserGroupStrings.menuaccess</div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="inline-toolbar left" data-block="#menu">
+                                    <div class="btn-group">
+                                        <button class="btn btn-default btn-sm" selection-required="false" id="btnSaveMenu"><i class="fa fa-floppy-o fa-fw"></i> @UserGroupStrings.save</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-body page-panel-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-3 col-bottom-border"><strong>@UserGroupStrings.securityfilter</strong></div>
+                                        <div class="col-md-9 col-bottom-border"><strong>@UserGroupStrings.screen</strong></div>
+                                    </div>
+                                    <div class="screens"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="inbox" class="tab-pane">
+                    <div class="panel panel-default">
+                        <div class="panel-heading page-panel-heading">@UserGroupStrings.inbox</div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="inline-toolbar left" data-block="#inbox">
+                                    <div class="btn-group">
+                                        <button class="btn btn-default btn-sm" selection-required="false" id="btnSaveInbox"><i class="fa fa-floppy-o fa-fw"></i> @UserGroupStrings.save</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-body page-panel-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="inboxes"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="kpi" class="tab-pane">
+                    <div class="panel panel-default">
+                        <div class="panel-heading page-panel-heading">@UserGroupStrings.kpi</div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="inline-toolbar left" data-block="#inbox">
+                                    <div class="btn-group">
+                                        <button class="btn btn-default btn-sm" selection-required="false" id="btnSaveKPI"><i class="fa fa-floppy-o fa-fw"></i> @UserGroupStrings.save</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-body page-panel-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="kpis"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="holdreason" class="tab-pane">
+                    <div class="panel panel-default">
+                        <div class="panel-heading page-panel-heading">@UserGroupStrings.holdreasons</div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="inline-toolbar left" data-block="#holdreason">
+                                    <div class="btn-group">
+                                        <button class="btn btn-default btn-sm" selection-required="false" id="btnSaveHoldReason"><i class="fa fa-floppy-o fa-fw"></i> @UserGroupStrings.save</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-body page-panel-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="holdreasons"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <div id="screennotifications" class="tab-pane">
+                <div class="panel panel-default">
+                    <div class="panel-heading page-panel-heading">@UserGroupStrings.notification</div>
+                    <div id="grdScreenNotifications" style="border-width: 0px;"></div>
+                    <div class="inline-toolbar left" data-block="#notification">
+                        <div class="btn-group">
+                            <button class="btn btn-default btn-sm" title="Ctrl+R" selection-required="false" id="btnAddNotification"><i class="fa fa fa-plus fa-fw"></i>@UserGroupStrings.addnew</button>
+                            <button class="btn btn-default btn-sm" title="Ctrl+S" selection-required="false" id="btnSaveNotification"><i class="fa fa-floppy-o fa-fw"></i>@UserGroupStrings.save</button>
+                            <button class="btn btn-default btn-sm" title="Ctrl+D" selection-required="true" id="btnDeleteNotification" disabled="disabled"><i class="fa fa-trash-o fa-fw"></i>@UserGroupStrings.delete</button>
+                        </div>
+                    </div>
+                    <div class="panel-body page-panel-body">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="row custom">
+                                    <div class="col-md-3">
+                                        @UserGroupStrings.notificationid
+                                    </div>
+                                    <div class="col-md-5">
+                                        <input type="text" disabled="disabled" id="notificationid" class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-3">
+                                        @UserGroupStrings.screen
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="input-group">
+                                            <input type="text" maxlength="50" class="form-control" required id="screen">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default" type="button" id="btnscreen"><i class="fa fa-search fa-fw"></i></button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-3">
+                                        @UserGroupStrings.effectivedate
+                                    </div>
+                                    <div class="col-md-5">
+                                        <input type="text" ctrltype="datepicker" id="effectivedate" required class="form-control"/>
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-3">
+                                        @UserGroupStrings.title
+                                    </div>
+                                    <div class="col-md-9">
+                                        <input type="text" maxlength="250" id="title" required class="form-control"/>
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-3">
+                                        @UserGroupStrings.content
+                                    </div>
+                                    <div class="col-md-9">
+                                        <textarea type="text" required id="content"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="mobilenotifications" class="tab-pane">
+                <div class="panel panel-default">
+                    <div class="panel-heading page-panel-heading">@UserGroupStrings.mobileNotif</div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="inline-toolbar left" data-block="#inbox">
+                                <div class="btn-group">
+                                    <button class="btn btn-default btn-sm" selection-required="false" id="btnSaveMobileNotifications"><i class="fa fa-floppy-o fa-fw"></i> @UserGroupStrings.save</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-body page-panel-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="mobilenotifications"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@Html.IncludeVersionedJs("/Scripts/other/summernote.min.js")
+@if (Thread.CurrentThread.CurrentUICulture.Name == "tr")
+{
+    @Html.IncludeVersionedJs("/Scripts/other/summernote.min.tr.js")
+}
+@Html.IncludeVersionedJs("/Scripts/custom/ovi.custom.list.js")
+@Html.IncludeVersionedJs("/Scripts/app/UserGroups.js")

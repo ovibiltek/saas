@@ -1,0 +1,1 @@
+﻿namespace Ovi.Task.Data.Entity{    public class TMUSERANNUALLEAVESSUMMARY    {        public virtual string UAL_USER { get; set; }        public virtual decimal? UAL_QTYTOTAL { get; set; }        public virtual decimal UAL_USED { get; set; }        public virtual decimal? UAL_REMAINING { get; set; }    }}

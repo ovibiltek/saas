@@ -1,0 +1,113 @@
+﻿@using Resources.Task.Index
+<div id="bookedhours" class="tab-pane">
+    <div class="row">
+        <div class="col-md-12">
+            <div id="grdBooHours"></div>
+        </div>
+    </div>
+    <br />
+    <div id="bookedhoursform" class="panel panel-default">
+        <div class="panel-heading page-panel-heading">@TaskStrings.bookedhours</div>
+        <div class="row">
+            <div class="col-md-12" style="padding-right: 0">
+                <div class="inline-toolbar left" style="border: none;" data-block="#bookedhours">
+                    <div class="btn-group">
+                        <button class="btn btn-default btn-sm" selection-required="false" title="Ctrl+R" disabled id="btnAddBookedHours"><i class="fa fa fa-plus fa-fw"></i>@TaskStrings.addnew</button>
+                        <button class="btn btn-default btn-sm" selection-required="false" title="Ctrl+S" disabled id="btnSaveBookedHours"><i class="fa fa-floppy-o fa-fw"></i>@TaskStrings.save</button>
+                        <button class="btn btn-default btn-sm" selection-required="true" title="Ctrl+D" disabled id="btnDeleteBookedHours"><i class="fa fa-trash-o fa-fw"></i>@TaskStrings.delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel-body page-panel-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="row custom">
+                        <div class="col-md-3">
+                            @TaskStrings.activity
+                        </div>
+                        <div class="col-md-5">
+                            <div class="input-group">
+                                <input type="text" required disableonupdate="yes" class="form-control" id="activity">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" disableonupdate="yes" type="button" id="btnActivity"><i class="fa fa-search fa-fw"></i></button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row custom">
+                        <div class="col-md-3">
+                            @TaskStrings.user
+                        </div>
+                        <div class="col-md-5">
+                            <div class="input-group">
+                                <input type="text" required disableonupdate="yes" class="form-control" id="boouser">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" disableonupdate="yes" type="button" id="btnboouser"><i class="fa fa-search fa-fw"></i></button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row custom">
+                        <div class="col-md-3">
+                            @TaskStrings.date
+                        </div>
+                        <div class="col-md-5">
+                            <input type="text" required disableonupdate="yes" maxlength="10" id="bookdate" ctrltype="datepicker" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="row custom">
+                        <div class="col-md-3">
+                            @TaskStrings.overtimetype
+                        </div>
+                        <div class="col-md-5">
+                            <select required id="overtimetype" class="form-control">
+                                <option value="N">@TaskStrings.normal</option>
+                                <option value="O">@TaskStrings.overtime</option>
+                                <option value="O2">@TaskStrings.overtime2</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row custom">
+                        <div class="col-md-3">
+                            @TaskStrings.startend
+                        </div>
+                        <div class="col-md-2">
+                            <input type="text" required maxlength="5" class="form-control" ctrltype="timepicker" id="bookstart" />
+                        </div>
+                        <div class="col-md-2">
+                            <input type="text" required maxlength="5" class="form-control" ctrltype="timepicker" id="bookend" />
+                        </div>
+                        <div class="col-md-2">
+                            <input type="text" maxlength="5" disabled="disabled" class="form-control" id="calchours" />
+                        </div>
+                    </div>
+                    <div class="row custom">
+                        <div class="col-md-3">
+                            @TaskStrings.type
+                        </div>
+                        <div class="col-md-9">
+                            <div class="radio radio-primary radio-inline">
+                                <input type="radio" name="rtype" id="actual" value="A" disableonupdate="yes" checked>
+                                <label for="actual1">@TaskStrings.actual</label>
+                            </div>
+                            <div class="radio radio-primary radio-inline">
+                                <input type="radio" name="rtype" id="planned" disableonupdate="yes" value="P">
+                                <label for="planned1">@TaskStrings.planned</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="panel panel-default bookedhourssummaryblck">
+                        <div class="panel-heading">@TaskStrings.bookedhourssummary</div>
+                        <div class="panel-body">
+                            <div id="bookedhourssummaryblck">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

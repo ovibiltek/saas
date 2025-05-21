@@ -1,0 +1,117 @@
+﻿@using Resources.AuditClasses.Index
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Default.cshtml";
+}
+
+@Html.IncludeVersionedCss("/Content/jquery/jquery.fileupload.css")
+
+@Html.IncludeVersionedCss("/Content/jquery/jquery.contextMenu.min.css")
+
+
+<div style="margin-top: 10px">
+    <div class="page-header">
+        <h4>@AuditClassesStrings.auditclasses</h4>
+        <h6></h6>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tms-page-toolbar inline-toolbar left" data-block="#record">
+                <div class="btn-group">
+                    <button class="btn btn-default btn-sm" title="Ctrl+R" selection-required="false" id="btnNew"><i class="fa fa fa-plus fa-fw"></i> @AuditClassesStrings.addnew</button>
+                    <button class="btn btn-default btn-sm" title="Ctrl+S" selection-required="false" id="btnSave"><i class="fa fa-floppy-o fa-fw"></i> @AuditClassesStrings.save</button>
+                    <button class="btn btn-default btn-sm" title="Ctrl+U" selection-required="true" id="btnUndo"><i class="fa fa-undo fa-fw"></i> @AuditClassesStrings.undo</button>
+                    <button class="btn btn-default btn-sm" title="Ctr<l+D" selection-required="true" id="btnDelete"><i class="fa fa-trash-o fa-fw"></i> @AuditClassesStrings.delete</button>
+                    <button class="btn btn-default btn-sm" title="Ctrl+H" selection-required="true" id="btnHistory" disabled="disabled"><i class="fa fa-bolt fa-fw"></i> @AuditClassesStrings.history</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#list">@AuditClassesStrings.list</a></li>
+        <li><a data-toggle="tab" default-on-reset href="#record">@AuditClassesStrings.record</a></li>
+    </ul>
+    <div class="tab-content">
+        <div id="list" class="tab-pane active">
+            <div id="grdAuditClasses"></div>
+        </div>
+        <div id="record" class="tab-pane">
+            <div class="row record-content">
+            <div class="row record-content">
+                <div class="col-md-8" id="divHeader">
+                    <div class="panel panel-default" style="height: 842px;">
+                        <div class="panel-heading page-panel-heading">@AuditClassesStrings.record</div>
+                        <div class="panel-body page-panel-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="row custom">
+                                        <div class="col-md-4">
+                                            @AuditClassesStrings.audclasses
+                                        </div>
+                                        <div class="col-md-8">
+                                            <input type="text" maxlength="50" id="audclasses" required disableonupdate="yes" class="form-control form-code" />
+                                        </div>
+                                    </div>
+                                    <div class="row custom">
+                                        <div class="col-md-4">
+                                            @AuditClassesStrings.auddesc
+                                        </div>
+                                        <div class="col-md-8">
+                                            <input type="text" maxlength="250" id="auddesc" required  class="form-control" />
+                                        </div>
+                                    </div>
+                                    <div class="row custom">
+                                        <div class="col-md-4">
+                                            @AuditClassesStrings.audnamespace
+                                        </div>
+                                        <div class="col-md-8">
+                                            <input type="text" maxlength="250" id="audnamespace" required  class="form-control" />
+                                        </div>
+                                    </div>                                               
+                                    <div class="row custom">
+                                        <div class="col-md-4">
+                                            @AuditClassesStrings.audtype
+                                        </div>
+                                        <div class="col-md-8">
+                                            <input type="text" maxlength="250" id="audtype" required  class="form-control" />
+                                        </div>
+                                    </div> 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="sidebars">
+        <div class="sidebar right" style="right: -400px;">
+            <div class="row">
+                <div class="col-md-12" style="text-align: center; margin-top: 10px;">
+                    <button id="filter" class="btn btn-primary btn-xs"><i class="fa fa-filter"></i> @AuditClassesStrings.filter</button>
+                    <button id="clearfilter" class="btn btn-info btn-xs"><i class="fa fa-ban"></i> @AuditClassesStrings.reset</button>
+                    <button id="closesiderbar" class="btn btn-danger btn-xs"><i class="fa fa-times"></i> @AuditClassesStrings.close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    var inbox = "@ViewBag.id";
+</script>
+
+@Html.IncludeVersionedJs("/Scripts/jquery/jquery.fileupload.js")
+@Html.IncludeVersionedJs("/Scripts/jquery/jquery.iframe-transport.js")
+
+
+@Html.IncludeVersionedJs("/Scripts/jquery/jquery.contextMenu.min.js")
+@Html.IncludeVersionedJs("/Scripts/other/typeahead.bundle.js")
+@Html.IncludeVersionedJs("/Scripts/jquery/jquery.sidebar.min.js")
+@Html.IncludeVersionedJs("/Scripts/custom/ovi.custom.documents.js")
+@Html.IncludeVersionedJs("/Scripts/custom/ovi.custom.comments.js")
+@Html.IncludeVersionedJs("/Scripts/custom/ovi.custom.entitylookup.js")
+@Html.IncludeVersionedJs("/Scripts/custom/ovi.custom.customfields.js")
+@Html.IncludeVersionedJs("/Scripts/other/numericInput.min.js")
+@Html.IncludeVersionedJs("/Scripts/app/AuditClasses.js")

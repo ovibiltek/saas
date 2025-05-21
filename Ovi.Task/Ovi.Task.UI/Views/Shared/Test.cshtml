@@ -1,0 +1,47 @@
+﻿@{
+    Layout = null;
+}
+@using Resources.Error.Index
+@model HandleErrorInfo
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>TMS</title>
+    @Styles.Render("~/css/bootstrap")
+    @Styles.Render("~/css/default")
+    @Styles.Render("~/css/fonts")
+    @Styles.Render("~/css/other")
+
+    @Scripts.Render("~/bundles/jquery")
+    <script type="text/javascript">
+        var timerStart = Date.now();
+    </script>
+</head>
+<body>
+    <div class="row" style="padding-top: 50px;">
+        <div class="col-md-offset-3 col-md-6 col-md-offset-3">
+            <div class="jumbotron">
+                <div class="container">
+                    <p style="text-align: center;">
+                        <i class="fa fa-2x fa-check-circle" aria-hidden="true"></i>
+                        <span class="text-success"> TEST OK</span>
+                        <span id="info"></span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#info").append("<br /><br /> Time until DOMready : ", Date.now() - timerStart);
+        });
+        $(window).load(function () {
+            $("#info").append("<br />Time until everything loaded : ", Date.now() - timerStart);
+        });
+    </script>
+</body>
+</html>
+

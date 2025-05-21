@@ -1,0 +1,118 @@
+﻿using FluentNHibernate.Mapping;
+using NHibernate.Cfg;
+using Ovi.Task.Data.Configuration;
+using Ovi.Task.Data.Entity.Task;
+
+namespace Ovi.Task.Data.Mapping.Task
+{
+    public sealed class TMTASKACTIVITIESVIEW_MAP : ClassMap<TMTASKACTIVITIESVIEW>
+    {
+        public TMTASKACTIVITIESVIEW_MAP()
+        {
+            Id(x => x.TSK_TSAID);
+            Map(x => x.TSK_ID);
+            Map(x => x.TSK_ORGANIZATION);
+            Map(x => x.TSK_DEPARTMENT);
+            Map(x => x.TSK_DEPARTMENTDESC);
+            Map(x => x.TSK_PROJECT);
+            Map(x => x.TSK_PROJECTDESC);
+            Map(x => x.TSK_LOCATION);
+            Map(x => x.TSK_LOCATIONDESC);
+            Map(x => x.TSK_CATEGORY);
+            Map(x => x.TSK_TASKTYPE);
+            Map(x => x.TSK_SHORTDESC);
+            Map(x => x.TSK_STATUS);
+            Map(x => x.TSK_STATUSCSS);
+            Map(x => x.TSK_PRIORITY);
+            Map(x => x.TSK_PRIORITYCOLOR);
+            Map(x => x.TSK_PRIORITYCSS);
+            Map(x => x.TSK_TYPE);
+            Map(x => x.TSK_TYPEENTITY);
+            Map(x => x.TSK_PROGRESS);
+            Map(x => x.TSK_HIDDEN);
+            Map(x => x.TSK_REQUESTEDBY);
+            Map(x => x.TSK_ASSIGNEDTO);
+            Map(x => x.TSK_ACTDEPARTMENT);
+            Map(x => x.TSK_ACTTRADE);
+            Map(x => x.TSK_CREATEDBYDEPARTMENT);
+            Map(x => x.TSK_FOLLOWED);
+            Map(x => x.TSK_REQUESTED);
+            Map(x => x.TSK_REQUESTEDBYDESC);
+            Map(x => x.TSK_RATING);
+            Map(x => x.TSK_DEADLINE);
+            Map(x => x.TSK_COMPLETED);
+            Map(x => x.TSK_CLOSED);
+            Map(x => x.TSK_CHK01);
+            Map(x => x.TSK_CHK02);
+            Map(x => x.TSK_CHK03);
+            Map(x => x.TSK_CHK04);
+            Map(x => x.TSK_CHK05);
+            Map(x => x.TSK_CREATED);
+            Map(x => x.TSK_CREATEDBY);
+            Map(x => x.TSK_CREATEDBYDESC);
+            Map(x => x.TSK_UPDATED);
+            Map(x => x.TSK_UPDATEDBY);
+            Map(x => x.TSK_DOCCOUNT).ReadOnly().Formula("dbo.GetDocumentCount('TASK', TSK_ID, :SessionContext.User)");
+            Map(x => x.TSK_RECORDVERSION).Default("0");
+            Map(x => x.TSK_CUSTOMER);
+            Map(x => x.TSK_BRANCH);
+            Map(x => x.TSK_BRANCHPM);
+            Map(x => x.TSK_CUSTOMERPM);
+            Map(x => x.TSK_HOLDREASON);
+            Map(x => x.TSK_HOLDDATE);
+            Map(x => x.TSK_CUSTOMERDESC);
+            Map(x => x.TSK_CUSTOMERGROUP);
+            Map(x => x.TSK_CUSTOMERGROUPDESC);
+            Map(x => x.TSK_BRANCHDESC);
+            Map(x => x.TSK_APD);
+            Map(x => x.TSK_DATEBOOKED);
+            Map(x => x.TSK_PRICINGPARAM);
+            Map(x => x.TSK_IPP);
+            Map(x => x.TSK_PSPCODE);
+            Map(x => x.TSK_PRPCODE);
+            Map(x => x.TSK_PTASK);
+            Map(x => x.TSK_REFERENCE);
+            Map(x => x.TSK_CFEKMAL);
+            Map(x => x.TSK_REGION);
+            Map(x => x.TSK_HOLDCOUNT);
+            Map(x => x.TSK_HOLDDURATION);
+            Map(x => x.TSK_CANCELLATIONREASON);
+            Map(x => x.TSK_CANCELLATIONDESC);
+            Map(x => x.TSK_ORGANIZATIONDESC).ReadOnly().Formula("dbo.GetDesc('TMORGS','ORG_DESC', TSK_ORGANIZATION,(SELECT o.ORG_DESC FROM TMORGS o WHERE o.ORG_CODE = TSK_ORGANIZATION),:SessionContext.Language)");
+            Map(x => x.TSK_CATEGORYDESC).ReadOnly().Formula("dbo.GetDesc('TMCATEGORIES','CAT_DESC', TSK_CATEGORY, (SELECT c.CAT_DESC FROM TMCATEGORIES c WHERE c.CAT_CODE = TSK_CATEGORY),:SessionContext.Language)");
+            Map(x => x.TSK_TASKTYPEDESC).ReadOnly().Formula("dbo.GetSysCodeDescription('TASKTYPE',TSK_TASKTYPE,:SessionContext.Language)");
+            Map(x => x.TSK_STATUSDESC).ReadOnly().Formula("dbo.GetDesc('TMSTATUSES','STA_DESC', 'TASK#' + TSK_STATUS, (SELECT s.STA_DESC FROM TMSTATUSES s WHERE s.STA_CODE = TSK_STATUS AND s.STA_ENTITY = 'TASK'),:SessionContext.Language)");
+            Map(x => x.TSK_PRIORITYDESC).ReadOnly().Formula("dbo.GetDesc('TMPRIORITIES','PRI_DESC', TSK_PRIORITY, (SELECT p.PRI_DESC FROM TMPRIORITIES p WHERE p.PRI_CODE = TSK_PRIORITY),:SessionContext.Language)");
+            Map(x => x.TSK_TYPEDESC).ReadOnly().Formula("dbo.GetDesc('TMTYPES','TYP_DESC', TSK_TYPEENTITY + '#' + TSK_TYPE, (SELECT t.TYP_DESC FROM TMTYPES t WHERE t.TYP_CODE = TSK_TYPE AND t.TYP_ENTITY = TSK_TYPEENTITY) ,:SessionContext.Language)");
+            Map(x => x.TSK_CMNTCOUNT).ReadOnly().Formula("(SELECT COUNT(*) FROM TMCOMMENTS c WHERE c.CMN_SOURCE = TSK_ID AND c.CMN_SUBJECT = 'TASK' AND c.CMN_VISIBLETOCUSTOMER = CASE WHEN :SessionContext.Customer IS NOT NULL THEN '+' ELSE c.CMN_VISIBLETOCUSTOMER END " +                                                                                                                                              "AND c.CMN_VISIBLETOSUPPLIER = CASE WHEN :SessionContext.Supplier IS NOT NULL THEN '+' ELSE c.CMN_VISIBLETOSUPPLIER END)");
+            Map(x => x.TSK_HOLDREASONDESC).ReadOnly().Formula("dbo.GetDesc('TMHOLDREASONS','HDR_DESC', TSK_HOLDREASON, (SELECT h.HDR_DESC FROM TMHOLDREASONS h WHERE h.HDR_CODE = TSK_HOLDREASON),:SessionContext.Language)");
+            Map(x => x.TSK_CANCELLATIONREASONDESC).Formula("dbo.GetDesc('TMCANCELLATIONREASONS','CNR_DESC', 'TASK#' + TSK_CANCELLATIONREASON , (SELECT c.CNR_DESC FROM TMCANCELLATIONREASONS c WHERE c.CNR_ENTITY = 'TASK' AND c.CNR_CODE = TSK_CANCELLATIONREASON) , :SessionContext.Language)");
+            Map(x => x.TSK_TSALINE);
+            Map(x => x.TSK_TSADESC);
+            Map(x => x.TSK_TSATRADE);
+            Map(x => x.TSK_TSATRADEDESC);
+            Map(x => x.TSK_TSAASSIGNEDTO);
+            Map(x => x.TSK_TSASERVICECODE);
+            Map(x => x.TSK_TSASERVICECODEDESC).ReadOnly().Formula("dbo.GetDesc('TMSERVICECODES','SRV_DESCRIPTION', TSK_TSASERVICECODE , (SELECT s.SRV_DESCRIPTION FROM TMSERVICECODES s WHERE s.SRV_CODE = TSK_TSASERVICECODE) , :SessionContext.Language)");
+            Map(x => x.TSK_TSASERVICECODEUOM);
+            Map(x => x.TSK_TSAQUANTITY);
+            Map(x => x.TSK_TSASCHFROM);
+            Map(x => x.TSK_TSASCHTO);
+            Map(x => x.TSK_TSAMOBILENOTE);
+            Map(x => x.TSK_TSACOMPLETED);
+            Map(x => x.TSK_TSACHK01);
+            Map(x => x.TSK_TSACHK02);
+            Map(x => x.TSK_TSAINVOICE);
+            Map(x => x.TSK_INVINVOICE);
+            Map(x => x.TSK_QUOTATION);
+            Map(x => x.TSK_QUOTATIONSTATUS);
+            Map(x => x.TSK_SUPERVISION);
+            Map(x => x.TSK_PURCHASEORDER);
+            Map(x => x.TSK_PURCHASEORDERREQ);
+            Map(x => x.TSK_CONTRACT);
+            Map(x => x.TSK_ACTIVITYCOUNT).ReadOnly().Formula("(SELECT COUNT(*) FROM TMTASKACTIVITIES a WHERE a.TSA_TASK = TSK_ID)");
+            Map(x => x.TSK_NOTE).Length(PropertySettings.L4001);
+
+        }
+    }
+}

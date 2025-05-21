@@ -1,0 +1,1107 @@
+﻿@using System.Threading
+@using Resources.Users.Index
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Default.cshtml";
+}
+
+
+@Html.IncludeVersionedCss("/Content/bootstrap/bootstrap-slider.css")
+@Html.IncludeVersionedCss("/Content/bootstrap/bootstrap-editable.css")
+@Html.IncludeVersionedCss("/Content/bootstrap/bootstrap-switch.min.css")
+@Html.IncludeVersionedCss("/Content/jquery/jquery.contextMenu.min.css")
+@Html.IncludeVersionedCss("/Content/jquery/jquery.fileupload.css")
+@Html.IncludeVersionedCss("/Content/bootstrap/bootstrap-tagsinput.css")
+@Html.IncludeVersionedCss("/Content/fullcalendar.min.css")
+
+<div style="margin-top: 10px">
+    <div class="page-header">
+        <h4>@UserStrings.users</h4>
+        <h6></h6>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tms-page-toolbar inline-toolbar left" data-block="#record">
+                <div class="btn-group">
+                    <button class="btn btn-default btn-sm" title="Ctrl+R" selection-required="false" id="btnNew"><i class="fa fa fa-plus fa-fw"></i> @UserStrings.addnew</button>
+                    <button class="btn btn-default btn-sm" title="Ctrl+S" selection-required="false" id="btnSave"><i class="fa fa-floppy-o fa-fw"></i> @UserStrings.save</button>
+                    <button class="btn btn-default btn-sm" title="Ctrl+U" selection-required="true" id="btnUndo"><i class="fa fa-undo fa-fw"></i> @UserStrings.undo</button>
+                    <button class="btn btn-default btn-sm" title="Ctrl+D" selection-required="true" id="btnDelete"><i class="fa fa-trash-o fa-fw"></i> @UserStrings.delete</button>
+                    <button class="btn btn-default btn-sm" title="Ctrl+H" selection-required="true" id="btnHistory" disabled="disabled"><i class="fa fa-bolt fa-fw"></i> @UserStrings.history</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#list">@UserStrings.list</a></li>
+        <li><a data-toggle="tab" default-on-reset href="#record">@UserStrings.record</a></li>
+        <li><a enable-on-selection href="#exceptions">@UserStrings.usertradeexceptions</a></li>
+        <li><a enable-on-selection href="#organizations">@UserStrings.organizations</a></li>
+        <li><a enable-on-selection href="#shift">@UserStrings.shift</a></li>
+        <li><a enable-on-selection href="#annualleaves">@UserStrings.annualleave</a></li>
+        <li><a enable-on-selection href="#hrpersonalinfo">@UserStrings.hrpersonalinfo</a></li>
+
+    </ul>
+    <div class="tab-content">
+        <div id="list" class="tab-pane active">
+            <div id="grdUsers"></div>
+        </div>
+        <div id="record" class="tab-pane">
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="panel panel-default">
+                        <div class="panel-heading page-panel-heading">@UserStrings.record</div>
+                        <div class="panel-body page-panel-body">
+                            <div class="row custom">
+                                <div class="col-md-12">
+                                    <button class="btn btn-primary btn-sm" selection-required="true" id="btnNewPassword"><i class="fa fa-key fa-fw"></i>@UserStrings.newpassword</button>
+                                </div>
+                            </div>
+                            <hr />
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @UserStrings.code
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="text" maxlength="50" required disableonupdate="yes" class="form-control form-code" id="code" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @UserStrings.description
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="text" maxlength="250" required class="form-control" id="desc" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @UserStrings.organization
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="input-group">
+                                        <input type="text" maxlength="50" class="form-control" required id="org">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button" id="btnorg"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @UserStrings.department
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="input-group">
+                                        <input type="text" maxlength="50" class="form-control" required id="department">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button" id="btndepartment"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @UserStrings.authorizeddepartments
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="text" required class="form-control" data-role="multival" id="authorizeddepartments">
+                                </div>
+                                <div class="col-md-1">
+                                    <button id="btnadddepartments" title="Add Departments" class="btn btn-default" type="button"><i class="fa fa-btn fa-users"></i></button>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @UserStrings.usergroup
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="input-group">
+                                        <input type="text" maxlength="50" class="form-control" required id="usergroup">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button" id="btnusergroup"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @UserStrings.duty
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="input-group">
+                                        <input type="text" maxlength="50" class="form-control" id="duty">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button" id="btnduty"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @UserStrings.appstatus
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="input-group">
+                                        <input type="text" maxlength="50" required="required" class="form-control" id="appstatus">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button" id="btnappstatus"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom hidden" id="divreturnreason">
+                                <div class="col-md-4">
+                                    @UserStrings.returnreason
+                                </div>
+                                <div class="col-md-8">
+                                    <textarea type="text" class="form-control" id="returnreason" style="width: 100%; height: 100px;" maxlength="250"></textarea>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @UserStrings.trade
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="input-group">
+                                        <input type="text" maxlength="50" class="form-control" required id="trade">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button" id="btntrade"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @UserStrings.type
+                                </div>
+                                <div class="col-md-4">
+                                    <select id="type" required class="form-control">
+                                        <option value="">@UserStrings.pleaseselect</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @UserStrings.timekeepingofficer
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="input-group">
+                                        <input type="text" maxlength="50" class="form-control" id="timekeepingofficer">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button" id="btntimekeepingofficer"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @UserStrings.language
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="input-group">
+                                        <input type="text" maxlength="50" class="form-control" required id="language">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button" id="btnlanguages"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @UserStrings.pricingcode
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="input-group">
+                                        <input type="text" maxlength="50" class="form-control" id="pricingcode">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button" id="btnpricingcode"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @UserStrings.email
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="email" class="form-control" required id="email" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @UserStrings.customer
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" data-role="multival" id="customer">
+                                </div>
+                                <div class="col-md-1">
+                                    <button id="btnaddcustomers" class="btn btn-default" type="button"><i class="fa fa-btn fa-plus"></i></button>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @UserStrings.supplier
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" data-role="multival" id="supplier">
+                                </div>
+                                <div class="col-md-1">
+                                    <button id="btnaddsuppliers" class="btn btn-default" type="button"><i class="fa fa-btn fa-plus"></i></button>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @UserStrings.altemail
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="email" class="form-control" id="alternateemail" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @UserStrings.defaultinbox
+                                </div>
+                                <div class="col-md-4">
+                                    <select id="defaultinbox" class="form-control">
+                                        <option value="">@UserStrings.pleaseselect</option>
+                                        <option value="PERSONAL">@UserStrings.inboxpersonal</option>
+                                        <option value="PUBLIC">@UserStrings.inboxpublic</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @UserStrings.defaultMainsection
+                                </div>
+                                <div class="col-md-4">
+                                    <select id="defaultMainsection" class="form-control">
+                                        <option value="">@UserStrings.pleaseselect</option>
+                                        <option value="inbox">@UserStrings.inbox</option>
+                                        <option value="kpi">@UserStrings.kpi</option>
+                                        <option value="calendar">@UserStrings.calendar</option>
+                                        <option value="activityMap">@UserStrings.activitymap</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @UserStrings.jobstartdate
+                                </div>
+                                <div class="col-md-2">
+                                    <input type="text" required="required" maxlength="10" class="form-control" ctrltype="datepicker" id="startdate" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @UserStrings.jobenddate
+                                </div>
+                                <div class="col-md-2">
+                                    <input type="text" maxlength="10" class="form-control" ctrltype="datepicker" id="enddate" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @UserStrings.lockcount
+                                </div>
+                                <div class="col-md-2">
+                                    <input type="text" class="form-control" ctrltype="numeric" allowfloat="false" id="lockcount" />
+                                </div>
+                            </div>
+                            <div class="row custom hidden" id="divleavingreason">
+                                <div class="col-md-4">
+                                    @UserStrings.leavingreason
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="input-group">
+                                        <input type="text" maxlength="50" class="form-control" id="leavingreason">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button" id="btnleavingreason"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-sm-4">
+                                    @UserStrings.viewweeklycalendar
+                                </div>
+                                <div class="col-sm-8">
+                                    <div class="checkbox checkbox-primary">
+                                        <input type="checkbox" class="styled" checked="checked" id="viewweeklycalendar" />
+                                        <label></label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-sm-4">
+                                    @UserStrings.tms
+                                </div>
+                                <div class="col-sm-8">
+                                    <div class="checkbox checkbox-primary">
+                                        <input type="checkbox" class="styled" id="tms" />
+                                        <label></label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-sm-4">
+                                    @UserStrings.mobile
+                                </div>
+                                <div class="col-sm-8">
+                                    <div class="checkbox checkbox-primary">
+                                        <input type="checkbox" class="styled" id="mobile" />
+                                        <label></label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-sm-4">
+                                    @UserStrings.requestor
+                                </div>
+                                <div class="col-sm-8">
+                                    <div class="checkbox checkbox-primary">
+                                        <input type="checkbox" class="styled" id="requestor" />
+                                        <label></label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-sm-4">
+                                    @UserStrings.boo
+                                </div>
+                                <div class="col-sm-8">
+                                    <div class="checkbox checkbox-primary">
+                                        <input type="checkbox" class="styled" id="boo" />
+                                        <label></label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-sm-4">
+                                    @UserStrings.active
+                                </div>
+                                <div class="col-sm-8">
+                                    <div class="checkbox checkbox-primary">
+                                        <input type="checkbox" class="styled" checked="checked" id="active" />
+                                        <label></label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div id="profilePhoto">
+                        <div class="panel panel-default">
+                            <div class="panel-heading page-panel-heading">@UserStrings.photo</div>
+                            <div class="panel-body page-panel-body">
+                                <div class="row">
+                                    <div class="col-md-12 text-center" id="imgprv">
+                                        <img class="userscrpic" src="~/files/profile/default.png" />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12 text-center">
+                                        <span class="btn btn-default fileinput-button" id="btnBrowse" disabled="disabled">
+                                            <i class="fa fa-search"></i>
+                                            <span>@UserStrings.browse</span>
+                                            <input type="file" name="fu" id="fu" data-url="/UploadFile.ashx">
+                                        </span>
+                                        <span class="btn btn-default" selection-required="true" id="btnRetriveFromAD" disabled="disabled">
+                                            <i class="fa fa-search"></i>
+                                            <span>@UserStrings.retrievefromad</span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="divCustomFields">
+                        <div class="panel panel-default" style="height: 600px;">
+                            <div class="panel-heading task-panel-heading">@UserStrings.customfields</div>
+                            <div class="panel-body">
+                                <div id="cfcontainer"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="exceptions" class="tab-pane">
+            <div class="panel panel-default">
+                <div class="panel-heading page-panel-heading">@UserStrings.usertradeexceptions</div>
+                <div id="grdUserTradeExceptions" style="border-width: 0px;"></div>
+                <div class="inline-toolbar left" data-block="#exceptions">
+                    <div class="btn-group">
+                        <button class="btn btn-default btn-sm" title="Ctrl+R" selection-required="false" id="btnAddException"><i class="fa fa fa-plus fa-fw"></i>@UserStrings.addnew</button>
+                        <button class="btn btn-default btn-sm" title="Ctrl+S" selection-required="false" id="btnSaveException"><i class="fa fa-floppy-o fa-fw"></i>@UserStrings.save</button>
+                        <button class="btn btn-default btn-sm" title="Ctrl+D" selection-required="true" id="btnDeleteException" disabled="disabled"><i class="fa fa-trash-o fa-fw"></i>@UserStrings.delete</button>
+                    </div>
+                </div>
+                <div class="panel-body page-panel-body">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="row custom">
+                                <div class="col-md-3">
+                                    @UserStrings.trade
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="input-group">
+                                        <input type="text" maxlength="50" class="form-control" required id="exctrade">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button" id="btnexctrade"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-3">
+                                    @UserStrings.start
+                                </div>
+                                <div class="col-md-5">
+                                    <input type="text" maxlength="16" class="form-control" required ctrltype="datetimepicker" id="excstart" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-3">
+                                    @UserStrings.end
+                                </div>
+                                <div class="col-md-5">
+                                    <input type="text" maxlength="16" class="form-control" required ctrltype="datetimepicker" id="excend" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="organizations" class="tab-pane">
+            <div class="panel panel-default">
+                <div class="panel-heading page-panel-heading">@UserStrings.organizations</div>
+                <div id="grdUserOrganizations" style="border-width: 0px;"></div>
+                <div class="inline-toolbar left" data-block="#organizations">
+                    <div class="btn-group">
+                        <button class="btn btn-default btn-sm" title="Ctrl+R" selection-required="false" id="btnAddOrganization"><i class="fa fa fa-plus fa-fw"></i>@UserStrings.addnew</button>
+                        <button class="btn btn-default btn-sm" title="Ctrl+S" selection-required="false" id="btnSaveOrganization"><i class="fa fa-floppy-o fa-fw"></i>@UserStrings.save</button>
+                        <button class="btn btn-default btn-sm" title="Ctrl+D" selection-required="true" id="btnDeleteOrganization" disabled="disabled"><i class="fa fa-trash-o fa-fw"></i>@UserStrings.delete</button>
+                    </div>
+                </div>
+                <div class="panel-body page-panel-body">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="row custom">
+                                <div class="col-md-3">
+                                    @UserStrings.organization
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="input-group">
+                                        <input type="text" maxlength="50" class="form-control" required id="userorg">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button" id="btnuserorg"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-3">
+                                    @UserStrings.defaultorg
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="checkbox checkbox-primary">
+                                        <input type="checkbox" class="styled" id="default" />
+                                        <label></label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane" id="shift">
+            <div class="well">
+                <div class="btn-group" id="divshifts">
+                </div>
+            </div>
+            <div id="shiftcalendar"></div>
+        </div>
+        <div id="annualleaves" class="tab-pane">
+            <div class="panel panel-default">
+                <div class="panel-heading page-panel-heading">@UserStrings.annualleave</div>
+                <div id="grdUserAnnualLeaves" style="border-width: 0px;"></div>
+                <div class="inline-toolbar left" data-block="#exceptions">
+                    <div class="btn-group">
+                        <button class="btn btn-default btn-sm" title="Ctrl+R" selection-required="false" id="btnAddAnnualLeave"><i class="fa fa fa-plus fa-fw"></i>@UserStrings.addnew</button>
+                        <button class="btn btn-default btn-sm" title="Ctrl+S" selection-required="false" id="btnSaveAnnualLeave"><i class="fa fa-floppy-o fa-fw"></i>@UserStrings.save</button>
+                        <button class="btn btn-default btn-sm" title="Ctrl+D" selection-required="true" id="btnDeleteAnnualLeave" disabled="disabled"><i class="fa fa-trash-o fa-fw"></i>@UserStrings.delete</button>
+                    </div>
+                </div>
+                <div class="panel-body page-panel-body">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="row custom">
+                                <div class="col-md-3">
+                                    @UserStrings.year
+                                </div>
+                                <div class="col-md-5">
+                                    <input type="text" class="form-control" ctrltype="numeric" allowfloat="true" required id="year" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-3">
+                                    @UserStrings.qty
+                                </div>
+                                <div class="col-md-5">
+                                    <input type="text" class="form-control" ctrltype="numeric" allowfloat="true" required id="qty" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="hrpersonalinfo" class="tab-pane">
+            <div class="panel panel-default">
+                <div class="panel-heading page-panel-heading">@UserStrings.hrpersonalinfo</div>
+                <div id="grdUserHrPersonalInfo" style="border-width: 0px;"></div>
+                <div class="inline-toolbar left" data-block="#hrpersonalinfo">
+                    <div class="btn-group">
+                        <button class="btn btn-default btn-sm" title="Ctrl+S" selection-required="false" id="btnSaveHrPersonalInfo"><i class="fa fa-floppy-o fa-fw"></i>@UserStrings.save</button>
+                    </div>
+                </div>
+                <div class="panel-body page-panel-body">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @UserStrings.registrationnumber
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="text" maxlength="50" onkeypress='return event.keyCode >= 48 && event.keyCode <= 57' class="form-control form-code" id="registrationnumber" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @UserStrings.title
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="text" maxlength="50" class="form-control" id="title" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @UserStrings.tcnumber
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="text" maxlength="11" onkeypress='return event.keyCode >= 48 && event.keyCode <= 57' class="form-control" id="tcnumber" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @UserStrings.fusenumber
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="text" maxlength="50" onkeypress='return event.keyCode >= 48 && event.keyCode <= 57' class="form-control" id="fusenumber" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @UserStrings.gender
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="radio radio-primary radio-inline">
+                                        <input type="radio" name="gtype" id="male" value="Erkek">
+                                        <label for="male1">@UserStrings.male</label>
+                                    </div>
+                                    <div class="radio radio-primary radio-inline">
+                                        <input type="radio" name="gtype" id="female" value="Kadın">
+                                        <label for="female1">@UserStrings.female</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @UserStrings.maritalstatus
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="radio radio-primary radio-inline">
+                                        <input type="radio" name="mtype" id="married" value="Evli">
+                                        <label for="married1">@UserStrings.married</label>
+                                    </div>
+                                    <div class="radio radio-primary radio-inline">
+                                        <input type="radio" name="mtype" id="single" value="Bekar">
+                                        <label for="single1">@UserStrings.single</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @UserStrings.birthdate
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="text" maxlength="10" id="birthdate" ctrltype="datepicker" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @UserStrings.placeofbirth
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="text" maxlength="50" class="form-control" id="placeofbirth" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @UserStrings.bloodgroup
+                                </div>
+                                <div class="col-md-4">
+                                    <select id="bloodgroup" class="form-control">
+                                        <option value="">@UserStrings.pleaseselect</option>
+                                        <option value="AB Rh+">@UserStrings.abpos</option>
+                                        <option value="AB Rh-">@UserStrings.abneg</option>
+                                        <option value="A Rh+">@UserStrings.apos</option>
+                                        <option value="A Rh-">@UserStrings.aneg</option>
+                                        <option value="B Rh+">@UserStrings.bpos</option>
+                                        <option value="B Rh-">@UserStrings.bneg</option>
+                                        <option value="0 Rh+">@UserStrings.Opos</option>
+                                        <option value="0 Rh-">@UserStrings.Oneg</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @UserStrings.edustatus
+                                </div>
+                                <div class="col-md-4">
+                                    <select id="edustatus" class="form-control">
+                                        <option value="">@UserStrings.pleaseselect</option>
+                                        <option value="İlköğretim">@UserStrings.primaryeducation</option>
+                                        <option value="Lise">@UserStrings.highschool</option>
+                                        <option value="Lisans">@UserStrings.bachelordegree </option>
+                                        <option value="Yüksek Lisans">@UserStrings.postgraduate</option>
+                                        <option value="Doktora">@UserStrings.doctorate</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @UserStrings.lastgraduatedschool
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="text" maxlength="50" class="form-control" id="lastgraduatedschool" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @UserStrings.lastgraduateddepartment
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="text" maxlength="50" class="form-control" id="lastgraduateddepartment" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @UserStrings.lastgraduateddate
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="text" maxlength="10" id="lastgraduateddate" ctrltype="datepicker" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @UserStrings.militaryservice
+                                </div>
+                                <div class="col-md-4">
+                                    <select id="militaryservice" class="form-control">
+                                        <option value="">@UserStrings.pleaseselect</option>
+                                        <option value="Yapıldı">@UserStrings.done</option>
+                                        <option value="Tecilli">@UserStrings.postponed</option>
+                                        <option value="Yapılmadı">@UserStrings.notdone </option>
+                                        <option value="Muaf Lisans">@UserStrings.exempt</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @UserStrings.emergencycontactname
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="text" maxlength="50" class="form-control" id="emergencycontactname" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @UserStrings.emergencycontactaffinity
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="text" maxlength="50" class="form-control" id="emergencycontactaffinity" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @UserStrings.emergencycontactphone
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="text" maxlength="50" ctrltype="phone" onkeypress='return event.keyCode >= 48 && event.keyCode <= 57' class="form-control" id="emergencycontactphone" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @UserStrings.phonenumber
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="text" maxlength="50" ctrltype="phone" onkeypress='return event.keyCode >= 48 && event.keyCode <= 57' class="form-control" id="phonenumber" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @UserStrings.Maintelephonenumber
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="text" maxlength="50" onkeypress='return event.keyCode >= 48 && event.keyCode <= 57' class="form-control" id="Maintelephonenumber" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @UserStrings.officenumber
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="text" maxlength="50" onkeypress='return event.keyCode >= 48 && event.keyCode <= 57' class="form-control" id="officenumber" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @UserStrings.personalemail
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="email" maxlength="50" class="form-control" id="personalemail" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @UserStrings.fulladdress
+                                </div>
+                                <div class="col-md-4">
+                                    <textarea id="fulladdress" class="form-control" rows="6" maxlength="250"></textarea>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @UserStrings.shoesize
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="input-group">
+                                        <input type="text" maxlength="50" class="form-control" id="shoesize">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button" id="btnshoesize"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @UserStrings.tshirtsize
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="input-group">
+                                        <input type="text" maxlength="50" class="form-control" id="tshirtsize">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button" id="btntshirtsize"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @UserStrings.pantsize
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="input-group">
+                                        <input type="text" maxlength="50" class="form-control" id="pantsize">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button" id="btnpantsize"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @UserStrings.polarsize
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="input-group">
+                                        <input type="text" maxlength="50" class="form-control" id="polarsize">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button" id="btnpolarsize"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @UserStrings.licenseclass
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="text" maxlength="50" class="form-control" id="licenseclass" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @UserStrings.licenseissuedate
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="text" maxlength="10" id="licenseissuedate" ctrltype="datepicker" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-sm-4">
+                                    @UserStrings.sskentrydeclaration
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="checkbox checkbox-primary">
+                                        <input type="checkbox" class="styled" disabled="disabled" id="sskentrydeclaration" />
+                                        <label></label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-sm-4">
+                                    @UserStrings.isgtrainingdocument
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="checkbox checkbox-primary">
+                                        <input type="checkbox" class="styled" disabled="disabled" id="isgtrainingdocument" />
+                                        <label></label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-sm-4">
+                                    @UserStrings.medicalreport
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="checkbox checkbox-primary">
+                                        <input type="checkbox" class="styled" disabled="disabled" id="medicalreport" />
+                                        <label></label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-sm-4">
+                                    @UserStrings.kkdform
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="checkbox checkbox-primary">
+                                        <input type="checkbox" class="styled" disabled="disabled" id="kkdform" />
+                                        <label></label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-sm-4">
+                                    @UserStrings.criminalrecord
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="checkbox checkbox-primary">
+                                        <input type="checkbox" class="styled" disabled="disabled" id="criminalrecord" />
+                                        <label></label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-sm-4">
+                                    @UserStrings.identificationcard
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="checkbox checkbox-primary">
+                                        <input type="checkbox" class="styled" disabled="disabled" id="identificationcard" />
+                                        <label></label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-sm-4">
+                                    @UserStrings.drivinglicense
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="checkbox checkbox-primary">
+                                        <input type="checkbox" class="styled" disabled="disabled" id="drivinglicense" />
+                                        <label></label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-sm-4">
+                                    @UserStrings.diploma
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="checkbox checkbox-primary">
+                                        <input type="checkbox" class="styled" disabled="disabled" id="active" />
+                                        <label></label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-sm-4">
+                                    @UserStrings.qualificationcertificate
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="checkbox checkbox-primary">
+                                        <input type="checkbox" class="styled" disabled="disabled" id="qualificationcertificate" />
+                                        <label></label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="panel panel-default" style="height: 700px;">
+                                <div class="panel-heading task-panel-heading">@UserStrings.comments</div>
+                                <div class="panel-body">
+                                    <textarea class="form-control" contenteditable rows="3" id="hrcomment"></textarea>
+                                    @if (string.IsNullOrEmpty(UserManager.Instance.User.Customer))
+                                    {
+                                        <div class="row custom">
+                                            <div class="col-md-12">
+                                                <div class="checkbox checkbox-inline checkbox-primary">
+                                                    <input type="checkbox" class="styled" id="hrvisibletocustomer" />
+                                                    <label>@UserStrings.visibletocustomer</label>
+                                                </div>
+                                                @if (string.IsNullOrEmpty(UserManager.Instance.User.Supplier))
+                                                {
+                                                    <div class="checkbox  checkbox-inline checkbox-primary">
+                                                        <input type="checkbox" class="styled" id="hrvisibletosupplier" />
+                                                        <label>@UserStrings.visibletosupplier</label>
+                                                    </div>
+                                                }
+                                            </div>
+                                        </div>
+                                    }
+                                    <div class="inline-toolbar">
+                                        <button class="btn btn-primary btn-xs" disabled="disabled" id="hraddComment"><i class="fa fa-plus-circle"></i> @UserStrings.add</button>
+                                    </div>
+                                    <div id="hrcomments" class="sm">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-default" style="height: 600px;">
+                                <div class="panel-heading task-panel-heading">@UserStrings.docs</div>
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="progress">
+                                                <div class="progress-bar" id="hrdocuprogress" role="progressbar" style="width: 0%; min-width: 2em;">0%</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row custom">
+                                        <div class="col-md-3"><strong>@UserStrings.doctype</strong></div>
+                                        <div class="col-md-6">
+                                            <select class="form-control" id="hrdoctype">
+                                                <option class="default" value="">@UserStrings.unspecified</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row custom">
+                                        <div class="col-md-12">
+                                            <div id="hrfupload">
+                                                <span class="btn btn-default fileinput-button" id="hrbtnBrowse">
+                                                    <i class="fa fa-search"></i>
+                                                    <span>@UserStrings.browse</span>
+                                                    <input type="file" name="files[]" id="hrfu" multiple data-url="/UploadFile.ashx">
+                                                </span>
+                                                <button class="btn btn-default" id="hrbtnupload"><i class="fa fa-cloud-upload"></i> @UserStrings.upload</button>
+                                                <button class="btn btn-default" id="hrbtnDownload"><i class="fa fa-download" aria-hidden="true"></i> @UserStrings.download</button>
+                                                <div class="row custom">
+                                                    <div class="col-md-12">
+                                                        <div id="hrfilename"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div id="hrdocs"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+    <div class="modal" id="modalpass" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="false">&times;</span></button>
+                    <h4 class="modal-title" id="modaltitle">@UserStrings.newpassword</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row custom">
+                        <div class="col-md-4">
+                            @UserStrings.password
+                        </div>
+                        <div class="col-md-4">
+                            <div class="input-group">
+                                <input type="text" data-dblcheck="#passwordagain" class="form-control" id="password">
+                                <span class="input-group-addon"><i class="fa fa-key fa-fw"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row custom">
+                        <div class="col-md-4">
+                            @UserStrings.passwordagain
+                        </div>
+                        <div class="col-md-4">
+                            <div class="input-group">
+                                <input type="text" data-dblcheck="#password" class="form-control" id="passwordagain">
+                                <span class="input-group-addon"><i class="fa fa-key fa-fw"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row custom">
+                        <div class="col-md-12">
+                            <div id="passwarning" class="alert alert-info"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> @UserStrings.pswdcomplexity</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success btn-xs" disabled="disabled" id="btnSavePswd"><i class="fa fa-floppy-o"></i> @UserStrings.save</button>
+                    <button type="button" data-dismiss="modal" class="btn btn-danger btn-xs" id="cancel"><i class="fa fa-close"></i> @UserStrings.cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var inbox = "@ViewBag.id";
+</script>
+
+@Html.IncludeVersionedJs("/Scripts/other/fontawesome-markers.min.js")
+@Html.IncludeVersionedJs("/Scripts/other/querydata.min.js")
+@Html.IncludeVersionedJs("/Scripts/bootstrap/bootstrap-slider.js")
+@Html.IncludeVersionedJs("/Scripts/bootstrap/bootstrap-editable.min.js")
+@Html.IncludeVersionedJs("/Scripts/bootstrap/bootstrap-switch.min.js")
+@Html.IncludeVersionedJs("/Scripts/other/numericInput.min.js")
+@Html.IncludeVersionedJs("/Scripts/other/typeahead.bundle.js")
+@Html.IncludeVersionedJs("/Scripts/jquery/jquery.contextMenu.min.js")
+@Html.IncludeVersionedJs("/Scripts/custom/ovi.custom.documents.js")
+@Html.IncludeVersionedJs("/Scripts/custom/ovi.custom.comments.js")
+@Html.IncludeVersionedJs("/Scripts/other/color-hash.js")
+
+@Html.IncludeVersionedJs("/Scripts/custom/ovi.custom.list.js")
+
+@Html.IncludeVersionedJs("/Scripts/custom/ovi.custom.entitylookup.js")
+@Html.IncludeVersionedJs("/Scripts/custom/ovi.custom.customfields.js")
+@Html.IncludeVersionedJs("/Scripts/jquery/jquery.fileupload.js")
+@Html.IncludeVersionedJs("/Scripts/jquery/jquery.iframe-transport.js")
+@Html.IncludeVersionedJs("/Scripts/bootstrap/bootstrap-tagsinput.min.js")
+@Html.IncludeVersionedJs("/Scripts/other/load-image.all.min.js")
+@Html.IncludeVersionedJs("/Scripts/other/fullcalendar.min.js")
+@if (Thread.CurrentThread.CurrentUICulture.Name == "tr")
+{
+    @Html.IncludeVersionedJs("/Scripts/other/fullcalendar.tr.js")
+}
+@Html.IncludeVersionedJs("/Scripts/app/User.js")

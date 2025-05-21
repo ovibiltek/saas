@@ -1,0 +1,69 @@
+﻿@using Resources.Logs.Index
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Default.cshtml";
+}
+<div style="margin-top: 10px">
+    <div class="page-header">
+        <h4>@LogsStrings.logs</h4>
+        <h6></h6>
+    </div>
+    <div id="grdLogs"></div>
+    <div class="row custom">
+        <div class="panel panel-default">
+            <div class="panel-heading page-panel-heading">@LogsStrings.record</div>
+            <div class="panel-body page-panel-body">
+                <div class="row custom">
+                    <div class="col-md-2">
+                        @LogsStrings.bunit
+                    </div>
+                    <div class="col-md-4">
+                        <span id="bunit"></span>
+                    </div>
+                </div>
+                <div class="row custom">
+                    <div class="col-md-2">
+                        @LogsStrings.bfunc
+                    </div>
+                    <div class="col-md-4">
+                        <span id="bfunc"></span>
+                    </div>
+                </div>
+                <div class="row custom">
+                    <div class="col-md-2">
+                        @LogsStrings.msg
+                    </div>
+                    <div class="col-md-4">
+                        <span id="msg"></span>
+                    </div>
+                </div>
+                <div class="row custom">
+                    <div class="col-md-2">
+                        @LogsStrings.details
+                    </div>
+                    <div class="col-md-4">
+                        <span id="logdetails"></span>
+                    </div>
+                </div>
+                <div class="row custom">
+                    <div class="col-md-2">
+                        @LogsStrings.created
+                    </div>
+                    <div class="col-md-4">
+                        <span id="created"></span>
+                    </div>
+                </div>
+                <div class="row custom">
+                    <div class="col-md-2">
+                        @LogsStrings.createdby
+                    </div>
+                    <div class="col-md-4">
+                        <span id="createdby"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@Html.IncludeVersionedJs("/Scripts/app/Logs.js")

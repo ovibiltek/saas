@@ -1,0 +1,424 @@
+﻿@using Resources.Reports.PSP
+@{
+    ViewBag.Title = "PSP";
+    Layout = "~/Views/Shared/Default.cshtml";
+}
+@Html.IncludeVersionedCss("/Content/bootstrap/bootstrap-tagsinput.css")
+
+@Html.IncludeVersionedCss("/Content/jquery/jquery.fileupload.css")
+@Html.IncludeVersionedCss("/Content/jquery/jquery.contextMenu.min.css")
+
+
+
+<div style="margin-top: 10px">
+    <div class="page-header">
+        <h4>@ReportPspStrings.title</h4>
+        <h6></h6>
+    </div>
+    <form action="/Reports/GeneratePSP" method="POST" target="_blank" novalidate>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="tms-page-toolbar inline-toolbar left" data-block="#record">
+                    <div class="btn-group">
+                        <button class="btn btn-default btn-sm" title="Ctrl+R" selection-required="false" id="btnRun"><i class="fa fa fa-plus fa-fw"></i> @ReportPspStrings.run</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" style="margin-top: 10px;" id="record">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading page-panel-heading">@ReportPspStrings.parameters</div>
+                    <div class="panel-body page-panel-body">
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="row custom">
+                                    <div class="col-md-3">
+                                        @ReportPspStrings.organization
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="input-group">
+                                            <input type="text" maxlength="50" class="form-control" id="org">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default" type="button" id="btnorg"><i class="fa fa-search fa-fw"></i></button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-3">
+                                        @ReportPspStrings.customer
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="input-group">
+                                            <input type="text" maxlength="50" class="form-control" name="Customer" id="customer">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default" type="button" id="btncustomer"><i class="fa fa-search fa-fw"></i></button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-3">
+                                        @ReportPspStrings.authorized
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" data-role="multival" name="Authorized" id="authorized">
+                                            <div class="input-group-btn">
+                                                <button id="btnAuthorizedUsers" class="btn btn-default" type="button"><i class="fa fa-btn fa-search"></i></button>
+                                            </div>
+                                        </div>                                    
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-3">
+                                        @ReportPspStrings.branch
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="input-group">
+                                            <input type="text" maxlength="50" class="form-control" name="Branch" id="branch">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default" type="button" id="btnbranch"><i class="fa fa-search fa-fw"></i></button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-3">
+                                        @ReportPspStrings.pspstatus
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="input-group">
+                                            <input type="text" maxlength="50" class="form-control" name="PSPStatus" id="pspstatus">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default" type="button" id="btnpspstatus"><i class="fa fa-search fa-fw"></i></button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-3">
+                                        @ReportPspStrings.tasktype
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="input-group">
+                                            <input type="text" maxlength="50" class="form-control" name="Tasktype" id="tasktype">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default" type="button" id="btntasktype"><i class="fa fa-search fa-fw"></i></button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-3">
+                                        @ReportPspStrings.branchtype
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" data-role="multival" name="BranchType" id="branchtype">
+                                            <div class="input-group-btn">
+                                                <button id="btnBranchType" class="btn btn-default" type="button"><i class="fa fa-btn fa-search"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-3">
+                                        @ReportPspStrings.taskcategory
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="input-group">
+                                            <input type="text" required class="form-control" data-role="multival" name="Taskcategory" id="taskcategory">
+                                            <div class="input-group-btn">
+                                                <button id="btntaskcategory" class="btn btn-default" type="button"><i class="fa fa-btn fa-search"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-3">
+                                        @ReportPspStrings.tsktasktype
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="input-group">
+                                            <input type="text" required class="form-control" data-role="multival" name="TskTaskType" id="tsktasktype">
+                                            <div class="input-group-btn">
+                                                <button id="btntsktasktype" class="btn btn-default" type="button"><i class="fa fa-btn fa-search"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-md-6">
+                                <div class="row custom">
+                                    <div class="col-md-3">
+                                        @ReportPspStrings.invoiceno
+                                    </div>
+                                    <div class="col-md-3">
+                                        <input type="text" maxlength="50" class="form-control" name="InvoiceNo" id="invoiceno">
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-3">
+                                        @ReportPspStrings.invoicedate
+                                    </div>
+                                    <div class="col-md-3">
+                                        <input type="text" ctrltype="datepicker" maxlength="50" class="form-control" name="PSPInvoiceDateStart" id="pspinvdatestart">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <input type="text" ctrltype="datepicker" maxlength="50" class="form-control" name="PSPInvoiceDateEnd" id="pspinvdateend">
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-3">
+                                        @ReportPspStrings.pspcode
+                                    </div>
+                                    <div class="col-md-3">
+                                        <input type="text" maxlength="50" class="form-control" name="PSP" id="psp">
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-3">
+                                        @ReportPspStrings.groupcode
+                                    </div>
+                                    <div class="col-md-3">
+                                        <input type="text" maxlength="50" class="form-control" name="GroupCode" id="groupcode">
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-3">
+                                        @ReportPspStrings.task
+                                    </div>
+                                    <div class="col-md-3">
+                                        <input type="text" maxlength="50" class="form-control" name="Task" id="task">
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-3">
+                                        @ReportPspStrings.pspdate
+                                    </div>
+                                    <div class="col-md-3">
+                                        <input type="text" ctrltype="datepicker" maxlength="50" class="form-control" name="PSPStart" id="pspstart">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <input type="text" ctrltype="datepicker" maxlength="50" class="form-control" name="PSPEnd" id="pspend">
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-3">
+                                        @ReportPspStrings.taskcompleted
+                                    </div>
+                                    <div class="col-md-3">
+                                        <input type="text" ctrltype="datepicker" maxlength="50" class="form-control" name="TskStart" id="tskcompletedstart">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <input type="text" ctrltype="datepicker" maxlength="50" class="form-control" name="TskEnd" id="tskcompletedend">
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-3"></div>
+                                    <div class="col-md-9">
+                                        <div class="checkbox checkbox-primary checkbox-inline">
+                                            <input type="checkbox" name="HideZero" id="hidezero" value="+">
+                                            <label for="hidezero">@ReportPspStrings.hidezero</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-3">
+                                        @ReportPspStrings.outputtype
+                                    </div>
+                                    <div class="col-md-9">
+                                        <div class="radio radio-primary radio-inline">
+                                            <input type="radio" name="Type" id="pdf" value="PDF" checked>
+                                            <label for="pdf">@ReportPspStrings.pdf</label>
+                                        </div>
+                                        <div class="radio radio-primary radio-inline">
+                                            <input type="radio" name="Type" id="xls" value="XLS">
+                                            <label for="xls">@ReportPspStrings.xls</label>
+                                        </div>
+                                        <div class="radio radio-primary radio-inline">
+                                            <input type="radio" name="Type" id="zip" value="ZIP">
+                                            <label for="zip">@ReportPspStrings.zip</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-3">
+                                        @ReportPspStrings.reportformat
+                                    </div>
+                                    <div class="col-md-3">
+                                        <select class="form-control" id="format" name="Format">
+                                            <option value="F1" selected="selected">@ReportPspStrings.format1</option>
+                                            <option value="F2">@ReportPspStrings.format2</option>
+                                            <option value="F3">@ReportPspStrings.format3</option>
+                                            <option value="F4">@ReportPspStrings.format4</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-3">
+                                        @ReportPspStrings.hasquotation
+                                    </div>
+                                    <div class="col-md-9">
+                                        <div class="checkbox checkbox-primary checkbox-inline">
+                                            <input type="checkbox" name="HasQuotation" id="hasquotation" value="+">
+                                            <label for="hasquotation"></label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row custom hidden" id="addsecondtable">
+                                    <div class="col-md-3">
+                                        @ReportPspStrings.includetable
+                                    </div>
+                                    <div class="col-md-9">
+                                        <div class="checkbox checkbox-primary checkbox-inline">
+                                            <input type="checkbox" name="IncludeSecondTable" id="includesecondtable" value="+">
+                                            <label for="includesecondtable"></label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-3">
+                                        @ReportPspStrings.donotshowparams
+                                    </div>
+                                    <div class="col-md-9">
+                                        <div class="checkbox checkbox-primary checkbox-inline">
+                                            <input type="checkbox" name="HideParameters" id="hideparameters" value="+">
+                                            <label for="hideparameters"></label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row custom hidden" id="divOnlyServiceForms">
+                                    <div class="col-md-3">
+                                        @ReportPspStrings.onlyserviceforms
+                                    </div>
+                                    <div class="col-md-9">
+                                        <div class="checkbox checkbox-primary checkbox-inline">
+                                            <input type="checkbox" name="OnlyServiceForms" id="onlyserviceforms" value="+">
+                                            <label for="onlyserviceforms"></label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row custom hidden" id="shayaprms">
+                                    <div class="col-md-12">
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading task-panel-heading">@ReportPspStrings.shaya</div>
+                                            <div class="panel-body">
+                                                <div class="row custom">
+                                                    <div class="col-md-3">
+                                                        @ReportPspStrings.shaya_ftip
+                                                    </div>
+                                                    <div class="col-md-5">
+                                                        <div class="input-group">
+                                                            <input type="text" maxlength="50" data-role="multival" class="form-control" id="shaya_ftip" name="SHFTIP">
+                                                            <span class="input-group-btn">
+                                                                <button class="btn btn-default" type="button" id="btn_shaya_ftip"><i class="fa fa-search fa-fw"></i></button>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row custom">
+                                                    <div class="col-md-3">
+                                                        @ReportPspStrings.shaya_hyil
+                                                    </div>
+                                                    <div class="col-md-5">
+                                                        <div class="input-group">
+                                                            <input type="text" maxlength="50" data-role="multival" class="form-control" id="shaya_hyil" name="SHHYIL">
+                                                            <span class="input-group-btn">
+                                                                <button class="btn btn-default" type="button" id="btn_shaya_hyil"><i class="fa fa-search fa-fw"></i></button>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row custom">
+                                                    <div class="col-md-3">
+                                                        @ReportPspStrings.shaya_hay
+                                                    </div>
+                                                    <div class="col-md-5">
+                                                        <div class="input-group">
+                                                            <input type="text" maxlength="50" data-role="multival" class="form-control" id="shaya_hay" name="SHHAY">
+                                                            <span class="input-group-btn">
+                                                                <button class="btn btn-default" type="button" id="btn_shaya_hay"><i class="fa fa-search fa-fw"></i></button>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="row">
+        <div class="col-md-6" id="divCmntsAttachments">
+            <div class="panel panel-default" style="height: 450px;">
+                <div class="panel-heading task-panel-heading">@ReportPspStrings.comments</div>
+                <div class="panel-body">
+                    <textarea class="form-control" contenteditable rows="3" id="comment"></textarea>
+                    <div class="inline-toolbar">
+                        <button class="btn btn-primary btn-xs" selection-required="true" id="addComment"><i class="fa fa-plus-circle"></i>@ReportPspStrings.add</button>
+                    </div>
+                    <div id="comments" class="sm">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6" id="divDocsAttachments">
+            <div class="panel panel-default" style="height: 372px;">
+                <div class="panel-heading task-panel-heading">@ReportPspStrings.docs</div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="progress">
+                                <div class="progress-bar" id="docuprogress" role="progressbar" style="width: 0%; min-width: 2em;">0%</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row custom">
+                        <div class="col-md-8">
+                            <div id="fupload">
+                                <span class="btn btn-default fileinput-button" id="btnBrowse">
+                                    <i class="fa fa-search"></i>
+                                    <span>@ReportPspStrings.browse</span>
+                                    <input type="file" name="files[]" id="fu" multiple data-url="/UploadFile.ashx">
+                                </span>
+                                <button class="btn btn-default" id="btnupload" disabled="disabled"><i class="fa fa-cloud-upload"></i>@ReportPspStrings.upload</button>
+                                <div class="row custom">
+                                    <div class="col-md-8">
+                                        <div id="filename"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="docs" class="light-size"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@Html.IncludeVersionedJs("/Scripts/jquery/jquery.fileupload.js")
+@Html.IncludeVersionedJs("/Scripts/jquery/jquery.iframe-transport.js")
+
+@Html.IncludeVersionedJs("/Scripts/other/typeahead.bundle.js")
+@Html.IncludeVersionedJs("/Scripts/jquery/jquery.contextMenu.min.js")
+
+@Html.IncludeVersionedJs("/Scripts/custom/ovi.custom.list.js")
+@Html.IncludeVersionedJs("/Scripts/custom/ovi.custom.documents.js")
+@Html.IncludeVersionedJs("/Scripts/custom/ovi.custom.comments.js")
+@Html.IncludeVersionedJs("/Scripts/custom/ovi.custom.customfields.js")
+
+
+
+@Html.IncludeVersionedJs("/Scripts/bootstrap/bootstrap-tagsinput.min.js")
+@Html.IncludeVersionedJs("/Scripts/app/ReportPSP.js")

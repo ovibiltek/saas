@@ -1,0 +1,216 @@
+﻿@using System.Globalization
+@using System.Threading
+@using Resources.Main.Index
+
+@model  Ovi.Task.UI.Models.MainModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Default.cshtml";
+}
+@Html.IncludeVersionedCss("/Content/graph.min.css")
+<style>
+    .select2-container {
+        padding-right: 5px;
+    }
+</style>
+
+<div style="margin-top: 5px;visibility: hidden" id="wrapper">
+    <div class="row tms-Main-head">
+        <div class="col-md-5">
+            <div class="panel panel-default" id="inbox">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-md-10">
+                            <h4><i class="fa fa-inbox"></i> @MainStrings.inbox</h4>
+                        </div>
+                        <div class="col-md-2 pos-right">
+                            <div class="btn-group">
+                                <button id="refreshInbox" class="btn btn-default btn-xs"><i class="fa fa-refresh"></i></button>
+                                <button id="editInbox" class="btn btn-default btn-xs"><i class="fa fa-pencil"></i></button>
+                                <button id="saveInbox" class="btn btn-success btn-xs hidden"><i class="fa fa-save"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-body" style="padding: 5px;">
+                    <ul class="nav nav-tabs" id="inboxtype">
+                        <li role="presentation" class="active"><a data-toggle="tab" href="#personal">@MainStrings.personalinbox</a></li>
+                        <li role="presentation"><a data-toggle="tab" href="#public">@MainStrings.publicinbox</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div id="personal" class="tab-pane no-padding active">
+                            <ul style="height: 740px" data-type="PERSONAL" class="inbox list-group"></ul>
+                        </div>
+                        <div id="public" class="tab-pane no-padding">
+                            <ul style="height: 740px" data-type="PUBLIC" class="inbox list-group"></ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-7">
+            <div id="divchart" class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-md-10">
+                            <h4><i class="fa fa-line-chart"></i> @MainStrings.dashboard</h4>
+                        </div>
+                        <div class="col-md-2 pos-right">
+                            <button id="comparekpis" class="btn btn-default btn-xs"><i class="fa fa-line-chart"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div id="divchart01" class="col-md-6">
+                            <div class="row">
+                                <div class="col-md-offset-2 col-md-4">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <label for="chart01-year">@MainStrings.year</label>
+                                        </div>
+                                        <div class="col-md-9">
+                                            <select id="chart01-year" class="form-control" group-ctrl="chart01" style="width: 100%">
+                                                <option value="ALL">*</option>
+                                                @if (Model.years != null)
+                                                {
+                                                    var yearsarr = Model.years.Split(',');
+                                                    if (yearsarr.Length == 2)
+                                                    {
+                                                        var start = int.Parse(yearsarr[0]);
+                                                        var end = int.Parse(yearsarr[1]);
+                                                        for (var i = start; i <= end; i++)
+                                                        {
+                                                            <option @(i == DateTime.Now.Year ? "selected" : string.Empty) value="@i">@i</option>
+                                                        }
+                                                    }
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <label for="chart01-month">@MainStrings.month</label>
+                                        </div>
+                                        <div class="col-md-9">
+                                            <select id="chart01-month" class="form-control" group-ctrl="chart01" style="width: 100%">
+                                                <option value="ALL">*</option>
+                                                @for (var i = 0; i < DateTimeFormatInfo.CurrentInfo.MonthNames.Length - 1; i++)
+                                                {
+                                                    <option @((i + 1) == DateTime.Now.Month ? "selected" : string.Empty) value="@(i + 1)">@DateTimeFormatInfo.CurrentInfo.MonthNames[i]</option>
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr />
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div id="chart01" style="height: 250px;"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="divchart02" class="col-md-6">
+                            <div class="row">
+                                <div class="col-md-offset-2 col-md-4">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <label for="chart02-year">@MainStrings.year</label>
+                                        </div>
+                                        <div class="col-md-9">
+                                            <select id="chart02-year" class="form-control" group-ctrl="chart02" style="width: 100%">
+                                                <option value="ALL">*</option>
+                                                @if (Model.years != null)
+                                                {
+                                                    var yearsarr = Model.years.Split(',');
+                                                    if (yearsarr.Length == 2)
+                                                    {
+                                                        var start = int.Parse(yearsarr[0]);
+                                                        var end = int.Parse(yearsarr[1]);
+                                                        for (var i = start; i <= end; i++)
+                                                        {
+                                                            <option @(i == DateTime.Now.Year ? "selected" : string.Empty) value="@i">@i</option>
+                                                        }
+                                                    }
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <label for="chart02-month">@MainStrings.month</label>
+                                        </div>
+                                        <div class="col-md-9">
+                                            <select id="chart02-month" class="form-control" group-ctrl="chart02" style="width: 100%">
+                                                <option value="ALL">*</option>
+                                                @for (var i = 0; i < DateTimeFormatInfo.CurrentInfo.MonthNames.Length - 1; i++)
+                                                {
+                                                    <option @((i + 1) == DateTime.Now.Month - 1 ? "selected" : string.Empty) value="@(i + 1)">@DateTimeFormatInfo.CurrentInfo.MonthNames[i]</option>
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr />
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div id="chart02" style="height: 250px;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div style="text-align: center" id="kpinav">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="pull-right" style="display: none">
+                                <button id="chartdetails" disabled="disabled" class="btn btn-info btn-xs"><i class="fa fa-arrows-alt"></i> @MainStrings.details</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="modalchartdetails" role="dialog" aria-labelledby="modalsharedlbl" aria-hidden="true">
+    <div class="modal-dialog modal-wide">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="false">&times;</span></button>
+                <h4 class="modal-title">@MainStrings.comparision</h4>
+            </div>
+            <div class="modal-body" style="height: 600px;">
+                <div class="row">
+                    <div class="col-md-offset-2 col-md-8">
+                        <div id="chartcompare"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@Html.IncludeVersionedJs("/Scripts/chart/d3.v4.min.js")
+@Html.IncludeVersionedJs("/Scripts/chart/billboard.min.js")
+@Html.IncludeVersionedJs("/Scripts/other/waypoints.min.js")
+@Html.IncludeVersionedJs("/Scripts/jquery/jquery.counterup.min.js")
+@Html.IncludeVersionedJs("/Scripts/other/aui-min.js")
+
+@if (Thread.CurrentThread.CurrentUICulture.Name == "tr")
+{
+    @Html.IncludeVersionedJs("/Scripts/other/aui_tr-TR.js")
+}
+
+@Html.IncludeVersionedJs("/Scripts/app/widgets/Charts.js")
+@Html.IncludeVersionedJs("/Scripts/app/Main.js")

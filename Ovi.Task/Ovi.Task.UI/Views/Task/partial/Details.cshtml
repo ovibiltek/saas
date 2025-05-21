@@ -1,0 +1,523 @@
+﻿@using Resources.Shared.Index
+@using Resources.Task.Index
+
+@{
+    // Web.config'den değer alınır
+    var hideCustomer = ConfigHelper.Get("HideCustomer");
+    var isCustomerVisible = !(hideCustomer == "+"); // Eğer "+" ise görünür olacak, değilse gizlenecek
+
+}
+<div id="record" class="tab-pane active hidden">
+    <div class="row record-content">
+        <div class="col-md-8" id="divHeader">
+            <div class="panel panel-default">
+                <div class="panel-heading task-panel-heading">@TaskStrings.record</div>
+                <div class="panel-body task-panel-body">
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @TaskStrings.taskno
+                                </div>
+                                <div class="col-md-8">
+                                    <input disabled="disabled" alwaysdisabled="yes" id="taskno" type="text" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @TaskStrings.organization
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <input type="text" loadstatusesonchange="yes" disableonupdate="yes" maxlength="50" required class="form-control" id="org">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button" disableonupdate="yes" id="btnorg"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @TaskStrings.department
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <input type="text" loadstatusesonchange="yes" disableonupdate="yes" maxlength="50" required class="form-control" id="taskdep">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button" disableonupdate="yes" id="btnTaskDepartment"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @TaskStrings.type
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <input type="text" loadstatusesonchange="yes" disableonupdate="yes" maxlength="50" required data-entity="TASK" class="form-control" id="type">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button" disableonupdate="yes" id="btntype"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div><!-- /input-group -->
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @TaskStrings.category
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <input type="text" disableoncomplete checksimilaronchange="true" maxlength="50" required class="form-control" id="category">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" disableoncomplete type="button" id="btncategory"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div><!-- /input-group -->
+                                </div>
+                            </div>
+                            <div class="row custom hidden" id="divperiodictask">
+                                <div class="col-md-4">
+                                    @TaskStrings.periodictask
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <input type="text" maxlength="50" class="form-control" id="periodictask">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button" id="btnperiodictask"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @TaskStrings.shortdesc
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" maxlength="80" disableoncomplete class="form-control" required id="shortdesc" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <!--Not-->
+                                <div class="col-md-4">
+                                    @TaskStrings.note
+                                </div>
+                                <div class="col-md-8">
+                                    <textarea class="form-control" maxlength="1000" contenteditable="" rows="3" id="tasknote" autocomplete="off"></textarea>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @TaskStrings.tasktype
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <input type="text" disableoncomplete checksimilaronchange="true" maxlength="50" class="form-control" id="tasktype">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" disableoncomplete type="button" id="btntasktype"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div><!-- /input-group -->
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @TaskStrings.reference
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" maxlength="50" disableoncomplete class="form-control" id="reference" />
+                                </div>
+                            </div>
+                            <div class="row custom" id="divCustomer" style="@(isCustomerVisible ?  "" : "display:none;" )">
+                                <div class="col-md-4">
+                                    @TaskStrings.customer
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <input type="text" disableoncomplete checksimilaronchange="true" maxlength="50" required class="form-control" id="customer">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" disableoncomplete type="button" id="btncustomer"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div>
+                                    <input type="text" maxlength="250" disabled="disabled" class="form-control" id="customerdesc">
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @TaskStrings.branch
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <input type="text" disableoncomplete checksimilaronchange="true" maxlength="50" required class="form-control" id="branch">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" disableoncomplete type="button" id="btnbranch"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div>
+                                    <input type="text" maxlength="250" disabled="disabled" class="form-control" id="branchdesc">
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @TaskStrings.location
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <input type="text" disableoncomplete maxlength="50" required class="form-control" id="location">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" disableoncomplete type="button" id="btnlocation"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @TaskStrings.contract
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <input type="text" disableoncomplete maxlength="50" class="form-control" id="contract">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" disableoncomplete type="button" id="btncontracts"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @TaskStrings.equipmentrequired
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="checkbox checkbox-primary">
+                                        <input type="checkbox" class="styled" disabled id="equipmentrequired" />
+                                        <label></label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @TaskStrings.equipment
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <input type="text" disableoncomplete maxlength="50" class="form-control" id="equipment">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" disableoncomplete type="button" id="btnequipment"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div>
+                                    <input type="text" maxlength="250" disabled="disabled" class="form-control" id="equipmentdesc">
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @TaskStrings.project
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <input type="text" maxlength="50" disableoncomplete class="form-control" id="project">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" disableoncomplete type="button" id="btnproject"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @TaskStrings.status
+                                </div>
+                                <div class="col-md-8">
+                                    <select class="form-control" data-code="-" data-pcode="Q" data-text="" required id="status"></select>
+                                </div>
+                            </div>
+                            <div id="divcancellationreason" class="hidden">
+                                <div class="row custom">
+                                    <div class="col-md-4">
+                                        @TaskStrings.cancellationreason
+                                    </div>
+                                    <div class="col-md-8">
+                                        <select disableoncomplete class="form-control" id="cancellationreason"></select>
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-4">
+                                        @TaskStrings.cancellationdesc
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input disableoncomplete type="text" max="250" class="form-control" id="cancellationdesc">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="holdreasonctrl hidden">
+                                <div class="row custom">
+                                    <div class="col-md-4">
+                                        @TaskStrings.holdreason
+                                    </div>
+                                    <div class="col-md-8">
+                                        <select class="form-control" id="holdreason">
+                                            <option class="default" disabled="disabled" value="">@TaskStrings.pleaseselect</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="quotationstatusdiv hidden">
+                                    <div class="row custom">
+                                        <div class="col-md-4">
+                                            @TaskStrings.quotationstatus
+                                        </div>
+                                        <div class="col-md-8">
+                                            <span class="badge badge-warning" id="quotationstatus">-</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-4">
+                                        @TaskStrings.holddate
+                                    </div>
+                                    <div class="col-md-8">
+                                        <span class="badge badge-danger" id="holddate">-</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @TaskStrings.holddurationsum
+                                </div>
+                                <div class="col-md-8">
+                                    <span class="badge badge-danger" id="holddurationsum">-</span>
+                                    <div style="display: inline-block; cursor: pointer;" id="holddurationcount"></div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @TaskStrings.priority
+                                </div>
+                                <div class="col-md-8">
+                                    <select class="form-control" disableoncomplete required id="priority" data-selected="NORMAL">
+                                        <option class="default" value="">@TaskStrings.pleaseselect</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @TaskStrings.daterequested
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" id="daterequested" disableoncomplete required ctrltype="datetimepicker" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @TaskStrings.activeplanningdate
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" id="activeplanningdate" disabled="disabled" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @TaskStrings.deadline
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" id="deadline" disableoncomplete maxlength="10" ctrltype="datepicker" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @TaskStrings.datecompleted
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" id="completed" disableoncomplete ctrltype="datetimepicker" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @TaskStrings.dateclosed
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" id="closed" disabled="disabled" ctrltype="datetimepicker" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @TaskStrings.pspcode
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" id="pspcode" disabled="disabled" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @TaskStrings.prpcode
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" id="prpcode" disabled="disabled" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="row custom hidden">
+                                <div class="col-md-4">
+                                    @TaskStrings.hidden
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="checkbox" id="hidden" />
+                                </div>
+                            </div>
+                            <div class="row" style="margin-top: 15px;">
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    @TaskStrings.followed
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <h5 id="followedcnt"></h5>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="input-group" style="margin-left: 0.25em;">
+                                                <input type="text" disableoncomplete class="form-control" id="followed" data-role="multival">
+                                                <div class="input-group-btn">
+                                                    <button id="btnaddme2" disableoncomplete title="@TaskStrings.addme" class="btn btn-default" type="button"><i class="fa fa-btn fa-user-plus"></i></button>
+                                                    <button id="btnFollowed" disableoncomplete title="@TaskStrings.addusers" class="btn btn-default" type="button"><i class="fa fa-btn fa-plus-circle"></i></button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @TaskStrings.requestedby
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <input type="text" disableoncomplete maxlength="50" class="form-control" id="requestedby" required>
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" disableoncomplete type="button" id="btnrequestedby"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div><!-- /input-group -->
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @TaskStrings.createdby
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" disabled="disabled" maxlength="50" class="form-control" id="createdby">
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @TaskStrings.datecreated
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" id="datecreated" disabled="disabled" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="divCustomFields">
+                <div class="panel panel-default" style="height: 600px;">
+                    <div class="panel-heading task-panel-heading">
+                        <div class="row">
+                            <div class="col-md-11">
+                                @TaskStrings.customfieldsandfunctions
+                            </div>
+                            <div class="col-md-1 pos-right">
+                                <button id="btnCustomFieldsHistory" selection-required="true" class="btn btn-default btn-xs"><i class="fa fa-bolt fa-fw"></i> @TaskStrings.history</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div id="cfcontainer"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4" id="divCmntsAttachments">
+            <div class="row">
+                <div class="col-md-12 no-padding">
+                    <div class="well hidden taskwarning" id="warnings">
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default" style="height: 700px;">
+                <div class="panel-heading task-panel-heading">@TaskStrings.comments</div>
+                <div class="panel-body">
+                    <textarea class="form-control" contenteditable rows="3" id="comment"></textarea>
+                    @if (string.IsNullOrEmpty(UserManager.Instance.User.Customer))
+                    {
+                        <div class="row custom">
+                            <div class="col-md-12">
+                                <div class="checkbox checkbox-inline checkbox-primary">
+                                    <input type="checkbox" class="styled" id="visibletocustomer" />
+                                    <label>@SharedStrings.visibletocustomer</label>
+                                </div>
+                                @if (string.IsNullOrEmpty(UserManager.Instance.User.Supplier))
+                                {
+                                    <div class="checkbox  checkbox-inline checkbox-primary">
+                                        <input type="checkbox" class="styled" id="visibletosupplier" />
+                                        <label>@SharedStrings.visibletosupplier</label>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    }
+                    <div class="inline-toolbar">
+                        <button class="btn btn-primary btn-xs" disabled="disabled" id="addComment"><i class="fa fa-plus-circle"></i> @TaskStrings.add</button>
+                    </div>
+                    <div id="comments" class="sm">
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default" style="height: 600px;">
+                <div class="panel-heading task-panel-heading">@TaskStrings.docs</div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="progress">
+                                <div class="progress-bar" id="docuprogress" role="progressbar" style="width: 0%; min-width: 2em;">0%</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row custom">
+                        <div class="col-md-3"><strong>@TaskStrings.doctype</strong></div>
+                        <div class="col-md-6">
+                            <select class="form-control" id="doctype">
+                                <option class="default" value="">@TaskStrings.unspecified</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row custom">
+                        <div class="col-md-12">
+                            <div id="fupload">
+                                <span class="btn btn-default fileinput-button" disabled="disabled" id="btnBrowse">
+                                    <i class="fa fa-search"></i>
+                                    <span>@TaskStrings.browse</span>
+                                    <input type="file" name="files[]" id="fu" multiple disabled="disabled" data-url="/UploadFile.ashx">
+                                </span>
+                                <button class="btn btn-default" id="btnupload" disabled="disabled"><i class="fa fa-cloud-upload"></i> @TaskStrings.upload</button>
+                                @if (string.IsNullOrEmpty(UserManager.Instance.User.Supplier))
+                                {
+                                    <button class="btn btn-default" id="btnDownload" disabled="disabled"><i class="fa fa-download" aria-hidden="true"></i> @TaskStrings.download</button>
+                                }
+                                <div class="row custom">
+                                    <div class="col-md-12">
+                                        <div id="filename"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="docs"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

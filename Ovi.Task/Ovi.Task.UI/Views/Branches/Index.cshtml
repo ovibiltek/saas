@@ -1,0 +1,523 @@
+﻿@using Resources.Branches.Index
+@{
+    Layout = "~/Views/Shared/Default.cshtml";
+}
+
+@Html.IncludeVersionedCss("/Content/jquery/jquery.fileupload.css")
+
+@Html.IncludeVersionedCss("/Content/jquery/jquery.contextMenu.min.css")
+
+@Html.IncludeVersionedCss("/Content/bootstrap/bootstrap-tagsinput.css")
+
+<div style="margin-top: 10px">
+    <div class="page-header">
+        <h4>
+            @BranchStrings.branches
+        </h4>
+        <h6></h6>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tms-page-toolbar inline-toolbar left" data-block="#record">
+                <div class="btn-group">
+                    <button class="btn btn-default btn-sm" title="Ctrl+R" selection-required="false" id="btnNew"><i class="fa fa fa-plus fa-fw"></i>@BranchStrings.addnew</button>
+                    <button class="btn btn-default btn-sm" disabled="disabled" selection-required="false" title="Ctrl+S" id="btnSave"><i class="fa fa-floppy-o fa-fw"></i>@BranchStrings.save</button>
+                    <button class="btn btn-default btn-sm" disabled="disabled" selection-required="true" title="Ctrl+U" id="btnUndo"><i class="fa fa-undo fa-fw"></i>@BranchStrings.undo</button>
+                    <button class="btn btn-default btn-sm" disabled="disabled" selection-required="true" title="Ctrl+D" id="btnDelete"><i class="fa fa-trash-o fa-fw"></i>@BranchStrings.delete</button>
+                    <button class="btn btn-default btn-sm" disabled="disabled" selection-required="true" title="Ctrl+H" id="btnHistory"><i class="fa fa-bolt fa-fw"></i>@BranchStrings.history</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#list">@BranchStrings.list</a></li>
+        <li><a data-toggle="tab" href="#record">@BranchStrings.record</a></li>
+        <li><a enable-on-selection href="#pricing">@BranchStrings.pricing</a></li>
+        <li><a enable-on-selection href="#tasks">@BranchStrings.tasks</a></li>
+        <li><a enable-on-selection href="#equipments">@BranchStrings.equipments</a></li>
+    </ul>
+    <div class="tab-content">
+        <div id="list" class="tab-pane active">
+            <div id="grdBranches"></div>
+        </div>
+        <div id="record" class="tab-pane">
+            <div class="row record-content">
+                <div class="col-md-4" id="divHeader">
+                    <div class="panel panel-default" style="height: 842px;">
+                        <div class="panel-heading task-panel-heading">@BranchStrings.record</div>
+                        <div class="panel-body task-panel-body">
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @BranchStrings.code
+                                </div>
+                                <div class="col-md-8">
+                                    <input id="code" disabled type="text" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @BranchStrings.desc
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" maxlength="250" class="form-control" required id="desc" />
+                                </div>
+                            </div>
+
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @BranchStrings.organization
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <input type="text" disableonupdate="yes" maxlength="50" required class="form-control uppercase" id="org">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" disableonupdate="yes" type="button" id="btnorg"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @BranchStrings.type
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <input type="text" disableonupdate="yes" maxlength="50" required data-entity="BRANCH" class="form-control uppercase" id="type">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" disableonupdate="yes" type="button" id="btntype"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @BranchStrings.customer
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <input type="text" disableonupdate="yes" maxlength="50" required class="form-control uppercase" id="customer">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" disableonupdate="yes" type="button" id="btncustomer"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @BranchStrings.businesstype
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" maxlength="250" class="form-control" id="businesstype" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @BranchStrings.reference
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" maxlength="250" class="form-control" id="reference" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @BranchStrings.operationsofficer
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <input type="text" maxlength="50" class="form-control" id="oo">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button" id="btnoo"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @BranchStrings.projectmanager
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <input type="text" maxlength="50" class="form-control" id="pm">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button" id="btnpm"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @BranchStrings.authorized
+                                </div>
+                                <div class="col-md-7">
+                                    <input type="text" class="form-control" data-role="multival" id="authorized">
+                                </div>
+                                <div class="col-md-1">
+                                    <button id="btnauthorizedusers" class="btn btn-default" type="button"><i class="fa fa-btn fa-plus"></i></button>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @BranchStrings.authnotes
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" maxlength="500" class="form-control" id="authnotes" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @BranchStrings.customerzone
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" maxlength="50" class="form-control" id="customerzone" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @BranchStrings.customerservicerepresentative
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" maxlength="250" class="form-control" id="csr">
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @BranchStrings.ert
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" maxlength="250" id="emergencyrespondtime" ctrltype="numeric" allowfloat="true" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @BranchStrings.warranty
+                                </div>
+                                <div class="col-md-7">
+                                    <input type="text" class="form-control" data-role="multival" id="warranty">
+                                </div>
+                                <div class="col-md-1">
+                                    <button id="btnwarranty" class="btn btn-default" type="button"><i class="fa fa-btn fa-plus"></i></button>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @BranchStrings.accountcode
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" maxlength="250" id="accountcode" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @BranchStrings.region
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <input type="text" required maxlength="50" class="form-control uppercase" id="region">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button" id="btnregion"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @BranchStrings.province
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <input type="text" required maxlength="50" class="form-control uppercase" id="province">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button" id="btnprovince"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @BranchStrings.district
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <input type="text" maxlength="50" class="form-control uppercase" id="district">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button" id="btndistrict"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @BranchStrings.neighborhood
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" maxlength="50" class="form-control" id="neighborhood" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @BranchStrings.street
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" maxlength="50" class="form-control" id="street" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @BranchStrings.door
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" maxlength="50" class="form-control" id="door" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @BranchStrings.fulladdress
+                                </div>
+                                <div class="col-md-8">
+                                    <textarea spellcheck="false" maxlength="250" style="width: 100%; height: 100px;" id="fulladdress"></textarea>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @BranchStrings.billadress
+                                </div>
+                                <div class="col-md-8">
+                                    <textarea spellcheck="false" maxlength="250" style="width: 100%; height: 100px;" id="billaddress"></textarea>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @BranchStrings.notes
+                                </div>
+                                <div class="col-md-8">
+                                    <textarea id="notes" spellcheck="false" style="width: 100%; height: 100px;" maxlength="500"></textarea>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @BranchStrings.defaultbranch
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="checkbox checkbox-primary">
+                                        <input class="styled" type="checkbox" id="defaultbranch" />
+                                        <label></label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @BranchStrings.active
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="checkbox checkbox-primary">
+                                        <input class="styled" type="checkbox" checked="checked" id="active" />
+                                        <label></label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @BranchStrings.maintenance
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="checkbox checkbox-primary">
+                                        <input class="styled" type="checkbox" id="maintenance" />
+                                        <label></label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4" id="divCustomFields">
+                    <div class="panel panel-default" style="height: 842px;">
+                        <div class="panel-heading task-panel-heading">@BranchStrings.customfields</div>
+                        <div class="panel-body">
+                            <div id="cfcontainer"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4" id="divCmntsAttachments">
+                    <div class="panel panel-default" style="height: 450px;">
+                        <div class="panel-heading task-panel-heading">@BranchStrings.comments</div>
+                        <div class="panel-body">
+                            <textarea class="form-control" contenteditable rows="3" id="comment"></textarea>
+                            <div class="inline-toolbar">
+                                <button class="btn btn-primary btn-xs" selection-required="true" id="addComment"><i class="fa fa-plus-circle"></i>@BranchStrings.add</button>
+                            </div>
+                            <div id="comments" class="sm">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default" style="height: 372px;">
+                        <div class="panel-heading task-panel-heading">@BranchStrings.docs</div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="progress">
+                                        <div class="progress-bar" id="docuprogress" role="progressbar" style="width: 0%; min-width: 2em;">0%</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-12">
+                                    <div id="fupload">
+                                        <span class="btn btn-default fileinput-button" id="btnBrowse">
+                                            <i class="fa fa-search"></i>
+                                            <span>@BranchStrings.browse</span>
+                                            <input type="file" name="files[]" id="fu" multiple data-url="/UploadFile.ashx">
+                                        </span>
+                                        <button class="btn btn-default" id="btnupload" disabled="disabled"><i class="fa fa-cloud-upload"></i>@BranchStrings.upload</button>
+                                        <div class="row custom">
+                                            <div class="col-md-12">
+                                                <div id="filename"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="docs" class="light-size"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="pricing" class="tab-pane">
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="grdPricing"></div>
+                </div>
+            </div>
+            <br />
+            <div class="panel panel-default">
+                <div class="row">
+                    <div class="col-md-12" style="padding-right:0">
+                        <div class="inline-toolbar left" style="border:none;" data-block="#exch">
+                            <div class="btn-group">
+                                <button class="btn btn-default btn-sm" title="Ctrl+R" selection-required="false" id="btnAddPricing"><i class="fa fa fa-plus fa-fw"></i>@BranchStrings.addnew</button>
+                                <button class="btn btn-default btn-sm" title="Ctrl+S" selection-required="false" id="btnSavePricing"><i class="fa fa-floppy-o fa-fw"></i>@BranchStrings.save</button>
+                                <button class="btn btn-default btn-sm" title="Ctrl+D" selection-required="true" id="btnDeletePricing" disabled="disabled"><i class="fa fa-trash-o fa-fw"></i>@BranchStrings.delete</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-body page-panel-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="row custom">
+                                <div class="col-md-3">
+                                    @BranchStrings.pricingcode
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="input-group">
+                                        <input type="text" maxlength="50" disableonupdate="yes" class="form-control" required id="pricingcode">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" disableonupdate="yes" type="button" id="btnpricingcode"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-3">
+                                    @BranchStrings.startdate
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="text" required ctrltype="datepicker" class="form-control" id="startdate">
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-3">
+                                    @BranchStrings.enddate
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="text" required ctrltype="datepicker" class="form-control" id="enddate">
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-3">
+                                    @BranchStrings.taskcategory
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="input-group">
+                                        <input type="text" required class="form-control" id="taskcategory">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button" id="btntaskcategory"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom hidden" id="divperiodictask">
+                                <div class="col-md-3">
+                                    @BranchStrings.periodictask
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" id="periodictask">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button" id="btnperiodictask"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-3">
+                                    @BranchStrings.note
+                                </div>
+                                <div class="col-md-6">
+                                    <textarea id="note" style="width: 100%; height: 100px;"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div id="pricingparameterdetails"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="tasks" class="tab-pane">
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="grdBranchTasks"></div>
+                </div>
+            </div>
+        </div>
+        <div id="equipments" class="tab-pane">
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="grdBranchEquipments"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="modalaudit" role="dialog" aria-labelledby="modalsharedlbl" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="false">&times;</span></button>
+                <h4 class="modal-title" id="modaltitle"></h4>
+            </div>
+            <div class="modal-body"></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-xs" id="modalsave">@BranchStrings.save</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var inbox = "@ViewBag.id";
+</script>
+@Html.IncludeVersionedJs("/Scripts/jquery/jquery.fileupload.js")
+@Html.IncludeVersionedJs("/Scripts/jquery/jquery.iframe-transport.js")
+
+@Html.IncludeVersionedJs("/Scripts/other/typeahead.bundle.js")
+@Html.IncludeVersionedJs("/Scripts/jquery/jquery.contextMenu.min.js")
+@Html.IncludeVersionedJs("/Scripts/bootstrap/bootstrap-tagsinput.min.js")
+
+@Html.IncludeVersionedJs("/Scripts/custom/ovi.custom.entitylookup.js")
+@Html.IncludeVersionedJs("/Scripts/custom/ovi.custom.list.js")
+@Html.IncludeVersionedJs("/Scripts/custom/ovi.custom.documents.js")
+@Html.IncludeVersionedJs("/Scripts/custom/ovi.custom.comments.js")
+@Html.IncludeVersionedJs("/Scripts/custom/ovi.custom.customfields.js")
+@Html.IncludeVersionedJs("/Scripts/app/Branches.js")

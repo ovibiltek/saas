@@ -1,0 +1,545 @@
+﻿@using Resources.PreSales.Index
+@using Resources.Shared.Index
+@{
+    Layout = "~/Views/Shared/Default.cshtml";
+}
+@Html.IncludeVersionedCss("/Content/multiple-select.css")
+@Html.IncludeVersionedCss("/Content/jquery/jquery.fileupload.css")
+@Html.IncludeVersionedCss("/Content/jquery/jquery.contextMenu.min.css")
+<style>
+    #listcomment.sm {
+        height: 50px;
+        max-height: 50px;
+        max-width: 100%;
+    }
+</style>
+<div style="margin-top: 10px">
+    <div class="page-header">
+        <h4>
+            @PreSalesStrings.presale
+        </h4>
+        <h6></h6>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tms-page-toolbar inline-toolbar left" data-block="#record">
+                <div class="btn-group">
+                    <button class="btn btn-default btn-sm" title="Ctrl+R" selection-required="false" id="btnNew"><i class="fa fa fa-plus fa-fw"></i>@PreSalesStrings.addnew</button>
+                    <button class="btn btn-default btn-sm" disabled="disabled" selection-required="false" title="Ctrl+S" id="btnSave"><i class="fa fa-floppy-o fa-fw"></i>@PreSalesStrings.save</button>
+                    <button class="btn btn-default btn-sm" disabled="disabled" selection-required="true" title="Ctrl+U" id="btnUndo"><i class="fa fa-undo fa-fw"></i>@PreSalesStrings.undo</button>
+                    <button class="btn btn-default btn-sm" disabled="disabled" selection-required="true" title="Ctrl+D" id="btnDelete"><i class="fa fa-trash-o fa-fw"></i>@PreSalesStrings.delete</button>
+                    <button class="btn btn-default btn-sm" disabled="disabled" selection-required="true" title="Ctrl+H" id="btnHistory"><i class="fa fa-bolt fa-fw"></i>@PreSalesStrings.history</button>
+                    <button class="btn btn-default btn-sm" selection-required="true" type="button" id="btnWorkflow" data-toggle="collapse" data-target="#workflowgraph" disabled="disabled"><i class="fa fa-list-ol"></i> @PreSalesStrings.workflow</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="collapse" id="workflowgraph">
+                <div class="inline-toolbar left">
+                    <div class="row" style="padding-bottom: 10px;">
+                        <div class="workflow col-md-12">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <ul class="nav nav-tabs" id="navsupervision">
+        <li class="active"><a data-toggle="tab" href="#list">@PreSalesStrings.list</a></li>
+        <li><a data-toggle="tab" href="#record">@PreSalesStrings.record</a></li>
+    </ul>
+    <div class="tab-content">
+        <div id="list" class="tab-pane active">
+            <div id="grdPreSales"></div>
+            <div class="sidebars">
+                <div class="sidebar right" style="right: -400px;">
+                    <div class="row">
+                        <div class="col-md-12" style="text-align: center; margin-top: 10px;">
+                            <button id="filter" class="btn btn-primary btn-xs"><i class="fa fa-filter"></i> @PreSalesStrings.filter</button>
+                            <button id="clearfilter" class="btn btn-info btn-xs"><i class="fa fa-ban"></i> @PreSalesStrings.reset</button>
+                            <button id="closesiderbar" class="btn btn-danger btn-xs"><i class="fa fa-times"></i> @PreSalesStrings.close</button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="page-header">
+                                <h5>@PreSalesStrings.status</h5>
+                            </div>
+                            <select id="filterstatuses" style="width: 100%" multiple="multiple"></select>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="page-header">
+                                <h5>@PreSalesStrings.type</h5>
+                            </div>
+                            <select id="filtertypes" style="width: 100%" multiple="multiple"></select>
+                        </div>
+                    </div>
+
+
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="page-header">
+                                <h5>@PreSalesStrings.created</h5>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <input type="text" ctrltype="datepicker" class="i-filter form-control" id="datecreated_start">
+                        </div>
+                        <div class="col-sm-6">
+                            <input type="text" ctrltype="datepicker" class="i-filter form-control" id="datecreated_end">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="page-header">
+                                <h5>@PreSalesStrings.estclosedate</h5>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <input type="text" ctrltype="datepicker" class="i-filter form-control" id="dateestclosed_start">
+                        </div>
+                        <div class="col-sm-6">
+                            <input type="text" ctrltype="datepicker" class="i-filter form-control" id="dateestclosed_end">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="page-header">
+                                <h5>@PreSalesStrings.closed</h5>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <input type="text" ctrltype="datepicker" class="i-filter form-control" id="dateclosed_start">
+                        </div>
+                        <div class="col-sm-6">
+                            <input type="text" ctrltype="datepicker" class="i-filter form-control" id="dateclosed_end">
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div id="record" class="tab-pane">
+            <div class="row record-content">
+                <div class="col-md-4" id="divHeader">
+                    <div class="panel panel-default" style="height: 842px;">
+                        <div class="panel-heading task-panel-heading">@PreSalesStrings.record</div>
+                        <div class="panel-body task-panel-body">
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @PreSalesStrings.id
+                                </div>
+                                <div class="col-md-8">
+                                    <input id="presalesid" disabled="disabled" alwaysdisabled="yes" type="text" class="form-control uppercase" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @PreSalesStrings.description
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" maxlength="250" disableoncomplete class="form-control" id="description" required />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @PreSalesStrings.organization
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <input type="text" maxlength="50" loadstatusesonchange="yes" disableonupdate="yes" class="form-control uppercase" id="org" required />
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button" disableonupdate="yes" id="btnorg"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @PreSalesStrings.customer
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <input type="text" maxlength="50" disableonupdate="yes" class="form-control uppercase" id="customer" required />
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button" disableonupdate="yes" id="btncustomer"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @PreSalesStrings.type
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <input type="text" loadstatusesonchange="yes" disableonupdate="yes" maxlength="50" required data-entity="PRESALES" class="form-control uppercase" id="type">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" disableonupdate="yes" type="button" id="btntype"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @PreSalesStrings.status
+                                </div>
+                                <div class="col-md-8">
+                                    <select class="form-control" id="status" data-code="-" data-pcode="Q" data-text="" required>
+                                        <option class="default" value="">@PreSalesStrings.pleaseselect</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div id="divcancellationreason" class="hidden">
+                                <div class="row custom">
+                                    <div class="col-md-4">
+                                        @PreSalesStrings.cancellationreason
+                                    </div>
+                                    <div class="col-md-8">
+                                        <select class="form-control" disableoncomplete id="cancellationreason">
+                                            <option class="default" value="">@PreSalesStrings.pleaseselect</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @PreSalesStrings.contact
+                                </div>
+                                <div class="col-md-8">
+
+                                    <input type="text" disableoncomplete maxlength="50" class="form-control" id="contact">
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @PreSalesStrings.contactmail
+                                </div>
+                                <div class="col-md-8">
+
+                                    <input type="email" disableoncomplete class="form-control" id="contactmail">
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @PreSalesStrings.contactphone
+                                </div>
+                                <div class="col-md-8">
+
+                                    <input type="text" disableoncomplete placeholder="5001234567"   ctrltype="phone" minlength="10" maxlength="10" class="form-control" id="contactphone">
+
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @PreSalesStrings.relatedperson
+                                </div>
+                                <div class="col-md-8">
+
+                                    <div class="input-group">
+                                        <input type="text" disableoncomplete maxlength="50" class="form-control uppercase" id="relatedperson" required />
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" disableoncomplete type="button"  id="btnrelatedperson"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @PreSalesStrings.quocost
+                                </div>
+                                <div class="col-md-8">
+
+                                    <input type="text" disableoncomplete valtype="PRICE" ctrltype="numeric" allowfloat="true" class="form-control" id="quocost">
+
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @PreSalesStrings.currency
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <input type="text" maxlength="50" disableoncomplete class="form-control uppercase" id="quocurr" />
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" disableoncomplete type="button"  id="btnquocurr"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @PreSalesStrings.quoprofitmargin
+                                </div>
+                                <div class="col-md-8">
+
+                                    <input type="text" ctrltype="numeric" disableoncomplete valtype="EXCH" allowfloat="true" class="form-control" id="quomargin">
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @PreSalesStrings.quoprofit
+                                </div>
+                                <div class="col-md-8">
+
+                                    <input type="text" disabled="disabled" disableoncomplete valtype="PRICE" ctrltype="numeric" allowfloat="true" class="form-control" id="quoprofit">
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @PreSalesStrings.estclosedate
+                                </div>
+                                <div class="col-md-8">
+
+                                    <input type="text" disableoncomplete maxlength="16" id="estclosed" ctrltype="datepicker" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @PreSalesStrings.closed
+                                </div>
+                                <div class="col-md-8">
+
+                                    <input type="text" disableoncomplete maxlength="16" id="closed" ctrltype="datepicker" class="form-control" />
+
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @PreSalesStrings.saleamount
+                                </div>
+                                <div class="col-md-8">
+
+                                    <input type="text" disableoncomplete valtype="PRICE" ctrltype="numeric" allowfloat="true" class="form-control" id="salecost">
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @PreSalesStrings.currency
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <input type="text" maxlength="50" disableoncomplete class="form-control uppercase" id="salecurr" />
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" disableoncomplete type="button"  id="btnsalecurr"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @PreSalesStrings.saleprofitmargin
+                                </div>
+                                <div class="col-md-8">
+
+                                    <input type="text" ctrltype="numeric" disableoncomplete valtype="EXCH" allowfloat="true" class="form-control" id="salemargin">
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @PreSalesStrings.saleprofit
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" disabled="disabled" disableoncomplete valtype="PRICE" ctrltype="numeric" allowfloat="true" class="form-control" id="saleprofit">
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @PreSalesStrings.requestedby
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <input type="text" maxlength="50" disableoncomplete class="form-control uppercase" id="requestedby" required />
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" disableoncomplete type="button"  id="btnrequestedby"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @PreSalesStrings.createdby
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" disabled="disabled" maxlength="50" class="form-control" id="createdby" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @PreSalesStrings.created
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" disabled="disabled" class="form-control" id="created" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4" id="divCustomFields">
+                    <div class="panel panel-default" style="height: 842px;">
+                        <div class="panel-heading task-panel-heading">@PreSalesStrings.customfields</div>
+                        <div class="panel-body">
+                            <div id="cfcontainer"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4" id="divCmntsAttachments">
+                    <div class="panel panel-default" style="height: 450px;">
+                        <div class="panel-heading task-panel-heading">@PreSalesStrings.comments</div>
+                        <div class="panel-body">
+                            <textarea class="form-control" contenteditable rows="3" id="comment"></textarea>
+                            <div class="inline-toolbar">
+                                <button class="btn btn-primary btn-xs" selection-required="true" id="addComment"><i class="fa fa-plus-circle"></i>@PreSalesStrings.add</button>
+                            </div>
+                            <div id="comments" class="sm">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default" style="height: 372px;">
+                        <div class="panel-heading task-panel-heading">@PreSalesStrings.docs</div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="progress">
+                                        <div class="progress-bar" id="docuprogress" role="progressbar" style="width: 0%; min-width: 2em;">0%</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-12">
+                                    <div id="fupload">
+                                        <span class="btn btn-default fileinput-button" id="btnBrowse">
+                                            <i class="fa fa-search"></i>
+                                            <span>@PreSalesStrings.browse</span>
+                                            <input type="file" name="files[]" id="fu" multiple data-url="/UploadFile.ashx">
+                                        </span>
+                                        <button class="btn btn-default" id="btnupload" disabled="disabled"><i class="fa fa-cloud-upload"></i>@PreSalesStrings.upload</button>
+                                        <div class="row custom">
+                                            <div class="col-md-12">
+                                                <div id="filename"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="docs" class="light-size"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal" id="modalaudit" role="dialog" aria-labelledby="modalsharedlbl" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="false">&times;</span></button>
+                    <h4 class="modal-title" id="modaltitle"></h4>
+                </div>
+                <div class="modal-body"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary btn-xs" id="modalsave">@PreSalesStrings.save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="modal" id="modalcomments">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="false">&times;</span></button>
+                <h4 class="modal-title">@PreSalesStrings.comments</h4>
+            </div>
+            <div class="modal-body" style="height: 400px; overflow-y: auto;">
+                <textarea class="form-control sm" rows="3" id="listcomment"></textarea>
+
+                <div class="inline-toolbar">
+                    <button class="btn btn-primary btn-xs" id="addlistComment"><i class="fa fa-plus-circle"></i> @PreSalesStrings.add</button>
+                </div>
+                <div id="listcomments"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-xs" data-dismiss="modal" aria-label="Close">@PreSalesStrings.ok</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="modaldocuments">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="false">&times;</span></button>
+                <h4 class="modal-title">@PreSalesStrings.docs</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="progress">
+                            <div class="progress-bar" id="listdocuprogress" role="progressbar" style="width: 0%; min-width: 2em;">0%</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row custom">
+                    <div class="col-md-3"><strong>@PreSalesStrings.doctype</strong></div>
+                    <div class="col-md-6">
+                        <select class="form-control" id="doctype">
+                            <option class="default" value="">@PreSalesStrings.unspecified</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row custom">
+                    <div class="col-md-12">
+                        <div id="flistupload">
+                            <span class="btn btn-default fileinput-button" id="btnListBrowse">
+                                <i class="fa fa-search"></i>
+                                <span>@PreSalesStrings.browse</span>
+                                <input type="file" name="files[]" id="listfu" multiple data-url="/UploadFile.ashx">
+                            </span>
+                            <button class="btn btn-default" id="btnlistupload" disabled="disabled"><i class="fa fa-cloud-upload"></i> @PreSalesStrings.upload</button>
+                            <button class="btn btn-default" id="btnDownload" disabled="disabled"><i class="fa fa-download" aria-hidden="true"></i> @PreSalesStrings.download</button>
+                            <div class="row custom">
+                                <div class="col-md-12">
+                                    <div id="listfilename"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="listdocs" class="tasklistdocs"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-xs" data-dismiss="modal" aria-label="Close">@PreSalesStrings.ok</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+
+    var inbox = "@ViewBag.id";
+</script>
+
+
+
+@Html.IncludeVersionedJs("/Scripts/jquery/jquery.fileupload.js")
+@Html.IncludeVersionedJs("/Scripts/jquery/jquery.iframe-transport.js")
+@Html.IncludeVersionedJs("/Scripts/other/multiple-select.js")
+@Html.IncludeVersionedJs("/Scripts/jquery/jquery.sidebar.min.js")
+@Html.IncludeVersionedJs("/Scripts/other/typeahead.bundle.js")
+@Html.IncludeVersionedJs("/Scripts/jquery/jquery.contextMenu.min.js")
+@Html.IncludeVersionedJs("/Scripts/other/numericInput.min.js")
+@Html.IncludeVersionedJs("/Scripts/custom/ovi.custom.list.js")
+@Html.IncludeVersionedJs("/Scripts/custom/ovi.custom.documents.js")
+@Html.IncludeVersionedJs("/Scripts/custom/ovi.custom.comments.js")
+@Html.IncludeVersionedJs("/Scripts/custom/ovi.custom.customfields.js")
+
+@Html.IncludeVersionedJs("/Scripts/app/PreSales.js")

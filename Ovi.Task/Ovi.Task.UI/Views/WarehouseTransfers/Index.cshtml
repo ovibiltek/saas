@@ -1,0 +1,244 @@
+﻿@using Resources.WarehouseToWarehouse.Index
+@using Resources.Shared.Index
+@{
+    Layout = "~/Views/Shared/Default.cshtml";
+}
+
+@Html.IncludeVersionedCss("/Content/jquery/jquery.contextMenu.min.css")
+<div style="margin-top: 10px">
+    <div class="page-header">
+        <h4>@WarehouseToWarehouseStrings.warehousetransfer</h4>
+        <h6></h6>
+    </div>
+    <div class="row">
+        <div class="col-md-12" style="padding-right: 0px;">
+            <div class="tms-page-toolbar inline-toolbar left" data-block="#record">
+                <div class="btn-group">
+                    <button class="btn btn-default btn-sm" title="Ctrl+R" selection-required="false" id="btnNew"><i class="fa fa fa-plus fa-fw"></i> @WarehouseToWarehouseStrings.addnew</button>
+                    <button class="btn btn-default btn-sm" title="Ctrl+S" selection-required="false" id="btnSave"><i class="fa fa-floppy-o fa-fw"></i> @WarehouseToWarehouseStrings.save</button>
+                    <button class="btn btn-default btn-sm" title="Ctrl+U" selection-required="true" id="btnUndo"><i class="fa fa-undo fa-fw"></i> @WarehouseToWarehouseStrings.undo</button>
+                    <button class="btn btn-default btn-sm" title="Ctrl+D" selection-required="true" id="btnDelete"><i class="fa fa-trash-o fa-fw"></i> @WarehouseToWarehouseStrings.delete</button> 
+                </div>
+            </div>
+        </div>
+    </div>
+    <ul class="nav nav-tabs" id="navwarehouetransfers">
+        <li class="active"><a data-toggle="tab" href="#list">@WarehouseToWarehouseStrings.list</a></li>
+        <li><a data-toggle="tab" href="#record">@WarehouseToWarehouseStrings.record</a></li>
+        <li><a enable-on-selection href="#divpart">@WarehouseToWarehouseStrings.parts</a></li>
+    </ul>
+    <div class="tab-content">
+        <div id="list" class="tab-pane active">
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="grdWarehouseTransfers"></div>
+                </div>
+            </div>
+        </div>
+        <div id="record" class="tab-pane">
+            <div class="row record-content">
+                <div class="col-md-6">
+                    <div class="panel panel-default" style="height: 842px;">
+                        <div class="panel-heading task-panel-heading">@WarehouseToWarehouseStrings.record</div>
+                        <div class="panel-body task-panel-body">
+                            <div class="row custom">
+                                <div class="col-md-2">
+                                    @WarehouseToWarehouseStrings.description
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="text" maxlength="250" disableoncomplete class="form-control" required id="description">
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-2">
+                                    @WarehouseToWarehouseStrings.organization
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="input-group">
+                                        <input type="text" maxlength="50" disableoncomplete disableonupdate="yes" class="form-control" required id="org">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" disableoncomplete  disableonupdate="yes" type="button" id="btnorg"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-2">
+                                    @WarehouseToWarehouseStrings.curr
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="text" disableoncomplete disabled="disabled" id="curr" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-2">
+                                    @WarehouseToWarehouseStrings.type
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="input-group">
+                                        <input type="text" maxlength="50" disableoncomplete disableonupdate="yes" class="form-control" required id="type">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" disableoncomplete disableonupdate="yes" type="button" id="btntype"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-2">
+                                    @WarehouseToWarehouseStrings.status
+                                </div>
+                                <div class="col-md-6">
+                                    <select class="form-control" disableoncomplete data-code="-" data-pcode="Q" data-text="" required id="status"></select>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-2">
+                                    @WarehouseToWarehouseStrings.requestedby
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="input-group">
+                                        <input type="text" maxlength="50" disableoncomplete disableonupdate="yes" class="form-control" required id="requestedby">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" disableoncomplete disableonupdate="yes" type="button" id="btnrequestedby"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-2">
+                                    @WarehouseToWarehouseStrings.fromwarehouse
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="input-group">
+                                        <input type="text" maxlength="50" disableonupdate="yes"  disableoncomplete class="form-control" required id="fromwarehouse">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" disableonupdate="yes"  disableoncomplete type="button" id="btnfromwarehouse"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-2">
+                                    @WarehouseToWarehouseStrings.frombin
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="input-group">
+                                        <input type="text" maxlength="50" disableonupdate="yes"  disableoncomplete class="form-control" required id="frombin">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" disableonupdate="yes"  disableoncomplete type="button" id="btnfrombin"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-2">
+                                    @WarehouseToWarehouseStrings.towarehouse
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="input-group">
+                                        <input type="text" maxlength="50" disableonupdate="yes"  disableoncomplete class="form-control" required id="towarehouse">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" disableonupdate="yes"  disableoncomplete type="button" id="btntowarehouse"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-2">
+                                    @WarehouseToWarehouseStrings.tobin
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="input-group">
+                                        <input type="text" maxlength="50" disableonupdate="yes"  disableoncomplete class="form-control" required id="tobin">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" disableonupdate="yes"  disableoncomplete type="button" id="btntobin"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-2">
+                                   @WarehouseToWarehouseStrings.createdby
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="text" disabled class="form-control" required id="createdby">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="divpart" class="tab-pane">
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="grdWarehouseTransferLines"></div>
+                </div>
+            </div>
+            <br/>
+            <div id="partsform" class="panel panel-default items">
+                <div class="panel-heading page-panel-heading">@WarehouseToWarehouseStrings.parts</div>
+                <div class="row">
+                    <div class="col-md-12" style="padding-right: 0">
+                        <div class="inline-toolbar left" style="border: none;" data-block="#parts">
+                            <div class="btn-group">
+                                <button class="btn btn-default btn-sm" title="Ctrl+R" selection-required="false" disabled id="btnAddPart"><i class="fa fa fa-plus fa-fw"></i>@WarehouseToWarehouseStrings.addnew</button>
+                                <button class="btn btn-default btn-sm" title="Ctrl+S" selection-required="false" disabled id="btnSavePart"><i class="fa fa-floppy-o fa-fw"></i>@WarehouseToWarehouseStrings.save</button>
+                                <button class="btn btn-default btn-sm" disabled="disabled" title="Ctrl+D" id="btnDeletePart"><i class="fa fa-trash-o fa-fw"></i>@WarehouseToWarehouseStrings.delete</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-body page-panel-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="row custom">
+                                    <div class="col-md-2">
+                                        @WarehouseToWarehouseStrings.part
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="input-group">
+                                            <input type="text" maxlength="50" data-id="" class="form-control" required id="part">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default" type="button" id="btnpart"><i class="fa fa-search fa-fw"></i></button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-2">
+                                        @WarehouseToWarehouseStrings.quantity
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input type="text" ctrltype="numeric" allowfloat="true" required id="quantity" class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-2">
+                                        @WarehouseToWarehouseStrings.uom
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input type="text" disabled="disabled" id="uom" class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-2">
+                                        @WarehouseToWarehouseStrings.price
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input type="text" disabled="disabled" id="price" ctrltype="numeric" allowfloat="true" required class="form-control" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+      
+    
+
+
+
+@Html.IncludeVersionedJs("/Scripts/app/WarehouseTransfers.js")

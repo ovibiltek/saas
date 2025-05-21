@@ -1,0 +1,125 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="CUS" targetNamespace="http://tempuri.org/CUS.xsd" xmlns:mstns="http://tempuri.org/CUS.xsd" xmlns="http://tempuri.org/CUS.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="CUS" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="CUS" msprop:Generator_UserDSName="CUS">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="HEADER" msprop:Generator_TableClassName="HEADERDataTable" msprop:Generator_TableVarName="tableHEADER" msprop:Generator_TablePropName="HEADER" msprop:Generator_RowDeletingName="HEADERRowDeleting" msprop:Generator_RowChangingName="HEADERRowChanging" msprop:Generator_RowEvHandlerName="HEADERRowChangeEventHandler" msprop:Generator_RowDeletedName="HEADERRowDeleted" msprop:Generator_UserTableName="HEADER" msprop:Generator_RowChangedName="HEADERRowChanged" msprop:Generator_RowEvArgName="HEADERRowChangeEvent" msprop:Generator_RowClassName="HEADERRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="TITLE" msprop:Generator_ColumnVarNameInTable="columnTITLE" msprop:Generator_ColumnPropNameInRow="TITLE" msprop:Generator_ColumnPropNameInTable="TITLEColumn" msprop:Generator_UserColumnName="TITLE" type="xs:string" minOccurs="0" />
+              <xs:element name="CUSTOMER" msprop:Generator_ColumnVarNameInTable="columnCUSTOMER" msprop:Generator_ColumnPropNameInRow="CUSTOMER" msprop:Generator_ColumnPropNameInTable="CUSTOMERColumn" msprop:Generator_UserColumnName="CUSTOMER" type="xs:string" minOccurs="0" />
+              <xs:element name="START" msprop:Generator_ColumnVarNameInTable="columnSTART" msprop:Generator_ColumnPropNameInRow="START" msprop:Generator_ColumnPropNameInTable="STARTColumn" msprop:Generator_UserColumnName="START" type="xs:string" minOccurs="0" />
+              <xs:element name="END" msprop:Generator_ColumnVarNameInTable="columnEND" msprop:Generator_ColumnPropNameInRow="END" msprop:Generator_ColumnPropNameInTable="ENDColumn" msprop:Generator_UserColumnName="END" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="SECTION1" msprop:Generator_TableClassName="SECTION1DataTable" msprop:Generator_TableVarName="tableSECTION1" msprop:Generator_TablePropName="SECTION1" msprop:Generator_RowDeletingName="SECTION1RowDeleting" msprop:Generator_RowChangingName="SECTION1RowChanging" msprop:Generator_RowEvHandlerName="SECTION1RowChangeEventHandler" msprop:Generator_RowDeletedName="SECTION1RowDeleted" msprop:Generator_UserTableName="SECTION1" msprop:Generator_RowChangedName="SECTION1RowChanged" msprop:Generator_RowEvArgName="SECTION1RowChangeEvent" msprop:Generator_RowClassName="SECTION1Row">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="CUSTOMER" msprop:Generator_ColumnVarNameInTable="columnCUSTOMER" msprop:Generator_ColumnPropNameInRow="CUSTOMER" msprop:Generator_ColumnPropNameInTable="CUSTOMERColumn" msprop:Generator_UserColumnName="CUSTOMER" type="xs:string" minOccurs="0" />
+              <xs:element name="CUSTOMERGROUP" msprop:Generator_ColumnVarNameInTable="columnCUSTOMERGROUP" msprop:Generator_ColumnPropNameInRow="CUSTOMERGROUP" msprop:Generator_ColumnPropNameInTable="CUSTOMERGROUPColumn" msprop:Generator_UserColumnName="CUSTOMERGROUP" type="xs:string" minOccurs="0" />
+              <xs:element name="CUSTOMERCREATED" msprop:Generator_ColumnVarNameInTable="columnCUSTOMERCREATED" msprop:Generator_ColumnPropNameInRow="CUSTOMERCREATED" msprop:Generator_ColumnPropNameInTable="CUSTOMERCREATEDColumn" msprop:Generator_UserColumnName="CUSTOMERCREATED" type="xs:string" minOccurs="0" />
+              <xs:element name="ACTIVEBRANCHCOUNT" msprop:Generator_ColumnVarNameInTable="columnACTIVEBRANCHCOUNT" msprop:Generator_ColumnPropNameInRow="ACTIVEBRANCHCOUNT" msprop:Generator_ColumnPropNameInTable="ACTIVEBRANCHCOUNTColumn" msprop:Generator_UserColumnName="ACTIVEBRANCHCOUNT" type="xs:int" minOccurs="0" />
+              <xs:element name="CUSTOMERREP" msprop:Generator_ColumnVarNameInTable="columnCUSTOMERREP" msprop:Generator_ColumnPropNameInRow="CUSTOMERREP" msprop:Generator_ColumnPropNameInTable="CUSTOMERREPColumn" msprop:Generator_UserColumnName="CUSTOMERREP" type="xs:string" minOccurs="0" />
+              <xs:element name="TERM" msprop:Generator_ColumnVarNameInTable="columnTERM" msprop:Generator_ColumnPropNameInRow="TERM" msprop:Generator_ColumnPropNameInTable="TERMColumn" msprop:Generator_UserColumnName="TERM" type="xs:short" minOccurs="0" />
+              <xs:element name="BRNCOUNT" msprop:Generator_ColumnVarNameInTable="columnBRNCOUNT" msprop:Generator_ColumnPropNameInRow="BRNCOUNT" msprop:Generator_ColumnPropNameInTable="BRNCOUNTColumn" msprop:Generator_UserColumnName="BRNCOUNT" type="xs:short" minOccurs="0" />
+              <xs:element name="TSKCOUNT" msprop:Generator_ColumnVarNameInTable="columnTSKCOUNT" msprop:Generator_ColumnPropNameInRow="TSKCOUNT" msprop:Generator_ColumnPropNameInTable="TSKCOUNTColumn" msprop:Generator_UserColumnName="TSKCOUNT" type="xs:short" minOccurs="0" />
+              <xs:element name="ACTCOUNT" msprop:Generator_ColumnVarNameInTable="columnACTCOUNT" msprop:Generator_ColumnPropNameInRow="ACTCOUNT" msprop:Generator_ColumnPropNameInTable="ACTCOUNTColumn" msprop:Generator_UserColumnName="ACTCOUNT" type="xs:short" minOccurs="0" />
+              <xs:element name="INTERNALAUDITCOUNT" msprop:Generator_ColumnVarNameInTable="columnINTERNALAUDITCOUNT" msprop:Generator_ColumnPropNameInRow="INTERNALAUDITCOUNT" msprop:Generator_ColumnPropNameInTable="INTERNALAUDITCOUNTColumn" msprop:Generator_UserColumnName="INTERNALAUDITCOUNT" type="xs:short" minOccurs="0" />
+              <xs:element name="PARTPSP" msprop:Generator_ColumnVarNameInTable="columnPARTPSP" msprop:Generator_ColumnPropNameInRow="PARTPSP" msprop:Generator_ColumnPropNameInTable="PARTPSPColumn" msprop:Generator_UserColumnName="PARTPSP" type="xs:decimal" minOccurs="0" />
+              <xs:element name="SERVICEPSP" msprop:Generator_ColumnVarNameInTable="columnSERVICEPSP" msprop:Generator_ColumnPropNameInRow="SERVICEPSP" msprop:Generator_ColumnPropNameInTable="SERVICEPSPColumn" msprop:Generator_UserColumnName="SERVICEPSP" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TOTALPSP" msprop:Generator_ColumnVarNameInTable="columnTOTALPSP" msprop:Generator_ColumnPropNameInRow="TOTALPSP" msprop:Generator_ColumnPropNameInTable="TOTALPSPColumn" msprop:Generator_UserColumnName="TOTALPSP" type="xs:decimal" minOccurs="0" />
+              <xs:element name="K2TOTALPSP" msprop:Generator_ColumnVarNameInTable="columnK2TOTALPSP" msprop:Generator_ColumnPropNameInRow="K2TOTALPSP" msprop:Generator_ColumnPropNameInTable="K2TOTALPSPColumn" msprop:Generator_UserColumnName="K2TOTALPSP" type="xs:decimal" minOccurs="0" />
+              <xs:element name="H2TOTALPSP" msprop:Generator_ColumnVarNameInTable="columnH2TOTALPSP" msprop:Generator_ColumnPropNameInRow="H2TOTALPSP" msprop:Generator_ColumnPropNameInTable="H2TOTALPSPColumn" msprop:Generator_UserColumnName="H2TOTALPSP" type="xs:decimal" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="SECTION2" msprop:Generator_TableClassName="SECTION2DataTable" msprop:Generator_TableVarName="tableSECTION2" msprop:Generator_TablePropName="SECTION2" msprop:Generator_RowDeletingName="SECTION2RowDeleting" msprop:Generator_RowChangingName="SECTION2RowChanging" msprop:Generator_RowEvHandlerName="SECTION2RowChangeEventHandler" msprop:Generator_RowDeletedName="SECTION2RowDeleted" msprop:Generator_UserTableName="SECTION2" msprop:Generator_RowChangedName="SECTION2RowChanged" msprop:Generator_RowEvArgName="SECTION2RowChangeEvent" msprop:Generator_RowClassName="SECTION2Row">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="YEARMONTH" msprop:Generator_ColumnVarNameInTable="columnYEARMONTH" msprop:Generator_ColumnPropNameInRow="YEARMONTH" msprop:Generator_ColumnPropNameInTable="YEARMONTHColumn" msprop:Generator_UserColumnName="YEARMONTH" type="xs:string" minOccurs="0" />
+              <xs:element name="ACTCOUNT" msprop:Generator_ColumnVarNameInTable="columnACTCOUNT" msprop:Generator_ColumnPropNameInRow="ACTCOUNT" msprop:Generator_ColumnPropNameInTable="ACTCOUNTColumn" msprop:Generator_UserColumnName="ACTCOUNT" type="xs:short" minOccurs="0" />
+              <xs:element name="REGION" msprop:Generator_ColumnVarNameInTable="columnREGION" msprop:Generator_ColumnPropNameInRow="REGION" msprop:Generator_ColumnPropNameInTable="REGIONColumn" msprop:Generator_UserColumnName="REGION" type="xs:string" minOccurs="0" />
+              <xs:element name="CATEGORY" msprop:Generator_ColumnVarNameInTable="columnCATEGORY" msprop:Generator_ColumnPropNameInRow="CATEGORY" msprop:Generator_ColumnPropNameInTable="CATEGORYColumn" msprop:Generator_UserColumnName="CATEGORY" type="xs:string" minOccurs="0" />
+              <xs:element name="TSKCOUNT" msprop:Generator_ColumnVarNameInTable="columnTSKCOUNT" msprop:Generator_ColumnPropNameInRow="TSKCOUNT" msprop:Generator_ColumnPropNameInTable="TSKCOUNTColumn" msprop:Generator_UserColumnName="TSKCOUNT" type="xs:short" minOccurs="0" />
+              <xs:element name="TOTALPSP" msprop:Generator_ColumnVarNameInTable="columnTOTALPSP" msprop:Generator_ColumnPropNameInRow="TOTALPSP" msprop:Generator_ColumnPropNameInTable="TOTALPSPColumn" msprop:Generator_UserColumnName="TOTALPSP" type="xs:decimal" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="SECTION3" msprop:Generator_TableClassName="SECTION3DataTable" msprop:Generator_TableVarName="tableSECTION3" msprop:Generator_TablePropName="SECTION3" msprop:Generator_RowDeletingName="SECTION3RowDeleting" msprop:Generator_RowChangingName="SECTION3RowChanging" msprop:Generator_RowEvHandlerName="SECTION3RowChangeEventHandler" msprop:Generator_RowDeletedName="SECTION3RowDeleted" msprop:Generator_UserTableName="SECTION3" msprop:Generator_RowChangedName="SECTION3RowChanged" msprop:Generator_RowEvArgName="SECTION3RowChangeEvent" msprop:Generator_RowClassName="SECTION3Row">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ROWNUM" msprop:Generator_ColumnVarNameInTable="columnROWNUM" msprop:Generator_ColumnPropNameInRow="ROWNUM" msprop:Generator_ColumnPropNameInTable="ROWNUMColumn" msprop:Generator_UserColumnName="ROWNUM" type="xs:int" minOccurs="0" />
+              <xs:element name="BRANCH" msprop:Generator_ColumnVarNameInTable="columnBRANCH" msprop:Generator_ColumnPropNameInRow="BRANCH" msprop:Generator_ColumnPropNameInTable="BRANCHColumn" msprop:Generator_UserColumnName="BRANCH" type="xs:string" minOccurs="0" />
+              <xs:element name="PARTPSP" msprop:Generator_ColumnVarNameInTable="columnPARTPSP" msprop:Generator_ColumnPropNameInRow="PARTPSP" msprop:Generator_ColumnPropNameInTable="PARTPSPColumn" msprop:Generator_UserColumnName="PARTPSP" type="xs:decimal" minOccurs="0" />
+              <xs:element name="SERVICEPSP" msprop:Generator_ColumnVarNameInTable="columnSERVICEPSP" msprop:Generator_ColumnPropNameInRow="SERVICEPSP" msprop:Generator_ColumnPropNameInTable="SERVICEPSPColumn" msprop:Generator_UserColumnName="SERVICEPSP" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TOTALPSP" msprop:Generator_ColumnVarNameInTable="columnTOTALPSP" msprop:Generator_ColumnPropNameInRow="TOTALPSP" msprop:Generator_ColumnPropNameInTable="TOTALPSPColumn" msprop:Generator_UserColumnName="TOTALPSP" type="xs:decimal" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="SECTION4" msprop:Generator_TableClassName="SECTION4DataTable" msprop:Generator_TableVarName="tableSECTION4" msprop:Generator_RowChangedName="SECTION4RowChanged" msprop:Generator_TablePropName="SECTION4" msprop:Generator_RowDeletingName="SECTION4RowDeleting" msprop:Generator_RowChangingName="SECTION4RowChanging" msprop:Generator_RowEvHandlerName="SECTION4RowChangeEventHandler" msprop:Generator_RowDeletedName="SECTION4RowDeleted" msprop:Generator_RowClassName="SECTION4Row" msprop:Generator_UserTableName="SECTION4" msprop:Generator_RowEvArgName="SECTION4RowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="CATEGORY" msprop:Generator_ColumnVarNameInTable="columnCATEGORY" msprop:Generator_ColumnPropNameInRow="CATEGORY" msprop:Generator_ColumnPropNameInTable="CATEGORYColumn" msprop:Generator_UserColumnName="CATEGORY" type="xs:string" minOccurs="0" />
+              <xs:element name="AVGACTION" msprop:Generator_ColumnVarNameInTable="columnAVGACTION" msprop:Generator_ColumnPropNameInRow="AVGACTION" msprop:Generator_ColumnPropNameInTable="AVGACTIONColumn" msprop:Generator_UserColumnName="AVGACTION" type="xs:decimal" minOccurs="0" />
+              <xs:element name="AVGPLANTIME" msprop:Generator_ColumnVarNameInTable="columnAVGPLANTIME" msprop:Generator_ColumnPropNameInRow="AVGPLANTIME" msprop:Generator_ColumnPropNameInTable="AVGPLANTIMEColumn" msprop:Generator_UserColumnName="AVGPLANTIME" type="xs:decimal" minOccurs="0" />
+              <xs:element name="AVGCOMPLETED" msprop:Generator_ColumnVarNameInTable="columnAVGCOMPLETED" msprop:Generator_ColumnPropNameInRow="AVGCOMPLETED" msprop:Generator_ColumnPropNameInTable="AVGCOMPLETEDColumn" msprop:Generator_UserColumnName="AVGCOMPLETED" type="xs:decimal" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="SECTION5" msprop:Generator_TableClassName="SECTION5DataTable" msprop:Generator_TableVarName="tableSECTION5" msprop:Generator_RowChangedName="SECTION5RowChanged" msprop:Generator_TablePropName="SECTION5" msprop:Generator_RowDeletingName="SECTION5RowDeleting" msprop:Generator_RowChangingName="SECTION5RowChanging" msprop:Generator_RowEvHandlerName="SECTION5RowChangeEventHandler" msprop:Generator_RowDeletedName="SECTION5RowDeleted" msprop:Generator_RowClassName="SECTION5Row" msprop:Generator_UserTableName="SECTION5" msprop:Generator_RowEvArgName="SECTION5RowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ROWNUM" msprop:Generator_ColumnVarNameInTable="columnROWNUM" msprop:Generator_ColumnPropNameInRow="ROWNUM" msprop:Generator_ColumnPropNameInTable="ROWNUMColumn" msprop:Generator_UserColumnName="ROWNUM" type="xs:int" minOccurs="0" />
+              <xs:element name="BRANCH" msprop:Generator_ColumnVarNameInTable="columnBRANCH" msprop:Generator_ColumnPropNameInRow="BRANCH" msprop:Generator_ColumnPropNameInTable="BRANCHColumn" msprop:Generator_UserColumnName="BRANCH" type="xs:string" minOccurs="0" />
+              <xs:element name="TOTALPSP" msprop:Generator_ColumnVarNameInTable="columnTOTALPSP" msprop:Generator_ColumnPropNameInRow="TOTALPSP" msprop:Generator_ColumnPropNameInTable="TOTALPSPColumn" msprop:Generator_UserColumnName="TOTALPSP" type="xs:decimal" minOccurs="0" />
+              <xs:element name="CATEGORY" msprop:Generator_ColumnVarNameInTable="columnCATEGORY" msprop:Generator_ColumnPropNameInRow="CATEGORY" msprop:Generator_ColumnPropNameInTable="CATEGORYColumn" msprop:Generator_UserColumnName="CATEGORY" type="xs:string" minOccurs="0" />
+              <xs:element name="TASKTYPE" msprop:Generator_ColumnVarNameInTable="columnTASKTYPE" msprop:Generator_ColumnPropNameInRow="TASKTYPE" msprop:Generator_ColumnPropNameInTable="TASKTYPEColumn" msprop:Generator_UserColumnName="TASKTYPE" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="SECTION6" msprop:Generator_TableClassName="SECTION6DataTable" msprop:Generator_TableVarName="tableSECTION6" msprop:Generator_RowChangedName="SECTION6RowChanged" msprop:Generator_TablePropName="SECTION6" msprop:Generator_RowDeletingName="SECTION6RowDeleting" msprop:Generator_RowChangingName="SECTION6RowChanging" msprop:Generator_RowEvHandlerName="SECTION6RowChangeEventHandler" msprop:Generator_RowDeletedName="SECTION6RowDeleted" msprop:Generator_RowClassName="SECTION6Row" msprop:Generator_UserTableName="SECTION6" msprop:Generator_RowEvArgName="SECTION6RowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ROWNUM" msprop:Generator_ColumnVarNameInTable="columnROWNUM" msprop:Generator_ColumnPropNameInRow="ROWNUM" msprop:Generator_ColumnPropNameInTable="ROWNUMColumn" msprop:Generator_UserColumnName="ROWNUM" type="xs:int" minOccurs="0" />
+              <xs:element name="BRANCH" msprop:Generator_ColumnVarNameInTable="columnBRANCH" msprop:Generator_ColumnPropNameInRow="BRANCH" msprop:Generator_ColumnPropNameInTable="BRANCHColumn" msprop:Generator_UserColumnName="BRANCH" type="xs:string" minOccurs="0" />
+              <xs:element name="COUNT" msprop:Generator_ColumnVarNameInTable="columnCOUNT" msprop:Generator_ColumnPropNameInRow="COUNT" msprop:Generator_ColumnPropNameInTable="COUNTColumn" msprop:Generator_UserColumnName="COUNT" type="xs:short" minOccurs="0" />
+              <xs:element name="CATEGORY" msprop:Generator_ColumnVarNameInTable="columnCATEGORY" msprop:Generator_ColumnPropNameInRow="CATEGORY" msprop:Generator_ColumnPropNameInTable="CATEGORYColumn" msprop:Generator_UserColumnName="CATEGORY" type="xs:string" minOccurs="0" />
+              <xs:element name="TASKTYPE" msprop:Generator_ColumnVarNameInTable="columnTASKTYPE" msprop:Generator_ColumnPropNameInRow="TASKTYPE" msprop:Generator_ColumnPropNameInTable="TASKTYPEColumn" msprop:Generator_UserColumnName="TASKTYPE" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="SECTION7" msprop:Generator_TableClassName="SECTION7DataTable" msprop:Generator_TableVarName="tableSECTION7" msprop:Generator_RowChangedName="SECTION7RowChanged" msprop:Generator_TablePropName="SECTION7" msprop:Generator_RowDeletingName="SECTION7RowDeleting" msprop:Generator_RowChangingName="SECTION7RowChanging" msprop:Generator_RowEvHandlerName="SECTION7RowChangeEventHandler" msprop:Generator_RowDeletedName="SECTION7RowDeleted" msprop:Generator_RowClassName="SECTION7Row" msprop:Generator_UserTableName="SECTION7" msprop:Generator_RowEvArgName="SECTION7RowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Yıl.Ay" msdata:Caption="YEARMONTH" msprop:Generator_ColumnVarNameInTable="_columnYıl_Ay" msprop:Generator_ColumnPropNameInRow="_Yıl_Ay" msprop:Generator_ColumnPropNameInTable="_Yıl_AyColumn" msprop:Generator_UserColumnName="Yıl.Ay" type="xs:string" minOccurs="0" />
+              <xs:element name="Ortalama_x0020_Planlama" msprop:Generator_ColumnVarNameInTable="columnOrtalama_Planlama" msprop:Generator_ColumnPropNameInRow="Ortalama_Planlama" msprop:Generator_ColumnPropNameInTable="Ortalama_PlanlamaColumn" msprop:Generator_UserColumnName="Ortalama Planlama" type="xs:decimal" minOccurs="0" />
+              <xs:element name="Ortalama_x0020_Müdahale" msprop:Generator_ColumnVarNameInTable="columnOrtalama_Müdahale" msprop:Generator_ColumnPropNameInRow="Ortalama_Müdahale" msprop:Generator_ColumnPropNameInTable="Ortalama_MüdahaleColumn" msprop:Generator_UserColumnName="Ortalama Müdahale" type="xs:decimal" minOccurs="0" />
+              <xs:element name="Ortalama_x0020_Çözüm" msprop:Generator_ColumnVarNameInTable="columnOrtalama_Çözüm" msprop:Generator_ColumnPropNameInRow="Ortalama_Çözüm" msprop:Generator_ColumnPropNameInTable="Ortalama_ÇözümColumn" msprop:Generator_UserColumnName="Ortalama Çözüm" type="xs:decimal" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="SECTION8" msprop:Generator_TableClassName="SECTION8DataTable" msprop:Generator_TableVarName="tableSECTION8" msprop:Generator_TablePropName="SECTION8" msprop:Generator_RowDeletingName="SECTION8RowDeleting" msprop:Generator_RowChangingName="SECTION8RowChanging" msprop:Generator_RowEvHandlerName="SECTION8RowChangeEventHandler" msprop:Generator_RowDeletedName="SECTION8RowDeleted" msprop:Generator_UserTableName="SECTION8" msprop:Generator_RowChangedName="SECTION8RowChanged" msprop:Generator_RowEvArgName="SECTION8RowChangeEvent" msprop:Generator_RowClassName="SECTION8Row">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Yıl.Ay" msdata:Caption="YEARMONTH" msprop:Generator_ColumnVarNameInTable="_columnYıl_Ay" msprop:Generator_ColumnPropNameInRow="_Yıl_Ay" msprop:Generator_ColumnPropNameInTable="_Yıl_AyColumn" msprop:Generator_UserColumnName="Yıl.Ay" type="xs:string" minOccurs="0" />
+              <xs:element name="Kategori" msdata:Caption="Ortalama Planlama" msprop:Generator_ColumnVarNameInTable="columnKategori" msprop:Generator_ColumnPropNameInRow="Kategori" msprop:Generator_ColumnPropNameInTable="KategoriColumn" msprop:Generator_UserColumnName="Kategori" type="xs:string" minOccurs="0" />
+              <xs:element name="Toplam_x0020_Sayı" msdata:Caption="Ortalama Müdahale" msprop:Generator_ColumnVarNameInTable="columnToplam_Sayı" msprop:Generator_ColumnPropNameInRow="Toplam_Sayı" msprop:Generator_ColumnPropNameInTable="Toplam_SayıColumn" msprop:Generator_UserColumnName="Toplam Sayı" type="xs:short" minOccurs="0" />
+              <xs:element name="Plana_x0020_Uyum_x0020_Sayısı" msdata:Caption="Ortalama Çözüm" msprop:Generator_ColumnVarNameInTable="columnPlana_Uyum_Sayısı" msprop:Generator_ColumnPropNameInRow="Plana_Uyum_Sayısı" msprop:Generator_ColumnPropNameInTable="Plana_Uyum_SayısıColumn" msprop:Generator_UserColumnName="Plana Uyum Sayısı" type="xs:short" minOccurs="0" />
+              <xs:element name="Revizyon_x0020_Sayısı" msprop:Generator_ColumnVarNameInTable="columnRevizyon_Sayısı" msprop:Generator_ColumnPropNameInRow="Revizyon_Sayısı" msprop:Generator_ColumnPropNameInTable="Revizyon_SayısıColumn" msprop:Generator_UserColumnName="Revizyon Sayısı" type="xs:short" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

@@ -1,0 +1,362 @@
+﻿@using Resources.Types.Index
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Default.cshtml";
+}
+@Html.IncludeVersionedCss("/Content/bootstrap/bootstrap-tagsinput.css")
+<div style="margin-top: 10px">
+    <div class="page-header">
+        <h4>@TypeStrings.types</h4>
+        <h6></h6>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tms-page-toolbar inline-toolbar left" data-block="#record">
+                <div class="btn-group">
+                    <button class="btn btn-default btn-sm" title="Ctrl+R" selection-required="false" id="btnNew"><i class="fa fa fa-plus fa-fw"></i> @TypeStrings.addnew</button>
+                    <button class="btn btn-default btn-sm" title="Ctrl+S" selection-required="false" id="btnSave"><i class="fa fa-floppy-o fa-fw"></i> @TypeStrings.save</button>
+                    <button class="btn btn-default btn-sm" title="Ctrl+U" selection-required="true" id="btnUndo"><i class="fa fa-undo fa-fw"></i> @TypeStrings.undo</button>
+                    <button class="btn btn-default btn-sm" title="Ctrl+D" selection-required="true" id="btnDelete"><i class="fa fa-trash-o fa-fw"></i> @TypeStrings.delete</button>
+                    <button class="btn btn-default btn-sm" title="Ctrl+H" selection-required="true" id="btnHistory" disabled="disabled"><i class="fa fa-bolt fa-fw"></i> @TypeStrings.history</button>
+                    <button class="btn btn-default btn-sm" title="Ctrl+Q" selection-required="true" id="btnTranslations" disabled="disabled"><i class="fa fa-globe"></i> @TypeStrings.translations</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <div class="scrollbar-macosx">
+                <div class="list-group"></div>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <ul class="nav nav-tabs">
+                <li class="active"><a data-toggle="tab" default-on-reset href="#record">@TypeStrings.record</a></li>
+                <li><a href="#activities" enable-on-selection allowed-entities="TASK">@TypeStrings.activities</a></li>
+                <li><a href="#typeparameters" enable-on-selection allowed-entities="TASK,DAYOFFREQUEST">@TypeStrings.parameters</a></li>
+            </ul>
+            <div class="tab-content">
+                <div id="record" class="tab-pane active">
+                    <div class="panel panel-default">
+                        <div class="panel-heading page-panel-heading">@TypeStrings.record</div>
+                        <div class="panel-body page-panel-body">
+                            <div class="row custom">
+                                <div class="col-md-2">
+                                    @TypeStrings.entity
+                                </div>
+                                <div class="col-md-4">
+                                    <select id="entity" class="form-control" required disableonupdate="yes">
+                                        <option value="">@TypeStrings.pleaseselect</option>
+                                        <option value="*">@TypeStrings.all</option>
+                                        <option value="TASK">@TypeStrings.task</option>
+                                        <option value="EQUIPMENT">@TypeStrings.equipment</option>
+                                        <option value="PART">@TypeStrings.part</option>
+                                        <option value="BRANCH">@TypeStrings.branch</option>
+                                        <option value="PROGRESSPAYMENT">@TypeStrings.progresspayment</option>
+                                        <option value="CUSTOMER">@TypeStrings.customer</option>
+                                        <option value="SUPPLIER">@TypeStrings.supplier</option>
+                                        <option value="PROJECT">@TypeStrings.project</option>
+                                        <option value="DAYOFFREQUEST">@TypeStrings.dayoffrequest</option>
+                                        <option value="TIMEKEEPING">@TypeStrings.timekeeping</option>
+                                        <option value="CONTRACT">@TypeStrings.contract</option>
+                                        <option value="QUOTATION">@TypeStrings.quotation</option>
+                                        <option value="INVOICE">@TypeStrings.invoice</option>
+                                        <option value="USER">@TypeStrings.user</option>
+                                        <option value="SUPERVISION">@TypeStrings.supervision</option>
+                                        <option value="SALESINVOICE">@TypeStrings.salesinvoice</option>
+                                        <option value="REPORTING">@TypeStrings.reporting</option>
+                                        <option value="PURCHASEORDER">@TypeStrings.purchaseorder</option>
+                                        <option value="SERVICECODE">İşçilik</option>
+                                        <option value="PURCHASEORDERREQUEST">@TypeStrings.purchasereq</option>
+                                        <option value="ENTRUST">@TypeStrings.entrust</option>
+                                        <option value="WAREHOUSETRANSFER">@TypeStrings.warehousetransfer</option>
+                                        <option value="PRESALES">@TypeStrings.presales</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-2">
+                                    @TypeStrings.code
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="text" maxlength="50" id="code" required disableonupdate="yes" class="form-control form-code" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-2">
+                                    @TypeStrings.description
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="text" maxlength="250" id="desc" required class="form-control" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-2">
+                                    @TypeStrings.organization
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="input-group">
+                                        <input type="text" maxlength="50" disableonupdate="yes" class="form-control" required id="org">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" disableonupdate="yes" type="button" id="btnorg"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div><!-- /input-group -->
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-2">
+                                    @TypeStrings.autocodeprefix
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="text" maxlength="50" id="autocodeprefix" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-2">
+                                    @TypeStrings.active
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="checkbox checkbox-primary">
+                                        <input type="checkbox" class="styled" checked="checked" id="active" />
+                                        <label></label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-2">
+                                    @TypeStrings.showinactionbox
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="checkbox checkbox-primary">
+                                        <input type="checkbox" class="styled" id="showinactionbox" />
+                                        <label></label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="activities" class="tab-pane">
+                    <div class="panel panel-default">
+                        <div class="panel-heading page-panel-heading">@TypeStrings.activities</div>
+                        <div id="grdTypeActivities" style="border-width: 0px;"></div>
+                        <div class="inline-toolbar left" data-block="#activities">
+                            <div class="btn-group">
+                                <button class="btn btn-default btn-sm" title="Ctrl+R" selection-required="false" id="btnAddActivity"><i class="fa fa fa-plus fa-fw"></i>@TypeStrings.addnew</button>
+                                <button class="btn btn-default btn-sm" title="Ctrl+S" selection-required="false" id="btnSaveActivity"><i class="fa fa-floppy-o fa-fw"></i>@TypeStrings.save</button>
+                                <button class="btn btn-default btn-sm" title="Ctrl+D" selection-required="true" id="btnDeleteActivity" disabled="disabled"><i class="fa fa-trash-o fa-fw"></i>@TypeStrings.delete</button>
+                            </div>
+                        </div>
+                        <div class="panel-body page-panel-body">
+                            <div id="actdetails">
+                                <div class="row custom">
+                                    <div class="col-md-2">
+                                        @TypeStrings.line
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" maxlength="50" id="line" disabled="disabled" class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-2">
+                                        @TypeStrings.taskdepartment
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="checkbox checkbox-primary">
+                                            <input type="checkbox" class="styled" id="taskdepartment" />
+                                            <label></label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-2">
+                                        @TypeStrings.department
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="input-group">
+                                            <input type="text" maxlength="50" required class="form-control" id="dep">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default" type="button" id="btnDepartment"><i class="fa fa-search fa-fw"></i></button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-2">
+                                        @TypeStrings.status
+                                    </div>
+                                    <div class="col-md-4">
+                                        <select id="status" class="form-control" required></select>
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-2">
+                                        @TypeStrings.taskdescription
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="checkbox checkbox-primary">
+                                            <input type="checkbox" class="styled" id="taskdescription" />
+                                            <label></label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-2">
+                                        @TypeStrings.description
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" maxlength="250" required id="actdesc" class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-2">
+                                        @TypeStrings.assignedto
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="input-group">
+                                            <input type="text" data-role="multival" class="form-control" id="assignedto">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default" type="button" id="btnAssignedTo"><i class="fa fa-search fa-fw"></i></button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-2">
+                                        @TypeStrings.predecessor
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" id="predecessor">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default" type="button" id="btnpredecessor"><i class="fa fa-search fa-fw"></i></button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-2">
+                                        @TypeStrings.checklisttemplate
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="input-group">
+                                            <input type="text" maxlength="50" class="form-control" id="checklisttmp">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default" type="button" id="btnChecklistTmp"><i class="fa fa-search fa-fw"></i></button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-2">
+                                        @TypeStrings.lmapprequired
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="checkbox checkbox-primary">
+                                            <input type="checkbox" class="styled" id="lmapprovalrequired" />
+                                            <label></label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-2">
+                                        @TypeStrings.hidden
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="checkbox checkbox-primary">
+                                            <input type="checkbox" class="styled" id="hidden" />
+                                            <label>
+                                                <i class="fa fa-info-circle"></i> @TypeStrings.ihidden
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-2">
+                                        @TypeStrings.privateact
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="checkbox checkbox-primary">
+                                            <input type="checkbox" class="styled" id="private" />
+                                            <label>
+                                                <i class="fa fa-info-circle"></i> @TypeStrings.iprivate
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-2">
+                                        @TypeStrings.createseparateactivity
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="checkbox checkbox-primary">
+                                            <input type="checkbox" class="styled" id="createseparateactivity" />
+                                            <label></label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="typeparameters" class="tab-pane">
+                    <div class="panel panel-default">
+                        <div class="panel-heading page-panel-heading">@TypeStrings.parameters</div>
+                        <div id="grdTypeParameters" style="border-width: 0px;"></div>
+                        <div class="inline-toolbar left" data-block="#typeparameters">
+                            <div class="btn-group">
+                                <button class="btn btn-default btn-sm" title="Ctrl+R" selection-required="false" id="btnAddTypeParameter"><i class="fa fa fa-plus fa-fw"></i>@TypeStrings.addnew</button>
+                                <button class="btn btn-default btn-sm" title="Ctrl+S" selection-required="false" id="btnSaveTypeParameter"><i class="fa fa-floppy-o fa-fw"></i>@TypeStrings.save</button>
+                                <button class="btn btn-default btn-sm" title="Ctrl+D" selection-required="true" id="btnDeleteTypeParameter" disabled="disabled"><i class="fa fa-trash-o fa-fw"></i>@TypeStrings.delete</button>
+                            </div>
+                        </div>
+                        <div class="panel-body page-panel-body">
+                            <div id="typeparameterdetails">
+                                <div class="row custom">
+                                    <div class="col-md-2">
+                                        @TypeStrings.parametergroup
+                                    </div>
+                                    <div class="col-md-4">
+                                        <select id="paramgroup" class="form-control" required disableonupdate="yes">
+                                            <option value="">@TypeStrings.pleaseselect</option>
+                                            <option value="NOTIFICATION">@TypeStrings.notification</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-2">
+                                        @TypeStrings.parametercode
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" maxlength="50" required disableonupdate="yes" class="form-control" id="paramcode">
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-2">
+                                        @TypeStrings.parameterdesc
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" maxlength="50" required class="form-control" id="paramdesc">
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-2">
+                                        @TypeStrings.parametervalue
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" maxlength="50" required class="form-control" id="paramvalue">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@Html.IncludeVersionedJs("/Scripts/bootstrap/bootstrap-tagsinput.min.js")
+@Html.IncludeVersionedJs("/Scripts/custom/ovi.custom.list.js")
+
+@Html.IncludeVersionedJs("/Scripts/app/Types.js")

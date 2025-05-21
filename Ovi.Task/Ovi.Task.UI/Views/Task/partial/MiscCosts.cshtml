@@ -1,0 +1,191 @@
+﻿@using Resources.Task.Index
+<div id="misccosts" class="tab-pane">
+    <div class="row">
+        <div class="col-md-12">
+            <div id="grdMiscCosts"></div>
+        </div>
+    </div>
+    <br />
+    <div id="misccostsform" class="panel panel-default items">
+        <div class="panel-heading page-panel-heading">@TaskStrings.misccosts</div>
+        <div class="row">
+            <div class="col-md-12" style="padding-right: 0">
+                <div class="inline-toolbar left" style="border: none;" data-block="#misccosts">
+                    <div class="btn-group">
+                        <button class="btn btn-default btn-sm" title="Ctrl+R" selection-required="false" disabled id="btnAddMiscCost"><i class="fa fa fa-plus fa-fw"></i>@TaskStrings.addnew</button>
+                        <button class="btn btn-default btn-sm" title="Ctrl+S" selection-required="false" disabled id="btnSaveMiscCost"><i class="fa fa-floppy-o fa-fw"></i>@TaskStrings.save</button>
+                        <button class="btn btn-default btn-sm" selection-required="true" title="Ctrl+D" disabled id="btnDeleteMiscCost"><i class="fa fa-trash-o fa-fw"></i>@TaskStrings.delete</button>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-body page-panel-body">
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="row custom">
+                            <div class="col-md-3">
+                                @TaskStrings.activity
+                            </div>
+                            <div class="col-md-5">
+                                <div class="input-group">
+                                    <input type="text" required class="form-control" id="mcactivity">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default" type="button" id="btnmcactivity"><i class="fa fa-search fa-fw"></i></button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row custom">
+                            <div class="col-md-3">
+                                @TaskStrings.date
+                            </div>
+                            <div class="col-md-5">
+                                <input type="text" calc-group="2" maxlength="10" class="form-control" required ctrltype="datepicker" id="misccostdate" />
+                            </div>
+                        </div>
+                        <div class="row custom">
+                            <div class="col-md-3">
+                                @TaskStrings.type
+                            </div>
+                            <div class="col-md-4">
+                                <select id="typ" class="form-control" required>
+                                    <option value="">@TaskStrings.pleaseselect</option>
+                                    <option value="PART">@TaskStrings.part</option>
+                                    <option value="SERVICE">@TaskStrings.service</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <select id="misccosttype" required class="form-control"></select>
+                            </div>
+                        </div>
+                        <div class="hidden" id="misccostpartcontainer">
+                            <div class="row custom">
+                                <div class="col-md-3">
+                                    @TaskStrings.part
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" disabled="disabled" id="misccostpart">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button" disabled="disabled" id="btnmisccostpart"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-3">
+                                    @TaskStrings.partreference
+                                </div>
+                                <div class="col-md-5">
+                                    <input type="text" class="form-control" id="misccostpartreference">
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-3">
+                                    @TaskStrings.partisnotfound
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="checkbox checkbox-primary">
+                                        <input type="checkbox" class="styled" id="partisnotfound" />
+                                        <label></label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row custom">
+                            <div class="col-md-3">
+                                @TaskStrings.description
+                            </div>
+                            <div class="col-md-8">
+                                <input type="text" maxlength="250" class="form-control" required id="misccostdesc" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="row custom">
+                            <div class="col-md-3">
+                                @TaskStrings.unitprice
+                            </div>
+                            <div class="col-md-5">
+                                <input type="text" calc-group="1" required valtype="PRICE" ctrltype="numeric" allowfloat="true" class="form-control" id="misccostunitprice">
+                            </div>
+                        </div>
+                        <div class="row custom">
+                            <div class="col-md-3">
+                                @TaskStrings.unitsalesprice
+                            </div>
+                            <div class="col-md-5">
+                                <input type="text" valtype="PRICE" ctrltype="numeric" allowfloat="true" class="form-control" id="misccostunitsalesprice">
+                            </div>
+                        </div>
+                        <div class="row custom">
+                            <div class="col-md-3">
+                                @TaskStrings.curr
+                            </div>
+                            <div class="col-md-5">
+                                <div class="input-group">
+                                    <input type="text" calc-group="2" required class="form-control" id="misccostcurr">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default" type="button" id="btnmisccostcurr"><i class="fa fa-search fa-fw"></i></button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row custom">
+                            <div class="col-md-3">
+                                @TaskStrings.exch
+                            </div>
+                            <div class="col-md-5">
+                                <input type="text" calc-group="1" required valtype="EXCH" ctrltype="numeric" allowfloat="true" class="form-control" id="misccostexch">
+                            </div>
+                        </div>
+                        <div class="row custom">
+                            <div class="col-md-3">
+                                @TaskStrings.qty
+                            </div>
+                            <div class="col-md-5">
+                                <input type="text" calc-group="1" required ctrltype="numeric" allowfloat="true" class="form-control" id="misccostqty">
+                            </div>
+                        </div>
+                        <div class="row custom">
+                            <div class="col-md-3">
+                                @TaskStrings.uom
+                            </div>
+                            <div class="col-md-5">
+                                <div class="input-group">
+                                    <input type="text" required class="form-control" id="misccostuom">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default" type="button" id="btnmisccostuom"><i class="fa fa-search fa-fw"></i></button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row custom hidden">
+                            <div class="col-md-3">
+                                @TaskStrings.invoice
+                            </div>
+                            <div class="col-md-5">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="misccostinvoice">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default" type="button" id="btnmisccostinvoice"><i class="fa fa-search fa-fw"></i></button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row custom">
+                            <div class="col-md-3">
+                                @TaskStrings.total
+                            </div>
+                            <div class="col-md-5">
+                                <input type="text" disabled="disabled" class="form-control" id="misccosttotal">
+                            </div>
+                            <div class="col-md-1">
+                                <input type="text" disabled="disabled" class="form-control" id="misccosttotalcurr">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

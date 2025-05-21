@@ -1,0 +1,1622 @@
+﻿@using Resources.Quotations.Index
+@using Resources.Shared.Index
+@{
+    Layout = "~/Views/Shared/Default.cshtml";
+}
+
+@Html.IncludeVersionedCss("/Content/bootstrap/bootstrap-tagsinput.css")
+@Html.IncludeVersionedCss("/Content/jquery/jquery.fileupload.css")
+@Html.IncludeVersionedCss("/Content/InfoTooltip.css")
+@Html.IncludeVersionedCss("/Content/jquery/jquery.contextMenu.min.css")
+
+@{
+    // Web.config'den değer alınır
+    var hideCustomer = ConfigHelper.Get("HideCustomer");
+    var hideSalesSection= ConfigHelper.Get("HideSalesSection");
+
+    var isCustomerVisible = !(hideCustomer == "+"); // Eğer "+" ise görünür olacak, değilse gizlenecek
+    var isSalesSectionVisible = !(hideSalesSection == "+"); // Eğer "+" ise görünür olacak, değilse gizlenecek
+
+
+}
+
+<div style="margin-top: 10px">
+    <div class="page-header">
+        <h4>
+            @QuotationStrings.quotations
+        </h4>
+        <h6></h6>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tms-page-toolbar inline-toolbar left" data-block="#record">
+                <div class="tms-page-toolbar inline-toolbar left" data-block="#record">
+                    <div class="btn-group">
+                        <button class="btn btn-default btn-sm" title="Ctrl+R" selection-required="false" id="btnNew"><i class="fa fa fa-plus fa-fw"></i>@QuotationStrings.addnew</button>
+                        <button class="btn btn-default btn-sm" disabled="disabled" selection-required="false" title="Ctrl+S" id="btnSave"><i class="fa fa-floppy-o fa-fw"></i>@QuotationStrings.save</button>
+                        <button class="btn btn-default btn-sm" disabled="disabled" selection-required="true" title="Ctrl+U" id="btnUndo"><i class="fa fa-undo fa-fw"></i>@QuotationStrings.undo</button>
+                        <button class="btn btn-default btn-sm" disabled="disabled" selection-required="true" title="Ctrl+D" id="btnDelete"><i class="fa fa-trash-o fa-fw"></i>@QuotationStrings.delete</button>
+                        <button class="btn btn-default btn-sm" disabled="disabled" selection-required="true" title="Ctrl+H" id="btnHistory"><i class="fa fa-bolt fa-fw"></i>@QuotationStrings.history</button>
+                        @if (string.IsNullOrEmpty(UserManager.Instance.User.Supplier))
+                        {
+                            <button class="btn btn-default btn-sm" disabled="disabled" selection-required="true" title="Ctrl+P" id="btnPrint"><i class="fa fa-print fa-fw"></i> @QuotationStrings.print</button>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+        <ul class="nav nav-tabs" id="navquotations">
+            <li class="active"><a data-toggle="tab" href="#list">@QuotationStrings.list</a></li>
+            <li><a data-toggle="tab" href="#record">@QuotationStrings.record</a></li>
+            @if (string.IsNullOrEmpty(UserManager.Instance.User.Supplier) && string.IsNullOrEmpty(UserManager.Instance.User.Customer))
+            {
+                <li><a enable-on-selection href="#quotationlabors">@QuotationStrings.labor</a></li>
+                <li><a enable-on-selection href="#quotationparts">@QuotationStrings.part</a></li>
+            }
+            @if (string.IsNullOrEmpty(UserManager.Instance.User.Customer))
+            {
+                <li><a enable-on-selection href="#quotationmisccosts">@QuotationStrings.misccosts</a></li>
+            }
+            @if (string.IsNullOrEmpty(UserManager.Instance.User.Supplier))
+            {
+                if (isSalesSectionVisible)
+                {
+                    <li><a enable-on-selection href="#quotationsales">@QuotationStrings.quotationsales</a></li>
+                }
+                if (string.IsNullOrEmpty(UserManager.Instance.User.Customer))
+                {
+                    <li><a enable-on-selection href="#quotationsum">@QuotationStrings.summary</a></li>
+                }
+            }
+        </ul>
+        <div class="tab-content">
+            <div id="list" class="tab-pane active">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div id="grdQuotations"></div>
+                        <div class="sidebars">
+                            <div class="sidebar right" style="right: -400px;">
+                                <div class="row">
+                                    <div class="col-md-12" style="text-align: center; margin-top: 10px;">
+                                        <button id="filter" class="btn btn-primary btn-xs"><i class="fa fa-filter"></i> @QuotationStrings.filter</button>
+                                        <button id="clearfilter" class="btn btn-info btn-xs"><i class="fa fa-ban"></i> @QuotationStrings.reset</button>
+                                        <button id="closesiderbar" class="btn btn-danger btn-xs"><i class="fa fa-times"></i> @QuotationStrings.close</button>
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-12">
+                                        <div class="page-header">
+                                            <h5>@QuotationStrings.datecreated</h5>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="text" ctrltype="datepicker" class="i-filter form-control" id="datecreated_start">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="text" ctrltype="datepicker" class="i-filter form-control" id="datecreated_end">
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-12">
+                                        <div class="page-header">
+                                            <h5>@QuotationStrings.appdate</h5>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="text" ctrltype="datepicker" class="i-filter form-control" id="appdate_start">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="text" ctrltype="datepicker" class="i-filter form-control" id="appdate_end">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="record" class="tab-pane">
+                <div class="row record-content">
+                    <div class="col-md-4" id="divHeader">
+                        <div class="panel panel-default" style="height: 842px;">
+                            <div class="panel-heading task-panel-heading">@QuotationStrings.record</div>
+                            <div class="panel-body task-panel-body">
+                                <div class="row custom">
+                                    <div class="col-md-4">
+                                        @QuotationStrings.code
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input id="code" disabled="disabled" alwaysdisabled="yes" type="text" class="form-control uppercase" />
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-4">
+                                        @QuotationStrings.organization
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="input-group">
+                                            <input type="text" loadstatusesonchange="yes" disableonupdate="yes" maxlength="50" required class="form-control uppercase" id="org">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default" disableonupdate="yes" type="button" id="btnorg"><i class="fa fa-search fa-fw"></i></button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-4">
+                                        @QuotationStrings.description
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input type="text" disableoncomplete maxlength="250" class="form-control" required id="desc" />
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <!--Not-->
+                                    <div class="col-md-4">
+                                        @QuotationStrings.note
+                                    </div>
+                                    <div class="col-md-8">
+                                        <textarea class="form-control" required disableoncomplete maxlength="1000" contenteditable="" rows="3" id="quonote" autocomplete="off" tabindex="19"></textarea>
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-4">
+                                        @QuotationStrings.type
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="input-group">
+                                            <input type="text" loadstatusesonchange="yes" disableonupdate="yes" maxlength="50" required data-entity="QUOTATION" class="form-control uppercase" id="type">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default" disableonupdate="yes" type="button" id="btntype"><i class="fa fa-search fa-fw"></i></button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                @if (string.IsNullOrEmpty(UserManager.Instance.User.Customer))
+                                {
+                                    <div id="divsupplier" class="row custom hidden">
+                                        <div class="col-md-4">
+                                            @QuotationStrings.supplier
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="input-group">
+                                                <input type="text" disableonupdate="yes" maxlength="50" class="form-control uppercase" id="supplier">
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-default" disableonupdate="yes" type="button" id="btnsupplier"><i class="fa fa-search fa-fw"></i></button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                                <div class="row custom">
+                                    <div class="col-md-4">
+                                        @QuotationStrings.status
+                                    </div>
+                                    <div class="col-md-8">
+                                        <select class="form-control" data-code="-" data-pcode="Q" data-text="" required id="status"></select>
+                                    </div>
+                                </div>
+                                <div id="divcancellationreason" class="hidden">
+                                    <div class="row custom">
+                                        <div class="col-md-4">
+                                            @QuotationStrings.cancellationreason
+                                        </div>
+                                        <div class="col-md-8">
+                                            <select class="form-control" disableoncomplete id="cancellationreason">
+                                                <option class="default" value="">@QuotationStrings.pleaseselect</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="divrejectreason" class="hidden">
+                                    <!-- Müşteri tarafından red edildi.-->
+                                    <div class="row custom">
+                                        <div class="col-md-4">
+                                            @QuotationStrings.rejectreason
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="input-group">
+                                                <input type="text" maxlength="50" class="form-control uppercase" id="rejectreason">
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-default" type="button" id="btnrejectreason"><i class="fa fa-search fa-fw"></i></button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-4">
+                                        @QuotationStrings.revision
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input type="text" disabled="disabled" maxlength="50" class="form-control" id="revision" />
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-4">
+                                        @QuotationStrings.referenceno
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input type="text" disableoncomplete maxlength="50" class="form-control" id="referenceno" />
+                                    </div>
+                                </div>
+                                <div class="row custom" id="divCustomer" style="@(isCustomerVisible ?  "" : "display:none;" )">
+                                    <div class="col-md-4">
+                                        @QuotationStrings.customer
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="input-group">
+                                            <input type="text" disableonupdate="yes" maxlength="50" required class="form-control uppercase" id="customer">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default" disableonupdate="yes" type="button" id="btncustomer"><i class="fa fa-search fa-fw"></i></button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="taskactivitydiv">
+                                    <div class="row custom">
+                                        <div class="col-md-4">
+                                            @QuotationStrings.task
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="input-group">
+                                                <input type="text" disableoncomplete maxlength="50" class="form-control" id="task">
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-default" disableoncomplete type="button" id="btntask"><i class="fa fa-search fa-fw"></i></button>
+                                                </span>
+                                            </div>
+                                            <input type="text" maxlength="250" disabled="disabled" class="form-control" id="taskdesc">
+                                        </div>
+                                    </div>
+                                    <div class="row custom">
+                                        <div class="col-md-4">
+                                            @QuotationStrings.branch
+                                        </div>
+                                        <div class="col-md-8">
+                                            <input type="text" maxlength="250" disabled="disabled" class="form-control" id="branch">
+                                        </div>
+                                    </div>
+                                    <div class="row custom">
+                                        <div class="col-md-4">
+                                            @QuotationStrings.location
+                                        </div>
+                                        <div class="col-md-8">
+                                            <input type="text" maxlength="250" disabled="disabled" class="form-control" id="location">
+                                        </div>
+                                    </div>
+                                    <div class="row custom">
+                                        <div class="col-md-4">
+                                            @QuotationStrings.activity
+                                        </div>
+                                        <div class="col-md-8">
+                                            <select class="form-control" disableoncomplete disabled="disabled" id="activity">
+                                                <option class="default" value="">@QuotationStrings.pleaseselect</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="projectdiv" class="hidden">
+                                    <div class="row custom">
+                                        <div class="col-md-4">
+                                            @QuotationStrings.project
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="input-group">
+                                                <input type="text" disableoncomplete maxlength="50" class="form-control" id="project">
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-default" disableoncomplete type="button" id="btnproject"><i class="fa fa-search fa-fw"></i></button>
+                                                </span>
+                                            </div>
+                                            <input type="text" maxlength="250" disabled="disabled" class="form-control" id="projectdesc">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-4">
+                                        @QuotationStrings.supplyperiod
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input type="text" disableoncomplete ctrltype="datepicker" class="form-control" id="supplyperiod">
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-4">
+                                        @QuotationStrings.remindingperiod
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input type="text" disableoncomplete ctrltype="numeric" allowfloat="false" maxlength="250" class="form-control" id="remindingperiod">
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-4">
+                                        @QuotationStrings.paymentdue
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input type="text" disableoncomplete ctrltype="numeric" allowfloat="false" maxlength="250" class="form-control" id="paymentdue">
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-4">
+                                        @QuotationStrings.currency
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="input-group">
+                                            <input type="text" disableoncomplete required maxlength="50" class="form-control" id="curr">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default" disableoncomplete type="button" id="btncurr"><i class="fa fa-search fa-fw"></i></button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-4">
+                                        @QuotationStrings.exch
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input type="text" required valtype="EXCH" ctrltype="numeric" allowfloat="true" class="form-control" id="exch">
+                                    </div>
+                                </div>
+                                <div class="row hidden custom">
+                                    <div class="col-md-4">
+                                        @QuotationStrings.manager
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="input-group">
+                                            <input type="text" disabled="disabled" maxlength="50" class="form-control uppercase" id="manager">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default" disabled="disabled" type="button" id="btnmanager"><i class="fa fa-search fa-fw"></i></button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-4">
+                                        @QuotationStrings.validityperiod
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input type="text" required valtype="QTY" ctrltype="numeric" allowfloat="false" class="form-control" id="validityperiod">
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-4">
+                                        @QuotationStrings.cusmail
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input type="text" disableoncomplete maxlength="300" class="form-control" id="cusmail" />
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-4">
+                                        @QuotationStrings.mailrecipients
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="input-group">
+                                            <input type="text" disableoncomplete class="form-control" data-role="multival" id="mailrecipients">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default" disableoncomplete type="button" id="btnmailrecipients"><i class="fa fa-search fa-fw"></i></button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-4">
+                                        @QuotationStrings.createdby
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input type="text" class="form-control" disabled="disabled" id="createdby" />
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-4">
+                                        @QuotationStrings.created
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input type="text" class="form-control" disabled="disabled" id="created" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4" id="divCustomFields">
+                        <div class="panel panel-default" style="height: 842px;">
+                            <div class="panel-heading task-panel-heading">@QuotationStrings.customfields</div>
+                            <div class="panel-body">
+                                <div id="cfcontainer"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4" id="divCmntsAttachments">
+                        <div class="panel panel-default" style="height: 450px;">
+                            <div class="panel-heading task-panel-heading">@QuotationStrings.comments</div>
+                            <div class="panel-body">
+                                <textarea class="form-control" contenteditable rows="3" id="comment"></textarea>
+                                @if (string.IsNullOrEmpty(UserManager.Instance.User.Customer))
+                                {
+                                    <div class="row custom">
+                                        <div class="col-md-12">
+                                            <div class="checkbox checkbox-inline checkbox-primary">
+                                                <input type="checkbox" class="styled" id="visibletocustomer" />
+                                                <label>@SharedStrings.visibletocustomer</label>
+                                            </div>
+                                            @if (string.IsNullOrEmpty(UserManager.Instance.User.Supplier))
+                                            {
+                                                <div class="checkbox  checkbox-inline checkbox-primary">
+                                                    <input type="checkbox" class="styled" id="visibletosupplier" />
+                                                    <label>@SharedStrings.visibletosupplier</label>
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                }
+                                <div class="inline-toolbar">
+                                    <button class="btn btn-primary btn-xs" selection-required="true" id="addComment"><i class="fa fa-plus-circle"></i>@QuotationStrings.add</button>
+                                </div>
+                                <div id="comments" class="sm">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default" style="height: 372px;">
+                            <div class="panel-heading task-panel-heading">@QuotationStrings.docs</div>
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="progress">
+                                            <div class="progress-bar" id="docuprogress" role="progressbar" style="width: 0%; min-width: 2em;">0%</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-12">
+                                        <div id="fupload">
+                                            <span class="btn btn-default fileinput-button" id="btnBrowse">
+                                                <i class="fa fa-search"></i>
+                                                <span>@QuotationStrings.browse</span>
+                                                <input type="file" name="files[]" id="fu" multiple data-url="/UploadFile.ashx">
+                                            </span>
+                                            <button class="btn btn-default" id="btnupload" disabled="disabled"><i class="fa fa-cloud-upload"></i>@QuotationStrings.upload</button>
+                                            @if (string.IsNullOrEmpty(UserManager.Instance.User.Supplier))
+                                            {
+                                                <button class="btn btn-default" id="btnDownload" disabled="disabled"><i class="fa fa-download" aria-hidden="true"></i> @QuotationStrings.download</button>
+                                            }
+                                            <div class="row custom">
+                                                <div class="col-md-12">
+                                                    <div id="filename"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div id="docs" class="light-size"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @if (string.IsNullOrEmpty(UserManager.Instance.User.Supplier) && string.IsNullOrEmpty(UserManager.Instance.User.Customer))
+            {
+                <div id="quotationlabors" class="tab-pane">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="grdQuotationLabors"></div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="panel panel-default" id="quotationlaborsform">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="panel-body page-panel-body">
+                                    <div class="row">
+                                        <div class="col-md-12" style="padding-right:0">
+                                            <div class="inline-toolbar left" style="border:none;" data-block="#exch">
+                                                <div class="btn-group">
+                                                    <button class="btn btn-default btn-sm" title="Ctrl+R" selection-required="false" id="btnAddQuotationLabor"><i class="fa fa fa-plus fa-fw"></i>@QuotationStrings.addnew</button>
+                                                    <button class="btn btn-default btn-sm" title="Ctrl+S" selection-required="false" id="btnSaveQuotationLabor"><i class="fa fa-floppy-o fa-fw"></i>@QuotationStrings.save</button>
+                                                    <button class="btn btn-default btn-sm" title="Ctrl+D" selection-required="true" id="btnDeleteQuotationLabor" disabled="disabled"><i class="fa fa-trash-o fa-fw"></i>@QuotationStrings.delete</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading">@QuotationStrings.labordetails</div>
+                                                <div class="panel-body">
+                                                    <div class="row custom">
+                                                        <div class="col-md-4">
+                                                            @QuotationStrings.laborid
+                                                        </div>
+                                                        <div class="col-md-8">
+                                                            <input disabled="disabled" alwaysdisabled="yes" id="laborid" type="text" class="form-control" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="row custom">
+                                                        <div class="col-md-4">
+                                                            @QuotationStrings.servicecode
+                                                        </div>
+                                                        <div class="col-md-8">
+                                                            <div class="input-group">
+                                                                <input type="text" class="form-control" required="required" id="laborservicecode">
+                                                                <span class="input-group-btn">
+                                                                    <button class="btn btn-default" type="button" id="btnlaborservicecode"><i class="fa fa-search fa-fw"></i></button>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row custom">
+                                                        <div class="col-md-4">
+                                                            @QuotationStrings.period
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <input type="text" required="" ctrltype="numeric" calc-group="3" allowfloat="true" class="form-control" id="laborperiod" value="1">
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <select id="laborperiodunit" required="" class="form-control">
+                                                                <option value="DAY">@QuotationStrings.day</option>
+                                                                <option value="HOUR">@QuotationStrings.hour</option>
+                                                                <option value="PCE">@QuotationStrings.piece</option>
+                                                                <option value="SET">@QuotationStrings.set</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row custom">
+                                                        <div class="col-md-4">
+                                                            @QuotationStrings.trade
+                                                        </div>
+                                                        <div class="col-md-8">
+                                                            <div class="input-group">
+                                                                <input type="text" maxlength="50" class="form-control" required id="labortrade">
+                                                                <span class="input-group-btn">
+                                                                    <button class="btn btn-default" type="button" id="btnlabortrade"><i class="fa fa-search fa-fw"></i></button>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row custom">
+                                                        <div class="col-md-4">
+                                                            @QuotationStrings.reference
+                                                        </div>
+                                                        <div class="col-md-8">
+                                                            <input type="text" class="form-control" maxlength="50" id="laborreference" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="row custom">
+                                                        <div class="col-md-12">
+                                                            <div class="row">
+                                                                <div class="col-md-4">
+                                                                    <div class="row">
+                                                                        <div class="col-md-8">
+                                                                            @QuotationStrings.assignedto
+                                                                        </div>
+                                                                        <div class="col-md-4">
+                                                                            <h5 id="assignedtocnt"></h5>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-8">
+                                                                    <div class="input-group" style="margin-left: 0.25em;">
+                                                                        <input type="text" class="form-control" id="assignedto" data-role="multival">
+                                                                        <div class="input-group-btn">
+                                                                            <button id="btnAssignedTo" title="@QuotationStrings.addusers" class="btn btn-default" type="button"><i class="fa fa-btn fa-plus-circle"></i></button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-8 no-padding">
+                                            <div class="row">
+                                                <div class="col-md-12 no-padding">
+                                                    <div class="panel panel-default">
+                                                        <div class="panel-heading">@QuotationStrings.pricingdetails</div>
+                                                        <div class="panel-body">
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                                                    <div class="row custom">
+                                                                        <div class="col-md-3">
+                                                                            @QuotationStrings.unitpurchaseprice
+                                                                        </div>
+                                                                        <div class="col-md-6">
+                                                                            <input type="text" maxlength="10" disabled="disabled" ctrltype="numeric" allowfloat="true" calc-group="3" class="form-control" id="laborunitpurchaseprice" />
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row custom">
+                                                                        <div class="col-md-3">
+                                                                            @QuotationStrings.discountrate
+                                                                        </div>
+                                                                        <div class="col-md-6">
+                                                                            <input type="text" maxlength="10" disabled="disabled" ctrltype="numeric" allowfloat="true" min="0" max="100" calc-group="3" class="form-control" id="laborpurchasediscountrate" />
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row custom">
+                                                                        <div class="col-md-3">
+                                                                            @QuotationStrings.discountedunitprice
+                                                                        </div>
+                                                                        <div class="col-md-6">
+                                                                            <input type="text" maxlength="10" disabled="disabled" calc-group="3" class="form-control" id="laborpurchasediscountedunitprice" />
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row custom">
+                                                                        <div class="col-md-3">
+                                                                            @QuotationStrings.totalpurchaseprice
+                                                                        </div>
+                                                                        <div class="col-md-6">
+                                                                            <input type="text" maxlength="10" disabled="disabled" class="form-control" id="labortotalpurchaseprice" />
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row custom">
+                                                                        <div class="col-md-3">
+                                                                            @QuotationStrings.currency
+                                                                        </div>
+                                                                        <div class="col-md-6">
+                                                                            <div class="input-group">
+                                                                                <input type="text" calc-group="1" disabled="disabled" maxlength="50" class="form-control" id="laborpurchasepricecurr">
+                                                                                <span class="input-group-btn">
+                                                                                    <button class="btn btn-default" disabled="disabled" type="button" id="btnlaborpurchasepricecurr"><i class="fa fa-search fa-fw"></i></button>
+                                                                                </span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row custom">
+                                                                        <div class="col-md-3">
+                                                                            @QuotationStrings.exch
+                                                                        </div>
+                                                                        <div class="col-md-6">
+                                                                            <input type="text" valtype="EXCH" ctrltype="numeric" allowfloat="true" class="form-control" id="laborpurchaseexch">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                @if (string.IsNullOrEmpty(UserManager.Instance.User.Supplier) && string.IsNullOrEmpty(UserManager.Instance.User.Customer))
+                                                                { 
+                                                                    <div class="col-md-6" style="@(isSalesSectionVisible  ?  "" : "display:none;" )" id="quotationlabors_sales">
+                                                                        <div class="row custom">
+                                                                            <div class="col-md-3">
+                                                                                @QuotationStrings.unitsalesprice
+                                                                            </div>
+                                                                            <div class="col-md-6">
+                                                                                <input type="text" maxlength="10" disabled="disabled" ctrltype="numeric" allowfloat="true" calc-group="3" class="form-control" id="laborunitsalesprice" />
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row custom">
+                                                                            <div class="col-md-3">
+                                                                                @QuotationStrings.discountrate
+                                                                            </div>
+                                                                            <div class="col-md-6">
+                                                                                <input type="text" maxlength="10" disabled="disabled" ctrltype="numeric" allowfloat="true" min="0" max="100" calc-group="3" class="form-control" id="laborsalesdiscountrate" />
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row custom">
+                                                                            <div class="col-md-3">
+                                                                                @QuotationStrings.discountedunitprice
+                                                                            </div>
+                                                                            <div class="col-md-6">
+                                                                                <input type="text" maxlength="10" disabled="disabled" calc-group="3" class="form-control" id="laborsalesdiscountedunitprice" />
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row custom">
+                                                                            <div class="col-md-3">
+                                                                                @QuotationStrings.totalsalesprice
+                                                                            </div>
+                                                                            <div class="col-md-6">
+                                                                                <input type="text" maxlength="10" disabled="disabled" class="form-control" id="labortotalsalesprice" />
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row custom">
+                                                                            <div class="col-md-3">
+                                                                                @QuotationStrings.currency
+                                                                            </div>
+                                                                            <div class="col-md-6">
+                                                                                <div class="input-group">
+                                                                                    <input type="text" calc-group="2" disabled="disabled" maxlength="50" class="form-control" id="laborsalespricecurr">
+                                                                                    <span class="input-group-btn">
+                                                                                        <button class="btn btn-default" disabled="disabled" type="button" id="btnlaborsalespricecurr"><i class="fa fa-search fa-fw"></i></button>
+                                                                                    </span>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row custom">
+                                                                            <div class="col-md-3">
+                                                                                @QuotationStrings.exch
+                                                                            </div>
+                                                                            <div class="col-md-6">
+                                                                                <input type="text" valtype="EXCH" ctrltype="numeric" allowfloat="true" class="form-control" id="laborsalesexch">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                }
+                                                            </div>
+                                                            </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="quotationparts" class="tab-pane">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="grdQuotationParts"></div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="panel panel-default" id="quotationpartsform">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="panel-body page-panel-body">
+                                    <div class="row">
+                                        <div class="col-md-12" style="padding-right:0">
+                                            <div class="inline-toolbar left" style="border:none;" data-block="#exch">
+                                                <div class="btn-group">
+                                                    <button class="btn btn-default btn-sm" title="Ctrl+R" selection-required="false" id="btnAddQuotationPart"><i class="fa fa fa-plus fa-fw"></i>@QuotationStrings.addnew</button>
+                                                    <button class="btn btn-default btn-sm" title="Ctrl+S" selection-required="false" id="btnSaveQuotationPart"><i class="fa fa-floppy-o fa-fw"></i>@QuotationStrings.save</button>
+                                                    <button class="btn btn-default btn-sm" title="Ctrl+D" selection-required="true" id="btnDeleteQuotationPart" disabled="disabled"><i class="fa fa-trash-o fa-fw"></i>@QuotationStrings.delete</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading">@QuotationStrings.partdetails</div>
+                                                <div class="panel-bodya">
+                                                    <div class="row custom">
+                                                        <div class="col-md-4">
+                                                            @QuotationStrings.partid
+                                                        </div>
+                                                        <div class="col-md-8">
+                                                            <input disabled="disabled" id="partid" type="text" class="form-control" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="row custom">
+                                                        <div class="col-md-4">
+                                                            @QuotationStrings.part
+                                                        </div>
+                                                        <div class="col-md-8">
+                                                            <div class="input-group">
+                                                                <input type="text" required class="form-control" id="quopart">
+                                                                <span class="input-group-btn">
+                                                                    <button class="btn btn-default" type="button" id="btnparts"><i class="fa fa-search fa-fw"></i></button>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row custom">
+                                                        <div class="col-md-4">
+                                                            @QuotationStrings.partdescription
+                                                        </div>
+                                                        <div class="col-md-8">
+                                                            <input type="text" disabled="disabled" class="form-control" id="partdesc">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row custom">
+                                                        <div class="col-md-4">
+                                                            @QuotationStrings.uom
+                                                        </div>
+                                                        <div class="col-md-8">
+                                                            <input type="text" disabled="disabled" class="form-control" id="partuom">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row custom">
+                                                        <div class="col-md-4">
+                                                            @QuotationStrings.brand
+                                                        </div>
+                                                        <div class="col-md-8">
+                                                            <input type="text" required class="form-control" id="partbrand">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row custom">
+                                                        <div class="col-md-4">
+                                                            @QuotationStrings.quantity
+                                                        </div>
+                                                        <div class="col-md-8">
+                                                            <input type="text" required calc-group="3" ctrltype="numeric" allowfloat="true" class="form-control" id="quotationpartqty" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="row custom">
+                                                        <div class="col-md-4">
+                                                            @QuotationStrings.reference
+                                                        </div>
+                                                        <div class="col-md-8">
+                                                            <input type="text" class="form-control" id="partreference" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-8 no-padding">
+                                            <div class="row">
+                                                <div class="col-md-12 no-padding">
+                                                    <div class="panel panel-default">
+                                                        <div class="panel-heading">@QuotationStrings.pricingdetails</div>
+                                                        <div class="panel-body">
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                                                    <div class="row custom">
+                                                                        <div class="col-md-3">
+                                                                            @QuotationStrings.unitpurchaseprice
+                                                                        </div>
+                                                                        <div class="col-md-6">
+                                                                            <input type="text" calc-group="3" ctrltype="numeric" allowfloat="true" maxlength="10" disabled="disabled" class="form-control" id="partunitpurchaseprice" />
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row custom">
+                                                                        <div class="col-md-3">
+                                                                            @QuotationStrings.discountrate
+                                                                        </div>
+                                                                        <div class="col-md-6">
+                                                                            <input type="text" maxlength="10" ctrltype="numeric" allowfloat="true" min="0" max="100" disabled="disabled" calc-group="3" class="form-control" id="partpurchasediscountrate" />
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row custom">
+                                                                        <div class="col-md-3">
+                                                                            @QuotationStrings.discountedunitprice
+                                                                        </div>
+                                                                        <div class="col-md-6">
+                                                                            <input type="text" maxlength="10" disabled="disabled" calc-group="3" class="form-control" id="partpurchasediscountedunitprice" />
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row custom">
+                                                                        <div class="col-md-3">
+                                                                            @QuotationStrings.totalpurchaseprice
+                                                                        </div>
+                                                                        <div class="col-md-6">
+                                                                            <input type="text" maxlength="10" disabled="disabled" class="form-control" id="parttotalpurchaseprice" />
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row custom">
+                                                                        <div class="col-md-3">
+                                                                            @QuotationStrings.currency
+                                                                        </div>
+                                                                        <div class="col-md-6">
+                                                                            <div class="input-group">
+                                                                                <input type="text" calc-group="1" disabled="disabled" maxlength="50" class="form-control" id="partpurchasepricecurr">
+                                                                                <span class="input-group-btn">
+                                                                                    <button class="btn btn-default" disabled="disabled" type="button" id="btnpartpurchasepricecurr"><i class="fa fa-search fa-fw"></i></button>
+                                                                                </span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row custom">
+                                                                        <div class="col-md-3">
+                                                                            @QuotationStrings.exch
+                                                                        </div>
+                                                                        <div class="col-md-6">
+                                                                            <input type="text" valtype="EXCH" ctrltype="numeric" allowfloat="true" class="form-control" id="partpurchaseexch">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                @if (string.IsNullOrEmpty(UserManager.Instance.User.Supplier) && string.IsNullOrEmpty(UserManager.Instance.User.Customer))
+                                                                { 
+                                                                    <div class="col-md-6" style="@(isSalesSectionVisible ?  "" : "display:none;" )" id="quotationparts_sales">
+                                                                        <div class="row custom">
+                                                                            <div class="col-md-3">
+                                                                                @QuotationStrings.unitsalesprice
+                                                                            </div>
+                                                                            <div class="col-md-6">
+                                                                                <input type="text" calc-group="3" ctrltype="numeric" allowfloat="true" maxlength="10" disabled="disabled" class="form-control" id="partunitsalesprice" />
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row custom">
+                                                                            <div class="col-md-3">
+                                                                                @QuotationStrings.discountrate
+                                                                            </div>
+                                                                            <div class="col-md-6">
+                                                                                <input type="text" maxlength="10" ctrltype="numeric" allowfloat="true" min="0" max="100" disabled="disabled" calc-group="3" class="form-control" id="partsalesdiscountrate" />
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row custom">
+                                                                            <div class="col-md-3">
+                                                                                @QuotationStrings.discountedunitprice
+                                                                            </div>
+                                                                            <div class="col-md-6">
+                                                                                <input type="text" maxlength="10" disabled="disabled" calc-group="3" class="form-control" id="partsalesdiscountedunitprice" />
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row custom">
+                                                                            <div class="col-md-3">
+                                                                                @QuotationStrings.totalsalesprice
+                                                                            </div>
+                                                                            <div class="col-md-6">
+                                                                                <input type="text" maxlength="10" disabled="disabled" class="form-control" id="parttotalsalesprice" />
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row custom">
+                                                                            <div class="col-md-3">
+                                                                                @QuotationStrings.currency
+                                                                            </div>
+                                                                            <div class="col-md-6">
+                                                                                <div class="input-group">
+                                                                                    <input type="text" calc-group="2" disabled="disabled" maxlength="50" class="form-control" id="partsalespricecurr">
+                                                                                    <span class="input-group-btn">
+                                                                                        <button class="btn btn-default" disabled="disabled" type="button" id="btnpartsalespricecurr"><i class="fa fa-search fa-fw"></i></button>
+                                                                                    </span>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row custom">
+                                                                            <div class="col-md-3">
+                                                                                @QuotationStrings.exch
+                                                                            </div>
+                                                                            <div class="col-md-6">
+                                                                                <input type="text" valtype="EXCH" ctrltype="numeric" allowfloat="true" class="form-control" id="partsalesexch">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                }
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            @if (string.IsNullOrEmpty(UserManager.Instance.User.Customer))
+            {
+                <div id="quotationmisccosts" class="tab-pane">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="grdQuotationMiscCosts"></div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="panel panel-default" id="quotationmisccostsform">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="panel-body page-panel-body">
+                                    <div class="row">
+                                        <div class="col-md-12" style="padding-right:0">
+                                            <div class="inline-toolbar left" style="border:none;" data-block="#exch">
+                                                <div class="btn-group">
+                                                    <button class="btn btn-default btn-sm" title="Ctrl+R" selection-required="false" id="btnAddQuotationMiscCost"><i class="fa fa fa-plus fa-fw"></i>@QuotationStrings.addnew</button>
+                                                    <button class="btn btn-default btn-sm" title="Ctrl+S" selection-required="false" id="btnSaveQuotationMiscCost"><i class="fa fa-floppy-o fa-fw"></i>@QuotationStrings.save</button>
+                                                    <button class="btn btn-default btn-sm" title="Ctrl+D" selection-required="true" id="btnDeleteQuotationMiscCost" disabled="disabled"><i class="fa fa-trash-o fa-fw"></i>@QuotationStrings.delete</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading">@QuotationStrings.misccostdetails</div>
+                                                <div class="panel-body">
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="row custom">
+                                                                <div class="col-md-4">
+                                                                    @QuotationStrings.misccostid
+                                                                </div>
+                                                                <div class="col-md-8">
+                                                                    <input disabled="disabled" id="misccostid" type="text" class="form-control" />
+                                                                </div>
+                                                            </div>
+                                                            <div class="row custom">
+                                                                <div class="col-md-4">
+                                                                    @QuotationStrings.type
+                                                                </div>
+                                                                <div class="col-md-4">
+                                                                    <select id="misccosttypeparent" class="form-control" required>
+                                                                        <option value="">@QuotationStrings.pleaseselect</option>
+                                                                        <option value="PART">@QuotationStrings.part</option>
+                                                                        <option value="SERVICE">@QuotationStrings.service</option>
+                                                                    </select>
+                                                                </div>
+                                                                <div class="col-md-4">
+                                                                    <select id="misccosttype" required class="form-control"></select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row custom">
+                                                                <div class="col-md-4">
+                                                                    @QuotationStrings.description
+                                                                </div>
+                                                                <div class="col-md-8">
+                                                                    <input type="text" maxlength="250" class="form-control" required id="misccostdesc" />
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="row custom">
+                                                                <div class="col-md-4">
+                                                                    @QuotationStrings.brand
+                                                                </div>
+                                                                <div class="col-md-8">
+                                                                    <input type="text" maxlength="250" class="form-control" id="misccostbrand" />
+                                                                </div>
+                                                            </div>
+                                                            <div class="hidden" id="misccostpartcontainer">
+                                                                <div class="row custom">
+                                                                    <div class="col-md-4">
+                                                                        @QuotationStrings.part
+                                                                    </div>
+                                                                    <div class="col-md-8">
+                                                                        <div class="input-group">
+                                                                            <input type="text" class="form-control" disabled="disabled" id="misccostpart">
+                                                                            <span class="input-group-btn">
+                                                                                <button class="btn btn-default" type="button" disabled="disabled" id="btnmisccostpart"><i class="fa fa-search fa-fw"></i></button>
+                                                                            </span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row custom">
+                                                                    <div class="col-md-4">
+                                                                        @QuotationStrings.partisnotfound
+                                                                    </div>
+                                                                    <div class="col-md-8">
+                                                                        <div class="checkbox checkbox-primary">
+                                                                            <input type="checkbox" class="styled" id="partisnotfound" />
+                                                                            <label></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="hidden" id="misccostservicecontainer">
+                                                                <div class="row custom">
+                                                                    <div class="col-md-4">
+                                                                        @QuotationStrings.servicecode
+                                                                    </div>
+                                                                    <div class="col-md-8">
+                                                                        <div class="input-group">
+                                                                            <input type="text" class="form-control" disabled="disabled" id="misccostservicecode">
+                                                                            <span class="input-group-btn">
+                                                                                <button class="btn btn-default" disabled="disabled" type="button" id="btnmisccostservicecode"><i class="fa fa-search fa-fw"></i></button>
+                                                                            </span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row custom">
+                                                                    <div class="col-md-4">
+                                                                        @QuotationStrings.servicecodeisnotfound
+                                                                    </div>
+                                                                    <div class="col-md-8">
+                                                                        <div class="checkbox checkbox-primary">
+                                                                            <input type="checkbox" class="styled" id="servicecodeisnotfound" />
+                                                                            <label></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row custom">
+                                                                <div class="col-md-4">
+                                                                    @QuotationStrings.quantity
+                                                                </div>
+                                                                <div class="col-md-8">
+                                                                    <input type="text" calc-group="3" required ctrltype="numeric" allowfloat="true" class="form-control" id="misccostqty">
+                                                                </div>
+                                                            </div>
+                                                            <div class="row custom">
+                                                                <div class="col-md-4">
+                                                                    @QuotationStrings.uom
+                                                                </div>
+                                                                <div class="col-md-8">
+                                                                    <div class="input-group">
+                                                                        <input type="text" required class="form-control" id="misccostuom">
+                                                                        <span class="input-group-btn">
+                                                                            <button class="btn btn-default" type="button" id="btnmisccostuom"><i class="fa fa-search fa-fw"></i></button>
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row custom">
+                                                                <div class="col-md-4">
+                                                                    @QuotationStrings.reference
+                                                                </div>
+                                                                <div class="col-md-8">
+                                                                    <input type="text" maxlength="250" class="form-control" id="misccostreference" />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-8 no-padding">
+                                            <div class="row">
+                                                <div class="col-md-12 no-padding">
+                                                    <div class="panel panel-default">
+                                                        <div class="panel-heading">@QuotationStrings.quotationsummary</div>
+                                                        <div class="panel-body">
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                                                    <div class="row custom">
+                                                                        <div class="col-md-3">
+                                                                            @QuotationStrings.unitpurchaseprice
+                                                                        </div>
+                                                                        <div class="col-md-6">
+                                                                            <input type="text" ctrltype="numeric" allowfloat="true" calc-group="3" maxlength="10" disabled="disabled" class="form-control" id="misccostunitpurchaseprice" />
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row custom">
+                                                                        <div class="col-md-3">
+                                                                            @QuotationStrings.discountrate
+                                                                        </div>
+                                                                        <div class="col-md-6">
+                                                                            <input type="text" maxlength="10" disabled="disabled" ctrltype="numeric" allowfloat="true" min="0" max="100" calc-group="3" class="form-control" id="misccostpurchasediscountrate" />
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row custom">
+                                                                        <div class="col-md-3">
+                                                                            @QuotationStrings.discountedunitprice
+                                                                        </div>
+                                                                        <div class="col-md-6">
+                                                                            <input type="text" maxlength="10" disabled="disabled" calc-group="3" class="form-control" id="misccostpurchasediscountedunitprice" />
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row custom">
+                                                                        <div class="col-md-3">
+                                                                            @QuotationStrings.totalpurchaseprice
+                                                                        </div>
+                                                                        <div class="col-md-6">
+                                                                            <input type="text" maxlength="10" disabled="disabled" class="form-control" id="misccosttotalpurchaseprice" />
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row custom">
+                                                                        <div class="col-md-3">
+                                                                            @QuotationStrings.currency
+                                                                        </div>
+                                                                        <div class="col-md-6">
+                                                                            <div class="input-group">
+                                                                                <input type="text" calc-group="1" disabled="disabled" maxlength="50" class="form-control" id="misccostpurchasepricecurr">
+                                                                                <span class="input-group-btn">
+                                                                                    <button class="btn btn-default" disabled="disabled" type="button" id="btnmisccostpurchasepricecurr"><i class="fa fa-search fa-fw"></i></button>
+                                                                                </span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row custom">
+                                                                        <div class="col-md-3">
+                                                                            @QuotationStrings.exch
+                                                                        </div>
+                                                                        <div class="col-md-6">
+                                                                            <input type="text" valtype="EXCH" ctrltype="numeric" allowfloat="true" class="form-control" id="misccostpurchaseexch">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                @if (string.IsNullOrEmpty(UserManager.Instance.User.Supplier) && string.IsNullOrEmpty(UserManager.Instance.User.Customer))
+                                                                {
+                                                                    <div class="col-md-6" style="@(isSalesSectionVisible ?  "" : "display:none;" )" id="quotationmisccosts_sales">
+                                                                        <div class="row custom">
+                                                                            <div class="col-md-3">
+                                                                                @QuotationStrings.unitsalesprice
+                                                                            </div>
+                                                                            <div class="col-md-6">
+                                                                                <input type="text" calc-group="3" maxlength="10" ctrltype="numeric" allowfloat="true" disabled="disabled" class="form-control" id="misccostunitsalesprice" />
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row custom">
+                                                                            <div class="col-md-3">
+                                                                                @QuotationStrings.discountrate
+                                                                            </div>
+                                                                            <div class="col-md-6">
+                                                                                <input type="text" maxlength="10" disabled="disabled" ctrltype="numeric" allowfloat="true" min="0" max="100" calc-group="3" class="form-control" id="misccostsalesdiscountrate" />
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row custom">
+                                                                            <div class="col-md-3">
+                                                                                @QuotationStrings.discountedunitprice
+                                                                            </div>
+                                                                            <div class="col-md-6">
+                                                                                <input type="text" maxlength="10" disabled="disabled" calc-group="3" class="form-control" id="misccostsalesdiscountedunitprice" />
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row custom">
+                                                                            <div class="col-md-3">
+                                                                                @QuotationStrings.totalsalesprice
+                                                                            </div>
+                                                                            <div class="col-md-6">
+                                                                                <input type="text" maxlength="10" disabled="disabled" class="form-control" id="misccosttotalsalesprice" />
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row custom">
+                                                                            <div class="col-md-3">
+                                                                                @QuotationStrings.currency
+                                                                            </div>
+                                                                            <div class="col-md-6">
+                                                                                <div class="input-group">
+                                                                                    <input type="text" calc-group="2" disabled="disabled" maxlength="50" class="form-control" id="misccostsalespricecurr">
+                                                                                    <span class="input-group-btn">
+                                                                                        <button class="btn btn-default" disabled="disabled" type="button" id="btnmisccostsalespricecurr"><i class="fa fa-search fa-fw"></i></button>
+                                                                                    </span>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row custom">
+                                                                            <div class="col-md-3">
+                                                                                @QuotationStrings.exch
+                                                                            </div>
+                                                                            <div class="col-md-6">
+                                                                                <input type="text" valtype="EXCH" ctrltype="numeric" allowfloat="true" class="form-control" id="misccostsalesexch">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                }
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            @if (string.IsNullOrEmpty(UserManager.Instance.User.Supplier))
+            {
+                if (string.IsNullOrEmpty(UserManager.Instance.User.Customer))
+                {
+                    <div id="quotationsum" class="tab-pane">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">@QuotationStrings.quotationsummary</div>
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <table style="width: 100%" class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <td style="width: 30%; height: 2em; background: #108ce2; color: #FFF;">@QuotationStrings.quotation</td>
+                                                    <td style="width: 20%; background: #108ce2; color: #FFF;">@QuotationStrings.cost</td>
+                                                    <td style="width: 15%; background: #108ce2; color: #FFF;">@QuotationStrings.currency.ToUpper()</td>
+                                                    <td style="width: 20%; background: #108ce2; color: #FFF;"> @QuotationStrings.sales </td>
+                                                    <td style="width: 15%; background: #108ce2; color: #FFF;">@QuotationStrings.currency.ToUpper() </td>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td style="height: 2em;">@QuotationStrings.labor.ToUpper()</td>
+                                                    <td id="laborcost"></td>
+                                                    <td id="laborcostcurrency"></td>
+                                                    <td id="laborsales"></td>
+                                                    <td id="laborsalescurrency"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="height: 2em;">@QuotationStrings.part.ToUpper()</td>
+                                                    <td id="partcost"></td>
+                                                    <td id="partcostcurrency"></td>
+                                                    <td id="partsales"></td>
+                                                    <td id="partsalescurrency"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="height: 2em; font-weight: bold">@QuotationStrings.amount.ToUpper()</td>
+                                                    <td style="height: 2em; font-weight: bold" id="totalcost"></td>
+                                                    <td style="height: 2em; font-weight: bold" id="totalcostcurrency"></td>
+                                                    <td style="height: 2em; font-weight: bold" id="totalsales"></td>
+                                                    <td style="height: 2em; font-weight: bold" id="totalsalescurrency"></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <span style="color: #62bfff; font-size: 5em; font-weight: 600; position: absolute; top: 0.5em;" id="profitrate"></span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <span style="font-size: 1.4em; font-weight: bold; color: #34a6f5;" id="ordercount"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">@QuotationStrings.otherquotations</div>
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <table style="width: 100%" class="table table-bordered" id="otherquotations">
+                                            <thead>
+                                                <tr>
+                                                    <td style="width: 10%; height: 2em; background: #108ce2; color: #FFF;">@QuotationStrings.quotation.ToUpper()</td>
+                                                    <td style="width: 25%; background: #108ce2; color: #FFF;">@QuotationStrings.description.ToUpper()</td>
+                                                    <td style="width: 25%; background: #108ce2; color: #FFF;">@QuotationStrings.supplier.ToUpper()</td>
+                                                    <td style="width: 20%; background: #108ce2; color: #FFF;">@QuotationStrings.status.ToUpper()</td>
+                                                    <td style="width: 10%; background: #108ce2; color: #FFF;"> @QuotationStrings.cost.ToUpper()</td>
+                                                    <td style="width: 10%; background: #108ce2; color: #FFF;">@QuotationStrings.currency.ToUpper()</td>
+                                                </tr>
+                                            </thead>
+                                            <tbody></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+                if (isSalesSectionVisible) {
+                <div id="quotationsales" class="tab-pane">
+                    @if (string.IsNullOrEmpty(UserManager.Instance.User.Customer))
+                    {
+                        <div class="well">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <button class="btn btn-default btn-sm" title="Ctrl+S" id="btnSaveLines"><i class="fa fa-floppy-o fa-fw"></i> @QuotationStrings.save</button>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    <div class="row">
+                        <div class="col-md-10">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <td style="width: 100px; background: #108ce2; color: #FFF;">@QuotationStrings.description</td>
+                                        <td style="width: 80px; background: #108ce2; color: #FFF;">@QuotationStrings.quantity</td>
+                                        <td style="width: 45px; background: #108ce2; color: #FFF;">@QuotationStrings.uom</td>
+                                        @if (string.IsNullOrEmpty(UserManager.Instance.User.Customer))
+                                        {
+                                            <td style="width: 80px; background: #108ce2; color: #FFF;">@QuotationStrings.unitpurchaseprice</td>
+                                            <td style="width: 80px; background: #108ce2; color: #FFF;">@QuotationStrings.currency</td>
+                                            <td style="width: 100px; background: #108ce2; color: #FFF;">@QuotationStrings.totalpurchaseprice</td>
+                                        }
+                                        <td style="width: 100px; background: #108ce2; color: #FFF;">@QuotationStrings.unitsalesprice</td>
+                                        <td style="width: 100px; background: #108ce2; color: #FFF;">@QuotationStrings.discountrate</td>
+                                        <td style="width: 100px; background: #108ce2; color: #FFF;">@QuotationStrings.discountedunitprice</td>
+                                        <td style="width: 100px; background: #108ce2; color: #FFF;">@QuotationStrings.currency</td>
+                                        <td style="width: 100px; background: #108ce2; color: #FFF;">@QuotationStrings.exch</td>
+                                        <td style="width: 100px; background: #108ce2; color: #FFF;">@QuotationStrings.totalsalesprice</td>
+                                        @if (string.IsNullOrEmpty(UserManager.Instance.User.Customer))
+                                        {
+                                            <td style="width: 100px; background: #108ce2; color: #FFF;">@QuotationStrings.profitmargin</td>
+                                        }
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr id="sectionlabor">
+                                        <td colspan="13" style="background: #bdc7ce"><strong>@QuotationStrings.labor</strong></td>
+                                    </tr>
+                                    <tr id="sectionpart">
+                                        <td colspan="13" style="background: #bdc7ce"><strong>@QuotationStrings.part</strong></td>
+                                    </tr>
+                                    <tr id="sectionmisccost">
+                                        <td colspan="13" style="background: #bdc7ce"><strong>@QuotationStrings.misccosts</strong></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="well">
+                                @if (string.IsNullOrEmpty(UserManager.Instance.User.Customer))
+                                {
+                                    <div class="row custom">
+                                        <div class="col-md-8">
+                                            <strong>@QuotationStrings.profit.ToUpper() (%) </strong>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <input ctrltype="numeric" allowfloat="false" class="form-control pull-right" id="iprofit" />
+                                        </div>
+                                    </div>
+                                }
+                                <div class="row custom">
+                                    <div class="col-md-8">
+                                        <strong>@QuotationStrings.discountrate.ToUpper() </strong>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input ctrltype="numeric" allowfloat="false" class="form-control pull-right" id="idiscountrate" />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <hr />
+                                    </div>
+                                </div>
+                                @if (string.IsNullOrEmpty(UserManager.Instance.User.Customer))
+                                {
+                                    <div class="row custom">
+                                        <div class="col-md-4">
+                                            <strong>@QuotationStrings.purchasing.ToUpper() </strong>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <span class="pull-right" id="purchasing"></span>
+                                        </div>
+                                    </div>
+                                }
+                                <div class="row custom">
+                                    <div class="col-md-4">
+                                        <strong>@QuotationStrings.sales.ToUpper() </strong>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <span class="pull-right" id="sales"></span>
+                                    </div>
+                                </div>
+                                @if (string.IsNullOrEmpty(UserManager.Instance.User.Customer))
+                                {
+                                    <div class="row custom">
+                                        <div class="col-md-4">
+                                            <strong>@QuotationStrings.profit.ToUpper() </strong>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <span class="pull-right" id="profit"></span>
+                                        </div>
+                                    </div>
+                                    <div class="row custom">
+                                        <div class="col-md-4">
+                                            <strong>@QuotationStrings.profitmargin.ToUpper() </strong>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <span class="pull-right" id="profitmargin"></span>
+                                        </div>
+                                    </div>
+                                }
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <hr />
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-4">
+                                        <strong>@QuotationStrings.labor.ToUpper() </strong>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <span class="pull-right" id="laborsum"></span>
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-4">
+                                        <strong>@QuotationStrings.part.ToUpper() </strong>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <span class="pull-right" id="partsum"></span>
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-4">
+                                        <strong>@QuotationStrings.misccosts.ToUpper() </strong>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <span class="pull-right" id="misccostsum"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                }
+
+            }
+        </div>
+    </div>
+    <div class="modal" id="quototaskdiv" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="false">&times;</span></button>
+                    <h4 class="modal-title">Teklifler</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row custom">
+                        <div class="col-md-12">
+                            <div class="alert alert-info" role="alert">
+                                @QuotationStrings.quototaskcountmessage
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row custom">
+                        <div class="col-md-12">
+                            <div id="grdquototask"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal" id="modalaudit" role="dialog" aria-labelledby="modalsharedlbl" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="false">&times;</span></button>
+                    <h4 class="modal-title" id="modaltitle"></h4>
+                </div>
+                <div class="modal-body"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary btn-xs" id="modalsave">@QuotationStrings.save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal" id="modalprint" role="dialog" aria-labelledby="modalsharedlbl" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form id="printform" action="/Reports/GenerateQUO" method="POST" target="_blank" novalidate>
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="false">&times;</span></button>
+                        <h4 class="modal-title">@QuotationStrings.printoptions</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row custom">
+                            <div class="col-md-4">
+                                @QuotationStrings.outputtype
+                            </div>
+                            <div class="col-md-7">
+                                <div class="radio radio-primary radio-inline">
+                                    <input type="radio" name="Type" id="pdf" value="PDF" disableonupdate="yes" checked>
+                                    <label for="pdf">@QuotationStrings.pdf</label>
+                                </div>
+                                <div class="radio radio-primary radio-inline">
+                                    <input type="radio" name="Type" id="xls" disableonupdate="yes" value="XLS">
+                                    <label for="xls">@QuotationStrings.xls</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row custom">
+                            <div class="col-md-4">
+                                @QuotationStrings.outputformat
+                            </div>
+                            <div class="col-md-4">
+                                <div class="radio radio-primary radio-inline">
+                                    <input type="radio" name="format" id="form1" value="form1" checked>
+                                    <label for="form1">@QuotationStrings.format1</label>
+                                </div>
+                                <div class="radio radio-primary radio-inline">
+                                    <input type="radio" name="format" id="form2" value="form2">
+                                    <label for="form2">@QuotationStrings.format2</label>
+                                </div>
+                            </div>
+                            <div class="col-md-1">
+                                <div class="infoTooltip hidden" id="printinfobox" data-direction="bottom">
+                                    <div class="infoTooltip__initiator">
+
+                                        <i class="fa fa-info-circle"></i>
+                                    </div>
+                                    <div class="infoTooltip__item">
+                                        @Html.Raw(@QuotationStrings.formatinfo)
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <input type="hidden" name="Quotation" id="Quotation">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary btn-xs"><i class="fa fa-fw fa-print"></i> @QuotationStrings.print</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="modal" id="modalquohistory" role="dialog" aria-labelledby="modalquohistorylbl" aria-hidden="true">
+        <div class="modal-wide modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="false">&times;</span></button>
+                    <h4 class="modal-title">Geçmiş Teklifler</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row custom">
+                        <div id="grdquohistory"></div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary btn-xs" data-dismiss="modal">@SharedStrings.ok</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var inbox = "@ViewBag.id";
+</script>
+
+
+@Html.IncludeVersionedJs("/Scripts/bootstrap/bootstrap-tagsinput.min.js")
+@Html.IncludeVersionedJs("/Scripts/jquery/jquery.fileupload.js")
+@Html.IncludeVersionedJs("/Scripts/jquery/jquery.iframe-transport.js")
+@Html.IncludeVersionedJs("/Scripts/jquery/jquery.sidebar.min.js")
+
+@Html.IncludeVersionedJs("/Scripts/other/numericInput.min.js")
+@Html.IncludeVersionedJs("/Scripts/other/typeahead.bundle.js")
+@Html.IncludeVersionedJs("/Scripts/jquery/jquery.contextMenu.min.js")
+
+@Html.IncludeVersionedJs("/Scripts/custom/ovi.custom.list.js")
+@Html.IncludeVersionedJs("/Scripts/custom/ovi.custom.documents.js")
+@Html.IncludeVersionedJs("/Scripts/custom/ovi.custom.comments.js")
+@Html.IncludeVersionedJs("/Scripts/custom/ovi.custom.customfields.js")
+
+@Html.IncludeVersionedJs("/Scripts/app/Quotation.js")

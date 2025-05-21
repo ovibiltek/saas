@@ -1,0 +1,155 @@
+﻿@using Resources.CustomFieldRelations.Index
+@using Resources.Shared.Index
+@using Resources.Types.Index
+@{
+    Layout = "~/Views/Shared/Default.cshtml";
+}
+
+@Html.IncludeVersionedCss("/Content/jquery/jquery.contextMenu.min.css")
+
+<div style="margin-top: 10px">
+    <div class="page-header">
+        <h4>@CustomFieldRelationStrings.customfieldrelations</h4>
+        <h6></h6>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tms-page-toolbar inline-toolbar left" data-block="#record">
+                <div class="btn-group">
+                    <button class="btn btn-default btn-sm" title="Ctrl+R" selection-required="false" id="btnNew"><i class="fa fa fa-plus fa-fw"></i> @CustomFieldRelationStrings.addnew</button>
+                    <button class="btn btn-default btn-sm" title="Ctrl+S" selection-required="false" id="btnSave"><i class="fa fa-floppy-o fa-fw"></i> @CustomFieldRelationStrings.save</button>
+                    <button class="btn btn-default btn-sm" title="Ctrl+U" selection-required="true" id="btnUndo"><i class="fa fa-undo fa-fw"></i> @CustomFieldRelationStrings.undo</button>
+                    <button class="btn btn-default btn-sm" title="Ctrl+D" selection-required="true" id="btnDelete"><i class="fa fa-trash-o fa-fw"></i> @CustomFieldRelationStrings.delete</button>
+                    <button class="btn btn-default btn-sm" title="Ctrl+H" selection-required="true" id="btnHistory" disabled="disabled"><i class="fa fa-bolt fa-fw"></i> @CustomFieldRelationStrings.history</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div id="grdCustomFieldRelations"></div>
+        </div>
+    </div>
+    <div class="row" style="margin-top: 10px;" id="record">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading page-panel-heading">@CustomFieldRelationStrings.record</div>
+                <div class="panel-body page-panel-body">
+                    <div class="row custom">
+                        <div class="col-md-2">
+                            @CustomFieldRelationStrings.entity
+                        </div>
+                        <div class="col-md-3">
+                            <select id="entity" class="form-control" required disableonupdate="yes">
+                                <option value="">@TypeStrings.pleaseselect</option>
+                                <option value="TASK">@TypeStrings.task</option>
+                                <option value="EQUIPMENT">@TypeStrings.equipment</option>
+                                <option value="PART">@TypeStrings.part</option>
+                                <option value="BRANCH">@TypeStrings.branch</option>
+                                <option value="CUSTOMER">@TypeStrings.customer</option>
+                                <option value="PROGRESSPAYMENT">@TypeStrings.progresspayment</option>
+                                <option value="PROJECT">@TypeStrings.project</option>
+                                <option value="SUPPLIER">@TypeStrings.supplier</option>
+                                <option value="DAYOFFREQUEST">@TypeStrings.dayoffrequest</option>
+                                <option value="CONTRACT">@TypeStrings.contract</option>
+                                <option value="QUOTATION">@TypeStrings.quotation</option>
+                                <option value="INVOICE">@TypeStrings.invoice</option>
+                                <option value="USER">@TypeStrings.user</option>
+                                <option value="SUPERVISION">@TypeStrings.supervision</option>
+                                <option value="SALESINVOICE">@TypeStrings.salesinvoice</option>
+                                <option value="REPORTING">@TypeStrings.reporting</option>
+                                <option value="PURCHASEORDER">@TypeStrings.purchaseorder</option>
+
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row custom">
+                        <div class="col-md-2">
+                            @CustomFieldRelationStrings.type
+                        </div>
+                        <div class="col-md-3">
+                            <div class="input-group">
+                                <input type="text" maxlength="50" class="form-control" disableonupdate="yes" required id="type">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" disableonupdate="yes" type="button" id="btntype"><i class="fa fa-search fa-fw"></i></button>
+                                </span>
+                            </div><!-- /input-group -->
+                        </div>
+                    </div>
+                    <div class="row custom">
+                        <div class="col-md-2">
+                            @CustomFieldRelationStrings.customfieldcode
+                        </div>
+                        <div class="col-md-3">
+                            <div class="input-group">
+                                <input type="text" maxlength="50" class="form-control" disableonupdate="yes" required id="cfcode">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" disableonupdate="yes" type="button" id="btncustomfield"><i class="fa fa-search fa-fw"></i></button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row custom">
+                        <div class="col-md-2">
+                            @CustomFieldRelationStrings.customfieldgroup
+                        </div>
+                        <div class="col-md-3">
+                            <div class="input-group">
+                                <input type="text" maxlength="50" class="form-control" id="cfgroup">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button" id="btncustomfieldgroup"><i class="fa fa-search fa-fw"></i></button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row custom">
+                        <div class="col-md-2">
+                            @CustomFieldRelationStrings.order
+                        </div>
+                        <div class="col-md-3">
+                            <input type="text" maxlength="50" id="order" required class="form-control" />
+                        </div>
+                    </div>
+                    <div class="row custom">
+                        <div class="col-md-2">
+                            @CustomFieldRelationStrings.active
+                        </div>
+                        <div class="col-md-3">
+                            <div class="checkbox checkbox-primary">
+                                <input type="checkbox" class="styled" checked="checked" id="active" />
+                                <label></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="auth" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="false">&times;</span></button>
+                <h4 class="modal-title">@CustomFieldRelationStrings.authorizations</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                </div>
+                <div class="row custom">
+                    <div class="col-md-12">
+                        <div id="grdCustomFieldAuth"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success btn-xs" data-action="save">@SharedStrings.save</button>
+                <button type="button" class="btn btn-primary btn-xs" data-dismiss="modal" data-action="close">@SharedStrings.cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@Html.IncludeVersionedJs("/Scripts/jquery/jquery.contextMenu.min.js")
+@Html.IncludeVersionedJs("/Scripts/app/CustomFieldRelations.js")

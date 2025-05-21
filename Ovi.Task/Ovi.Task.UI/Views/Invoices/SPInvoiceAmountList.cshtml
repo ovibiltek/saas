@@ -1,0 +1,80 @@
+﻿@using Resources.Invoices.Index
+
+@{
+    ViewBag.Title = "List";
+    Layout = "~/Views/Shared/Default.cshtml";
+}
+<div style="margin-top: 10px">
+    <div class="page-header">
+        <h4>@InvoiceStrings.spinvoiceamountlist</h4>
+        <h6></h6>
+    </div>
+    <div id="grdSPInvoiceAmount"></div>
+    <div class="sidebars">
+        <div class="sidebar right" style="right: -400px;">
+            <div class="row">
+                <div class="col-md-12" style="text-align: center; margin-top: 10px;">
+                    <button id="filter" class="btn btn-primary btn-xs"><i class="fa fa-filter"></i> @InvoiceStrings.filter</button>
+                    <button id="clearfilter" class="btn btn-info btn-xs"><i class="fa fa-ban"></i> @InvoiceStrings.reset</button>
+                    <button id="closesiderbar" class="btn btn-danger btn-xs"><i class="fa fa-times"></i> @InvoiceStrings.close</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="page-header">
+                        <h5>@InvoiceStrings.statusk</h5>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <input type="text" ctrltype="datepicker" class="i-filter form-control" id="approvedate_start">
+                </div>
+                <div class="col-sm-6">
+                    <input type="text" ctrltype="datepicker" class="i-filter form-control" id="approvedate_end">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="page-header">
+                        <h5>@InvoiceStrings.completeddate</h5>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <input type="text" ctrltype="datepicker" class="i-filter form-control" id="completed_start">
+                </div>
+                <div class="col-sm-6">
+                    <input type="text" ctrltype="datepicker" class="i-filter form-control" id="completed_end">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="page-header">
+                        <h5>@InvoiceStrings.invoicecreated</h5>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <input type="text" ctrltype="datepicker" class="i-filter form-control" id="instruction_start">
+                </div>
+                <div class="col-sm-6">
+                    <input type="text" ctrltype="datepicker" class="i-filter form-control" id="instruction_end">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="page-header">
+                        <h5>@InvoiceStrings.invoicedate</h5>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <input type="text" ctrltype="datepicker" class="i-filter form-control" id="invoice_start">
+                </div>
+                <div class="col-sm-6">
+                    <input type="text" ctrltype="datepicker" class="i-filter form-control" id="invoice_end">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@Html.IncludeVersionedJs("/Scripts/jquery/jquery.iframe-transport.js")
+@Html.IncludeVersionedJs("/Scripts/jquery/jquery.sidebar.min.js")
+@Html.IncludeVersionedJs("/Scripts/app/SPInvoiceAmountList.js")

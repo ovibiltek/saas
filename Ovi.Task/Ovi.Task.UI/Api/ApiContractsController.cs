@@ -1,0 +1,112 @@
+﻿using Newtonsoft.Json;
+using Ovi.Task.Data.DAO;
+using Ovi.Task.Data.Entity;
+using Ovi.Task.Data.Helper;
+using Ovi.Task.Data.Repositories;
+using Ovi.Task.UI.Filters;
+using Ovi.Task.UI.Helper;
+using System;
+using System.Web.Http;
+
+namespace Ovi.Task.UI.Api
+{
+    [CustomAuthorize]
+    [XMLHttpRequest]
+    public class ApiContractsController : ApiController
+    {
+        private RepositoryContracts repositoryContracts;
+
+        public ApiContractsController()
+        {
+            repositoryContracts = new RepositoryContracts();
+        }
+
+        [HttpPost]
+        public string List(GridRequest gridRequest)
+        {
+            try
+            {
+                gridRequest = GridRequestHelper.BuildFunctionFilter(gridRequest);
+                gridRequest = GridRequestHelper.Filter(gridRequest, "CON_CUSTOMER", "CON_ORGANIZATION");
+                object data;
+                long total = 0;
+
+                switch (gridRequest.action)
+                {
+                    case "CNT":
+                        data = RepositoryShared<TMCONTRACTS>.Count(gridRequest);
+                        total = 0;
+                        break;
+
+                    default:
+                        data = repositoryContracts.List(gridRequest);
+                        total = RepositoryShared<TMCONTRACTS>.Count(gridRequest);
+                        break;
+                }
+
+                return JsonConvert.SerializeObject(new
+                {
+                    status = 200,
+                    data = data,
+                    total = total
+                });
+            }
+            catch (Exception e)
+            {
+                LogHelper.LogToDb(e, UserManager.Instance.User, "ApiContractsController", "List");
+                return JsonConvert.SerializeObject(new { status = 500, data = MessageHelper.GetNonSpecificErrMsg(UserManager.Instance.User.Language) });
+            }
+        }
+
+        [HttpPost]
+        [Transaction]
+        public string Save(ContractModel mContract)
+        {
+            repositoryContracts.SaveOrUpdate(mContract.Contract);
+            // Save Custom Field Values
+            var repositoryCustomFieldValues = new RepositoryCustomFieldValues();
+            repositoryCustomFieldValues.Save("CONTRACT", mContract.Contract.CON_ID.ToString(), mContract.CustomFieldValues);
+
+            return JsonConvert.SerializeObject(new
+            {
+                status = 200,
+                data = MessageHelper.Get("10402", UserManager.Instance.User.Language),
+                r = mContract
+            });
+        }
+
+        [HttpPost]
+        public string Get([FromBody]int id)
+        {
+            try
+            {
+                var contract = repositoryContracts.Get(id);
+                var contractstatus = new RepositoryStatuses().Get(new TMSTATUSES { STA_CODE = contract.CON_STATUS, STA_ENTITY = "CONTRACT" });
+
+                return JsonConvert.SerializeObject(new
+                {
+                    status = 200,
+                    data = contract,
+                    stat = contractstatus
+                });
+            }
+            catch (Exception e)
+            {
+                LogHelper.LogToDb(e, UserManager.Instance.User, "ApiContractsController", "Get");
+                return JsonConvert.SerializeObject(new { status = 500, data = MessageHelper.GetNonSpecificErrMsg(UserManager.Instance.User.Language) });
+            }
+        }
+
+        [HttpPost]
+        [Transaction]
+        public string DelRec([FromBody]int id)
+        {
+            repositoryContracts.DeleteById(id);
+            return JsonConvert.SerializeObject(new
+            {
+                status = 200,
+                data = MessageHelper.Get("10403", UserManager.Instance.User.Language)
+            });
+        }
+    }
+}

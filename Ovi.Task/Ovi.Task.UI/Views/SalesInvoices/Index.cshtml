@@ -1,0 +1,714 @@
+﻿@using Resources.PurchaseOrders.Index
+@using Resources.SalesInvoices.Index
+@using Resources.Shared.Index
+@{
+    Layout = "~/Views/Shared/Default.cshtml";
+}
+@Html.IncludeVersionedCss("/Content/bootstrap/bootstrap-tagsinput.css")
+@Html.IncludeVersionedCss("/Content/jquery/jquery.fileupload.css")
+
+@Html.IncludeVersionedCss("/Content/bootstrap/bootstrap-slider.css")
+@Html.IncludeVersionedCss("/Content/bootstrap/bootstrap-editable.css")
+@Html.IncludeVersionedCss("/Content/bootstrap/bootstrap-switch.min.css")
+@Html.IncludeVersionedCss("/Content/jquery/jquery.contextMenu.min.css")
+
+@Html.IncludeVersionedCss("/Content/fullcalendar.min.css")
+@Html.IncludeVersionedCss("/Content/jquery/jquery.contextMenu.min.css")
+@Html.IncludeVersionedCss("/Content/multiple-select.css")
+
+
+<div style="margin-top: 10px">
+    <div class="page-header">
+        <h4>
+            @SalesInvoiceStrings.salesinvoices
+        </h4>
+        <h6></h6>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tms-page-toolbar inline-toolbar left" data-block="#record">
+                <div class="btn-group">
+                    <button class="btn btn-default btn-sm" title="Ctrl+R" id="btnNew"><i class="fa fa fa-plus fa-fw"></i> @SalesInvoiceStrings.addnew</button>
+                    <button class="btn btn-default btn-sm" title="Ctrl+S" id="btnSave"><i class="fa fa-floppy-o fa-fw"></i> @SalesInvoiceStrings.save</button>
+                    <button class="btn btn-default btn-sm" title="Ctrl+U" id="btnUndo"><i class="fa fa-undo fa-fw"></i> @SalesInvoiceStrings.undo</button>
+                    <button class="btn btn-default btn-sm" title="Ctrl+D" id="btnDelete"><i class="fa fa-trash-o fa-fw"></i> @SalesInvoiceStrings.delete</button>
+                    <button class="btn btn-default btn-sm" title="Ctrl+H" id="btnHistory"><i class="fa fa-bolt fa-fw"></i> @SalesInvoiceStrings.history</button>
+                    <button class="btn btn-default btn-sm" disabled="disabled" selection-required="true" title="Ctrl+P" id="btnPrint"><i class="fa fa-print fa-fw"></i> @SalesInvoiceStrings.print</button>
+                    @if (UserManager.Instance.User.UserGroup == "ADMIN")
+                    {
+                        <button class="btn btn-primary btn-sm" title="Ctrl+T" id="btnTransfer"><i class="fa fa-print fa-fw"></i> @SalesInvoiceStrings.transfer</button>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <ul class="nav nav-tabs">
+        <li class="active">
+            <a data-toggle="tab" href="#list">@SalesInvoiceStrings.list</a>
+        </li>
+        <li>
+            <a data-toggle="tab" href="#record">@SalesInvoiceStrings.record</a>
+        </li>
+        @if (string.IsNullOrEmpty(UserManager.Instance.User.Customer))
+        {
+            <li>
+                <a enable-on-selection allowed-entities="SATIS" href="#psps">@SalesInvoiceStrings.psps</a>
+            </li>
+            <li>
+                <a enable-on-selection allowed-entities="SATIS" href="#partialpayment">@SalesInvoiceStrings.partialpayment</a>
+            </li>
+            <li>
+                <a enable-on-selection allowed-entities="IADE" href="#returnpsp">@SalesInvoiceStrings.returnLines</a>
+            </li>
+
+        }
+    </ul>
+    <div class="tab-content">
+        <div id="list" class="tab-pane active">
+            <div id="grdSalesInvoices"></div>
+        </div>
+        <div id="record" class="tab-pane">
+            <div class="row record-content">
+                <div class="col-md-4" id="divHeader">
+                    <div class="panel panel-default">
+                        <div class="panel-heading task-panel-heading">@SalesInvoiceStrings.record</div>
+                        <div class="panel-body task-panel-body">
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @SalesInvoiceStrings.code
+                                </div>
+                                <div class="col-md-8">
+                                    <input id="code" type="text" disabled="disabled" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @SalesInvoiceStrings.organization
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <input type="text" loadstatusesonchange="yes" disableonupdate="yes" maxlength="50" required class="form-control" id="org">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" disableonupdate="yes" type="button" id="btnorg"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @SalesInvoiceStrings.type
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <input type="text" maxlength="50" disableonupdate="yes" loadstatusesonchange="yes" required class="form-control" id="type">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button" disableonupdate="yes" id="btntype"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div><!-- /input-group -->
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @SalesInvoiceStrings.desc
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" maxlength="50" class="form-control" required id="desc" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @SalesInvoiceStrings.status
+                                </div>
+                                <div class="col-md-8">
+                                    <select class="form-control" data-code="-" data-pcode="Q" data-text="" required id="status"></select>
+                                </div>
+                            </div>
+                            <div class="row custom RETURN">
+                                <div class="col-md-4">
+                                    @SalesInvoiceStrings.returncause
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <input type="text" maxlength="50" loadstatusesonchange="yes" class="form-control" id="returncause">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button" id="btnreturncause"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div><!-- /input-group -->
+                                </div>
+                            </div>
+                            <div class="row custom RETURN hidden">
+                                <div class="col-md-4">
+                                    @SalesInvoiceStrings.returncausedesc
+                                </div>
+                                <div class="col-md-8">
+                                    <textarea class="form-control" maxlength="250" contenteditable rows="3" id="returncausedesc"></textarea>
+                                </div>
+                            </div>
+
+                            <div class="SALES">
+                                <div class="row custom">
+                                    <div class="col-md-4">
+                                        @SalesInvoiceStrings.customer
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="input-group">
+                                            <input type="text" disableonupdate="yes" maxlength="50" required class="form-control" id="customer">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default" disableonupdate="yes" type="button" id="btncustomer"><i class="fa fa-search fa-fw"></i></button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-4">
+                                        @SalesInvoiceStrings.branch
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="input-group">
+                                            <input type="text" maxlength="50" class="form-control" id="branch">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default" type="button" id="btnbranch"><i class="fa fa-search fa-fw"></i></button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-4">
+                                        @SalesInvoiceStrings.psptype
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="input-group">
+                                            <input type="text" maxlength="50" class="form-control" id="psptype">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default" type="button" id="btnpsptype"><i class="fa fa-search fa-fw"></i></button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-4">
+                                        @SalesInvoiceStrings.pspcreated
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" ctrltype="datepicker" maxlength="50" class="form-control" id="pspcreatedstart" />
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" ctrltype="datepicker" maxlength="50" class="form-control" id="pspcreatedend" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @SalesInvoiceStrings.orderno
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" maxlength="50" class="form-control" id="orderno" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @SalesInvoiceStrings.invoiceno
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" maxlength="250" class="form-control" id="officialinvoiceno" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @SalesInvoiceStrings.invoicedate
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" ctrltype="datepicker" maxlength="50" class="form-control" id="officialinvoicedate" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @SalesInvoiceStrings.invoicedescription
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" maxlength="250" class="form-control" id="invoicedescription" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @SalesInvoiceStrings.printtype
+                                </div>
+                                <div class="col-md-8">
+                                    <select class="form-control" id="printtype">
+                                        <option value="SINGLELINE" selected="selected">@SalesInvoiceStrings.singleline</option>
+                                        <option value="MULTILINE">@SalesInvoiceStrings.multiline</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @SalesInvoiceStrings.interest
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="checkbox checkbox-primary">
+                                        <input type="checkbox" class="styled" id="interest" />
+                                        <label></label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @SalesInvoiceStrings.createdby
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" class="form-control" disabled="disabled" id="createdby" />
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-4">
+                                    @SalesInvoiceStrings.created
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" class="form-control" disabled="disabled" id="created" />
+                                </div>
+                            </div>
+                            <div class="row custom RETURN">
+                                <div class="col-md-4">
+                                    @SalesInvoiceStrings.customer
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <input type="text" maxlength="50" loadstatusesonchange="yes" required class="form-control" id="returncustomer">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button" id="btnreturncustomer"><i class="fa fa-search fa-fw"></i></button>
+                                        </span>
+                                    </div><!-- /input-group -->
+                                </div>
+                            </div>
+                            <div class="row RETURN hidden" style="margin-top: 15px;">
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            @SalesInvoiceStrings.salesinvoice
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="input-group" style="margin-left: 0.25em;">
+                                                <input type="text" disableoncomplete class="form-control" id="salesinvoice" data-role="multival">
+                                                <div class="input-group-btn">
+                                                    <button id="btnsalesinvoice" disableoncomplete title="Fatura Ekle" class="btn btn-default" type="button"><i class="fa fa-btn fa-plus-circle"></i></button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4" id="divCustomFields">
+                    <div class="panel panel-default" style="height: 830px;">
+                        <div class="panel-heading task-panel-heading">@SalesInvoiceStrings.customfields</div>
+                        <div class="panel-body">
+                            <div id="cfcontainer"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4" id="divCmntsAttachments">
+                    <div class="panel panel-default" style="height: 450px;">
+                        <div class="panel-heading task-panel-heading">@SalesInvoiceStrings.comments</div>
+                        <div class="panel-body">
+                            <textarea class="form-control" contenteditable rows="3" id="comment"></textarea>
+                            <div class="inline-toolbar">
+                                <button class="btn btn-primary btn-xs" selection-required="true" id="addComment" @(Model == null ? "disabled" : string.Empty)><i class="fa fa-plus-circle"></i> @SalesInvoiceStrings.add</button>
+                            </div>
+                            <div id="comments" class="sm">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default" style="height: 360px;">
+                        <div class="panel-heading task-panel-heading">@SalesInvoiceStrings.docs</div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="progress">
+                                        <div class="progress-bar" id="docuprogress" role="progressbar" style="width: 0%; min-width: 2em;">0%</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row custom">
+                                <div class="col-md-12">
+                                    <div id="fupload">
+                                        <span class="btn btn-default fileinput-button" id="btnBrowse">
+                                            <i class="fa fa-search"></i>
+                                            <span>@SalesInvoiceStrings.browse</span>
+                                            <input type="file" name="files[]" id="fu" multiple data-url="/UploadFile.ashx">
+                                        </span>
+                                        <button class="btn btn-default" id="btnupload" disabled="disabled"><i class="fa fa-cloud-upload"></i> @SalesInvoiceStrings.upload</button>
+                                        <div class="row custom">
+                                            <div class="col-md-12">
+                                                <div id="filename"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="docs"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @if (string.IsNullOrEmpty(UserManager.Instance.User.Customer))
+        {
+            <div id="psps" class="tab-pane">
+                <div class="well">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button class="btn btn-default btn-sm" title="Ctrl+S" id="btnSaveLines"><i class="fa fa-floppy-o fa-fw"></i> @SalesInvoiceStrings.save</button>
+                        </div>
+                    </div>
+                </div>
+                <div id="grdSalesInvoiceProgressPayments"></div>
+                <div class="sidebars">
+                    <div class="sidebar right" style="right: -400px;z-index:1">
+                        <div class="row">
+                            <div class="col-md-12" style="text-align: center; margin-top: 10px;">
+                                <button id="filter" class="btn btn-primary btn-xs"><i class="fa fa-filter"></i> @SalesInvoiceStrings.filter</button>
+                                <button id="clearfilter" class="btn btn-info btn-xs"><i class="fa fa-ban"></i> @SalesInvoiceStrings.reset</button>
+                                <button id="closesiderbar" class="btn btn-danger btn-xs"><i class="fa fa-times"></i> @SalesInvoiceStrings.close</button>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="page-header">
+                                    <h5>@SalesInvoiceStrings.tasktype</h5>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <select id="tasktypes" data-width="100%" multiple="multiple"></select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="page-header">
+                                    <h5>@SalesInvoiceStrings.category</h5>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <select id="taskcategories" data-width="100%" multiple="multiple"></select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="page-header">
+                                    <h5>@SalesInvoiceStrings.taskdatecompleted</h5>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <input type="text" ctrltype="datepicker" class="i-filter form-control" id="taskdatecompleted_start">
+                            </div>
+                            <div class="col-sm-6">
+                                <input type="text" ctrltype="datepicker" class="i-filter form-control" id="taskdatecompleted_end">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="page-header">
+                                    <h5>@SalesInvoiceStrings.pspdateclosed</h5>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <input type="text" ctrltype="datepicker" class="i-filter form-control" id="pspdateclosed_start">
+                            </div>
+                            <div class="col-sm-6">
+                                <input type="text" ctrltype="datepicker" class="i-filter form-control" id="pspdateclosed_end">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="page-header">
+                                    <h5>@SalesInvoiceStrings.pspgroupno</h5>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <input id="pspgroupno" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="page-header">
+                                    <h5>@SalesInvoiceStrings.customerpm</h5>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <input id="customerpm" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="returnpsp" class="tab-pane">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="inline-toolbar left">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="input-group">
+                                        <input type="number" min="0" max="100" class="form-control" id="allreturn">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button" id="btnApplyReturn">@SalesInvoiceStrings.applyreturn</button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="grdSalesInvoiceReturns"></div>
+            </div>
+            <div id="partialpayment" class="tab-pane">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div id="grdPartialPayments"></div>
+                    </div>
+                </div>
+                <br />
+                <div id="partialpaymentform" class="panel panel-default">
+                    <div class="panel-heading page-panel-heading">@SalesInvoiceStrings.partialpayment</div>
+                    <div class="col-md-12" style="padding-right: 0">
+                        <div class="inline-toolbar left" style="border: none;" data-block="#parts">
+                            <div class="btn-group">
+                                <button class="btn btn-default btn-sm" title="Ctrl+R" selection-required="false" id="btnAddPartialPayment"><i class="fa fa fa-plus fa-fw"></i>@SalesInvoiceStrings.addnew</button>
+                                <button class="btn btn-default btn-sm" title="Ctrl+S" selection-required="false" id="btnSavePartialPayment"><i class="fa fa-floppy-o fa-fw"></i>@SalesInvoiceStrings.save</button>
+                                <button class="btn btn-default btn-sm" disabled="disabled" title="Ctrl+D" id="btnDeletePartialPayment"><i class="fa fa-trash-o fa-fw"></i>@SalesInvoiceStrings.delete</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-body page-panel-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="row custom">
+                                    <div class="col-md-3">
+                                        @SalesInvoiceStrings.description
+                                    </div>
+                                    <div class="col-md-5">
+                                        <textarea class="form-control" maxlength="250" required contenteditable rows="3" id="partialpaymentdesc"></textarea>
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-3">
+                                        @SalesInvoiceStrings.amount
+                                    </div>
+                                    <div class="col-md-5">
+                                        <input type="text" valtype="PRICE" ctrltype="numeric" allowfloat="true" min="0" calc-group="1" required="" maxlength="50" class="form-control required" id="partialpaymentamount" tabindex="59" autocomplete="off">
+                                    </div>
+                                </div>
+                                <div class="row custom">
+                                    <div class="col-md-3">
+                                        @SalesInvoiceStrings.progresspayment
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="input-group">
+                                            <input type="text" maxlength="50" loadstatusesonchange="yes" class="form-control ui-autocomplete-input " id="partialprogresspayment" tabindex="10" autocomplete="off">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default" type="button" id="btnpartialprogresspayment" tabindex="-1" autocomplete="off"><i class="fa fa-search fa-fw"></i></button>
+                                            </span>
+                                        </div><!-- /input-group -->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+<div class="modal" id="modalstatuschange" role="dialog" aria-labelledby="modalsharedlbl" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="false">&times;</span></button>
+                <h4 class="modal-title">@SalesInvoiceStrings.statuschange</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row custom">
+                    <div class="col-md-4">
+                        @SalesInvoiceStrings.status
+                    </div>
+                    <div class="col-md-8">
+                        <select class="form-control" id="statuschange">
+                            <option value="" selected="selected" class="default">@SalesInvoiceStrings.pleaseselect</option>
+                        </select>
+                    </div>
+                </div>
+                <div id="invoicedetails" class="hidden">
+                    <div class="row custom">
+                        <div class="col-md-4">
+                            @SalesInvoiceStrings.invoiceno
+                        </div>
+                        <div class="col-md-8">
+                            <input type="text" maxlength="250" class="form-control" id="invoiceno" />
+                        </div>
+                    </div>
+                    <div class="row custom">
+                        <div class="col-md-4">
+                            @SalesInvoiceStrings.invoicedate
+                        </div>
+                        <div class="col-md-8">
+                            <input type="text" ctrltype="datepicker" maxlength="50" class="form-control" id="invoicedate" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-xs" id="btnsavestatus">@SalesInvoiceStrings.save</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="modalaudit" role="dialog" aria-labelledby="modalsharedlbl" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="false">&times;</span></button>
+                <h4 class="modal-title" id="modaltitle"></h4>
+            </div>
+            <div class="modal-body"></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-xs" id="modalsave">@SalesInvoiceStrings.save</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="modalcomments">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="false">&times;</span></button>
+                <h4 class="modal-title">@SalesInvoiceStrings.comments</h4>
+            </div>
+            <div class="modal-body" style="height: 400px; overflow-y: auto;">
+                <textarea class="form-control sm" rows="3" id="tskcomment"></textarea>
+                <div class="inline-toolbar">
+                    <button class="btn btn-primary btn-xs" id="addTaskComment"><i class="fa fa-plus-circle"></i> @SalesInvoiceStrings.add</button>
+                </div>
+                <div id="tskcomments"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-xs" data-dismiss="modal" aria-label="Close">@SalesInvoiceStrings.ok</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="modaldocuments">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="false">&times;</span></button>
+                <h4 class="modal-title">@SalesInvoiceStrings.docs</h4>
+            </div>
+            <div class="modal-body">
+                <div id="fuploadtsk">
+                    <span class="btn btn-default fileinput-button" id="btnBrowseTsk">
+                        <i class="fa fa-search"></i>
+                        <span>@SalesInvoiceStrings.browse</span>
+                        <input type="file" name="fu" id="futsk" data-url="/UploadFile.ashx">
+                    </span>
+                    <button class="btn btn-default" id="btnuploadtsk" disabled="disabled"><i class="fa fa-cloud-upload"></i> @SalesInvoiceStrings.upload</button>
+                    <span id="filenametsk"></span>
+                </div>
+                <div id="docstsk" class="tasklistdocs"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-xs" data-dismiss="modal" aria-label="Close">@SalesInvoiceStrings.ok</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="modalprint" role="dialog" aria-labelledby="modalsharedlbl" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form action="/Reports/GenerateSIN" method="POST" target="_blank" novalidate>
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="false">&times;</span></button>
+                    <h4 class="modal-title">@PurchaseOrders.printoptions</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row custom">
+                        <div class="col-md-4">
+                            @PurchaseOrders.outputtype
+                        </div>
+                        <div class="col-md-8">
+                            <div class="radio radio-primary radio-inline">
+                                <input type="radio" name="Type" id="pdf" value="PDF" disableonupdate="yes" checked>
+                                <label for="pdf">@PurchaseOrders.pdf</label>
+                            </div>
+                            <div class="radio radio-primary radio-inline">
+                                <input type="radio" name="Type" id="xls" disableonupdate="yes" value="XLS">
+                                <label for="xls">@PurchaseOrders.xls</label>
+                            </div>
+                        </div>
+                    </div>
+                    <input type="hidden" name="SalesInvoiceId" id="SalesInvoiceId">
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary btn-xs"><i class="fa fa-fw fa-print"></i> @PurchaseOrders.print</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="modalprintall" role="dialog" aria-labelledby="modalsharedlbl" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form action="/Reports/PrintAllSIV" method="POST" target="_blank" novalidate>
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="false">&times;</span></button>
+                    <h4 class="modal-title">@PurchaseOrders.printoptions</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row custom">
+                        <div class="col-md-4">
+                            @PurchaseOrders.outputtype
+                        </div>
+                        <div class="col-md-8">
+                            <div class="radio radio-primary radio-inline">
+                                <input type="radio" name="Type" id="pdf" value="PDF" disableonupdate="yes" checked>
+                                <label for="pdf">@PurchaseOrders.pdf</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row custom" id="listofselecteds">
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary btn-xs"><i class="fa fa-fw fa-print"></i> @PurchaseOrders.print</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    var inbox = "@ViewBag.id";
+</script>
+
+
+@Html.IncludeVersionedJs("/Scripts/other/fontawesome-markers.min.js")
+@Html.IncludeVersionedJs("/Scripts/other/querydata.min.js")
+@Html.IncludeVersionedJs("/Scripts/bootstrap/bootstrap-tagsinput.min.js")
+
+@Html.IncludeVersionedJs("/Scripts/jquery/jquery.fileupload.js")
+@Html.IncludeVersionedJs("/Scripts/jquery/jquery.iframe-transport.js")
+@Html.IncludeVersionedJs("/Scripts/other/numericInput.min.js")
+@Html.IncludeVersionedJs("/Scripts/other/typeahead.bundle.js")
+@Html.IncludeVersionedJs("/Scripts/jquery/jquery.contextMenu.min.js")
+
+@Html.IncludeVersionedJs("/Scripts/custom/ovi.custom.list.js")
+@Html.IncludeVersionedJs("/Scripts/custom/ovi.custom.documents.js")
+@Html.IncludeVersionedJs("/Scripts/custom/ovi.custom.comments.js")
+@Html.IncludeVersionedJs("/Scripts/custom/ovi.custom.customfields.js")
+@Html.IncludeVersionedJs("/Scripts/jquery/jquery.sidebar.min.js")
+@Html.IncludeVersionedJs("/Scripts/other/multiple-select.js")
+@Html.IncludeVersionedJs("/Scripts/app/SalesInvoices.js")

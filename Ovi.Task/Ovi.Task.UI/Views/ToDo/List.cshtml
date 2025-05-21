@@ -1,0 +1,127 @@
+﻿@using Resources.ToDo.List
+@{
+    Layout = "~/Views/Shared/Default.cshtml";
+}
+
+
+@Html.IncludeVersionedCss("/Content/jquery/jquery.fileupload.css")
+
+
+<ul class="nav nav-tabs" style="margin-top: 10px">
+    <li class="active">
+        <a data-toggle="tab" href="#bydepartment">@ToDoStrings.bydepartment</a>
+    </li>
+    <li>
+        <a data-toggle="tab" href="#createdbyme">@ToDoStrings.assignedbyme</a>
+    </li>
+</ul>
+<div class="tab-content">
+    <div id="bydepartment" class="tab-pane active">
+        <div>
+            <div id="todolist">
+                <div class="row">
+                    <div class="well" style="margin-right: 10px;">
+                        <div class="row">
+                            <div class="col-md-12 col-lg-8">
+                                <div class="ctrlblock">
+                                    <div class="title">@ToDoStrings.departments :</div>
+                                    <div class="ctrl">
+                                        <select class="col-md-12" id="departments"></select>
+                                    </div>
+                                </div>
+                                <div class="ctrlblock">
+                                    <div class="title">@ToDoStrings.startdate :</div>
+                                    <div class="ctrl">
+                                        <input class="col-md-6 col-lg-7 form-control" maxlength="10" type="text" ctrltype="datepicker" id="startdate">
+                                    </div>
+                                </div>
+                                <div class="ctrlblock">
+                                    <div class="title">@ToDoStrings.enddate :</div>
+                                    <div class="ctrl">
+                                        <input class="col-md-6 col-lg-7 form-control" maxlength="10" type="text" ctrltype="datepicker" id="enddate">
+                                    </div>
+                                </div>
+                                <div class="ctrlblock">
+                                    <div class="ctrl">
+                                    </div>
+                                </div>
+                                <div class="ctrlblock">
+                                    <div class="ctrl">
+                                        <button id="btnRefresh" class="btn btn-info btn-xs">
+                                            <i class="fa fa-refresh"></i>
+                                            @ToDoStrings.refresh
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row users">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="createdbyme" class="tab-pane">
+        <div class="row users">
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="modalcomments">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="false">&times;</span></button>
+                <h4 class="modal-title">@ToDoStrings.comments</h4>
+            </div>
+            <div class="modal-body">
+                <textarea class="form-control sm" rows="3" id="comment"></textarea>
+                <div class="inline-toolbar">
+                    <button class="btn btn-primary btn-xs" id="addComment"><i class="fa fa-plus-circle"></i> @ToDoStrings.add</button>
+                </div>
+                <div id="comments"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-xs" data-dismiss="modal" aria-label="Close">@ToDoStrings.ok</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="modaldocuments">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="false">&times;</span></button>
+                <h4 class="modal-title">@ToDoStrings.documents</h4>
+            </div>
+            <div class="modal-body" style="height: 400px; overflow-y: auto;">
+                <div id="fupload">
+                    <span class="btn btn-default fileinput-button" id="btnBrowse">
+                        <i class="fa fa-search"></i>
+                        <span>@ToDoStrings.browse</span>
+                        <input type="file" name="files[]" id="fu" multiple data-url="/UploadFile.ashx">
+                    </span>
+                    <button class="btn btn-default" id="btnupload" disabled="disabled"><i class="fa fa-cloud-upload"></i> @ToDoStrings.upload</button>
+                    <div class="row custom">
+                        <div class="col-md-12">
+                            <div id="filename"></div>
+                        </div>
+                    </div>
+                </div>
+                <div id="docs" class="tasklistdocs"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-xs" data-dismiss="modal" aria-label="Close">@ToDoStrings.ok</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@Html.IncludeVersionedJs("/Scripts/jquery/jquery.fileupload.js")
+@Html.IncludeVersionedJs("/Scripts/jquery/jquery.iframe-transport.js")
+
+
+@Html.IncludeVersionedJs("/Scripts/custom/ovi.custom.documents.js")
+@Html.IncludeVersionedJs("/Scripts/custom/ovi.custom.comments.js")
+@Html.IncludeVersionedJs("/Scripts/app/ToDo.js")

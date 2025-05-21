@@ -1,0 +1,2002 @@
+{
+  "version": 3,
+  "targets": {
+    ".NETFramework,Version=v4.8": {
+      "Castle.Core/2.5.2": {
+        "type": "package",
+        "compile": {
+          "lib/NET35/Castle.Core.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/NET35/Castle.Core.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "DDay.iCal/1.0.2.575": {
+        "type": "package",
+        "compile": {
+          "lib/DDay.iCal.dll": {}
+        },
+        "runtime": {
+          "lib/DDay.iCal.dll": {}
+        }
+      },
+      "FluentNHibernate/1.2.0.712": {
+        "type": "package",
+        "dependencies": {
+          "NHibernate.Castle": "3.1.0.4000"
+        },
+        "compile": {
+          "lib/FluentNHibernate.dll": {}
+        },
+        "runtime": {
+          "lib/FluentNHibernate.dll": {}
+        }
+      },
+      "Google.Apis/1.50.0": {
+        "type": "package",
+        "dependencies": {
+          "Google.Apis.Core": "1.50.0"
+        },
+        "frameworkAssemblies": [
+          "System.Net.Http"
+        ],
+        "compile": {
+          "lib/net45/Google.Apis.PlatformServices.dll": {},
+          "lib/net45/Google.Apis.dll": {
+            "related": ".pdb;.xml"
+          }
+        },
+        "runtime": {
+          "lib/net45/Google.Apis.PlatformServices.dll": {},
+          "lib/net45/Google.Apis.dll": {
+            "related": ".pdb;.xml"
+          }
+        }
+      },
+      "Google.Apis.Auth/1.50.0": {
+        "type": "package",
+        "dependencies": {
+          "Google.Apis": "1.50.0",
+          "Google.Apis.Core": "1.50.0"
+        },
+        "frameworkAssemblies": [
+          "System.Net.Http"
+        ],
+        "compile": {
+          "lib/net45/Google.Apis.Auth.PlatformServices.dll": {},
+          "lib/net45/Google.Apis.Auth.dll": {
+            "related": ".pdb;.xml"
+          }
+        },
+        "runtime": {
+          "lib/net45/Google.Apis.Auth.PlatformServices.dll": {},
+          "lib/net45/Google.Apis.Auth.dll": {
+            "related": ".pdb;.xml"
+          }
+        }
+      },
+      "Google.Apis.Core/1.50.0": {
+        "type": "package",
+        "dependencies": {
+          "Newtonsoft.Json": "12.0.3"
+        },
+        "frameworkAssemblies": [
+          "System.Net.Http"
+        ],
+        "compile": {
+          "lib/net45/Google.Apis.Core.dll": {
+            "related": ".pdb;.xml"
+          }
+        },
+        "runtime": {
+          "lib/net45/Google.Apis.Core.dll": {
+            "related": ".pdb;.xml"
+          }
+        }
+      },
+      "Google.Apis.Oauth2.v2/1.50.0.1869": {
+        "type": "package",
+        "dependencies": {
+          "Google.Apis": "1.50.0",
+          "Google.Apis.Auth": "1.50.0"
+        },
+        "compile": {
+          "lib/net45/Google.Apis.Oauth2.v2.dll": {
+            "related": ".pdb;.xml"
+          }
+        },
+        "runtime": {
+          "lib/net45/Google.Apis.Oauth2.v2.dll": {
+            "related": ".pdb;.xml"
+          }
+        }
+      },
+      "HtmlAgilityPack/1.8.7": {
+        "type": "package",
+        "compile": {
+          "lib/Net45/HtmlAgilityPack.dll": {
+            "related": ".pdb;.XML"
+          }
+        },
+        "runtime": {
+          "lib/Net45/HtmlAgilityPack.dll": {
+            "related": ".pdb;.XML"
+          }
+        }
+      },
+      "Iesi.Collections/3.4.1.4000": {
+        "type": "package",
+        "compile": {
+          "lib/Net35/Iesi.Collections.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/Net35/Iesi.Collections.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "LazyCache/0.7.1.44": {
+        "type": "package",
+        "compile": {
+          "lib/net45/LazyCache.dll": {}
+        },
+        "runtime": {
+          "lib/net45/LazyCache.dll": {}
+        }
+      },
+      "Newtonsoft.Json/12.0.3": {
+        "type": "package",
+        "compile": {
+          "lib/net45/Newtonsoft.Json.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net45/Newtonsoft.Json.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "NHibernate/3.1.0.4000": {
+        "type": "package",
+        "dependencies": {
+          "Iesi.Collections": "3.1.0.4000"
+        },
+        "compile": {
+          "lib/Net35/NHibernate.dll": {
+            "related": ".license.txt;.readme.html;.releasenotes.txt"
+          }
+        },
+        "runtime": {
+          "lib/Net35/NHibernate.dll": {
+            "related": ".license.txt;.readme.html;.releasenotes.txt"
+          }
+        }
+      },
+      "NHibernate.Castle/3.1.0.4000": {
+        "type": "package",
+        "dependencies": {
+          "Castle.Core": "2.5.2",
+          "NHibernate": "[3.1.0.4000]"
+        },
+        "compile": {
+          "lib/Net35/NHibernate.ByteCode.Castle.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/Net35/NHibernate.ByteCode.Castle.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "NPOI/2.5.6": {
+        "type": "package",
+        "dependencies": {
+          "Portable.BouncyCastle": "1.8.9",
+          "SharpZipLib": "1.3.3"
+        },
+        "compile": {
+          "lib/net45/NPOI.OOXML.dll": {
+            "related": ".pdb;.XML"
+          },
+          "lib/net45/NPOI.OpenXml4Net.dll": {
+            "related": ".pdb;.XML"
+          },
+          "lib/net45/NPOI.OpenXmlFormats.dll": {
+            "related": ".pdb"
+          },
+          "lib/net45/NPOI.dll": {
+            "related": ".OOXML.pdb;.OOXML.XML;.OpenXml4Net.pdb;.OpenXml4Net.XML;.OpenXmlFormats.pdb;.pdb;.XML"
+          }
+        },
+        "runtime": {
+          "lib/net45/NPOI.OOXML.dll": {
+            "related": ".pdb;.XML"
+          },
+          "lib/net45/NPOI.OpenXml4Net.dll": {
+            "related": ".pdb;.XML"
+          },
+          "lib/net45/NPOI.OpenXmlFormats.dll": {
+            "related": ".pdb"
+          },
+          "lib/net45/NPOI.dll": {
+            "related": ".OOXML.pdb;.OOXML.XML;.OpenXml4Net.pdb;.OpenXml4Net.XML;.OpenXmlFormats.pdb;.pdb;.XML"
+          }
+        }
+      },
+      "Portable.BouncyCastle/1.8.9": {
+        "type": "package",
+        "compile": {
+          "lib/net40/BouncyCastle.Crypto.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net40/BouncyCastle.Crypto.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "SharpZipLib/0.86.0": {
+        "type": "package",
+        "compile": {
+          "lib/20/ICSharpCode.SharpZipLib.dll": {}
+        },
+        "runtime": {
+          "lib/20/ICSharpCode.SharpZipLib.dll": {}
+        }
+      },
+      "UniversalTypeConverter/1.0.5": {
+        "type": "package",
+        "compile": {
+          "lib/net461/UniversalTypeConverter.dll": {
+            "related": ".XML"
+          }
+        },
+        "runtime": {
+          "lib/net461/UniversalTypeConverter.dll": {
+            "related": ".XML"
+          }
+        }
+      },
+      "Ovi.Task.Helper/1.0.0": {
+        "type": "project",
+        "framework": ".NETFramework,Version=v4.8",
+        "dependencies": {
+          "DDay.iCal": "1.0.2.575",
+          "Google.Apis": "1.50.0",
+          "Google.Apis.Auth": "1.50.0",
+          "Google.Apis.Core": "1.50.0",
+          "Google.Apis.Oauth2.v2": "1.50.0.1869",
+          "HtmlAgilityPack": "1.8.7",
+          "LazyCache": "0.7.1.44",
+          "NPOI": "2.5.6",
+          "Newtonsoft.Json": "12.0.3",
+          "SharpZipLib": "0.86.0",
+          "UniversalTypeConverter": "1.0.5"
+        },
+        "compile": {
+          "bin/placeholder/Ovi.Task.Helper.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Ovi.Task.Helper.dll": {}
+        }
+      }
+    },
+    ".NETFramework,Version=v4.8/win": {
+      "Castle.Core/2.5.2": {
+        "type": "package",
+        "compile": {
+          "lib/NET35/Castle.Core.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/NET35/Castle.Core.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "DDay.iCal/1.0.2.575": {
+        "type": "package",
+        "compile": {
+          "lib/DDay.iCal.dll": {}
+        },
+        "runtime": {
+          "lib/DDay.iCal.dll": {}
+        }
+      },
+      "FluentNHibernate/1.2.0.712": {
+        "type": "package",
+        "dependencies": {
+          "NHibernate.Castle": "3.1.0.4000"
+        },
+        "compile": {
+          "lib/FluentNHibernate.dll": {}
+        },
+        "runtime": {
+          "lib/FluentNHibernate.dll": {}
+        }
+      },
+      "Google.Apis/1.50.0": {
+        "type": "package",
+        "dependencies": {
+          "Google.Apis.Core": "1.50.0"
+        },
+        "frameworkAssemblies": [
+          "System.Net.Http"
+        ],
+        "compile": {
+          "lib/net45/Google.Apis.PlatformServices.dll": {},
+          "lib/net45/Google.Apis.dll": {
+            "related": ".pdb;.xml"
+          }
+        },
+        "runtime": {
+          "lib/net45/Google.Apis.PlatformServices.dll": {},
+          "lib/net45/Google.Apis.dll": {
+            "related": ".pdb;.xml"
+          }
+        }
+      },
+      "Google.Apis.Auth/1.50.0": {
+        "type": "package",
+        "dependencies": {
+          "Google.Apis": "1.50.0",
+          "Google.Apis.Core": "1.50.0"
+        },
+        "frameworkAssemblies": [
+          "System.Net.Http"
+        ],
+        "compile": {
+          "lib/net45/Google.Apis.Auth.PlatformServices.dll": {},
+          "lib/net45/Google.Apis.Auth.dll": {
+            "related": ".pdb;.xml"
+          }
+        },
+        "runtime": {
+          "lib/net45/Google.Apis.Auth.PlatformServices.dll": {},
+          "lib/net45/Google.Apis.Auth.dll": {
+            "related": ".pdb;.xml"
+          }
+        }
+      },
+      "Google.Apis.Core/1.50.0": {
+        "type": "package",
+        "dependencies": {
+          "Newtonsoft.Json": "12.0.3"
+        },
+        "frameworkAssemblies": [
+          "System.Net.Http"
+        ],
+        "compile": {
+          "lib/net45/Google.Apis.Core.dll": {
+            "related": ".pdb;.xml"
+          }
+        },
+        "runtime": {
+          "lib/net45/Google.Apis.Core.dll": {
+            "related": ".pdb;.xml"
+          }
+        }
+      },
+      "Google.Apis.Oauth2.v2/1.50.0.1869": {
+        "type": "package",
+        "dependencies": {
+          "Google.Apis": "1.50.0",
+          "Google.Apis.Auth": "1.50.0"
+        },
+        "compile": {
+          "lib/net45/Google.Apis.Oauth2.v2.dll": {
+            "related": ".pdb;.xml"
+          }
+        },
+        "runtime": {
+          "lib/net45/Google.Apis.Oauth2.v2.dll": {
+            "related": ".pdb;.xml"
+          }
+        }
+      },
+      "HtmlAgilityPack/1.8.7": {
+        "type": "package",
+        "compile": {
+          "lib/Net45/HtmlAgilityPack.dll": {
+            "related": ".pdb;.XML"
+          }
+        },
+        "runtime": {
+          "lib/Net45/HtmlAgilityPack.dll": {
+            "related": ".pdb;.XML"
+          }
+        }
+      },
+      "Iesi.Collections/3.4.1.4000": {
+        "type": "package",
+        "compile": {
+          "lib/Net35/Iesi.Collections.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/Net35/Iesi.Collections.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "LazyCache/0.7.1.44": {
+        "type": "package",
+        "compile": {
+          "lib/net45/LazyCache.dll": {}
+        },
+        "runtime": {
+          "lib/net45/LazyCache.dll": {}
+        }
+      },
+      "Newtonsoft.Json/12.0.3": {
+        "type": "package",
+        "compile": {
+          "lib/net45/Newtonsoft.Json.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net45/Newtonsoft.Json.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "NHibernate/3.1.0.4000": {
+        "type": "package",
+        "dependencies": {
+          "Iesi.Collections": "3.1.0.4000"
+        },
+        "compile": {
+          "lib/Net35/NHibernate.dll": {
+            "related": ".license.txt;.readme.html;.releasenotes.txt"
+          }
+        },
+        "runtime": {
+          "lib/Net35/NHibernate.dll": {
+            "related": ".license.txt;.readme.html;.releasenotes.txt"
+          }
+        }
+      },
+      "NHibernate.Castle/3.1.0.4000": {
+        "type": "package",
+        "dependencies": {
+          "Castle.Core": "2.5.2",
+          "NHibernate": "[3.1.0.4000]"
+        },
+        "compile": {
+          "lib/Net35/NHibernate.ByteCode.Castle.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/Net35/NHibernate.ByteCode.Castle.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "NPOI/2.5.6": {
+        "type": "package",
+        "dependencies": {
+          "Portable.BouncyCastle": "1.8.9",
+          "SharpZipLib": "1.3.3"
+        },
+        "compile": {
+          "lib/net45/NPOI.OOXML.dll": {
+            "related": ".pdb;.XML"
+          },
+          "lib/net45/NPOI.OpenXml4Net.dll": {
+            "related": ".pdb;.XML"
+          },
+          "lib/net45/NPOI.OpenXmlFormats.dll": {
+            "related": ".pdb"
+          },
+          "lib/net45/NPOI.dll": {
+            "related": ".OOXML.pdb;.OOXML.XML;.OpenXml4Net.pdb;.OpenXml4Net.XML;.OpenXmlFormats.pdb;.pdb;.XML"
+          }
+        },
+        "runtime": {
+          "lib/net45/NPOI.OOXML.dll": {
+            "related": ".pdb;.XML"
+          },
+          "lib/net45/NPOI.OpenXml4Net.dll": {
+            "related": ".pdb;.XML"
+          },
+          "lib/net45/NPOI.OpenXmlFormats.dll": {
+            "related": ".pdb"
+          },
+          "lib/net45/NPOI.dll": {
+            "related": ".OOXML.pdb;.OOXML.XML;.OpenXml4Net.pdb;.OpenXml4Net.XML;.OpenXmlFormats.pdb;.pdb;.XML"
+          }
+        }
+      },
+      "Portable.BouncyCastle/1.8.9": {
+        "type": "package",
+        "compile": {
+          "lib/net40/BouncyCastle.Crypto.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net40/BouncyCastle.Crypto.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "SharpZipLib/0.86.0": {
+        "type": "package",
+        "compile": {
+          "lib/20/ICSharpCode.SharpZipLib.dll": {}
+        },
+        "runtime": {
+          "lib/20/ICSharpCode.SharpZipLib.dll": {}
+        }
+      },
+      "UniversalTypeConverter/1.0.5": {
+        "type": "package",
+        "compile": {
+          "lib/net461/UniversalTypeConverter.dll": {
+            "related": ".XML"
+          }
+        },
+        "runtime": {
+          "lib/net461/UniversalTypeConverter.dll": {
+            "related": ".XML"
+          }
+        }
+      },
+      "Ovi.Task.Helper/1.0.0": {
+        "type": "project",
+        "framework": ".NETFramework,Version=v4.8",
+        "dependencies": {
+          "DDay.iCal": "1.0.2.575",
+          "Google.Apis": "1.50.0",
+          "Google.Apis.Auth": "1.50.0",
+          "Google.Apis.Core": "1.50.0",
+          "Google.Apis.Oauth2.v2": "1.50.0.1869",
+          "HtmlAgilityPack": "1.8.7",
+          "LazyCache": "0.7.1.44",
+          "NPOI": "2.5.6",
+          "Newtonsoft.Json": "12.0.3",
+          "SharpZipLib": "0.86.0",
+          "UniversalTypeConverter": "1.0.5"
+        },
+        "compile": {
+          "bin/placeholder/Ovi.Task.Helper.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Ovi.Task.Helper.dll": {}
+        }
+      }
+    },
+    ".NETFramework,Version=v4.8/win-arm64": {
+      "Castle.Core/2.5.2": {
+        "type": "package",
+        "compile": {
+          "lib/NET35/Castle.Core.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/NET35/Castle.Core.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "DDay.iCal/1.0.2.575": {
+        "type": "package",
+        "compile": {
+          "lib/DDay.iCal.dll": {}
+        },
+        "runtime": {
+          "lib/DDay.iCal.dll": {}
+        }
+      },
+      "FluentNHibernate/1.2.0.712": {
+        "type": "package",
+        "dependencies": {
+          "NHibernate.Castle": "3.1.0.4000"
+        },
+        "compile": {
+          "lib/FluentNHibernate.dll": {}
+        },
+        "runtime": {
+          "lib/FluentNHibernate.dll": {}
+        }
+      },
+      "Google.Apis/1.50.0": {
+        "type": "package",
+        "dependencies": {
+          "Google.Apis.Core": "1.50.0"
+        },
+        "frameworkAssemblies": [
+          "System.Net.Http"
+        ],
+        "compile": {
+          "lib/net45/Google.Apis.PlatformServices.dll": {},
+          "lib/net45/Google.Apis.dll": {
+            "related": ".pdb;.xml"
+          }
+        },
+        "runtime": {
+          "lib/net45/Google.Apis.PlatformServices.dll": {},
+          "lib/net45/Google.Apis.dll": {
+            "related": ".pdb;.xml"
+          }
+        }
+      },
+      "Google.Apis.Auth/1.50.0": {
+        "type": "package",
+        "dependencies": {
+          "Google.Apis": "1.50.0",
+          "Google.Apis.Core": "1.50.0"
+        },
+        "frameworkAssemblies": [
+          "System.Net.Http"
+        ],
+        "compile": {
+          "lib/net45/Google.Apis.Auth.PlatformServices.dll": {},
+          "lib/net45/Google.Apis.Auth.dll": {
+            "related": ".pdb;.xml"
+          }
+        },
+        "runtime": {
+          "lib/net45/Google.Apis.Auth.PlatformServices.dll": {},
+          "lib/net45/Google.Apis.Auth.dll": {
+            "related": ".pdb;.xml"
+          }
+        }
+      },
+      "Google.Apis.Core/1.50.0": {
+        "type": "package",
+        "dependencies": {
+          "Newtonsoft.Json": "12.0.3"
+        },
+        "frameworkAssemblies": [
+          "System.Net.Http"
+        ],
+        "compile": {
+          "lib/net45/Google.Apis.Core.dll": {
+            "related": ".pdb;.xml"
+          }
+        },
+        "runtime": {
+          "lib/net45/Google.Apis.Core.dll": {
+            "related": ".pdb;.xml"
+          }
+        }
+      },
+      "Google.Apis.Oauth2.v2/1.50.0.1869": {
+        "type": "package",
+        "dependencies": {
+          "Google.Apis": "1.50.0",
+          "Google.Apis.Auth": "1.50.0"
+        },
+        "compile": {
+          "lib/net45/Google.Apis.Oauth2.v2.dll": {
+            "related": ".pdb;.xml"
+          }
+        },
+        "runtime": {
+          "lib/net45/Google.Apis.Oauth2.v2.dll": {
+            "related": ".pdb;.xml"
+          }
+        }
+      },
+      "HtmlAgilityPack/1.8.7": {
+        "type": "package",
+        "compile": {
+          "lib/Net45/HtmlAgilityPack.dll": {
+            "related": ".pdb;.XML"
+          }
+        },
+        "runtime": {
+          "lib/Net45/HtmlAgilityPack.dll": {
+            "related": ".pdb;.XML"
+          }
+        }
+      },
+      "Iesi.Collections/3.4.1.4000": {
+        "type": "package",
+        "compile": {
+          "lib/Net35/Iesi.Collections.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/Net35/Iesi.Collections.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "LazyCache/0.7.1.44": {
+        "type": "package",
+        "compile": {
+          "lib/net45/LazyCache.dll": {}
+        },
+        "runtime": {
+          "lib/net45/LazyCache.dll": {}
+        }
+      },
+      "Newtonsoft.Json/12.0.3": {
+        "type": "package",
+        "compile": {
+          "lib/net45/Newtonsoft.Json.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net45/Newtonsoft.Json.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "NHibernate/3.1.0.4000": {
+        "type": "package",
+        "dependencies": {
+          "Iesi.Collections": "3.1.0.4000"
+        },
+        "compile": {
+          "lib/Net35/NHibernate.dll": {
+            "related": ".license.txt;.readme.html;.releasenotes.txt"
+          }
+        },
+        "runtime": {
+          "lib/Net35/NHibernate.dll": {
+            "related": ".license.txt;.readme.html;.releasenotes.txt"
+          }
+        }
+      },
+      "NHibernate.Castle/3.1.0.4000": {
+        "type": "package",
+        "dependencies": {
+          "Castle.Core": "2.5.2",
+          "NHibernate": "[3.1.0.4000]"
+        },
+        "compile": {
+          "lib/Net35/NHibernate.ByteCode.Castle.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/Net35/NHibernate.ByteCode.Castle.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "NPOI/2.5.6": {
+        "type": "package",
+        "dependencies": {
+          "Portable.BouncyCastle": "1.8.9",
+          "SharpZipLib": "1.3.3"
+        },
+        "compile": {
+          "lib/net45/NPOI.OOXML.dll": {
+            "related": ".pdb;.XML"
+          },
+          "lib/net45/NPOI.OpenXml4Net.dll": {
+            "related": ".pdb;.XML"
+          },
+          "lib/net45/NPOI.OpenXmlFormats.dll": {
+            "related": ".pdb"
+          },
+          "lib/net45/NPOI.dll": {
+            "related": ".OOXML.pdb;.OOXML.XML;.OpenXml4Net.pdb;.OpenXml4Net.XML;.OpenXmlFormats.pdb;.pdb;.XML"
+          }
+        },
+        "runtime": {
+          "lib/net45/NPOI.OOXML.dll": {
+            "related": ".pdb;.XML"
+          },
+          "lib/net45/NPOI.OpenXml4Net.dll": {
+            "related": ".pdb;.XML"
+          },
+          "lib/net45/NPOI.OpenXmlFormats.dll": {
+            "related": ".pdb"
+          },
+          "lib/net45/NPOI.dll": {
+            "related": ".OOXML.pdb;.OOXML.XML;.OpenXml4Net.pdb;.OpenXml4Net.XML;.OpenXmlFormats.pdb;.pdb;.XML"
+          }
+        }
+      },
+      "Portable.BouncyCastle/1.8.9": {
+        "type": "package",
+        "compile": {
+          "lib/net40/BouncyCastle.Crypto.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net40/BouncyCastle.Crypto.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "SharpZipLib/0.86.0": {
+        "type": "package",
+        "compile": {
+          "lib/20/ICSharpCode.SharpZipLib.dll": {}
+        },
+        "runtime": {
+          "lib/20/ICSharpCode.SharpZipLib.dll": {}
+        }
+      },
+      "UniversalTypeConverter/1.0.5": {
+        "type": "package",
+        "compile": {
+          "lib/net461/UniversalTypeConverter.dll": {
+            "related": ".XML"
+          }
+        },
+        "runtime": {
+          "lib/net461/UniversalTypeConverter.dll": {
+            "related": ".XML"
+          }
+        }
+      },
+      "Ovi.Task.Helper/1.0.0": {
+        "type": "project",
+        "framework": ".NETFramework,Version=v4.8",
+        "dependencies": {
+          "DDay.iCal": "1.0.2.575",
+          "Google.Apis": "1.50.0",
+          "Google.Apis.Auth": "1.50.0",
+          "Google.Apis.Core": "1.50.0",
+          "Google.Apis.Oauth2.v2": "1.50.0.1869",
+          "HtmlAgilityPack": "1.8.7",
+          "LazyCache": "0.7.1.44",
+          "NPOI": "2.5.6",
+          "Newtonsoft.Json": "12.0.3",
+          "SharpZipLib": "0.86.0",
+          "UniversalTypeConverter": "1.0.5"
+        },
+        "compile": {
+          "bin/placeholder/Ovi.Task.Helper.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Ovi.Task.Helper.dll": {}
+        }
+      }
+    },
+    ".NETFramework,Version=v4.8/win-x64": {
+      "Castle.Core/2.5.2": {
+        "type": "package",
+        "compile": {
+          "lib/NET35/Castle.Core.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/NET35/Castle.Core.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "DDay.iCal/1.0.2.575": {
+        "type": "package",
+        "compile": {
+          "lib/DDay.iCal.dll": {}
+        },
+        "runtime": {
+          "lib/DDay.iCal.dll": {}
+        }
+      },
+      "FluentNHibernate/1.2.0.712": {
+        "type": "package",
+        "dependencies": {
+          "NHibernate.Castle": "3.1.0.4000"
+        },
+        "compile": {
+          "lib/FluentNHibernate.dll": {}
+        },
+        "runtime": {
+          "lib/FluentNHibernate.dll": {}
+        }
+      },
+      "Google.Apis/1.50.0": {
+        "type": "package",
+        "dependencies": {
+          "Google.Apis.Core": "1.50.0"
+        },
+        "frameworkAssemblies": [
+          "System.Net.Http"
+        ],
+        "compile": {
+          "lib/net45/Google.Apis.PlatformServices.dll": {},
+          "lib/net45/Google.Apis.dll": {
+            "related": ".pdb;.xml"
+          }
+        },
+        "runtime": {
+          "lib/net45/Google.Apis.PlatformServices.dll": {},
+          "lib/net45/Google.Apis.dll": {
+            "related": ".pdb;.xml"
+          }
+        }
+      },
+      "Google.Apis.Auth/1.50.0": {
+        "type": "package",
+        "dependencies": {
+          "Google.Apis": "1.50.0",
+          "Google.Apis.Core": "1.50.0"
+        },
+        "frameworkAssemblies": [
+          "System.Net.Http"
+        ],
+        "compile": {
+          "lib/net45/Google.Apis.Auth.PlatformServices.dll": {},
+          "lib/net45/Google.Apis.Auth.dll": {
+            "related": ".pdb;.xml"
+          }
+        },
+        "runtime": {
+          "lib/net45/Google.Apis.Auth.PlatformServices.dll": {},
+          "lib/net45/Google.Apis.Auth.dll": {
+            "related": ".pdb;.xml"
+          }
+        }
+      },
+      "Google.Apis.Core/1.50.0": {
+        "type": "package",
+        "dependencies": {
+          "Newtonsoft.Json": "12.0.3"
+        },
+        "frameworkAssemblies": [
+          "System.Net.Http"
+        ],
+        "compile": {
+          "lib/net45/Google.Apis.Core.dll": {
+            "related": ".pdb;.xml"
+          }
+        },
+        "runtime": {
+          "lib/net45/Google.Apis.Core.dll": {
+            "related": ".pdb;.xml"
+          }
+        }
+      },
+      "Google.Apis.Oauth2.v2/1.50.0.1869": {
+        "type": "package",
+        "dependencies": {
+          "Google.Apis": "1.50.0",
+          "Google.Apis.Auth": "1.50.0"
+        },
+        "compile": {
+          "lib/net45/Google.Apis.Oauth2.v2.dll": {
+            "related": ".pdb;.xml"
+          }
+        },
+        "runtime": {
+          "lib/net45/Google.Apis.Oauth2.v2.dll": {
+            "related": ".pdb;.xml"
+          }
+        }
+      },
+      "HtmlAgilityPack/1.8.7": {
+        "type": "package",
+        "compile": {
+          "lib/Net45/HtmlAgilityPack.dll": {
+            "related": ".pdb;.XML"
+          }
+        },
+        "runtime": {
+          "lib/Net45/HtmlAgilityPack.dll": {
+            "related": ".pdb;.XML"
+          }
+        }
+      },
+      "Iesi.Collections/3.4.1.4000": {
+        "type": "package",
+        "compile": {
+          "lib/Net35/Iesi.Collections.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/Net35/Iesi.Collections.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "LazyCache/0.7.1.44": {
+        "type": "package",
+        "compile": {
+          "lib/net45/LazyCache.dll": {}
+        },
+        "runtime": {
+          "lib/net45/LazyCache.dll": {}
+        }
+      },
+      "Newtonsoft.Json/12.0.3": {
+        "type": "package",
+        "compile": {
+          "lib/net45/Newtonsoft.Json.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net45/Newtonsoft.Json.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "NHibernate/3.1.0.4000": {
+        "type": "package",
+        "dependencies": {
+          "Iesi.Collections": "3.1.0.4000"
+        },
+        "compile": {
+          "lib/Net35/NHibernate.dll": {
+            "related": ".license.txt;.readme.html;.releasenotes.txt"
+          }
+        },
+        "runtime": {
+          "lib/Net35/NHibernate.dll": {
+            "related": ".license.txt;.readme.html;.releasenotes.txt"
+          }
+        }
+      },
+      "NHibernate.Castle/3.1.0.4000": {
+        "type": "package",
+        "dependencies": {
+          "Castle.Core": "2.5.2",
+          "NHibernate": "[3.1.0.4000]"
+        },
+        "compile": {
+          "lib/Net35/NHibernate.ByteCode.Castle.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/Net35/NHibernate.ByteCode.Castle.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "NPOI/2.5.6": {
+        "type": "package",
+        "dependencies": {
+          "Portable.BouncyCastle": "1.8.9",
+          "SharpZipLib": "1.3.3"
+        },
+        "compile": {
+          "lib/net45/NPOI.OOXML.dll": {
+            "related": ".pdb;.XML"
+          },
+          "lib/net45/NPOI.OpenXml4Net.dll": {
+            "related": ".pdb;.XML"
+          },
+          "lib/net45/NPOI.OpenXmlFormats.dll": {
+            "related": ".pdb"
+          },
+          "lib/net45/NPOI.dll": {
+            "related": ".OOXML.pdb;.OOXML.XML;.OpenXml4Net.pdb;.OpenXml4Net.XML;.OpenXmlFormats.pdb;.pdb;.XML"
+          }
+        },
+        "runtime": {
+          "lib/net45/NPOI.OOXML.dll": {
+            "related": ".pdb;.XML"
+          },
+          "lib/net45/NPOI.OpenXml4Net.dll": {
+            "related": ".pdb;.XML"
+          },
+          "lib/net45/NPOI.OpenXmlFormats.dll": {
+            "related": ".pdb"
+          },
+          "lib/net45/NPOI.dll": {
+            "related": ".OOXML.pdb;.OOXML.XML;.OpenXml4Net.pdb;.OpenXml4Net.XML;.OpenXmlFormats.pdb;.pdb;.XML"
+          }
+        }
+      },
+      "Portable.BouncyCastle/1.8.9": {
+        "type": "package",
+        "compile": {
+          "lib/net40/BouncyCastle.Crypto.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net40/BouncyCastle.Crypto.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "SharpZipLib/0.86.0": {
+        "type": "package",
+        "compile": {
+          "lib/20/ICSharpCode.SharpZipLib.dll": {}
+        },
+        "runtime": {
+          "lib/20/ICSharpCode.SharpZipLib.dll": {}
+        }
+      },
+      "UniversalTypeConverter/1.0.5": {
+        "type": "package",
+        "compile": {
+          "lib/net461/UniversalTypeConverter.dll": {
+            "related": ".XML"
+          }
+        },
+        "runtime": {
+          "lib/net461/UniversalTypeConverter.dll": {
+            "related": ".XML"
+          }
+        }
+      },
+      "Ovi.Task.Helper/1.0.0": {
+        "type": "project",
+        "framework": ".NETFramework,Version=v4.8",
+        "dependencies": {
+          "DDay.iCal": "1.0.2.575",
+          "Google.Apis": "1.50.0",
+          "Google.Apis.Auth": "1.50.0",
+          "Google.Apis.Core": "1.50.0",
+          "Google.Apis.Oauth2.v2": "1.50.0.1869",
+          "HtmlAgilityPack": "1.8.7",
+          "LazyCache": "0.7.1.44",
+          "NPOI": "2.5.6",
+          "Newtonsoft.Json": "12.0.3",
+          "SharpZipLib": "0.86.0",
+          "UniversalTypeConverter": "1.0.5"
+        },
+        "compile": {
+          "bin/placeholder/Ovi.Task.Helper.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Ovi.Task.Helper.dll": {}
+        }
+      }
+    },
+    ".NETFramework,Version=v4.8/win-x86": {
+      "Castle.Core/2.5.2": {
+        "type": "package",
+        "compile": {
+          "lib/NET35/Castle.Core.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/NET35/Castle.Core.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "DDay.iCal/1.0.2.575": {
+        "type": "package",
+        "compile": {
+          "lib/DDay.iCal.dll": {}
+        },
+        "runtime": {
+          "lib/DDay.iCal.dll": {}
+        }
+      },
+      "FluentNHibernate/1.2.0.712": {
+        "type": "package",
+        "dependencies": {
+          "NHibernate.Castle": "3.1.0.4000"
+        },
+        "compile": {
+          "lib/FluentNHibernate.dll": {}
+        },
+        "runtime": {
+          "lib/FluentNHibernate.dll": {}
+        }
+      },
+      "Google.Apis/1.50.0": {
+        "type": "package",
+        "dependencies": {
+          "Google.Apis.Core": "1.50.0"
+        },
+        "frameworkAssemblies": [
+          "System.Net.Http"
+        ],
+        "compile": {
+          "lib/net45/Google.Apis.PlatformServices.dll": {},
+          "lib/net45/Google.Apis.dll": {
+            "related": ".pdb;.xml"
+          }
+        },
+        "runtime": {
+          "lib/net45/Google.Apis.PlatformServices.dll": {},
+          "lib/net45/Google.Apis.dll": {
+            "related": ".pdb;.xml"
+          }
+        }
+      },
+      "Google.Apis.Auth/1.50.0": {
+        "type": "package",
+        "dependencies": {
+          "Google.Apis": "1.50.0",
+          "Google.Apis.Core": "1.50.0"
+        },
+        "frameworkAssemblies": [
+          "System.Net.Http"
+        ],
+        "compile": {
+          "lib/net45/Google.Apis.Auth.PlatformServices.dll": {},
+          "lib/net45/Google.Apis.Auth.dll": {
+            "related": ".pdb;.xml"
+          }
+        },
+        "runtime": {
+          "lib/net45/Google.Apis.Auth.PlatformServices.dll": {},
+          "lib/net45/Google.Apis.Auth.dll": {
+            "related": ".pdb;.xml"
+          }
+        }
+      },
+      "Google.Apis.Core/1.50.0": {
+        "type": "package",
+        "dependencies": {
+          "Newtonsoft.Json": "12.0.3"
+        },
+        "frameworkAssemblies": [
+          "System.Net.Http"
+        ],
+        "compile": {
+          "lib/net45/Google.Apis.Core.dll": {
+            "related": ".pdb;.xml"
+          }
+        },
+        "runtime": {
+          "lib/net45/Google.Apis.Core.dll": {
+            "related": ".pdb;.xml"
+          }
+        }
+      },
+      "Google.Apis.Oauth2.v2/1.50.0.1869": {
+        "type": "package",
+        "dependencies": {
+          "Google.Apis": "1.50.0",
+          "Google.Apis.Auth": "1.50.0"
+        },
+        "compile": {
+          "lib/net45/Google.Apis.Oauth2.v2.dll": {
+            "related": ".pdb;.xml"
+          }
+        },
+        "runtime": {
+          "lib/net45/Google.Apis.Oauth2.v2.dll": {
+            "related": ".pdb;.xml"
+          }
+        }
+      },
+      "HtmlAgilityPack/1.8.7": {
+        "type": "package",
+        "compile": {
+          "lib/Net45/HtmlAgilityPack.dll": {
+            "related": ".pdb;.XML"
+          }
+        },
+        "runtime": {
+          "lib/Net45/HtmlAgilityPack.dll": {
+            "related": ".pdb;.XML"
+          }
+        }
+      },
+      "Iesi.Collections/3.4.1.4000": {
+        "type": "package",
+        "compile": {
+          "lib/Net35/Iesi.Collections.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/Net35/Iesi.Collections.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "LazyCache/0.7.1.44": {
+        "type": "package",
+        "compile": {
+          "lib/net45/LazyCache.dll": {}
+        },
+        "runtime": {
+          "lib/net45/LazyCache.dll": {}
+        }
+      },
+      "Newtonsoft.Json/12.0.3": {
+        "type": "package",
+        "compile": {
+          "lib/net45/Newtonsoft.Json.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net45/Newtonsoft.Json.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "NHibernate/3.1.0.4000": {
+        "type": "package",
+        "dependencies": {
+          "Iesi.Collections": "3.1.0.4000"
+        },
+        "compile": {
+          "lib/Net35/NHibernate.dll": {
+            "related": ".license.txt;.readme.html;.releasenotes.txt"
+          }
+        },
+        "runtime": {
+          "lib/Net35/NHibernate.dll": {
+            "related": ".license.txt;.readme.html;.releasenotes.txt"
+          }
+        }
+      },
+      "NHibernate.Castle/3.1.0.4000": {
+        "type": "package",
+        "dependencies": {
+          "Castle.Core": "2.5.2",
+          "NHibernate": "[3.1.0.4000]"
+        },
+        "compile": {
+          "lib/Net35/NHibernate.ByteCode.Castle.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/Net35/NHibernate.ByteCode.Castle.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "NPOI/2.5.6": {
+        "type": "package",
+        "dependencies": {
+          "Portable.BouncyCastle": "1.8.9",
+          "SharpZipLib": "1.3.3"
+        },
+        "compile": {
+          "lib/net45/NPOI.OOXML.dll": {
+            "related": ".pdb;.XML"
+          },
+          "lib/net45/NPOI.OpenXml4Net.dll": {
+            "related": ".pdb;.XML"
+          },
+          "lib/net45/NPOI.OpenXmlFormats.dll": {
+            "related": ".pdb"
+          },
+          "lib/net45/NPOI.dll": {
+            "related": ".OOXML.pdb;.OOXML.XML;.OpenXml4Net.pdb;.OpenXml4Net.XML;.OpenXmlFormats.pdb;.pdb;.XML"
+          }
+        },
+        "runtime": {
+          "lib/net45/NPOI.OOXML.dll": {
+            "related": ".pdb;.XML"
+          },
+          "lib/net45/NPOI.OpenXml4Net.dll": {
+            "related": ".pdb;.XML"
+          },
+          "lib/net45/NPOI.OpenXmlFormats.dll": {
+            "related": ".pdb"
+          },
+          "lib/net45/NPOI.dll": {
+            "related": ".OOXML.pdb;.OOXML.XML;.OpenXml4Net.pdb;.OpenXml4Net.XML;.OpenXmlFormats.pdb;.pdb;.XML"
+          }
+        }
+      },
+      "Portable.BouncyCastle/1.8.9": {
+        "type": "package",
+        "compile": {
+          "lib/net40/BouncyCastle.Crypto.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net40/BouncyCastle.Crypto.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "SharpZipLib/0.86.0": {
+        "type": "package",
+        "compile": {
+          "lib/20/ICSharpCode.SharpZipLib.dll": {}
+        },
+        "runtime": {
+          "lib/20/ICSharpCode.SharpZipLib.dll": {}
+        }
+      },
+      "UniversalTypeConverter/1.0.5": {
+        "type": "package",
+        "compile": {
+          "lib/net461/UniversalTypeConverter.dll": {
+            "related": ".XML"
+          }
+        },
+        "runtime": {
+          "lib/net461/UniversalTypeConverter.dll": {
+            "related": ".XML"
+          }
+        }
+      },
+      "Ovi.Task.Helper/1.0.0": {
+        "type": "project",
+        "framework": ".NETFramework,Version=v4.8",
+        "dependencies": {
+          "DDay.iCal": "1.0.2.575",
+          "Google.Apis": "1.50.0",
+          "Google.Apis.Auth": "1.50.0",
+          "Google.Apis.Core": "1.50.0",
+          "Google.Apis.Oauth2.v2": "1.50.0.1869",
+          "HtmlAgilityPack": "1.8.7",
+          "LazyCache": "0.7.1.44",
+          "NPOI": "2.5.6",
+          "Newtonsoft.Json": "12.0.3",
+          "SharpZipLib": "0.86.0",
+          "UniversalTypeConverter": "1.0.5"
+        },
+        "compile": {
+          "bin/placeholder/Ovi.Task.Helper.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Ovi.Task.Helper.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Castle.Core/2.5.2": {
+      "sha512": "X3CieoytO4dgQeD4gVBhcuF02YT7ZRzsbcjm/JaEbsAHF6jnufcGFxLOIPkFlxpiMSmOfJ/vA76c9sG+flLsrw==",
+      "type": "package",
+      "path": "castle.core/2.5.2",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "castle.core.2.5.2.nupkg.sha512",
+        "castle.core.nuspec",
+        "lib/ASL - Apache Software Foundation License.txt",
+        "lib/BreakingChanges.txt",
+        "lib/Changes.txt",
+        "lib/Committers.txt",
+        "lib/NET35/Castle.Core.dll",
+        "lib/NET35/Castle.Core.xml",
+        "lib/NET40ClientProfile/Castle.Core.dll",
+        "lib/NET40ClientProfile/Castle.Core.xml",
+        "lib/SL3/Castle.Core.dll",
+        "lib/SL3/Castle.Core.xml",
+        "lib/SL4/Castle.Core.dll",
+        "lib/SL4/Castle.Core.xml",
+        "lib/releaseNotes.txt"
+      ]
+    },
+    "DDay.iCal/1.0.2.575": {
+      "sha512": "fjny0rswa5iXDTrqlnnHekRkGPyHs+6p7DT/thwI/pOvoIKokKfMkATRo7UGCIlMb+Xvs5dlj3YAn8++aAIryA==",
+      "type": "package",
+      "path": "dday.ical/1.0.2.575",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "dday.ical.1.0.2.575.nupkg.sha512",
+        "dday.ical.nuspec",
+        "lib/DDay.iCal.dll"
+      ]
+    },
+    "FluentNHibernate/1.2.0.712": {
+      "sha512": "q/0s2h0Cj299gVf6r8fx0ZTe08r7QamzHLYRN1uW+zFN/gMCYbGJW+VRGEkxhi+UD4xhfWXubFm/xw0WqPhUIg==",
+      "type": "package",
+      "path": "fluentnhibernate/1.2.0.712",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "fluentnhibernate.1.2.0.712.nupkg.sha512",
+        "fluentnhibernate.nuspec",
+        "lib/FluentNHibernate.dll",
+        "lib/FluentNHibernate.pdb"
+      ]
+    },
+    "Google.Apis/1.50.0": {
+      "sha512": "qV0wmPVM03YU2dEi8uir+9Ee8MwoH8ELwMVbDX3fuf2NUbweY43fAQ7P20xbq/4nhgOP/maWzrjNlw8WkD4hyw==",
+      "type": "package",
+      "path": "google.apis/1.50.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE",
+        "NuGetIcon.png",
+        "google.apis.1.50.0.nupkg.sha512",
+        "google.apis.nuspec",
+        "lib/net45/Google.Apis.PlatformServices.dll",
+        "lib/net45/Google.Apis.dll",
+        "lib/net45/Google.Apis.pdb",
+        "lib/net45/Google.Apis.xml",
+        "lib/netstandard1.3/Google.Apis.dll",
+        "lib/netstandard1.3/Google.Apis.pdb",
+        "lib/netstandard1.3/Google.Apis.xml",
+        "lib/netstandard2.0/Google.Apis.dll",
+        "lib/netstandard2.0/Google.Apis.pdb",
+        "lib/netstandard2.0/Google.Apis.xml"
+      ]
+    },
+    "Google.Apis.Auth/1.50.0": {
+      "sha512": "y6hqXcDzTA5tj3Qasr97anpIc+gGJC9QlWJnGSRvp7o4/c4b4Bd5tBgqyJKhgfBMo+HugXGcYh17Kvm5SB3v6g==",
+      "type": "package",
+      "path": "google.apis.auth/1.50.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE",
+        "NuGetIcon.png",
+        "google.apis.auth.1.50.0.nupkg.sha512",
+        "google.apis.auth.nuspec",
+        "lib/net45/Google.Apis.Auth.PlatformServices.dll",
+        "lib/net45/Google.Apis.Auth.dll",
+        "lib/net45/Google.Apis.Auth.pdb",
+        "lib/net45/Google.Apis.Auth.xml",
+        "lib/netstandard1.3/Google.Apis.Auth.PlatformServices.dll",
+        "lib/netstandard1.3/Google.Apis.Auth.dll",
+        "lib/netstandard1.3/Google.Apis.Auth.pdb",
+        "lib/netstandard1.3/Google.Apis.Auth.xml",
+        "lib/netstandard2.0/Google.Apis.Auth.PlatformServices.dll",
+        "lib/netstandard2.0/Google.Apis.Auth.dll",
+        "lib/netstandard2.0/Google.Apis.Auth.pdb",
+        "lib/netstandard2.0/Google.Apis.Auth.xml"
+      ]
+    },
+    "Google.Apis.Core/1.50.0": {
+      "sha512": "E/ioNStr2z0LXXAaGR7bnbRQqozjFb12mi5zs/Bm4c2ZH9uoKOxz9FbQkNRq4R3yHif5gxt3nh8Ei7g9qRiYxQ==",
+      "type": "package",
+      "path": "google.apis.core/1.50.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE",
+        "NuGetIcon.png",
+        "google.apis.core.1.50.0.nupkg.sha512",
+        "google.apis.core.nuspec",
+        "lib/net45/Google.Apis.Core.dll",
+        "lib/net45/Google.Apis.Core.pdb",
+        "lib/net45/Google.Apis.Core.xml",
+        "lib/netstandard1.3/Google.Apis.Core.dll",
+        "lib/netstandard1.3/Google.Apis.Core.pdb",
+        "lib/netstandard1.3/Google.Apis.Core.xml",
+        "lib/netstandard2.0/Google.Apis.Core.dll",
+        "lib/netstandard2.0/Google.Apis.Core.pdb",
+        "lib/netstandard2.0/Google.Apis.Core.xml"
+      ]
+    },
+    "Google.Apis.Oauth2.v2/1.50.0.1869": {
+      "sha512": "dr+bxuWlNrkUJmv51YH1vkK3+P31jsKDtCZAofD+j0lBgA1sGyOqUkf9tsLwBdZbkC4PwXqeKf39CQmwTcyGPA==",
+      "type": "package",
+      "path": "google.apis.oauth2.v2/1.50.0.1869",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE",
+        "google.apis.oauth2.v2.1.50.0.1869.nupkg.sha512",
+        "google.apis.oauth2.v2.nuspec",
+        "lib/net40/Google.Apis.Oauth2.v2.dll",
+        "lib/net40/Google.Apis.Oauth2.v2.pdb",
+        "lib/net40/Google.Apis.Oauth2.v2.xml",
+        "lib/net45/Google.Apis.Oauth2.v2.dll",
+        "lib/net45/Google.Apis.Oauth2.v2.pdb",
+        "lib/net45/Google.Apis.Oauth2.v2.xml",
+        "lib/netstandard1.0/Google.Apis.Oauth2.v2.dll",
+        "lib/netstandard1.0/Google.Apis.Oauth2.v2.pdb",
+        "lib/netstandard1.0/Google.Apis.Oauth2.v2.xml",
+        "lib/netstandard1.3/Google.Apis.Oauth2.v2.dll",
+        "lib/netstandard1.3/Google.Apis.Oauth2.v2.pdb",
+        "lib/netstandard1.3/Google.Apis.Oauth2.v2.xml",
+        "lib/netstandard2.0/Google.Apis.Oauth2.v2.dll",
+        "lib/netstandard2.0/Google.Apis.Oauth2.v2.pdb",
+        "lib/netstandard2.0/Google.Apis.Oauth2.v2.xml"
+      ]
+    },
+    "HtmlAgilityPack/1.8.7": {
+      "sha512": "BHAehz9emDbk6XeSeSV3/UcIj64/o2SMfprRbG7f/EsVqEkkHNPMXpsKhxfOed9h1lVl78Y+3p2q5ET2NByKOw==",
+      "type": "package",
+      "path": "htmlagilitypack/1.8.7",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "htmlagilitypack.1.8.7.nupkg.sha512",
+        "htmlagilitypack.nuspec",
+        "lib/Net20/HtmlAgilityPack.dll",
+        "lib/Net20/HtmlAgilityPack.pdb",
+        "lib/Net20/HtmlAgilityPack.xml",
+        "lib/Net40-client/HtmlAgilityPack.dll",
+        "lib/Net40-client/HtmlAgilityPack.pdb",
+        "lib/Net40-client/HtmlAgilityPack.xml",
+        "lib/Net40/HtmlAgilityPack.XML",
+        "lib/Net40/HtmlAgilityPack.dll",
+        "lib/Net40/HtmlAgilityPack.pdb",
+        "lib/Net45/HtmlAgilityPack.XML",
+        "lib/Net45/HtmlAgilityPack.dll",
+        "lib/Net45/HtmlAgilityPack.pdb",
+        "lib/NetCore45/HtmlAgilityPack.XML",
+        "lib/NetCore45/HtmlAgilityPack.dll",
+        "lib/NetCore45/HtmlAgilityPack.pdb",
+        "lib/netstandard1.3/HtmlAgilityPack.deps.json",
+        "lib/netstandard1.3/HtmlAgilityPack.dll",
+        "lib/netstandard1.3/HtmlAgilityPack.pdb",
+        "lib/netstandard1.3/HtmlAgilityPack.xml",
+        "lib/netstandard1.6/HtmlAgilityPack.deps.json",
+        "lib/netstandard1.6/HtmlAgilityPack.dll",
+        "lib/netstandard1.6/HtmlAgilityPack.pdb",
+        "lib/netstandard1.6/HtmlAgilityPack.xml",
+        "lib/netstandard2.0/HtmlAgilityPack.deps.json",
+        "lib/netstandard2.0/HtmlAgilityPack.dll",
+        "lib/netstandard2.0/HtmlAgilityPack.pdb",
+        "lib/netstandard2.0/HtmlAgilityPack.xml",
+        "lib/portable-net45+netcore45+wp8+MonoAndroid+MonoTouch/HtmlAgilityPack.XML",
+        "lib/portable-net45+netcore45+wp8+MonoAndroid+MonoTouch/HtmlAgilityPack.dll",
+        "lib/portable-net45+netcore45+wp8+MonoAndroid+MonoTouch/HtmlAgilityPack.pdb",
+        "lib/portable-net45+netcore45+wpa81+wp8+MonoAndroid+MonoTouch/HtmlAgilityPack.XML",
+        "lib/portable-net45+netcore45+wpa81+wp8+MonoAndroid+MonoTouch/HtmlAgilityPack.dll",
+        "lib/portable-net45+netcore45+wpa81+wp8+MonoAndroid+MonoTouch/HtmlAgilityPack.pdb",
+        "lib/uap10.0/HtmlAgilityPack.XML",
+        "lib/uap10.0/HtmlAgilityPack.dll",
+        "lib/uap10.0/HtmlAgilityPack.pdb",
+        "lib/uap10.0/HtmlAgilityPack.pri"
+      ]
+    },
+    "Iesi.Collections/3.4.1.4000": {
+      "sha512": "Qp8Xvef6ov6QU4nxwz5eq/iJoMTob0U7vYY39ll3Y+KwZM4LWxAx1Iy8QdzSj1fuShsNQGB3eRU/bwSYyFO3+g==",
+      "type": "package",
+      "path": "iesi.collections/3.4.1.4000",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "iesi.collections.3.4.1.4000.nupkg.sha512",
+        "iesi.collections.nuspec",
+        "lib/Net35/Iesi.Collections.dll",
+        "lib/Net35/Iesi.Collections.xml"
+      ]
+    },
+    "LazyCache/0.7.1.44": {
+      "sha512": "M9jBjyWB0L8D3I1GpkWid4geKw/ZzyKeHaiCoJPziR1BSb5WMuQxniMoSFJMvcPK3Z9xDAgf52bf3geNGfdynw==",
+      "type": "package",
+      "path": "lazycache/0.7.1.44",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lazycache.0.7.1.44.nupkg.sha512",
+        "lazycache.nuspec",
+        "lib/net45/LazyCache.dll"
+      ]
+    },
+    "Newtonsoft.Json/12.0.3": {
+      "sha512": "6mgjfnRB4jKMlzHSl+VD+oUc1IebOZabkbyWj2RiTgWwYPPuaK1H97G1sHqGwPlS5npiF5Q0OrxN1wni2n5QWg==",
+      "type": "package",
+      "path": "newtonsoft.json/12.0.3",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.md",
+        "lib/net20/Newtonsoft.Json.dll",
+        "lib/net20/Newtonsoft.Json.xml",
+        "lib/net35/Newtonsoft.Json.dll",
+        "lib/net35/Newtonsoft.Json.xml",
+        "lib/net40/Newtonsoft.Json.dll",
+        "lib/net40/Newtonsoft.Json.xml",
+        "lib/net45/Newtonsoft.Json.dll",
+        "lib/net45/Newtonsoft.Json.xml",
+        "lib/netstandard1.0/Newtonsoft.Json.dll",
+        "lib/netstandard1.0/Newtonsoft.Json.xml",
+        "lib/netstandard1.3/Newtonsoft.Json.dll",
+        "lib/netstandard1.3/Newtonsoft.Json.xml",
+        "lib/netstandard2.0/Newtonsoft.Json.dll",
+        "lib/netstandard2.0/Newtonsoft.Json.xml",
+        "lib/portable-net40+sl5+win8+wp8+wpa81/Newtonsoft.Json.dll",
+        "lib/portable-net40+sl5+win8+wp8+wpa81/Newtonsoft.Json.xml",
+        "lib/portable-net45+win8+wp8+wpa81/Newtonsoft.Json.dll",
+        "lib/portable-net45+win8+wp8+wpa81/Newtonsoft.Json.xml",
+        "newtonsoft.json.12.0.3.nupkg.sha512",
+        "newtonsoft.json.nuspec",
+        "packageIcon.png"
+      ]
+    },
+    "NHibernate/3.1.0.4000": {
+      "sha512": "ywQYeEVoeqdP5b/GfcuheiJmKkINBONlpH/UnHJPJzuL/pD1hLvEfbGLzHurbO4cmXnajd/5bn1/2YXWlj1Kyw==",
+      "type": "package",
+      "path": "nhibernate/3.1.0.4000",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/Net35/NHibernate.dll",
+        "lib/Net35/NHibernate.license.txt",
+        "lib/Net35/NHibernate.readme.html",
+        "lib/Net35/NHibernate.releasenotes.txt",
+        "lib/Net35/NHibernateXmlConfigurationTemplates/FireBird.cfg.xml",
+        "lib/Net35/NHibernateXmlConfigurationTemplates/MSSQL.cfg.xml",
+        "lib/Net35/NHibernateXmlConfigurationTemplates/MySql.cfg.xml",
+        "lib/Net35/NHibernateXmlConfigurationTemplates/Oracle.cfg.xml",
+        "lib/Net35/NHibernateXmlConfigurationTemplates/PostgreSQL.cfg.xml",
+        "lib/Net35/NHibernateXmlConfigurationTemplates/SQLite.cfg.xml",
+        "nhibernate.3.1.0.4000.nupkg.sha512",
+        "nhibernate.nuspec"
+      ]
+    },
+    "NHibernate.Castle/3.1.0.4000": {
+      "sha512": "l2Jlm8LB55YNl4A/GK7CSHrlba9dNd4WtiWGWj9mppXBG0gHZxrLPoCLirBBGAu5gwpsP2EK8CCcNKrIA3MmxA==",
+      "type": "package",
+      "path": "nhibernate.castle/3.1.0.4000",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/Net35/NHibernate.ByteCode.Castle.dll",
+        "lib/Net35/NHibernate.ByteCode.Castle.xml",
+        "nhibernate.castle.3.1.0.4000.nupkg.sha512",
+        "nhibernate.castle.nuspec"
+      ]
+    },
+    "NPOI/2.5.6": {
+      "sha512": "xQfr09LZN3fr4rjSuV3li+WJUo2LiSg00IUtnomzrKO51zhhavyIgvbZ1f8c8zwHXvRbFc1JB4PNZpxqyxizWw==",
+      "type": "package",
+      "path": "npoi/2.5.6",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE",
+        "Read Me.txt",
+        "lib/net45/NPOI.OOXML.XML",
+        "lib/net45/NPOI.OOXML.dll",
+        "lib/net45/NPOI.OOXML.pdb",
+        "lib/net45/NPOI.OpenXml4Net.XML",
+        "lib/net45/NPOI.OpenXml4Net.dll",
+        "lib/net45/NPOI.OpenXml4Net.pdb",
+        "lib/net45/NPOI.OpenXmlFormats.dll",
+        "lib/net45/NPOI.OpenXmlFormats.pdb",
+        "lib/net45/NPOI.XML",
+        "lib/net45/NPOI.dll",
+        "lib/net45/NPOI.pdb",
+        "lib/netstandard2.0/NPOI.OOXML.dll",
+        "lib/netstandard2.0/NPOI.OOXML.pdb",
+        "lib/netstandard2.0/NPOI.OOXML.xml",
+        "lib/netstandard2.0/NPOI.OpenXml4Net.dll",
+        "lib/netstandard2.0/NPOI.OpenXml4Net.pdb",
+        "lib/netstandard2.0/NPOI.OpenXmlFormats.dll",
+        "lib/netstandard2.0/NPOI.OpenXmlFormats.pdb",
+        "lib/netstandard2.0/NPOI.dll",
+        "lib/netstandard2.0/NPOI.pdb",
+        "lib/netstandard2.0/NPOI.xml",
+        "lib/netstandard2.1/NPOI.OOXML.dll",
+        "lib/netstandard2.1/NPOI.OOXML.pdb",
+        "lib/netstandard2.1/NPOI.OOXML.xml",
+        "lib/netstandard2.1/NPOI.OpenXml4Net.dll",
+        "lib/netstandard2.1/NPOI.OpenXml4Net.pdb",
+        "lib/netstandard2.1/NPOI.OpenXmlFormats.dll",
+        "lib/netstandard2.1/NPOI.OpenXmlFormats.pdb",
+        "lib/netstandard2.1/NPOI.dll",
+        "lib/netstandard2.1/NPOI.pdb",
+        "lib/netstandard2.1/NPOI.xml",
+        "logo/120_120.jpg",
+        "logo/240_240.png",
+        "logo/32_32.jpg",
+        "logo/60_60.jpg",
+        "npoi.2.5.6.nupkg.sha512",
+        "npoi.nuspec"
+      ]
+    },
+    "Portable.BouncyCastle/1.8.9": {
+      "sha512": "wlJo8aFoeyl+W93iFXTK5ShzDYk5WBqoUPjTNEM0Xv9kn1H+4hmuCjF0/n8HLm9Nnp1aY6KNndWqQTNk+NGgRQ==",
+      "type": "package",
+      "path": "portable.bouncycastle/1.8.9",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net40/BouncyCastle.Crypto.dll",
+        "lib/net40/BouncyCastle.Crypto.xml",
+        "lib/netstandard2.0/BouncyCastle.Crypto.dll",
+        "lib/netstandard2.0/BouncyCastle.Crypto.xml",
+        "portable.bouncycastle.1.8.9.nupkg.sha512",
+        "portable.bouncycastle.nuspec"
+      ]
+    },
+    "SharpZipLib/0.86.0": {
+      "sha512": "5DbS1SlKLMi+WG00Cm0ueYf2oyXJrowETQk8nx96rmdjTuHsA3laPykGV7Sxi0R5Xxfx0Kh/EfacAZ1f6M7y/g==",
+      "type": "package",
+      "path": "sharpziplib/0.86.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/11/ICSharpCode.SharpZipLib.dll",
+        "lib/20/ICSharpCode.SharpZipLib.dll",
+        "lib/SL3/SharpZipLib.Silverlight3.dll",
+        "lib/SL4/SharpZipLib.Silverlight4.dll",
+        "sharpziplib.0.86.0.nupkg.sha512",
+        "sharpziplib.nuspec"
+      ]
+    },
+    "UniversalTypeConverter/1.0.5": {
+      "sha512": "23GyQVh1MshSEex/vgGJ0EmJXlCpcFJ1/fX+w4EXcSp+dGsYUTIpq41kGZLnLBzxEYW0O7yzjUxrAzfTCiahJQ==",
+      "type": "package",
+      "path": "universaltypeconverter/1.0.5",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net35-client/UniversalTypeConverter.XML",
+        "lib/net35-client/UniversalTypeConverter.dll",
+        "lib/net35/UniversalTypeConverter.XML",
+        "lib/net35/UniversalTypeConverter.dll",
+        "lib/net40-client/UniversalTypeConverter.XML",
+        "lib/net40-client/UniversalTypeConverter.dll",
+        "lib/net40/UniversalTypeConverter.XML",
+        "lib/net40/UniversalTypeConverter.dll",
+        "lib/net45/UniversalTypeConverter.XML",
+        "lib/net45/UniversalTypeConverter.dll",
+        "lib/net451/UniversalTypeConverter.XML",
+        "lib/net451/UniversalTypeConverter.dll",
+        "lib/net452/UniversalTypeConverter.XML",
+        "lib/net452/UniversalTypeConverter.dll",
+        "lib/net46/UniversalTypeConverter.XML",
+        "lib/net46/UniversalTypeConverter.dll",
+        "lib/net461/UniversalTypeConverter.XML",
+        "lib/net461/UniversalTypeConverter.dll",
+        "lib/netstandard1.3/UniversalTypeConverter.dll",
+        "lib/netstandard1.3/UniversalTypeConverter.xml",
+        "lib/netstandard2.0/UniversalTypeConverter.dll",
+        "lib/netstandard2.0/UniversalTypeConverter.xml",
+        "universaltypeconverter.1.0.5.nupkg.sha512",
+        "universaltypeconverter.nuspec"
+      ]
+    },
+    "Ovi.Task.Helper/1.0.0": {
+      "type": "project",
+      "path": "../Ovi.Task.Helper/Ovi.Task.Helper.csproj",
+      "msbuildProject": "../Ovi.Task.Helper/Ovi.Task.Helper.csproj"
+    }
+  },
+  "projectFileDependencyGroups": {
+    ".NETFramework,Version=v4.8": [
+      "Castle.Core >= 2.5.2",
+      "FluentNHibernate >= 1.2.0.712",
+      "Iesi.Collections >= 3.4.1.4000",
+      "NHibernate >= 3.1.0.4000",
+      "NHibernate.Castle >= 3.1.0.4000",
+      "Newtonsoft.Json >= 12.0.3",
+      "Ovi.Task.Helper >= 1.0.0",
+      "UniversalTypeConverter >= 1.0.5"
+    ]
+  },
+  "packageFolders": {
+    "C:\\Users\\ilkerceker\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+  },
+  "project": {
+    "version": "1.0.0",
+    "restore": {
+      "projectUniqueName": "C:\\Projects\\SAAS\\Ovi.Task\\Ovi.Task.Data\\Ovi.Task.Data.csproj",
+      "projectName": "Ovi.Task.Data",
+      "projectPath": "C:\\Projects\\SAAS\\Ovi.Task\\Ovi.Task.Data\\Ovi.Task.Data.csproj",
+      "packagesPath": "C:\\Users\\ilkerceker\\.nuget\\packages\\",
+      "outputPath": "C:\\Projects\\SAAS\\Ovi.Task\\Ovi.Task.Data\\obj\\",
+      "projectStyle": "PackageReference",
+      "skipContentFileWrite": true,
+      "UsingMicrosoftNETSdk": false,
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
+      "configFilePaths": [
+        "C:\\Users\\ilkerceker\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+      ],
+      "originalTargetFrameworks": [
+        "net48"
+      ],
+      "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "https://api.nuget.org/v3/index.json": {}
+      },
+      "frameworks": {
+        "net48": {
+          "projectReferences": {
+            "C:\\Projects\\SAAS\\Ovi.Task\\Ovi.Task.Helper\\Ovi.Task.Helper.csproj": {
+              "projectPath": "C:\\Projects\\SAAS\\Ovi.Task\\Ovi.Task.Helper\\Ovi.Task.Helper.csproj"
+            }
+          }
+        }
+      },
+      "restoreAuditProperties": {
+        "enableAudit": "true",
+        "auditLevel": "low",
+        "auditMode": "direct"
+      }
+    },
+    "frameworks": {
+      "net48": {
+        "dependencies": {
+          "Castle.Core": {
+            "target": "Package",
+            "version": "[2.5.2, )"
+          },
+          "FluentNHibernate": {
+            "target": "Package",
+            "version": "[1.2.0.712, )"
+          },
+          "Iesi.Collections": {
+            "target": "Package",
+            "version": "[3.4.1.4000, )"
+          },
+          "NHibernate": {
+            "target": "Package",
+            "version": "[3.1.0.4000, )"
+          },
+          "NHibernate.Castle": {
+            "target": "Package",
+            "version": "[3.1.0.4000, )"
+          },
+          "Newtonsoft.Json": {
+            "target": "Package",
+            "version": "[12.0.3, )"
+          },
+          "UniversalTypeConverter": {
+            "target": "Package",
+            "version": "[1.0.5, )"
+          }
+        }
+      }
+    },
+    "runtimes": {
+      "win": {
+        "#import": []
+      },
+      "win-arm64": {
+        "#import": []
+      },
+      "win-x64": {
+        "#import": []
+      },
+      "win-x86": {
+        "#import": []
+      }
+    }
+  },
+  "logs": [
+    {
+      "code": "NU1903",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'Newtonsoft.Json' 12.0.3 has a known high severity vulnerability, https://github.com/advisories/GHSA-5crp-9r3c-p9vr",
+      "libraryId": "Newtonsoft.Json",
+      "targetGraphs": [
+        ".NETFramework,Version=v4.8",
+        ".NETFramework,Version=v4.8/win",
+        ".NETFramework,Version=v4.8/win-arm64",
+        ".NETFramework,Version=v4.8/win-x64",
+        ".NETFramework,Version=v4.8/win-x86"
+      ]
+    },
+    {
+      "code": "NU1903",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'NHibernate' 3.1.0.4000 has a known high severity vulnerability, https://github.com/advisories/GHSA-fg4q-ccq8-3r5q",
+      "libraryId": "NHibernate",
+      "targetGraphs": [
+        ".NETFramework,Version=v4.8",
+        ".NETFramework,Version=v4.8/win",
+        ".NETFramework,Version=v4.8/win-arm64",
+        ".NETFramework,Version=v4.8/win-x64",
+        ".NETFramework,Version=v4.8/win-x86"
+      ]
+    },
+    {
+      "code": "NU1605",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Detected package downgrade: SharpZipLib from 1.3.3 to 0.86.0. Reference the package directly from the project to select a different version. \r\n Ovi.Task.Data -> Ovi.Task.Helper -> NPOI 2.5.6 -> SharpZipLib (>= 1.3.3) \r\n Ovi.Task.Data -> Ovi.Task.Helper -> SharpZipLib (>= 0.86.0)",
+      "libraryId": "SharpZipLib",
+      "targetGraphs": [
+        ".NETFramework,Version=v4.8",
+        ".NETFramework,Version=v4.8/win",
+        ".NETFramework,Version=v4.8/win-arm64",
+        ".NETFramework,Version=v4.8/win-x64",
+        ".NETFramework,Version=v4.8/win-x86"
+      ]
+    }
+  ]
+}

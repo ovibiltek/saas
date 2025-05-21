@@ -331,20 +331,20 @@ namespace Resources.Users.Index {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Default Main Section.
-        /// </summary>
-        public static string defaultMainsection {
-            get {
-                return ResourceManager.GetString("defaultMainsection", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Default Inbox.
         /// </summary>
         public static string defaultinbox {
             get {
                 return ResourceManager.GetString("defaultinbox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Default Main Section.
+        /// </summary>
+        public static string defaultMainsection {
+            get {
+                return ResourceManager.GetString("defaultMainsection", resourceCulture);
             }
         }
         
@@ -610,15 +610,6 @@ namespace Resources.Users.Index {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Main Telephone Number.
-        /// </summary>
-        public static string Maintelephonenumber {
-            get {
-                return ResourceManager.GetString("Maintelephonenumber", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Hour.
         /// </summary>
         public static string hour {
@@ -804,6 +795,15 @@ namespace Resources.Users.Index {
         public static string lockcount {
             get {
                 return ResourceManager.GetString("lockcount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Main Telephone Number.
+        /// </summary>
+        public static string Maintelephonenumber {
+            get {
+                return ResourceManager.GetString("Maintelephonenumber", resourceCulture);
             }
         }
         

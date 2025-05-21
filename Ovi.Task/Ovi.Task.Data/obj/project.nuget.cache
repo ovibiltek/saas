@@ -1,0 +1,75 @@
+{
+  "version": 2,
+  "dgSpecHash": "bYMxHoqC9I0=",
+  "success": true,
+  "projectFilePath": "C:\\Projects\\SAAS\\Ovi.Task\\Ovi.Task.Data\\Ovi.Task.Data.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\ilkerceker\\.nuget\\packages\\castle.core\\2.5.2\\castle.core.2.5.2.nupkg.sha512",
+    "C:\\Users\\ilkerceker\\.nuget\\packages\\dday.ical\\1.0.2.575\\dday.ical.1.0.2.575.nupkg.sha512",
+    "C:\\Users\\ilkerceker\\.nuget\\packages\\fluentnhibernate\\1.2.0.712\\fluentnhibernate.1.2.0.712.nupkg.sha512",
+    "C:\\Users\\ilkerceker\\.nuget\\packages\\google.apis\\1.50.0\\google.apis.1.50.0.nupkg.sha512",
+    "C:\\Users\\ilkerceker\\.nuget\\packages\\google.apis.auth\\1.50.0\\google.apis.auth.1.50.0.nupkg.sha512",
+    "C:\\Users\\ilkerceker\\.nuget\\packages\\google.apis.core\\1.50.0\\google.apis.core.1.50.0.nupkg.sha512",
+    "C:\\Users\\ilkerceker\\.nuget\\packages\\google.apis.oauth2.v2\\1.50.0.1869\\google.apis.oauth2.v2.1.50.0.1869.nupkg.sha512",
+    "C:\\Users\\ilkerceker\\.nuget\\packages\\htmlagilitypack\\1.8.7\\htmlagilitypack.1.8.7.nupkg.sha512",
+    "C:\\Users\\ilkerceker\\.nuget\\packages\\iesi.collections\\3.4.1.4000\\iesi.collections.3.4.1.4000.nupkg.sha512",
+    "C:\\Users\\ilkerceker\\.nuget\\packages\\lazycache\\0.7.1.44\\lazycache.0.7.1.44.nupkg.sha512",
+    "C:\\Users\\ilkerceker\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512",
+    "C:\\Users\\ilkerceker\\.nuget\\packages\\nhibernate\\3.1.0.4000\\nhibernate.3.1.0.4000.nupkg.sha512",
+    "C:\\Users\\ilkerceker\\.nuget\\packages\\nhibernate.castle\\3.1.0.4000\\nhibernate.castle.3.1.0.4000.nupkg.sha512",
+    "C:\\Users\\ilkerceker\\.nuget\\packages\\npoi\\2.5.6\\npoi.2.5.6.nupkg.sha512",
+    "C:\\Users\\ilkerceker\\.nuget\\packages\\portable.bouncycastle\\1.8.9\\portable.bouncycastle.1.8.9.nupkg.sha512",
+    "C:\\Users\\ilkerceker\\.nuget\\packages\\sharpziplib\\0.86.0\\sharpziplib.0.86.0.nupkg.sha512",
+    "C:\\Users\\ilkerceker\\.nuget\\packages\\universaltypeconverter\\1.0.5\\universaltypeconverter.1.0.5.nupkg.sha512"
+  ],
+  "logs": [
+    {
+      "code": "NU1903",
+      "level": "Warning",
+      "message": "Package 'Newtonsoft.Json' 12.0.3 has a known high severity vulnerability, https://github.com/advisories/GHSA-5crp-9r3c-p9vr",
+      "projectPath": "C:\\Projects\\SAAS\\Ovi.Task\\Ovi.Task.Data\\Ovi.Task.Data.csproj",
+      "warningLevel": 1,
+      "filePath": "C:\\Projects\\SAAS\\Ovi.Task\\Ovi.Task.Data\\Ovi.Task.Data.csproj",
+      "libraryId": "Newtonsoft.Json",
+      "targetGraphs": [
+        ".NETFramework,Version=v4.8",
+        ".NETFramework,Version=v4.8/win",
+        ".NETFramework,Version=v4.8/win-arm64",
+        ".NETFramework,Version=v4.8/win-x64",
+        ".NETFramework,Version=v4.8/win-x86"
+      ]
+    },
+    {
+      "code": "NU1903",
+      "level": "Warning",
+      "message": "Package 'NHibernate' 3.1.0.4000 has a known high severity vulnerability, https://github.com/advisories/GHSA-fg4q-ccq8-3r5q",
+      "projectPath": "C:\\Projects\\SAAS\\Ovi.Task\\Ovi.Task.Data\\Ovi.Task.Data.csproj",
+      "warningLevel": 1,
+      "filePath": "C:\\Projects\\SAAS\\Ovi.Task\\Ovi.Task.Data\\Ovi.Task.Data.csproj",
+      "libraryId": "NHibernate",
+      "targetGraphs": [
+        ".NETFramework,Version=v4.8",
+        ".NETFramework,Version=v4.8/win",
+        ".NETFramework,Version=v4.8/win-arm64",
+        ".NETFramework,Version=v4.8/win-x64",
+        ".NETFramework,Version=v4.8/win-x86"
+      ]
+    },
+    {
+      "code": "NU1605",
+      "level": "Warning",
+      "message": "Detected package downgrade: SharpZipLib from 1.3.3 to 0.86.0. Reference the package directly from the project to select a different version. \r\n Ovi.Task.Data -> Ovi.Task.Helper -> NPOI 2.5.6 -> SharpZipLib (>= 1.3.3) \r\n Ovi.Task.Data -> Ovi.Task.Helper -> SharpZipLib (>= 0.86.0)",
+      "projectPath": "C:\\Projects\\SAAS\\Ovi.Task\\Ovi.Task.Data\\Ovi.Task.Data.csproj",
+      "warningLevel": 1,
+      "filePath": "C:\\Projects\\SAAS\\Ovi.Task\\Ovi.Task.Data\\Ovi.Task.Data.csproj",
+      "libraryId": "SharpZipLib",
+      "targetGraphs": [
+        ".NETFramework,Version=v4.8",
+        ".NETFramework,Version=v4.8/win",
+        ".NETFramework,Version=v4.8/win-arm64",
+        ".NETFramework,Version=v4.8/win-x64",
+        ".NETFramework,Version=v4.8/win-x86"
+      ]
+    }
+  ]
+}

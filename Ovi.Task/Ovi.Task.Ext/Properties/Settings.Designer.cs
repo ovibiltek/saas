@@ -12,7 +12,7 @@ namespace Ovi.Task.Ext.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.10.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.14.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -26,7 +26,7 @@ namespace Ovi.Task.Ext.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
-        [global::System.Configuration.DefaultSettingValueAttribute("https://shaya.beamnow.io/beamocservice/ordercloseservice.asmx")]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://boysweb.shaya.com.tr/beamocservicetest/ordercloseservice.asmx")]
         public string Ovi_Task_Ext_tr_com_shaya_boysweb_OrderCloseService {
             get {
                 return ((string)(this["Ovi_Task_Ext_tr_com_shaya_boysweb_OrderCloseService"]));

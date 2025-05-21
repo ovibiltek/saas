@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Resources.PreSales.Index {
+namespace Resources.Reporting.Index {
     using System;
     
     

@@ -124,6 +124,15 @@ namespace Resources.TaskRatings.Index {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Send E-Mail.
+        /// </summary>
+        public static string sendemail {
+            get {
+                return ResourceManager.GetString("sendemail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Task Ratings.
         /// </summary>
         public static string title {
